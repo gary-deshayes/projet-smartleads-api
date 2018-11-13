@@ -17,10 +17,12 @@ make install
 ```
 
 ## Update
+Pour mettre à jour, entrez la commande suivante :
 ```php
 make update
 ```
 ## Deploy
+Pour déployer, entrez la commande suivante :
 ```php
 make deploy
 ```
