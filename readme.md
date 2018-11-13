@@ -17,7 +17,13 @@ make install
 ```
 
 ## Update
+```php
+make update
+```
 ## Deploy
+```php
+make deploy
+```
 ## Annexe
 ## Auteurs
 - Lucas VIGNI
