@@ -16,12 +16,12 @@ Pour tout installer, entrez la commande suivante :
 make install
 ```
 
-## Update
+## Mettre à jour
 Pour mettre à jour, entrez la commande suivante :
 ```php
 make update
 ```
-## Deploy
+## Deploiement
 Pour déployer, entrez la commande suivante :
 ```php
 make deploy
