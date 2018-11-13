@@ -13,7 +13,8 @@ Projet utilisant les technologies suivantes:
 ## Installation
 Pour tout installer, entrez la commande suivante :
 ```php
-make install```
+make install
+```
 
 ## Update
 ## Deploy
