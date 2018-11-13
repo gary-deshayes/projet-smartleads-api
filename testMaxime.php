@@ -1,3 +1,3 @@
 <?php
-    echo 'testMaximeDRY';
+    echo 'testMaxime';
 ?>
