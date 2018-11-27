@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -90,6 +92,45 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="idUser")
+     */
+    private $contacts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="idUser")
+     */
+    private $companies;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="idSubordinate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="user")
+     */
+    private $idSubordinate;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     */
+    private $idResponsable;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ContactJob", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idJob;
+
+    public function __construct()
+    {
+        $this->contacts = new ArrayCollection();
+        $this->companies = new ArrayCollection();
+        $this->idSubordinate = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -272,6 +313,135 @@ class User
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getIdUser() === $this) {
+                $contact->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Company[]
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+            $company->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        if ($this->companies->contains($company)) {
+            $this->companies->removeElement($company);
+            // set the owning side to null (unless already changed)
+            if ($company->getIdUser() === $this) {
+                $company->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?self
+    {
+        return $this->user;
+    }
+
+    public function setUser(?self $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getIdSubordinate(): Collection
+    {
+        return $this->idSubordinate;
+    }
+
+    public function addIdSubordinate(self $idSubordinate): self
+    {
+        if (!$this->idSubordinate->contains($idSubordinate)) {
+            $this->idSubordinate[] = $idSubordinate;
+            $idSubordinate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdSubordinate(self $idSubordinate): self
+    {
+        if ($this->idSubordinate->contains($idSubordinate)) {
+            $this->idSubordinate->removeElement($idSubordinate);
+            // set the owning side to null (unless already changed)
+            if ($idSubordinate->getUser() === $this) {
+                $idSubordinate->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIdResponsable(): ?self
+    {
+        return $this->idResponsable;
+    }
+
+    public function setIdResponsable(?self $idResponsable): self
+    {
+        $this->idResponsable = $idResponsable;
+
+        return $this;
+    }
+
+    public function getIdJob(): ?ContactJob
+    {
+        return $this->idJob;
+    }
+
+    public function setIdJob(ContactJob $idJob): self
+    {
+        $this->idJob = $idJob;
 
         return $this;
     }

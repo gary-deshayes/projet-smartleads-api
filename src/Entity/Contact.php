@@ -131,6 +131,12 @@ class Contact
      */
     private $company_service;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contacts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idUser;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -408,6 +414,18 @@ class Contact
     public function setCompanyService(string $company_service): self
     {
         $this->company_service = $company_service;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?User $idUser): self
+    {
+        $this->idUser = $idUser;
 
         return $this;
     }

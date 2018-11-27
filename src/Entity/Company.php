@@ -121,6 +121,12 @@ class Company
      */
     private $source;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idUser;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -374,6 +380,18 @@ class Company
     public function setSource(?string $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?User $idUser): self
+    {
+        $this->idUser = $idUser;
 
         return $this;
     }
