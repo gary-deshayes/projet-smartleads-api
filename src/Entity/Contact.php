@@ -501,6 +501,7 @@ class Contact
             $this->Participations->removeElement($participation);
             $participation->removeIdContact($this);
         }
+    }
     public function getIdCompany(): ?Company
     {
         return $this->idCompany;
