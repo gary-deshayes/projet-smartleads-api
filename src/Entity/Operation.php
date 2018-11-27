@@ -53,6 +53,11 @@ class Operation
         $this->operationParticipations = new ArrayCollection();
         $this->Participations = new ArrayCollection();
     }
+  
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\OperationTypeOperation", inversedBy="operations")
+     */
+    private $idTypeOperation;
 
     public function getId(): ?int
     {
@@ -162,6 +167,14 @@ class Operation
                 $participation->setIdOperation(null);
             }
         }
+    public function getIdTypeOperation(): ?OperationTypeOperation
+    {
+        return $this->idTypeOperation;
+    }
+
+    public function setIdTypeOperation(?OperationTypeOperation $idTypeOperation): self
+    {
+        $this->idTypeOperation = $idTypeOperation;
 
         return $this;
     }

@@ -148,6 +148,16 @@ class Contact
         $this->operationParticipations = new ArrayCollection();
         $this->Participations = new ArrayCollection();
     }
+  
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContactJob", inversedBy="contacts")
+     */
+    private $idJob;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="contacts")
+     */
+    private $idCompany;
 
     public function getId(): ?int
     {
@@ -443,7 +453,16 @@ class Contact
         if (!$this->operationParticipations->contains($operationParticipation)) {
             $this->operationParticipations[] = $operationParticipation;
             $operationParticipation->addIdContact($this);
-        }
+    }
+      
+    public function getIdJob(): ?ContactJob
+    {
+        return $this->idJob;
+    }
+
+    public function setIdJob(?ContactJob $idJob): self
+    {
+        $this->idJob = $idJob;
 
         return $this;
     }
@@ -482,6 +501,14 @@ class Contact
             $this->Participations->removeElement($participation);
             $participation->removeIdContact($this);
         }
+    public function getIdCompany(): ?Company
+    {
+        return $this->idCompany;
+    }
+
+    public function setIdCompany(?Company $idCompany): self
+    {
+        $this->idCompany = $idCompany;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -120,6 +122,47 @@ class Company
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $source;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="idCompany")
+     */
+    private $contacts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyStatus", inversedBy="companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idStatus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCountry", inversedBy="companies")
+     */
+    private $idCountry;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyActivityArea", inversedBy="companies")
+     */
+    private $idActivityArea;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLegalStatus", inversedBy="companies")
+     */
+    private $idLegalStatus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyTurnover", inversedBy="companies")
+     */
+    private $idTurnover;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLastTurnover", inversedBy="companies")
+     */
+    private $idLastTurnover;
+
+    public function __construct()
+    {
+        $this->contacts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -374,6 +417,109 @@ class Company
     public function setSource(?string $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setIdCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getIdCompany() === $this) {
+                $contact->setIdCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIdStatus(): ?CompanyStatus
+    {
+        return $this->idStatus;
+    }
+
+    public function setIdStatus(?CompanyStatus $idStatus): self
+    {
+        $this->idStatus = $idStatus;
+
+        return $this;
+    }
+
+    public function getIdCountry(): ?CompanyCountry
+    {
+        return $this->idCountry;
+    }
+
+    public function setIdCountry(?CompanyCountry $idCountry): self
+    {
+        $this->idCountry = $idCountry;
+
+        return $this;
+    }
+
+    public function getIdActivityArea(): ?CompanyActivityArea
+    {
+        return $this->idActivityArea;
+    }
+
+    public function setIdActivityArea(?CompanyActivityArea $idActivityArea): self
+    {
+        $this->idActivityArea = $idActivityArea;
+
+        return $this;
+    }
+
+    public function getIdLegalStatus(): ?CompanyLegalStatus
+    {
+        return $this->idLegalStatus;
+    }
+
+    public function setIdLegalStatus(?CompanyLegalStatus $idLegalStatus): self
+    {
+        $this->idLegalStatus = $idLegalStatus;
+
+        return $this;
+    }
+
+    public function getIdTurnover(): ?CompanyTurnover
+    {
+        return $this->idTurnover;
+    }
+
+    public function setIdTurnover(?CompanyTurnover $idTurnover): self
+    {
+        $this->idTurnover = $idTurnover;
+
+        return $this;
+    }
+
+    public function getIdLastTurnover(): ?CompanyLastTurnover
+    {
+        return $this->idLastTurnover;
+    }
+
+    public function setIdLastTurnover(?CompanyLastTurnover $idLastTurnover): self
+    {
+        $this->idLastTurnover = $idLastTurnover;
 
         return $this;
     }
