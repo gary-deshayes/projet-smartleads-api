@@ -131,6 +131,16 @@ class Contact
      */
     private $company_service;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContactJob", inversedBy="contacts")
+     */
+    private $idJob;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="contacts")
+     */
+    private $idCompany;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -408,6 +418,30 @@ class Contact
     public function setCompanyService(string $company_service): self
     {
         $this->company_service = $company_service;
+
+        return $this;
+    }
+
+    public function getIdJob(): ?ContactJob
+    {
+        return $this->idJob;
+    }
+
+    public function setIdJob(?ContactJob $idJob): self
+    {
+        $this->idJob = $idJob;
+
+        return $this;
+    }
+
+    public function getIdCompany(): ?Company
+    {
+        return $this->idCompany;
+    }
+
+    public function setIdCompany(?Company $idCompany): self
+    {
+        $this->idCompany = $idCompany;
 
         return $this;
     }
