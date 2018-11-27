@@ -167,6 +167,7 @@ class Operation
                 $participation->setIdOperation(null);
             }
         }
+    }    
     public function getIdTypeOperation(): ?OperationTypeOperation
     {
         return $this->idTypeOperation;
