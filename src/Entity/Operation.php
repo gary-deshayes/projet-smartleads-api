@@ -36,6 +36,11 @@ class Operation
      */
     private $VisualLateral;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\OperationTypeOperation", inversedBy="operations")
+     */
+    private $idTypeOperation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Operation
     public function setVisualLateral(?string $VisualLateral): self
     {
         $this->VisualLateral = $VisualLateral;
+
+        return $this;
+    }
+
+    public function getIdTypeOperation(): ?OperationTypeOperation
+    {
+        return $this->idTypeOperation;
+    }
+
+    public function setIdTypeOperation(?OperationTypeOperation $idTypeOperation): self
+    {
+        $this->idTypeOperation = $idTypeOperation;
 
         return $this;
     }
