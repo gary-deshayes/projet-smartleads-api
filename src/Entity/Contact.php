@@ -453,6 +453,7 @@ class Contact
         if (!$this->operationParticipations->contains($operationParticipation)) {
             $this->operationParticipations[] = $operationParticipation;
             $operationParticipation->addIdContact($this);
+        }    
     }
       
     public function getIdJob(): ?ContactJob
