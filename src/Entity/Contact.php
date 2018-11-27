@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -130,6 +132,22 @@ class Contact
      * @ORM\Column(type="string", length=255)
      */
     private $company_service;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idContact")
+     */
+    private $operationParticipations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idContact")
+     */
+    private $Participations;
+
+    public function __construct()
+    {
+        $this->operationParticipations = new ArrayCollection();
+        $this->Participations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -408,6 +426,62 @@ class Contact
     public function setCompanyService(string $company_service): self
     {
         $this->company_service = $company_service;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OperationParticipation[]
+     */
+    public function getOperationParticipations(): Collection
+    {
+        return $this->operationParticipations;
+    }
+
+    public function addOperationParticipation(OperationParticipation $operationParticipation): self
+    {
+        if (!$this->operationParticipations->contains($operationParticipation)) {
+            $this->operationParticipations[] = $operationParticipation;
+            $operationParticipation->addIdContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationParticipation(OperationParticipation $operationParticipation): self
+    {
+        if ($this->operationParticipations->contains($operationParticipation)) {
+            $this->operationParticipations->removeElement($operationParticipation);
+            $operationParticipation->removeIdContact($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OperationParticipation[]
+     */
+    public function getParticipations(): Collection
+    {
+        return $this->Participations;
+    }
+
+    public function addParticipation(OperationParticipation $participation): self
+    {
+        if (!$this->Participations->contains($participation)) {
+            $this->Participations[] = $participation;
+            $participation->addIdContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(OperationParticipation $participation): self
+    {
+        if ($this->Participations->contains($participation)) {
+            $this->Participations->removeElement($participation);
+            $participation->removeIdContact($this);
+        }
 
         return $this;
     }
