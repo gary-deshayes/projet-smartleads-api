@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyStatusRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CountryRepository")
  */
-class CompanyStatus
+class Country
 {
     /**
      * @ORM\Id()
@@ -21,10 +21,10 @@ class CompanyStatus
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $libelle;
+    private $label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="idStatus")
+     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="country")
      */
     private $companies;
 
@@ -38,14 +38,14 @@ class CompanyStatus
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getLabel(): ?string
     {
-        return $this->libelle;
+        return $this->label;
     }
 
-    public function setLibelle(string $libelle): self
+    public function setLabel(string $label): self
     {
-        $this->libelle = $libelle;
+        $this->label = $label;
 
         return $this;
     }
@@ -62,7 +62,7 @@ class CompanyStatus
     {
         if (!$this->companies->contains($company)) {
             $this->companies[] = $company;
-            $company->setIdStatus($this);
+            $company->setCountry($this);
         }
 
         return $this;
@@ -73,8 +73,8 @@ class CompanyStatus
         if ($this->companies->contains($company)) {
             $this->companies->removeElement($company);
             // set the owning side to null (unless already changed)
-            if ($company->getIdStatus() === $this) {
-                $company->setIdStatus(null);
+            if ($company->getCountry() === $this) {
+                $company->setCountry(null);
             }
         }
 

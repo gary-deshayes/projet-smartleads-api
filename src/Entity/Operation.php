@@ -38,10 +38,7 @@ class Operation
      */
     private $VisualLateral;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idOperation")
-     */
-    private $operationParticipations;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idOperation")
@@ -58,6 +55,17 @@ class Operation
      * @ORM\ManyToOne(targetEntity="App\Entity\OperationTypeOperation", inversedBy="operations")
      */
     private $idTypeOperation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="operations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Parameter", mappedBy="operation", cascade={"persist", "remove"})
+     */
+    private $parameter;
 
     public function getId(): ?int
     {
@@ -112,33 +120,7 @@ class Operation
         return $this;
     }
 
-    /**
-     * @return Collection|OperationParticipation[]
-     */
-    public function getOperationParticipations(): Collection
-    {
-        return $this->operationParticipations;
-    }
-
-    public function addOperationParticipation(OperationParticipation $operationParticipation): self
-    {
-        if (!$this->operationParticipations->contains($operationParticipation)) {
-            $this->operationParticipations[] = $operationParticipation;
-            $operationParticipation->addIdOperation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOperationParticipation(OperationParticipation $operationParticipation): self
-    {
-        if ($this->operationParticipations->contains($operationParticipation)) {
-            $this->operationParticipations->removeElement($operationParticipation);
-            $operationParticipation->removeIdOperation($this);
-        }
-
-        return $this;
-    }
+  
 
     /**
      * @return Collection|OperationParticipation[]
@@ -176,6 +158,36 @@ class Operation
     public function setIdTypeOperation(?OperationTypeOperation $idTypeOperation): self
     {
         $this->idTypeOperation = $idTypeOperation;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getParameter(): ?Parameter
+    {
+        return $this->parameter;
+    }
+
+    public function setParameter(?Parameter $parameter): self
+    {
+        $this->parameter = $parameter;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newOperation = $parameter === null ? null : $this;
+        if ($newOperation !== $parameter->getOperation()) {
+            $parameter->setOperation($newOperation);
+        }
 
         return $this;
     }

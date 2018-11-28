@@ -123,10 +123,7 @@ class Company
      */
     private $source;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="idCompany")
-     */
-    private $contacts;
+   
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CompanyStatus", inversedBy="companies")
@@ -158,6 +155,53 @@ class Company
      * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLastTurnover", inversedBy="companies")
      */
     private $idLastTurnover;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="companies")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="company")
+     */
+    private $contacts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $country;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCategory", inversedBy="companies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $companyCategory;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyNbEmployees", inversedBy="companies")
+     */
+    private $companyNbEmployees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterComportment", inversedBy="companies")
+     */
+    private $parameterComportment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterObject", inversedBy="companies")
+     */
+    private $parameterObject;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTarget", inversedBy="companies")
+     */
+    private $parameterTarget;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTypeSite", inversedBy="companies")
+     */
+    private $parameterTypeSite;
 
     public function __construct()
     {
@@ -421,36 +465,7 @@ class Company
         return $this;
     }
 
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setIdCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getIdCompany() === $this) {
-                $contact->setIdCompany(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     public function getIdStatus(): ?CompanyStatus
     {
@@ -520,6 +535,133 @@ class Company
     public function setIdLastTurnover(?CompanyLastTurnover $idLastTurnover): self
     {
         $this->idLastTurnover = $idLastTurnover;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getCompany() === $this) {
+                $contact->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCompanyCategory(): ?CompanyCategory
+    {
+        return $this->companyCategory;
+    }
+
+    public function setCompanyCategory(?CompanyCategory $companyCategory): self
+    {
+        $this->companyCategory = $companyCategory;
+
+        return $this;
+    }
+
+    public function getCompanyNbEmployees(): ?CompanyNbEmployees
+    {
+        return $this->companyNbEmployees;
+    }
+
+    public function setCompanyNbEmployees(?CompanyNbEmployees $companyNbEmployees): self
+    {
+        $this->companyNbEmployees = $companyNbEmployees;
+
+        return $this;
+    }
+
+    public function getParameterComportment(): ?ParameterComportment
+    {
+        return $this->parameterComportment;
+    }
+
+    public function setParameterComportment(?ParameterComportment $parameterComportment): self
+    {
+        $this->parameterComportment = $parameterComportment;
+
+        return $this;
+    }
+
+    public function getParameterObject(): ?ParameterObject
+    {
+        return $this->parameterObject;
+    }
+
+    public function setParameterObject(?ParameterObject $parameterObject): self
+    {
+        $this->parameterObject = $parameterObject;
+
+        return $this;
+    }
+
+    public function getParameterTarget(): ?ParameterTarget
+    {
+        return $this->parameterTarget;
+    }
+
+    public function setParameterTarget(?ParameterTarget $parameterTarget): self
+    {
+        $this->parameterTarget = $parameterTarget;
+
+        return $this;
+    }
+
+    public function getParameterTypeSite(): ?ParameterTypeSite
+    {
+        return $this->parameterTypeSite;
+    }
+
+    public function setParameterTypeSite(?ParameterTypeSite $parameterTypeSite): self
+    {
+        $this->parameterTypeSite = $parameterTypeSite;
 
         return $this;
     }

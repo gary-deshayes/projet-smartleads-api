@@ -28,9 +28,15 @@ class ContactJob
      */
     private $contacts;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Parameter", mappedBy="contactjobs")
+     */
+    private $parameters;
+
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +82,34 @@ class ContactJob
             if ($contact->getIdJob() === $this) {
                 $contact->setIdJob(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parameter[]
+     */
+    public function getParameters(): Collection
+    {
+        return $this->parameters;
+    }
+
+    public function addParameter(Parameter $parameter): self
+    {
+        if (!$this->parameters->contains($parameter)) {
+            $this->parameters[] = $parameter;
+            $parameter->addContactjob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParameter(Parameter $parameter): self
+    {
+        if ($this->parameters->contains($parameter)) {
+            $this->parameters->removeElement($parameter);
+            $parameter->removeContactjob($this);
         }
 
         return $this;
