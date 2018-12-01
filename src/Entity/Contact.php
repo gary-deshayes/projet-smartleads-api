@@ -154,10 +154,21 @@ class Contact
      */
     private $idJob;
 
+  
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contacts")
+     */
+    private $user;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="contacts")
      */
-    private $idCompany;
+    private $company;
+
+   
+
+    
 
     public function getId(): ?int
     {
@@ -503,15 +514,29 @@ class Contact
             $participation->removeIdContact($this);
         }
     }
-    public function getIdCompany(): ?Company
+
+    public function getUser(): ?User
     {
-        return $this->idCompany;
+        return $this->user;
     }
 
-    public function setIdCompany(?Company $idCompany): self
+    public function setUser(?User $user): self
     {
-        $this->idCompany = $idCompany;
+        $this->user = $user;
 
         return $this;
     }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+ 
 }

@@ -28,9 +28,15 @@ class CompanyTurnover
      */
     private $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="companyTurnover")
+     */
+    private $parameters;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class CompanyTurnover
             // set the owning side to null (unless already changed)
             if ($company->getIdTurnover() === $this) {
                 $company->setIdTurnover(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parameter[]
+     */
+    public function getParameters(): Collection
+    {
+        return $this->parameters;
+    }
+
+    public function addParameter(Parameter $parameter): self
+    {
+        if (!$this->parameters->contains($parameter)) {
+            $this->parameters[] = $parameter;
+            $parameter->setCompanyTurnover($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParameter(Parameter $parameter): self
+    {
+        if ($this->parameters->contains($parameter)) {
+            $this->parameters->removeElement($parameter);
+            // set the owning side to null (unless already changed)
+            if ($parameter->getCompanyTurnover() === $this) {
+                $parameter->setCompanyTurnover(null);
             }
         }
 

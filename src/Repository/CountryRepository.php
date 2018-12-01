@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CompanyStatus;
+use App\Entity\Country;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method CompanyStatus|null find($id, $lockMode = null, $lockVersion = null)
- * @method CompanyStatus|null findOneBy(array $criteria, array $orderBy = null)
- * @method CompanyStatus[]    findAll()
- * @method CompanyStatus[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Country|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Country|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Country[]    findAll()
+ * @method Country[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CompanyStatusRepository extends ServiceEntityRepository
+class CountryRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, CompanyStatus::class);
+        parent::__construct($registry, Country::class);
     }
 
     // /**
-    //  * @return CompanyStatus[] Returns an array of CompanyStatus objects
+    //  * @return Country[] Returns an array of Country objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CompanyStatusRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CompanyStatus
+    public function findOneBySomeField($value): ?Country
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

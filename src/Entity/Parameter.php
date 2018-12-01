@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +62,75 @@ class Parameter
      * @ORM\Column(type="string", length=255)
      */
     private $email_receipt_requests;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="parameters")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Operation", inversedBy="parameter", cascade={"persist", "remove"})
+     */
+    private $operation;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ContactJob", inversedBy="parameters")
+     */
+    private $contactjobs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyActivityArea", inversedBy="parameters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $companyActivityArea;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCategory", inversedBy="parameters")
+     */
+    private $companyCategory;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyNbEmployees", inversedBy="parameters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $companyNbEmployees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyTurnover", inversedBy="parameters")
+     */
+    private $companyTurnover;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLastTurnover", inversedBy="parameters")
+     */
+    private $companyLastTurnover;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterComportment", inversedBy="parameter")
+     */
+    private $parameterComportment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterObject", inversedBy="parameters")
+     */
+    private $parameterObject;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTarget", inversedBy="parameters")
+     */
+    private $parameterTarget;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTypeSite", inversedBy="parameters")
+     */
+    private $parameterTypeSite;
+
+    public function __construct()
+    {
+        $this->contactjobs = new ArrayCollection();
+    }
+
+   
 
     public function getId(): ?int
     {
@@ -173,4 +244,164 @@ class Parameter
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getOperation(): ?Operation
+    {
+        return $this->operation;
+    }
+
+    public function setOperation(?Operation $operation): self
+    {
+        $this->operation = $operation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContactJob[]
+     */
+    public function getContactjobs(): Collection
+    {
+        return $this->contactjobs;
+    }
+
+    public function addContactjob(ContactJob $contactjob): self
+    {
+        if (!$this->contactjobs->contains($contactjob)) {
+            $this->contactjobs[] = $contactjob;
+        }
+
+        return $this;
+    }
+
+    public function removeContactjob(ContactJob $contactjob): self
+    {
+        if ($this->contactjobs->contains($contactjob)) {
+            $this->contactjobs->removeElement($contactjob);
+        }
+
+        return $this;
+    }
+
+    public function getCompanyActivityArea(): ?CompanyActivityArea
+    {
+        return $this->companyActivityArea;
+    }
+
+    public function setCompanyActivityArea(?CompanyActivityArea $companyActivityArea): self
+    {
+        $this->companyActivityArea = $companyActivityArea;
+
+        return $this;
+    }
+
+    public function getCompanyCategory(): ?CompanyCategory
+    {
+        return $this->companyCategory;
+    }
+
+    public function setCompanyCategory(?CompanyCategory $companyCategory): self
+    {
+        $this->companyCategory = $companyCategory;
+
+        return $this;
+    }
+
+    public function getCompanyNbEmployees(): ?CompanyNbEmployees
+    {
+        return $this->companyNbEmployees;
+    }
+
+    public function setCompanyNbEmployees(?CompanyNbEmployees $companyNbEmployees): self
+    {
+        $this->companyNbEmployees = $companyNbEmployees;
+
+        return $this;
+    }
+
+    public function getCompanyTurnover(): ?CompanyTurnover
+    {
+        return $this->companyTurnover;
+    }
+
+    public function setCompanyTurnover(?CompanyTurnover $companyTurnover): self
+    {
+        $this->companyTurnover = $companyTurnover;
+
+        return $this;
+    }
+
+    public function getCompanyLastTurnover(): ?CompanyLastTurnover
+    {
+        return $this->companyLastTurnover;
+    }
+
+    public function setCompanyLastTurnover(?CompanyLastTurnover $companyLastTurnover): self
+    {
+        $this->companyLastTurnover = $companyLastTurnover;
+
+        return $this;
+    }
+
+    public function getParameterComportment(): ?ParameterComportment
+    {
+        return $this->parameterComportment;
+    }
+
+    public function setParameterComportment(?ParameterComportment $parameterComportment): self
+    {
+        $this->parameterComportment = $parameterComportment;
+
+        return $this;
+    }
+
+    public function getParameterObject(): ?ParameterObject
+    {
+        return $this->parameterObject;
+    }
+
+    public function setParameterObject(?ParameterObject $parameterObject): self
+    {
+        $this->parameterObject = $parameterObject;
+
+        return $this;
+    }
+
+    public function getParameterTarget(): ?ParameterTarget
+    {
+        return $this->parameterTarget;
+    }
+
+    public function setParameterTarget(?ParameterTarget $parameterTarget): self
+    {
+        $this->parameterTarget = $parameterTarget;
+
+        return $this;
+    }
+
+    public function getParameterTypeSite(): ?ParameterTypeSite
+    {
+        return $this->parameterTypeSite;
+    }
+
+    public function setParameterTypeSite(?ParameterTypeSite $parameterTypeSite): self
+    {
+        $this->parameterTypeSite = $parameterTypeSite;
+
+        return $this;
+    }
+
+ 
 }
