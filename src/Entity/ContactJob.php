@@ -20,7 +20,7 @@ class ContactJob
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert \NotBlank
+     * @Assert\NotBlank
      */
     private $label;
 
