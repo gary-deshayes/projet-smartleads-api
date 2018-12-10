@@ -123,16 +123,8 @@ class Company
      */
     private $source;
 
-   
-
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyStatus", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $idStatus;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCountry", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="companies")
      */
     private $idCountry;
 
@@ -465,26 +457,13 @@ class Company
         return $this;
     }
 
-   
 
-    public function getIdStatus(): ?CompanyStatus
-    {
-        return $this->idStatus;
-    }
-
-    public function setIdStatus(?CompanyStatus $idStatus): self
-    {
-        $this->idStatus = $idStatus;
-
-        return $this;
-    }
-
-    public function getIdCountry(): ?CompanyCountry
+    public function getIdCountry(): ?Country
     {
         return $this->idCountry;
     }
 
-    public function setIdCountry(?CompanyCountry $idCountry): self
+    public function setIdCountry(?Country $idCountry): self
     {
         $this->idCountry = $idCountry;
 
