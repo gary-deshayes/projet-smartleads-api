@@ -22,36 +22,59 @@ class User
     /**
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     * )
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=1)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 1,
+     * )
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $profil;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     * )
      */
     private $created_at;
 

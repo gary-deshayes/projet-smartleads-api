@@ -22,6 +22,10 @@ class CompanyTurnover
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $label;
 
