@@ -23,7 +23,7 @@ class ContactJob
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 1,
-     *      max = 100,
+     *      max = 255,
      *      minMessage = "Il faut au moins 1 caractère.",
      *      maxMessage = "La limite est de 255 caractères."
      */
