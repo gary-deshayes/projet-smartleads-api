@@ -20,21 +20,28 @@ class User
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank
+     * @Assert\Lenght(max=20, maxMessage="Votre code est trop long!")
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=1)
+     * @Assert\NotBlank
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Lenght(max=20, maxMessage="Votre nom est trop long!")
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Lenght(max=20, minMessage="Votre prénom est trop long!")
      */
     private $name;
 
@@ -60,26 +67,33 @@ class User
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank
      */
     private $birth_date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Lenght(min= 5, max=20, minMessage="Votre job est trop court!" maxMessage="Votre job est trop long!")
      */
     private $job_name;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Assert\Lenght(max=10, maxMessage="Veuillez entrer un numéro de téléphone valide")
      */
     private $tel_mobile;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Assert\Lenght(max=10, maxMessage="Veuillez entrer un numéro de téléphone valide")
      */
     private $tel_fixe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Lenght(min=10, minMessage="Veuillez entrer un email valide")
      */
     private $email;
 
@@ -90,6 +104,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Lenght(max=10, maxMessage="Veuillez un url valide")
      */
     private $photo;
 
