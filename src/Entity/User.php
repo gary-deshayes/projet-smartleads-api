@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,31 +21,60 @@ class User
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     * )
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=1)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      max = 1,
+     * )
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     * )
      */
     private $profil;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     * )
      */
     private $created_at;
 
@@ -95,31 +125,37 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="user")
+     * @Assert\NotBlank
      */
     private $contacts;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="user")
+     * @Assert\NotBlank
      */
     private $companies;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="subordinate")
+     * @Assert\NotBlank
      */
     private $leader;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="leader")
+     * @Assert\NotBlank
      */
     private $subordinate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Operation", mappedBy="user")
+     * @Assert\NotBlank
      */
     private $operations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="user")
+     * @Assert\NotBlank
      */
     private $parameters;
     

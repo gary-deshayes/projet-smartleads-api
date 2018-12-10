@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,16 +21,19 @@ class ParameterTarget
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $label;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="parameterTarget")
+     * @Assert\NotBlank
      */
     private $parameters;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="parameterTarget")
+     * @Assert\NotBlank
      */
     private $companies;
 
