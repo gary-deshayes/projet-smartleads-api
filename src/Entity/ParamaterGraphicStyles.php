@@ -19,6 +19,11 @@ class ParamaterGraphicStyles
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "Il faut au moins 1 caractère.",
+     *      maxMessage = "La limite est de 255 caractères."
      */
     private $label;
 
