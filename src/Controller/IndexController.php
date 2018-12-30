@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Contact;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
@@ -12,39 +15,26 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        return $this->render('index/index.html.twig', [
+        return $this->render('site/index.html.twig', [
             'controller_name' => 'IndexController',
         ]);
     }
 
     /**
-     * @Route(contact/new", name="personae_create")
-     * @Route("contact/{id}/edit", name="contact_edit")
+     * @Route("/site/new", name="site_create")
      */
-    public function form(Projet $projet = null, Request $request, ObjectManager $manager)
-    {
-        if($projet == null)
-        {
-            $projet = new Projet();
-        }
+    public function create(Request $request, ObjectManager $manager){
 
-        $form = $this->createForm(ProjetType::class, $projet);
+        $contact = new Contact();
 
-        $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($projet);
-            $manager->flush();
+        $form = $this->createFormBuilder($contact)
+                     ->add('code_customer')
+                     ->add('first_name')
+                     ->add('mobile_phone')
+                     ->getForm();
 
-            return $this->redirectToRoute('projet_show', ['id' => $projet->getId()]);
-        }
-
-        
         return $this->render('site/create.html.twig', [
-            'formProjet' => $form->createView(),
-            'editMode' => $projet->getId() !== null
-
+            'formContact' => $form->createView()
         ]);
     }
 }
