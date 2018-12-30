@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
@@ -32,6 +33,11 @@ class IndexController extends AbstractController
                      ->add('first_name')
                      ->add('mobile_phone')
                      ->getForm();
+
+        $form->handleRequest($request);
+
+        
+
 
         return $this->render('site/create.html.twig', [
             'formContact' => $form->createView()
