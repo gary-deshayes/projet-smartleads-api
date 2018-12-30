@@ -21,6 +21,8 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre code est trop long!")
      */
     private $code_customer;
 
@@ -31,11 +33,15 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre nom est trop long!")
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre code est trop long!")
      */
     private $name;
 
@@ -61,46 +67,59 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank
      */
     private $birth_date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre job est trop long!", minMessage="Votre job est trop court!")
      */
     private $job;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min=10, max=10, maxMessage="Veuillez entrer un numéro de téléphone valide!", minMessage="Veuillez entrer un numéro de téléphone valide" )
      */
     private $mobile_phone;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(min=10, max=10, maxMessage="Veuillez entrer un numéro de téléphone valide!", minMessage="Veuillez entrer un numéro de téléphone valide" )
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5, max=25, maxMessage="Veuillez entrer un email valide!", minMessage="Veuillez entrer un email valide" )
      */
     private $email;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5, max=25, maxMessage="Veuillez entrer un email valide!", minMessage="Veuillez entrer un email valide" )
      */
     private $email_prechecked;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\Length(min=5, max=25, maxMessage="Veuillez entrer un email valide!", minMessage="Veuillez entrer un email valide" )
      */
     private $email_checked;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=5, minMessage="Veuillez entrer un URL valide" )
      */
     private $url_linkedin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=5, minMessage="Veuillez entrer un URL pour votre photo valide" )
      */
     private $photo;
 
@@ -126,11 +145,16 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5, minMessage="Veuillez entrer un job valide" )
      */
     private $company_function;
 
+
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5, minMessage="Veuillez entrer un service valide" )
      */
     private $company_service;
 

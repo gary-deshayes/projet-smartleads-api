@@ -25,8 +25,8 @@ class Company
     private $company_code;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
+    * @ORM\Column(type="string", length=255)
+    */
     private $name;
 
     /**
