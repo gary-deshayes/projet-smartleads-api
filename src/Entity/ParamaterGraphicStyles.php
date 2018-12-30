@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParamaterGraphicStylesRepository")
  */
@@ -23,7 +23,7 @@ class ParamaterGraphicStyles
      *      min = 1,
      *      max = 255,
      *      minMessage = "Il faut au moins 1 caractère.",
-     *      maxMessage = "La limite est de 255 caractères."
+     *      maxMessage = "La limite est de 255 caractères.")
      */
     private $label;
 

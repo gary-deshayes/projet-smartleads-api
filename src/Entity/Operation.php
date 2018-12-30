@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraint as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OperationRepository")
@@ -21,13 +21,13 @@ class Operation
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank
+     * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
      *      minMessage = "Le nom de l'opération doit au moins contenir un caractère",
-     *      maxMessage = "La limite des 100 caractères a été dépassée pour le nom de l'opération"
-     * )
+     *      maxMessage = "La limite des 100 caractères a été dépassée pour le nom de l'opération")
+     * 
      */
     private $name;
 
@@ -35,8 +35,8 @@ class Operation
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "L'url de l'opération ne doit pas dépasser 255 caractères"
-     * )
+     *      maxMessage = "L'url de l'opération ne doit pas dépasser 255 caractères")
+     * 
      */
     private $URL;
 
@@ -44,8 +44,8 @@ class Operation
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "L'header de l'opération ne doit pas contenir plus de 255 caractères"
-     * )
+     *      maxMessage = "L'header de l'opération ne doit pas contenir plus de 255 caractères")
+     * 
      */
     private $VisualHeader;
 
@@ -53,8 +53,8 @@ class Operation
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "Le létaral de l'opération ne doit pas contenir plus de 255 caractères"
-     * )
+     *      maxMessage = "Le létaral de l'opération ne doit pas contenir plus de 255 caractères")
+     * 
      */
     private $VisualLateral;
 

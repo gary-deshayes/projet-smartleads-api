@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactJobRepository")
@@ -25,7 +26,7 @@ class ContactJob
      *      min = 1,
      *      max = 255,
      *      minMessage = "Il faut au moins 1 caractère.",
-     *      maxMessage = "La limite est de 255 caractères."
+     *      maxMessage = "La limite est de 255 caractères.")
      */
     private $label;
 
