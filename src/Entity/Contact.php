@@ -61,8 +61,7 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * Assert\DateTime
-     * @var string A "d-m-Y" formatted value
+     * 
      */
     private $birth_date;
 
