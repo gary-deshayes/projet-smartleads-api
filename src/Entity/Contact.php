@@ -61,7 +61,6 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * 
      */
     private $birth_date;
 
