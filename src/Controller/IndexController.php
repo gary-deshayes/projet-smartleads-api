@@ -51,5 +51,6 @@ class IndexController extends AbstractController
         return $this->render('site/create.html.twig', [
             'formContact' => $form->createView()
         ]);
+
     }
 }
