@@ -21,16 +21,19 @@ class OperationTypeOperation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $Name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $Url;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Operation", mappedBy="idTypeOperation")
+     * @Assert\NotBlank
      */
     private $operations;
 
