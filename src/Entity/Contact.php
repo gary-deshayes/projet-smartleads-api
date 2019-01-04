@@ -29,14 +29,14 @@ class Contact
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max=20, maxMessage="Votre nom est trop long!")
+     * @Assert\Length(max=20, maxMessage="Votre prénom est trop long!")
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max=20, maxMessage="Votre code est trop long!")
+     * @Assert\Length(max=20, maxMessage="Votre nom est trop long!")
      */
     private $name;
 
