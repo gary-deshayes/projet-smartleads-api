@@ -16,14 +16,14 @@ class ContactType extends AbstractType
             ->add('code_customer')
             ->add('first_name')
             ->add('name')
-            ->add('birth_date', DateType::class)
-            ->add('mobile_phone')
-            ->add('phone')
             ->add('email')
+            ->add('birth_date', DateType::class)    
             ->add('company')
             ->add('gender')
             ->add('contactCompanyService')
             ->add('contactCompanyFunction')
+            ->add('mobile_phone')
+            ->add('phone')
         ;
     }
 
