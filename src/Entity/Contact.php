@@ -27,11 +27,6 @@ class Contact
     private $code_customer;
 
     /**
-     * @ORM\Column(type="string", length=1)
-     */
-    private $gender;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(max=20, maxMessage="Votre nom est trop long!")
@@ -73,7 +68,6 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank
      * @Assert\Length(max=20, maxMessage="Votre job est trop long!", minMessage="Votre job est trop court!")
      */
     private $job;
@@ -100,7 +94,6 @@ class Contact
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @Assert\NotBlank
      * @Assert\Length(min=5, max=25, maxMessage="Veuillez entrer un email valide!", minMessage="Veuillez entrer un email valide" )
      */
     private $email_prechecked;
@@ -144,21 +137,6 @@ class Contact
     private $opt_in_offer_commercial;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(min=5, minMessage="Veuillez entrer un job valide" )
-     */
-    private $company_function;
-
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(min=5, minMessage="Veuillez entrer un service valide" )
-     */
-    private $company_service;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idContact")
      */
     private $operationParticipations;
@@ -190,6 +168,23 @@ class Contact
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="contacts")
      */
     private $company;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Gender", inversedBy="contacts")
+     */
+    private $gender;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContactCompanyService", inversedBy="contacts")
+     */
+    private $contactCompanyService;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContactCompanyFunction", inversedBy="contacts")
+     */
+    private $contactCompanyFunction;
+
+
 
    
 
@@ -452,30 +447,6 @@ class Contact
         return $this;
     }
 
-    public function getCompanyFunction(): ?string
-    {
-        return $this->company_function;
-    }
-
-    public function setCompanyFunction(string $company_function): self
-    {
-        $this->company_function = $company_function;
-
-        return $this;
-    }
-
-    public function getCompanyService(): ?string
-    {
-        return $this->company_service;
-    }
-
-    public function setCompanyService(string $company_service): self
-    {
-        $this->company_service = $company_service;
-
-        return $this;
-    }
-
     /**
      * @return Collection|OperationParticipation[]
      */
@@ -560,6 +531,30 @@ class Contact
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getContactCompanyFunction(): ?ContactCompanyFunction
+    {
+        return $this->contactCompanyFunction;
+    }
+
+    public function setContactCompanyFunction(?ContactCompanyFunction $contactCompanyFunction): self
+    {
+        $this->contactCompanyFunction = $contactCompanyFunction;
+
+        return $this;
+    }
+
+    public function getContactCompanyService(): ?ContactCompanyService
+    {
+        return $this->contactCompanyService;
+    }
+
+    public function setContactCompanyService(?ContactCompanyService $contactCompanyService): self
+    {
+        $this->contactCompanyService = $contactCompanyService;
 
         return $this;
     }

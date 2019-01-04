@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,17 +32,9 @@ class IndexController extends AbstractController
 
         
 
-        $form = $this->createFormBuilder($contact)
-                     ->add('code_customer')
-                     ->add('first_name')
-                     ->add('name')
-                     ->add('gender')
-                     ->add('company')
-                     ->add('company_function')
-                     ->add('birth_date', DateType::class)
-                     ->add('mobile_phone')
-                     ->add('phone')
-                     ->getForm();
+
+
+        $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
 
@@ -51,5 +44,6 @@ class IndexController extends AbstractController
         return $this->render('site/create.html.twig', [
             'formContact' => $form->createView()
         ]);
+
     }
 }

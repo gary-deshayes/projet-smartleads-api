@@ -9,18 +9,21 @@
     {{ form_start(formContact) }}
 
    {{ form_row(formContact.code_customer, {'attr': {'placeholder' : "A378X792"},'label': "Code client"}) }}
-   {{ form_row(formContact.first_name, {'attr': {'placeholder' : "DUPONT"}, 'label' : "Nom du client"}) }}
-   {{ form_row(formContact.name, {'attr': {'placeholder' : "Jerome"}, 'label' : "Prenom du client"}) }}
+   {{ form_row(formContact.first_name, {'attr': {'placeholder' : "DUPONT"}, 'label' : "Nom du contact"}) }}
+   {{ form_row(formContact.name, {'attr': {'placeholder' : "Jerome"}, 'label' : "Prenom du contact"}) }}
+   {{ form_row(formContact.email, {'attr': {'placeholder' : "Jerome"}, 'label' : "Nom du contact"}) }}
+   {{ form_row(formContact.phone, {'attr': {'placeholder' : "exemple@gmail.com"}, 'label' : "Email du contact"}) }}
    {{ form_row(formContact.gender, {'attr': {'placeholder' : "--"}, 'label' : "Genre"}) }}
    {{ form_row(formContact.company, {'attr': {'placeholder' : "--"}, 'label' : "Entreprise"}) }}
-   {{ form_row(formContact.company_function, {'attr': {'placeholder' : "--"}, 'label' : "Fonction de l'entreprise"}) }}
+   {{ form_row(formContact.contactCompanyFunction, {'attr': {'placeholder' : "--"}, 'label' : "Fonction dans l'entreprise"}) }}
+   {{ form_row(formContact.contactCompanyService, {'attr': {'placeholder' : "--"}, 'label' : "Service dans l'entreprise"}) }}
    {{ form_row(formContact.birth_date, {'label' : "Date de naissance"}) }}
    {{ form_row(formContact.mobile_phone, {'attr': {'placeholder' : "07 44 44 44 44"}, 'label' : "Téléphone mobile"}) }}
-   {{ form_row(formContact.phone, {'attr': {'placeholder' : "01 44 44 44 44"}, 'label' : "Téléphone fixe"}) }}
-
+   
+   
     <button type="submit" class="btn btn-success"> Ajouter un contact</button>
     <button type="button" class="btn btn-success"> Retour </button>
 
-    {{ form_end(formContact) }}
+   {{ form_end(formContact) }}
 
 {% endblock %}
