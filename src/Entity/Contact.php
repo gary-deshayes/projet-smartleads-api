@@ -447,30 +447,6 @@ class Contact
         return $this;
     }
 
-    public function getCompanyFunction(): ?string
-    {
-        return $this->company_function;
-    }
-
-    public function setCompanyFunction(string $company_function): self
-    {
-        $this->company_function = $company_function;
-
-        return $this;
-    }
-
-    public function getCompanyService(): ?string
-    {
-        return $this->company_service;
-    }
-
-    public function setCompanyService(string $company_service): self
-    {
-        $this->company_service = $company_service;
-
-        return $this;
-    }
-
     /**
      * @return Collection|OperationParticipation[]
      */
