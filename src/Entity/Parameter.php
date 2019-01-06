@@ -22,63 +22,63 @@ class Parameter
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre nom est trop long!")
      */
     private $name_application;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre url est trop long!")
      */
     private $logo_client;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop long!")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre url est trop long!")
      */
     private $address_complement;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre numero est trop long!")
      */
     private $mobile;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre fax est trop long!")
      */
     private $fax;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre email est trop long!")
      */
     private $email_contact;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre email est trop long!")
      */
     private $email_admin;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre email est trop long!")
      */
     private $email_receipt_requests;
 

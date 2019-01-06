@@ -42,11 +42,15 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Assert\DateTime
      */
     private $date_created_plug;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime
+     * @Assert\NotBlank
      */
     private $date_update_plug;
 
@@ -62,7 +66,7 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\NotBlank
+     * @Assert\DateTime
      */
     private $birth_date;
 
@@ -74,7 +78,6 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\NotBlank
      * @Assert\Length(min=10, max=10, maxMessage="Veuillez entrer un numéro de téléphone valide!", minMessage="Veuillez entrer un numéro de téléphone valide" )
      */
     private $mobile_phone;
@@ -87,7 +90,6 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank
      * @Assert\Length(min=5, max=25, maxMessage="Veuillez entrer un email valide!", minMessage="Veuillez entrer un email valide" )
      */
     private $email;
