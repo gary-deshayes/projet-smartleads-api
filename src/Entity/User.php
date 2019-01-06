@@ -25,18 +25,11 @@ class User
      * @Assert\Length(
      *      min = 2,
      *      max = 10,
+     *      maxMessage="Votre code est trop long!",
      * )
      */
     private $code;
 
-    /**
-     * @ORM\Column(type="string", length=1)
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      max = 1,
-     * )
-     */
-    private $gender;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -44,6 +37,7 @@ class User
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
+     *      maxMessage="Votre prenom est trop long!"
      * )
      */
     private $first_name;
@@ -54,6 +48,7 @@ class User
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
+     *      maxMessage="Votre nom est trop long!"
      * )
      */
     private $name;
@@ -64,6 +59,7 @@ class User
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
+     *      maxMessage="Votre profil est trop long!"
      * )
      */
     private $profil;
@@ -71,25 +67,27 @@ class User
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
+     * @Assert\DateTime
      * )
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\DateTime
      */
     private $update_at;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\Length(max=20, maxMessage="Votre statut est trop long!")
      */
     private $statement;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
      */
     private $birth_date;
 
@@ -100,26 +98,35 @@ class User
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre numéro est trop long!")
      */
     private $tel_mobile;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre numéro est trop long!")
      */
     private $tel_fixe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre email est trop long!")
+     * 
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=20, maxMessage="Votre url est trop long!")
      */
     private $url_linkedin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=20, maxMessage="Votre url est trop long!")
      */
     private $photo;
 
@@ -158,6 +165,11 @@ class User
      * @Assert\NotBlank
      */
     private $parameters;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Gender", inversedBy="users")
+     */
+    private $gender;
     
   
 
@@ -185,18 +197,6 @@ class User
     public function setCode(string $code): self
     {
         $this->code = $code;
-
-        return $this;
-    }
-
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(string $gender): self
-    {
-        $this->gender = $gender;
 
         return $this;
     }
@@ -520,6 +520,18 @@ class User
                 $parameter->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGender(): ?Gender
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?Gender $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }

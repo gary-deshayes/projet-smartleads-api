@@ -29,23 +29,9 @@ class Company
     /**
     * @ORM\Column(type="string", length=255)
     * @Assert\NotBlank
-    * @Assert\Length(max = 255)
+    * @Assert\Length(max = 255, maxMessage="Votre nom est trop long!")
     */
     private $name;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
-     * @Assert\DateTime
-     */
-    private $created_at_plug;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
-     * @Assert\DateTime
-     */
-    private $update_at_plug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,13 +42,13 @@ class Company
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre statut est trop long!")
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre url logo est trop long!")
      */
     private $logo;
 
@@ -73,49 +59,43 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
-     */
-    private $coutry;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop longue!")
      */
     private $adress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop longue!")
      */
     private $adress_complement;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
-     * @Assert\Length(max = 5)
+     * @Assert\Length(max = 5, maxMessage="Votre code postale est trop long!")
      */
     private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre ville est trop long!")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10)
+     * @Assert\Length(max = 10, maxMessage="Votre numéro est trop long!")
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10)
+     * @Assert\Length(max = 10, maxMessage="Votre numéro est trop long!")
      */
     private $fax;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre url est trop long!")
      */
     private $website;
 
@@ -133,13 +113,13 @@ class Company
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 255, maxMessage="Votre numero est trop long!")
      */
     private $siret_number;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @Assert\Length(max = 100, maxMessage="Votre numéro est trop long!")
      */
     private $naf_code;
 
