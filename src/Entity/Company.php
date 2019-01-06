@@ -21,36 +21,48 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max = 255)
      */
     private $company_code;
 
     /**
     * @ORM\Column(type="string", length=255)
+    * @Assert\NotBlank
+    * @Assert\Length(max = 255)
     */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Assert\DateTime
      */
     private $created_at_plug;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Assert\DateTime
      */
     private $update_at_plug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $leader_code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max = 255)
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $logo;
 
@@ -61,41 +73,49 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $coutry;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $adress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $adress_complement;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
+     * @Assert\Length(max = 5)
      */
     private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(max = 10)
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(max = 10)
      */
     private $fax;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $website;
 
@@ -106,21 +126,26 @@ class Company
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max = 255)
      */
     private $siret_number;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $naf_code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $source;
 
