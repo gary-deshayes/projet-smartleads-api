@@ -20,6 +20,8 @@ class ContactCompanyService
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=255, maxMessage="Votre label est trop long!")
      */
     private $label;
 
