@@ -20,6 +20,8 @@ class Gender
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Votre code est trop long!")
      */
     private $label;
 
