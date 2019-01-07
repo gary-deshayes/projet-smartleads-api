@@ -7,6 +7,7 @@ use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -15,6 +16,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class UserController extends AbstractController
 {
+    /**
+     * @Route("", name="user", methods={"GET"})
+     */
+    public function index(Request $request, SerializerInterface $serializer)
+    {
+
+        $response = new Response();
+
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $User = $repo->findAll();
+
+        if ($request->isXmlHttpRequest()) {
+            $json = $serializer->serialize($User, "json", ["GROUPS" => ["Light"]]);
+            $response->setContent($json);
+            return $response;
+        } else {
+            return $this->render('user/index.html.twig', array(
+                "User" => $User
+            ));
+        }
+    }
+
     /**
      * @Route("/edit/{id}", name="user_edit_show", methods={"GET", "POST"})
      */
@@ -74,29 +97,26 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_create", methods={"POST"})
      */
-    public function create(Request $request)
+    public function create(Request $request, SerializerInterface $serializer)
     {
         $user = new User();
         $response = new Response();
 
-        $formCreate = $this->createForm(UserType::class);
+        $json = $serializer->serialize(
+            $user,
+            'json',
+            ['Groups'=>["Light"]]
+        );
 
+        $formCreate = $this->createForm(UserType::class);
         $formCreate->handleRequest($request);
 
-        if($formCreate->isSubmitted() && $formCreate->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            $response->setContent(json_encode(array(
-                'retour'=> 1,
-            )));
-            return $response;
-        }
-
-        return $response->setContent(json_encode(array(
-            'retour'=> 0,
-        )));
-
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $response->setContent($json);
+        $response->headers->set('Content-Type', 'application/JSON');
+        return $response;
     }
 
     /**
