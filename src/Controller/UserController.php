@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user", methods={"GET"})
+     * @Route("", name="user", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
