@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create ParameterSTarget{% endblock %}
+
+{% block body %}
+<a href="{{ path('ParameterTarget') }}">Retour à la liste des paramètres cible</a>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+{{ form_widget(form.save, { 'label': 'Créer' }) }}
+{{ form_end(form) }}
+{% endblock %}
