@@ -17,11 +17,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     /**
-     * @Route("", methods={"GET"})
+     * @Route("/", name="user", methods={"GET"})
      */
-    public function index(Request $request, SerializerInterface serializer)
+    public function index(Request $request, SerializerInterface $serializer)
     {
-        
+
+        $response = new Response();
+
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $User = $repo->findAll();
+
+        if ($request->isXmlHttpRequest()) {
+            $json = $serializer->serialize($User, "json", ["GROUPS" => ["Light"]]);
+            $response->setContent($json);
+            return $response;
+        } else {
+            return $this->render('user/index.html.twig', array(
+                "User" => $User
+            ));
+        }
     }
 
     /**
