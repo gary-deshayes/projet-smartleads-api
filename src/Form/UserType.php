@@ -6,6 +6,10 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
 
 class UserType extends AbstractType
 {
@@ -30,13 +34,15 @@ class UserType extends AbstractType
         ->add('subordinate', TextType::class)
         ->add('operations', TextType::class)
         ->add('parameters', TextType::class)
+        ->add("save", SubmitType::class, array("label" => "Créer l'utilisateur"))
+        ->getForm();
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Parameter::class,
+            // 'data_class' => Parameter::class,
         ]);
     }
 }
