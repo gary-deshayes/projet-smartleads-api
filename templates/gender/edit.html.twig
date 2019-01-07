@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit ParameterSTypeSite{% endblock %}
+{% block title %}Edit Gender{% endblock %}
 
 {% block body %}
-
+<a href="{{ path('ParameterTypeSite') }}">Retour à la liste des paramètres de type de site</a>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_widget(form.save, { 'label': 'Modifier' }) }}
