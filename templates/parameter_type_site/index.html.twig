@@ -1,20 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Parameter type de site{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<label>Les paramètres de type de site : </label>
+<ul>
+    {% for parameter in ParameterTypeSite %}
+    <a href='{{ path("ParameterTypeSite_editShow",{"id": parameter.id }) }}'><li>{{ parameter.label }}</li></a>
+    {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+</ul>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/ParameterTypeSiteController.php'|file_link(0) }}">src/Controller/ParameterTypeSiteController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/parameter_type_site/index.html.twig'|file_link(0) }}">templates/parameter_type_site/index.html.twig</a></code></li>
-    </ul>
-</div>
+<a href="{{ path('ParameterTypeSite_createShow') }}">Créer un paramètre de type de site</a>
 {% endblock %}
