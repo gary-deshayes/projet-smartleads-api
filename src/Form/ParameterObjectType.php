@@ -6,6 +6,7 @@ use App\Entity\ParameterObject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ParameterObjectType extends AbstractType
 {
@@ -13,6 +14,7 @@ class ParameterObjectType extends AbstractType
     {
         $builder
             ->add('Label')
+            ->add("save", SubmitType::class)
         ;
     }
 

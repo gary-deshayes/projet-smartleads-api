@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ParameterSObject{% endblock %}
+
+{% block body %}
+<a href="{{ path('ParameterObject') }}">Retour à la liste des paramètres</a>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+{{ form_widget(form.save, { 'label': 'Modifier' }) }}
+{{ form_end(form) }}
+{% endblock %}

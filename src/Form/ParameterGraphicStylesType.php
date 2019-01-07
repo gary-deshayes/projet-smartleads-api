@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ParameterGraphicStylesType extends AbstractType
 {
@@ -12,13 +13,7 @@ class ParameterGraphicStylesType extends AbstractType
     {
         $builder
             ->add('label')
+            ->add("save", SubmitType::class)
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => ParameterGraphicStyles::class,
-        ]);
     }
 }
