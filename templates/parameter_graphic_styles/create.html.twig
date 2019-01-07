@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create ParameterSTarget{% endblock %}
+{% block title %}Create ParameterGraphicStyles{% endblock %}
 
 {% block body %}
-<a href="{{ path('ParameterTarget') }}">Retour à la liste des paramètres cible</a>
+<a href="{{ path('ParameterGraphicStyles') }}">Retour à la liste des paramètres cible</a>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_widget(form.save, { 'label': 'Créer' }) }}
