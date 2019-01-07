@@ -13,6 +13,7 @@
         "symfony/framework-bundle": "4.1.*",
         "symfony/orm-pack": "^1.0",
         "symfony/security-csrf": "4.1.*",
+        "symfony/serializer": "4.1.*",
         "symfony/validator": "4.1.*",
         "symfony/yaml": "4.1.*"
     },
