@@ -27,32 +27,32 @@ class CompanyActivityAreaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
+        $companyActivityArea = $em->getRepository(CompanyActivityArea::class)->find($id);
 
-        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+        $form = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $retour = $this->edit($ParameterTypeSite->getId(), $request);
+            $retour = $this->edit($companyActivityArea->getId(), $request);
 
             if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ParameterTypeSite");
+                return $this->redirectToRoute("companyActivityArea");
             } else {
-                return $this->render('parameter_type_site/create.html.twig', [
+                return $this->render('company_activity_area/create.html.twig', [
                     'form' => $form->createView(),
                 ]);
             }
         }
 
-        if (!$ParameterTypeSite) {
+        if (!$companyActivityArea) {
             throw $this->createNotFoundException(
-                'No product found for id ' . $id
+                'No companyActivityArea found for id ' . $id
             );
         }
 
-        return $this->render('parameter_type_site/edit.html.twig', [
+        return $this->render('company_activity_area/edit.html.twig', [
             'form' => $form->createView(),
         ]);
 
@@ -69,9 +69,9 @@ class CompanyActivityAreaController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
+        $companyActivityArea = $em->getRepository(CompanyActivityArea::class)->find($id);
 
-        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+        $form = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
 
         $form->handleRequest($request);
 
@@ -98,7 +98,7 @@ class CompanyActivityAreaController extends AbstractController
     }
 
     /**
-     * Suppression de l'entreprise
+     * Suppression du secteur
      * @Route("/", name="companyActivityArea_delete", methods={"DELETE"})
      */
     public function delete()
@@ -112,7 +112,7 @@ class CompanyActivityAreaController extends AbstractController
      */
     public function createShow(Request $request)
     {
-        $formCreate = $this->createForm(ParameterTypeSiteType::class);
+        $formCreate = $this->createForm(CompanyActivityAreaType::class);
 
         $formCreate->handleRequest($request);
 
@@ -121,15 +121,15 @@ class CompanyActivityAreaController extends AbstractController
             $retour = $this->create($request);
 
             if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ParameterTypeSite');
+                return $this->redirectToRoute('companyActivityArea');
             } else {
-                return $this->render('parameter_type_site/create.html.twig', [
+                return $this->render('company_activity_area/create.html.twig', [
                     'form' => $formCreate->createView(),
                 ]);
             }
         }
 
-        return $this->render('parameter_type_site/create.html.twig', [
+        return $this->render('company_activity_area/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
     }
@@ -142,20 +142,20 @@ class CompanyActivityAreaController extends AbstractController
     public function create(Request $request)
     {
 
-        $ParameterTypeSite = new ParameterTypeSite();
+        $companyActivityArea = new CompanyActivityArea();
 
         $response = new Response();
 
         $response->headers->set("Content-Type", "Application/JSON");
 
-        $formCreate = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+        $formCreate = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
 
         $formCreate->handleRequest($request);
 
         if ($formCreate->isSubmitted() && $formCreate->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ParameterTypeSite);
+            $em->persist($companyActivityArea);
             $em->flush();
             $response->setContent("1");
             return $response;
@@ -168,7 +168,7 @@ class CompanyActivityAreaController extends AbstractController
     }
 
     /**
-     * Affichage de la liste des paramètres de type de site
+     * Affichage de la liste des secteurs d'activités
      * @Route("/", name="companyActivityArea", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
@@ -176,16 +176,16 @@ class CompanyActivityAreaController extends AbstractController
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ParameterTypeSite::class);
-        $ParameterTypeSite = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(CompanyActivityArea::class);
+        $companyActivityArea = $repo->findAll();
 
         if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($ParameterTypeSite, "json", ["GROUPS" => ["Light"]]);
+            $json = $serializer->serialize($companyActivityArea, "json", ["GROUPS" => ["Light"]]);
             $response->setContent($json);
             return $response;
         } else {
-            return $this->render('parameter_type_site/index.html.twig', array(
-                "ParameterTypeSite" => $ParameterTypeSite
+            return $this->render('company_activity_area/index.html.twig', array(
+                "CompanyActivityArea" => $companyActivityArea
             ));
         }
     }

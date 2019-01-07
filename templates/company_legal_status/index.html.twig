@@ -1,20 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Statut légal des entreprises{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<label>Statut légal des entreprises : </label>
+<ul>
+    {% for legalStatus in companyLegalStatus %}
+    <a href='{{ path("companyLegalStatus_editShow",{"id": legalStatus.id }) }}'><li>{{ legalStatus.label }}</li></a>
+    {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+</ul>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/CompanyLegalStatusController.php'|file_link(0) }}">src/Controller/CompanyLegalStatusController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/company_legal_status/index.html.twig'|file_link(0) }}">templates/company_legal_status/index.html.twig</a></code></li>
-    </ul>
-</div>
+<a href="{{ path('companyLegalStatus_createShow') }}">Créer un statut légal des entreprises</a>
 {% endblock %}
