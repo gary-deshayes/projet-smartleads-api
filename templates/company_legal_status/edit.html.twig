@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition d'un statut légal des entreprises{% endblock %}
+
+{% block body %}
+<a href="{{ path('companyLegalStatus') }}">Retour à la liste des statuts légaux des entreprises</a>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+{{ form_widget(form.save, { 'label': 'Modifier' }) }}
+{{ form_end(form) }}
+{% endblock %}
