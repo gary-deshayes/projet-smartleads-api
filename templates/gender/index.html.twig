@@ -3,7 +3,7 @@
 {% block title %}Les genres{% endblock %}
 
 {% block body %}
-<label>Les paramètres de genre : </label>
+<label>Les genres : </label>
 <ul>
     {% for gender in Gender %}
     <a href='{{ path("Gender_editShow",{"id": gender.id }) }}'><li>{{ gender.label }}</li></a>
@@ -11,5 +11,5 @@
 
 </ul>
 
-<a href="{{ path('ParameterTypeSite_createShow') }}">Créer un genre</a>
+<a href="{{ path('Gender_createShow') }}">Créer un genre</a>
 {% endblock %}

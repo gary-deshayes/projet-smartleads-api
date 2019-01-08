@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un genre{% endblock %}
+{% block title %}Modifier un service d'un contact(dans son entreprise){% endblock %}
 
 {% block body %}
-<a href="{{ path('Gender') }}">Retour à la liste des genres</a>
+<a href="{{ path('Gender') }}">Retour à la liste des services</a>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_widget(form.save, { 'label': 'Modifier' }) }}

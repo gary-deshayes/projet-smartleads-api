@@ -24,9 +24,9 @@ class GenderController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $gender = $em->getRepository(GenderType::class)->find($id);
+        $gender = $em->getRepository(Gender::class)->find($id);
 
-        $form = $this->createForm(GenderType::class, $ParameterTypeSite);
+        $form = $this->createForm(GenderType::class, $gender);
 
         $form->handleRequest($request);
 
@@ -66,7 +66,7 @@ class GenderController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $gender = $em->getRepository(GenderType::class)->find($id);
+        $gender = $em->getRepository(Gender::class)->find($id);
 
         $form = $this->createForm(GenderType::class, $gender);
 

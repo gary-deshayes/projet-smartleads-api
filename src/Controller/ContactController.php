@@ -2,47 +2,53 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/Contact")
+ */
 class ContactController extends AbstractController
 {
     /**
      * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterTypeSite_editShow", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="Contact_editShow", methods={"GET","POST"})
      */
     public function editShow($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
+        $contact = $em->getRepository(Contact::class)->find($id);
 
-        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+        $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $retour = $this->edit($ParameterTypeSite->getId(), $request);
+            $retour = $this->edit($contact->getId(), $request);
 
             if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ParameterTypeSite");
+                return $this->redirectToRoute("Contact");
             } else {
-                return $this->render('parameter_type_site/create.html.twig', [
+                return $this->render('contact/create.html.twig', [
                     'form' => $form->createView(),
                 ]);
             }
         }
 
-        if (!$ParameterTypeSite) {
+        if (!$contact) {
             throw $this->createNotFoundException(
                 'No product found for id ' . $id
             );
         }
 
-        return $this->render('parameter_type_site/edit.html.twig', [
+        return $this->render('contact/edit.html.twig', [
             'form' => $form->createView(),
         ]);
 
@@ -50,7 +56,7 @@ class ContactController extends AbstractController
 
     /**
      * Edit des données
-     * @Route("/{id}", name="ParameterTypeSite_edit", methods={"PUT"})
+     * @Route("/{id}", name="Contact_edit", methods={"PUT"})
      */
     public function edit($id, $request)
     {
@@ -59,9 +65,9 @@ class ContactController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
+        $contact = $em->getRepository(Contact::class)->find($id);
 
-        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+        $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
 
@@ -80,7 +86,7 @@ class ContactController extends AbstractController
 
     /**
      * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterTypeSite_deleteShow", methods={"GET","POST"})
+     * @Route("delete/{id}", name="Contact_deleteShow", methods={"GET","POST"})
      */
     public function deleteShow()
     {
@@ -89,7 +95,7 @@ class ContactController extends AbstractController
 
     /**
      * Suppression de l'entreprise
-     * @Route("/", name="ParameterTypeSite_delete", methods={"DELETE"})
+     * @Route("/", name="Contact_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -98,11 +104,11 @@ class ContactController extends AbstractController
 
     /**
      * Affichage du formulaire
-     * @Route("/create", name="ParameterTypeSite_createShow", methods={"GET","POST"})
+     * @Route("/create", name="Contact_createShow", methods={"GET","POST"})
      */
     public function createShow(Request $request)
     {
-        $formCreate = $this->createForm(ParameterTypeSiteType::class);
+        $formCreate = $this->createForm(ContactType::class);
 
         $formCreate->handleRequest($request);
 
@@ -111,41 +117,41 @@ class ContactController extends AbstractController
             $retour = $this->create($request);
 
             if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ParameterTypeSite');
+                return $this->redirectToRoute('Contact');
             } else {
-                return $this->render('parameter_type_site/create.html.twig', [
+                return $this->render('contact/create.html.twig', [
                     'form' => $formCreate->createView(),
                 ]);
             }
         }
 
-        return $this->render('parameter_type_site/create.html.twig', [
-            'form' => $formCreate->createView(),
+        return $this->render('contact/create.html.twig', [
+            'form' => $formCreate->createView(),			
         ]);
     }
 
     /**
      * Affichage du formulaire
-     * @Route("/", name="ParameterTypeSite_create", methods={"POST"})
+     * @Route("/", name="Contact_create", methods={"POST"})
      * 
      */
     public function create(Request $request)
     {
 
-        $ParameterTypeSite = new ParameterTypeSite();
+        $contact = new Contact();
 
         $response = new Response();
 
         $response->headers->set("Content-Type", "Application/JSON");
 
-        $formCreate = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+        $formCreate = $this->createForm(ContactType::class, $contact);
 
         $formCreate->handleRequest($request);
 
         if ($formCreate->isSubmitted() && $formCreate->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ParameterTypeSite);
+            $em->persist($contact);
             $em->flush();
             $response->setContent("1");
             return $response;
@@ -159,30 +165,30 @@ class ContactController extends AbstractController
 
     /**
      * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterTypeSite", methods={"GET"})
+     * @Route("/", name="Contact", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ParameterTypeSite::class);
-        $ParameterTypeSite = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(Contact::class);
+        $contact = $repo->findAll();
 
         if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($ParameterTypeSite, "json", ["GROUPS" => ["Light"]]);
+            $json = $serializer->serialize($contact, "json", ["GROUPS" => ["Light"]]);
             $response->setContent($json);
             return $response;
         } else {
-            return $this->render('parameter_type_site/index.html.twig', array(
-                "ParameterTypeSite" => $ParameterTypeSite
+            return $this->render('contact/index.html.twig', array(
+                "Contact" => $contact
             ));
         }
     }
 
     /**
      * Affichage du formulaire
-     * @Route("/success", name="ParameterTypeSite_success", methods={"POST"})
+     * @Route("/success", name="contact_success", methods={"POST"})
      */
     public function success()
     {
