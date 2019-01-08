@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un genre{% endblock %}
+{% block title %}Modifier un contact{% endblock %}
 
 {% block body %}
-
+<a href="{{ path('Contact') }}">Retour à la liste des contacts</a>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_widget(form.save, { 'label': 'Modifier' }) }}

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un genre{% endblock %}
+{% block title %}Modifier un pays{% endblock %}
 
 {% block body %}
-
+<a href="{{ path('Gender') }}">Retour à la liste des pays</a>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_widget(form.save, { 'label': 'Modifier' }) }}

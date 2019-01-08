@@ -7,23 +7,27 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code_customer')
-            ->add('first_name')
-            ->add('name')
-            ->add('email')
+            ->add('code_customer', TextType::class)
+            ->add('first_name', TextType::class)
+            ->add('name', TextType::class)
+            ->add('email', TextType::class)
             ->add('birth_date', DateType::class)    
             ->add('company')
             ->add('gender')
             ->add('contactCompanyService')
             ->add('contactCompanyFunction')
-            ->add('mobile_phone')
-            ->add('phone')
+            ->add('mobile_phone', TextType::class)
+            ->add('phone', TextType::class)
+            ->add("save", SubmitType::class)
         ;
     }
 
