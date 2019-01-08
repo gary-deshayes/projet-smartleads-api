@@ -165,12 +165,6 @@ class Company
     private $contacts;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $country;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCategory", inversedBy="companies")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -563,18 +557,6 @@ class Company
                 $contact->setCompany(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCountry(): ?Country
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Country $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
