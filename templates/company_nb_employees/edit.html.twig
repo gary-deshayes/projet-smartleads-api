@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit d'une opération{% endblock %}
+{% block title %}Edition d'un nombre d'employés{% endblock %}
 
 {% block body %}
-<a href="{{ path('operation') }}">Retour à la liste des opérations</a>
+<a href="{{ path('companyNbEmployees') }}">Retour à la liste des nombres d'employés</a>
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_widget(form.save, { 'label': 'Modifier' }) }}
