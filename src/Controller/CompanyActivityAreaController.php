@@ -2,15 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\CompanyActivityArea;
-use App\Form\CompanyActivityAreaType;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\HttpFoundation\Response;
-use App\Repository\ParameterTargetRepository;
+
 
 /**
  * @Route("companyActivityArea")
