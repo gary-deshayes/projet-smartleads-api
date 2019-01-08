@@ -42,7 +42,6 @@ class Contact
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
      * @Assert\DateTime
      */
     private $date_created_plug;
@@ -50,7 +49,6 @@ class Contact
     /**
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
-     * @Assert\NotBlank
      */
     private $date_update_plug;
 

@@ -148,6 +148,8 @@ class ContactController extends AbstractController
 
         $formCreate->handleRequest($request);
 
+        dump($contact);
+
         if ($formCreate->isSubmitted() && $formCreate->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
