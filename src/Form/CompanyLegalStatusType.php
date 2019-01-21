@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\AdminBundle\Form;
 
 use App\Entity\CompanyLegalStatus;
 use Symfony\Component\Form\AbstractType;
