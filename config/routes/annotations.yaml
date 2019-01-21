@@ -1,3 +1,7 @@
-controllers:
-    resource: ../../src/Controller/
+admin_controllers:
+    resource: ../../src/AdminBundle/Controller/
+    type: annotation
+
+api_controllers:
+    resource: ../../src/ApiBundle/Controller/
     type: annotation
