@@ -27,12 +27,12 @@ class CompanyActivityArea
     private $Label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="idActivityArea")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="idActivityArea")
      */
     private $companies;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="companyActivityArea")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="companyActivityArea")
      */
     private $parameters;
 
