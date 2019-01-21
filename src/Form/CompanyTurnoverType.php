@@ -6,6 +6,7 @@ use App\Entity\CompanyTurnover;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CompanyTurnoverType extends AbstractType
 {
@@ -13,6 +14,7 @@ class CompanyTurnoverType extends AbstractType
     {
         $builder
             ->add('label')
+            ->add("save", SubmitType::class)
         ;
     }
 

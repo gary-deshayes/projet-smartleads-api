@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Index Parameter Type de Site{% endblock %}
+{% block title %}Les entreprises{% endblock %}
 
 {% block body %}
+<label>Les entreprises: </label>
+<ul>
+    {% for company in Company %}
+    <a href='{{ path("Company_editShow",{"id": company.id }) }}'><li>{{ company.label }}</li></a>
+    {% endfor %}
+
+</ul>
+
+<a href="{{ path('Company_createShow') }}">Créer une entreprise</a>
 {% endblock %}

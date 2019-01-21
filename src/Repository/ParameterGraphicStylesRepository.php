@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\ParamaterGraphicStyles;
+use App\Entity\ParameterGraphicStyles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method ParamaterGraphicStyles|null find($id, $lockMode = null, $lockVersion = null)
- * @method ParamaterGraphicStyles|null findOneBy(array $criteria, array $orderBy = null)
- * @method ParamaterGraphicStyles[]    findAll()
- * @method ParamaterGraphicStyles[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ParameterGraphicStyles|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ParameterGraphicStyles|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ParameterGraphicStyles[]    findAll()
+ * @method ParameterGraphicStyles[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ParamaterGraphicStylesRepository extends ServiceEntityRepository
+class ParameterGraphicStylesRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, ParamaterGraphicStyles::class);
+        parent::__construct($registry, ParameterGraphicStyles::class);
     }
 
     // /**
-    //  * @return ParamaterGraphicStyles[] Returns an array of ParamaterGraphicStyles objects
+    //  * @return ParameterGraphicStyles[] Returns an array of ParameterGraphicStyles objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ParamaterGraphicStylesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ParamaterGraphicStyles
+    public function findOneBySomeField($value): ?ParameterGraphicStyles
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

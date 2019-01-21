@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition secteur d'activité{% endblock %}
+
+{% block body %}
+<a href="{{ path('ParameterTypeSite') }}">Retour à la liste des secteurs d'activités</a>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+{{ form_widget(form.save, { 'label': 'Modifier' }) }}
+{{ form_end(form) }}
+{% endblock %}

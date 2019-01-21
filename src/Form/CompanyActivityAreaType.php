@@ -6,6 +6,7 @@ use App\Entity\CompanyActivityArea;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CompanyActivityAreaType extends AbstractType
 {
@@ -13,6 +14,7 @@ class CompanyActivityAreaType extends AbstractType
     {
         $builder
             ->add('Label')
+            ->add("save", SubmitType::class)
         ;
     }
 
