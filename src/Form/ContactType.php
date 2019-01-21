@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminBundle\Form;
+namespace App\Form;
 
 use App\Entity\Gender;
 use App\Entity\Company;

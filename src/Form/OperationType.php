@@ -1,6 +1,5 @@
 <?php
-
-namespace App\AdminBundle\Form;
+namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Operation;
