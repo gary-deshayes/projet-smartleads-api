@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ParameterRepository")
  */
 class Parameter
 {
@@ -83,64 +83,64 @@ class Parameter
     private $email_receipt_requests;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\User", inversedBy="parameters")
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Operation", inversedBy="parameter", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\AdminBundle\Entity\Operation", inversedBy="parameter", cascade={"persist", "remove"})
      */
     private $operation;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ContactJob", inversedBy="parameters")
+     * @ORM\ManyToMany(targetEntity="App\AdminBundle\Entity\ContactJob", inversedBy="parameters")
      */
     private $contactjobs;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyActivityArea", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyActivityArea", inversedBy="parameters")
      * @ORM\JoinColumn(nullable=false)
      */
     private $companyActivityArea;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCategory", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyCategory", inversedBy="parameters")
      */
     private $companyCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyNbEmployees", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyNbEmployees", inversedBy="parameters")
      * @ORM\JoinColumn(nullable=false)
      */
     private $companyNbEmployees;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyTurnover", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyTurnover", inversedBy="parameters")
      */
     private $companyTurnover;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLastTurnover", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyLastTurnover", inversedBy="parameters")
      */
     private $companyLastTurnover;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterComportment", inversedBy="parameter")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterComportment", inversedBy="parameter")
      */
     private $parameterComportment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterObject", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterObject", inversedBy="parameters")
      */
     private $parameterObject;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTarget", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterTarget", inversedBy="parameters")
      */
     private $parameterTarget;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTypeSite", inversedBy="parameters")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterTypeSite", inversedBy="parameters")
      */
     private $parameterTypeSite;
 

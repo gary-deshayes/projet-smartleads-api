@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyCategoryRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyCategoryRepository")
  */
 class CompanyCategory
 {
@@ -31,12 +31,12 @@ class CompanyCategory
     private $label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="companyCategory")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="companyCategory")
      */
     private $parameters;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="companyCategory")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="companyCategory")
      */
     private $companies;
 

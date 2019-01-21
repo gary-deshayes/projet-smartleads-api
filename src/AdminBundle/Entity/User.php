@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\UserRepository")
  */
 class User
 {
@@ -133,43 +133,43 @@ class User
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Contact", mappedBy="user")
      * @Assert\NotBlank
      */
     private $contacts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="user")
      * @Assert\NotBlank
      */
     private $companies;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="subordinate")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\User", inversedBy="subordinate")
      * @Assert\NotBlank
      */
     private $leader;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="leader")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\User", mappedBy="leader")
      * @Assert\NotBlank
      */
     private $subordinate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Operation", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Operation", mappedBy="user")
      * @Assert\NotBlank
      */
     private $operations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="user")
      * @Assert\NotBlank
      */
     private $parameters;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Gender", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\Gender", inversedBy="users")
      */
     private $gender;
     

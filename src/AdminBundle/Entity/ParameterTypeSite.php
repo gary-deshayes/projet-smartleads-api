@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ParameterTypeSiteRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ParameterTypeSiteRepository")
  */
 class ParameterTypeSite
 {
@@ -31,12 +31,12 @@ class ParameterTypeSite
     private $label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="parameterTypeSite")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="parameterTypeSite")
      */
     private $companies;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="parameterTypeSite")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="parameterTypeSite")
      */
     private $parameters;
 

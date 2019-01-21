@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyLegalStatusRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyLegalStatusRepository")
  */
 class CompanyLegalStatus
 {
@@ -28,7 +28,7 @@ class CompanyLegalStatus
     private $Label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="idLegalStatus")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="idLegalStatus")
      */
     private $companies;
 

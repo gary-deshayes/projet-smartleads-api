@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyLastTurnoverRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyLastTurnoverRepository")
  */
 class CompanyLastTurnover
 {
@@ -26,12 +26,12 @@ class CompanyLastTurnover
     private $Label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="idLastTurnover")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="idLastTurnover")
      */
     private $companies;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameter", mappedBy="companyLastTurnover")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="companyLastTurnover")
      */
     private $parameters;
 

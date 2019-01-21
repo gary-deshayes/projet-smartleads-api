@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OperationParticipationRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\OperationParticipationRepository")
  */
 class OperationParticipation
 {
@@ -20,13 +20,13 @@ class OperationParticipation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Operation", inversedBy="Participations")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\Operation", inversedBy="Participations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $idOperation;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Contact", inversedBy="Participations")
+     * @ORM\ManyToMany(targetEntity="App\AdminBundle\Entity\Contact", inversedBy="Participations")
      */
     private $idContact;
 

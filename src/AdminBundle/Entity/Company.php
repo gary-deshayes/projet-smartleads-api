@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyRepository")
  */
 class Company
 {
@@ -130,68 +130,68 @@ class Company
     private $source;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\Country", inversedBy="companies")
      */
     private $idCountry;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyActivityArea", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyActivityArea", inversedBy="companies")
      */
     private $idActivityArea;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLegalStatus", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyLegalStatus", inversedBy="companies")
      */
     private $idLegalStatus;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyTurnover", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyTurnover", inversedBy="companies")
      */
     private $idTurnover;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLastTurnover", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyLastTurnover", inversedBy="companies")
      */
     private $idLastTurnover;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\User", inversedBy="companies")
      */
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="company")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Contact", mappedBy="company")
      */
     private $contacts;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCategory", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyCategory", inversedBy="companies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $companyCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyNbEmployees", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyNbEmployees", inversedBy="companies")
      */
     private $companyNbEmployees;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterComportment", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterComportment", inversedBy="companies")
      */
     private $parameterComportment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterObject", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterObject", inversedBy="companies")
      */
     private $parameterObject;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTarget", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterTarget", inversedBy="companies")
      */
     private $parameterTarget;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTypeSite", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterTypeSite", inversedBy="companies")
      */
     private $parameterTypeSite;
 
