@@ -1,10 +1,10 @@
 <?php
-namespace App\Form;
+namespace App\AdminBundle\Form;
 
-use App\Entity\User;
-use App\Entity\Operation;
-use App\Entity\Parameter;
-use App\Entity\OperationTypeOperation;
+use App\AdminBundle\Entity\User;
+use App\AdminBundle\Entity\Operation;
+use App\AdminBundle\Entity\Parameter;
+use App\AdminBundle\Entity\OperationTypeOperation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

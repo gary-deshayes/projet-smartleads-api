@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\AdminBundle\Form;
 
-use App\Entity\ContactCompanyFunction;
+use App\AdminBundle\Entity\ContactCompanyFunction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

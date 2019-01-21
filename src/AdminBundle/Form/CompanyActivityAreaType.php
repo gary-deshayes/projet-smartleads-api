@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\AdminBundle\Form;
 
-use App\Entity\CompanyActivityArea;
+use App\AdminBundle\Entity\CompanyActivityArea;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

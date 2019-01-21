@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Form;
+namespace App\AdminBundle\Form;
 
-use App\Entity\Gender;
-use App\Entity\Company;
-use App\Entity\Contact;
-use App\Entity\ContactCompanyService;
-use App\Entity\ContactCompanyFunction;
+use App\AdminBundle\Entity\Gender;
+use App\AdminBundle\Entity\Company;
+use App\AdminBundle\Entity\Contact;
+use App\AdminBundle\Entity\ContactCompanyService;
+use App\AdminBundle\Entity\ContactCompanyFunction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
