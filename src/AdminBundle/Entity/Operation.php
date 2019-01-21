@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OperationRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\OperationRepository")
  */
 class Operation
 {
@@ -61,7 +61,7 @@ class Operation
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idOperation")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\OperationParticipation", mappedBy="idOperation")
      */
     private $Participations;
 
@@ -72,20 +72,20 @@ class Operation
     }
   
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OperationTypeOperation", inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\OperationTypeOperation", inversedBy="operations")
      * @Assert\NotBlank
      */
     private $idTypeOperation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\User", inversedBy="operations")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Blank
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Parameter", mappedBy="operation", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="operation", cascade={"persist", "remove"})
      * @Assert\NotBlank
      */
     private $parameter;

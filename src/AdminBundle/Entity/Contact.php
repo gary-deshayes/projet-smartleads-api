@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ContactRepository")
  */
 class Contact
 {
@@ -137,12 +137,12 @@ class Contact
     private $opt_in_offer_commercial;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idContact")
+     * @ORM\ManyToMany(targetEntity="App\AdminBundle\Entity\OperationParticipation", mappedBy="idContact")
      */
     private $operationParticipations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\OperationParticipation", mappedBy="idContact")
+     * @ORM\ManyToMany(targetEntity="App\AdminBundle\Entity\OperationParticipation", mappedBy="idContact")
      */
     private $Participations;
 
@@ -153,34 +153,34 @@ class Contact
     }
   
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ContactJob", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ContactJob", inversedBy="contacts")
      */
     private $idJob;
 
   
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\User", inversedBy="contacts")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\Company", inversedBy="contacts")
      */
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Gender", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\Gender", inversedBy="contacts")
      */
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ContactCompanyService", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ContactCompanyService", inversedBy="contacts")
      */
     private $contactCompanyService;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ContactCompanyFunction", inversedBy="contacts")
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ContactCompanyFunction", inversedBy="contacts")
      */
     private $contactCompanyFunction;
 
