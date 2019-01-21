@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OperationTypeController extends AbstractController
 {
     /**
+     * okok
      * @Route("/operation/type", name="operation_type")
      */
     public function index()
