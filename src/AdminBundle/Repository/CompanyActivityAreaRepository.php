@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\AdminBundle\Repository;
 
 use App\Entity\CompanyActivityArea;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
