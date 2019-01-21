@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\ParameterComportment;
-use App\Form\ParameterComportmentType;
+use App\AdminBundle\Entity\ParameterComportment;
+use App\AdminBundle\Form\ParameterComportmentType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\ParameterComportmentRepository;
+use App\AdminBundle\Repository\ParameterComportmentRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

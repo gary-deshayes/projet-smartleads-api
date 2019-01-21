@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\Operation;
+use App\AdminBundle\Entity\Operation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;

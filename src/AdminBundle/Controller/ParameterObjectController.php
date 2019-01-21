@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\ParameterObject;
-use App\Form\ParameterObjectType;
+use App\AdminBundle\Entity\ParameterObject;
+use App\AdminBundle\Form\ParameterObjectType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\ParameterObjectRepository;
+use App\AdminBundle\Repository\ParameterObjectRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

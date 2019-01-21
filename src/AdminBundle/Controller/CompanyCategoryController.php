@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\CompanyCategory;
+use App\AdminBundle\Entity\CompanyCategory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\CompanyCategoryType;
+use App\AdminBundle\Form\CompanyCategoryType;
 
 /**
  * @Route("CompanyCategory")

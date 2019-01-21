@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\CompanyLastTurnover;
+use App\AdminBundle\Entity\CompanyLastTurnover;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\CompanyLastTurnoverType;
+use App\AdminBundle\Form\CompanyLastTurnoverType;
 
 /**
  * @Route("companyLastTurnover")
