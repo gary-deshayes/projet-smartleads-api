@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\Contact;
-use App\Form\ContactType;
+use App\AdminBundle\Entity\Contact;
+use App\AdminBundle\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;

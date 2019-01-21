@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\CompanyTurnover;
-use App\Form\CompanyTurnoverType;
+use App\AdminBundle\Entity\CompanyTurnover;
+use App\AdminBundle\Form\CompanyTurnoverType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

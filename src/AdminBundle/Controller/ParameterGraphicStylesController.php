@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\ParameterGraphicStyles;
-use App\Form\ParameterGraphicStylesType;
+use App\AdminBundle\Entity\ParameterGraphicStyles;
+use App\AdminBundle\Form\ParameterGraphicStylesType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\ParameterGraphicStylesRepository;
+use App\AdminBundle\Repository\ParameterGraphicStylesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

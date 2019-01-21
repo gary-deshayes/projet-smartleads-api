@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
+use App\AdminBundle\Entity\User;
+use App\AdminBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
