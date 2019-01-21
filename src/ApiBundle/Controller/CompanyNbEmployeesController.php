@@ -1,14 +1,14 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\CompanyNbEmployees;
+use App\ApiBundle\Entity\CompanyNbEmployees;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AdminBundle\Form\CompanyNbEmployeesType;
+use App\ApiBundle\Form\CompanyNbEmployeesType;
 
 /**
  * @Route("companyNbEmployees")

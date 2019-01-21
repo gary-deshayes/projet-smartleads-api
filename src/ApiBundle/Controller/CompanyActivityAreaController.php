@@ -1,13 +1,13 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\CompanyActivityArea;
-use App\AdminBundle\Form\CompanyActivityAreaType;
+use App\ApiBundle\Entity\CompanyActivityArea;
+use App\ApiBundle\Form\CompanyActivityAreaType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\AdminBundle\Repository\ParameterTargetRepository;
+use App\ApiBundle\Repository\ParameterTargetRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

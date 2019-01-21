@@ -1,10 +1,10 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\Gender;
-use App\AdminBundle\Form\GenderType;
-use App\AdminBundle\Repository\GenderRepository;
+use App\ApiBundle\Entity\Gender;
+use App\ApiBundle\Form\GenderType;
+use App\ApiBundle\Repository\GenderRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
