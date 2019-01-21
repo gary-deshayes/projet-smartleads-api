@@ -10,6 +10,7 @@ return [
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
-    App\AdminBundle\AdminBundle::class=>["all"=>true],
-    App\ApiBundle\ApiBundle::class=>["all"=>true],
+    App\AdminBundle\AdminBundle::class => ['all' => true],
+    App\ApiBundle\ApiBundle::class => ['all' => true],
+    Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
 ];
