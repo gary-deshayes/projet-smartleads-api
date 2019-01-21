@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\ParameterObject;
 use App\AdminBundle\Form\ParameterObjectType;
