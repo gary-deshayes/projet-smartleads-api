@@ -1,13 +1,13 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\ParameterTarget;
-use App\AdminBundle\Form\ParameterTargetType;
+use App\ApiBundle\Entity\ParameterTarget;
+use App\ApiBundle\Form\ParameterTargetType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\AdminBundle\Repository\ParameterTargetRepository;
+use App\ApiBundle\Repository\ParameterTargetRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

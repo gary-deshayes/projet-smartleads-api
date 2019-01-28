@@ -1,14 +1,14 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\CompanyLegalStatus;
+use App\ApiBundle\Entity\CompanyLegalStatus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AdminBundle\Form\CompanyLegalStatusType;
+use App\ApiBundle\Form\CompanyLegalStatusType;
 
 /**
  * @Route("companyLegalStatus")

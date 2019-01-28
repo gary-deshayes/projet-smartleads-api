@@ -1,9 +1,9 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\ContactCompanyFunction;
-use App\AdminBundle\Form\ContactCompanyFunctionType;
+use App\ApiBundle\Entity\ContactCompanyFunction;
+use App\ApiBundle\Form\ContactCompanyFunctionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

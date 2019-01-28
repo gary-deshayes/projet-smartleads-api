@@ -1,9 +1,9 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\ApiBundle\Controller;
 
-use App\AdminBundle\Entity\Operation;
-use App\AdminBundle\Form\OperationType;
+use App\ApiBundle\Entity\Operation;
+use App\ApiBundle\Form\OperationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
