@@ -13,134 +13,25 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/ParameterTypeSite")
+ * @Route("parameterTypeSite")
  */
 class ParameterTypeSiteController extends AbstractController
 {
 
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterTypeSite_editShow", methods={"GET","POST"})
+     * Récupération d'un paramètre type de site
+     * @Route("/get/{id}", name="api_ParameterTypeSite_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
-
-        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($ParameterTypeSite->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ParameterTypeSite");
-            } else {
-                return $this->render('parameter_type_site/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$ParameterTypeSite) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('parameter_type_site/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ParameterTypeSite_edit", methods={"PUT"})
+     * Création d'un paramètre type de site
+     * @Route("/post", name="api_ParameterTypeSite_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
-
-        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterTypeSite_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterTypeSite_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="ParameterTypeSite_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ParameterTypeSiteType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ParameterTypeSite');
-            } else {
-                return $this->render('parameter_type_site/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('parameter_type_site/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ParameterTypeSite_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $ParameterTypeSite = new ParameterTypeSite();
 
@@ -167,35 +58,41 @@ class ParameterTypeSiteController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterTypeSite", methods={"GET"})
+     * Edition du paramètre type de site
+     * @Route("/edit/{id}", name="api_ParameterTypeSite_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ParameterTypeSite::class);
-        $ParameterTypeSite = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($ParameterTypeSite, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $ParameterTypeSite = $em->getRepository(ParameterTypeSite::class)->find($id);
+
+        $form = $this->createForm(ParameterTypeSiteType::class, $ParameterTypeSite);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('parameter_type_site/index.html.twig', array(
-                "ParameterTypeSite" => $ParameterTypeSite
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterTypeSite_success", methods={"POST"})
+     * Suppression du paramètre type de site
+     * @Route("/delete/{id}", name="api_ParameterTypeSite_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }

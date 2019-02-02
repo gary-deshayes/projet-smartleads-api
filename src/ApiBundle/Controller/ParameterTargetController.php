@@ -13,134 +13,25 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/ParameterTarget")
+ * @Route("/parameterTarget")
  */
 class ParameterTargetController extends AbstractController
 {
 
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterTarget_editShow", methods={"GET","POST"})
+     * Récupération d'un paramètre cible
+     * @Route("/get/{id}", name="api_ParameterTarget_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterTarget = $em->getRepository(ParameterTarget::class)->find($id);
-
-        $form = $this->createForm(ParameterTargetType::class, $ParameterTarget);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($ParameterTarget->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ParameterTarget");
-            } else {
-                return $this->render('parameter_target/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$ParameterTarget) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('parameter_target/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ParameterTarget_edit", methods={"PUT"})
+     * Création d'un paramètre cible
+     * @Route("/post", name="api_ParameterTarget_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterTarget = $em->getRepository(ParameterTarget::class)->find($id);
-
-        $form = $this->createForm(ParameterTargetType::class, $ParameterTarget);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterTarget_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterTarget_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="ParameterTarget_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ParameterTargetType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ParameterTarget');
-            } else {
-                return $this->render('parameter_target/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('parameter_target/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ParameterTarget_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $ParameterTarget = new ParameterTarget();
 
@@ -167,35 +58,41 @@ class ParameterTargetController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterTarget", methods={"GET"})
+     * Edition du paramètre cible
+     * @Route("/edit/{id}", name="api_ParameterTarget_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ParameterTarget::class);
-        $ParameterTarget = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($ParameterTarget, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $ParameterTarget = $em->getRepository(ParameterTarget::class)->find($id);
+
+        $form = $this->createForm(ParameterTargetType::class, $ParameterTarget);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('parameter_target/index.html.twig', array(
-                "ParameterTarget" => $ParameterTarget
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterTarget_success", methods={"POST"})
+     * Suppression du paramètre cible
+     * @Route("/delete/{id}", name="api_ParameterTarget_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }

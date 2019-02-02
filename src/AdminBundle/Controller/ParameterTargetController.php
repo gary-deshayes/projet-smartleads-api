@@ -13,17 +13,17 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/ParameterTarget")
+ * @Route("/parameterTarget")
  */
 class ParameterTargetController extends AbstractController
 {
 
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterTarget_editShow", methods={"GET","POST"})
+     * Edition d'un paramètre de cible par twig
+     * @Route("/edit/{id}", name="ParameterTarget_edit", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -58,48 +58,11 @@ class ParameterTargetController extends AbstractController
 
     }
 
-    /**
-     * Edit des données
-     * @Route("/{id}", name="ParameterTarget_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterTarget = $em->getRepository(ParameterTarget::class)->find($id);
-
-        $form = $this->createForm(ParameterTargetType::class, $ParameterTarget);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
+   
 
     /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterTarget_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterTarget_delete", methods={"DELETE"})
+     * Suppression d'un paramètre de cible par twig
+     * @Route("delete/{id}", name="ParameterTarget_delete", methods={"GET"})
      */
     public function delete()
     {
@@ -107,10 +70,10 @@ class ParameterTargetController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/create", name="ParameterTarget_createShow", methods={"GET","POST"})
+     * Création d'un paramètre de cible par twig
+     * @Route("/new", name="ParameterTarget_new", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function new(Request $request)
     {
         $formCreate = $this->createForm(ParameterTargetType::class);
 
@@ -135,41 +98,8 @@ class ParameterTargetController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/", name="ParameterTarget_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $ParameterTarget = new ParameterTarget();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(ParameterTargetType::class, $ParameterTarget);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ParameterTarget);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
-    }
-
-    /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterTarget", methods={"GET"})
+     * Affichage de la liste des paramètres de cible par twig
+     * @Route("/", name="ParameterTarget_index", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
@@ -191,8 +121,8 @@ class ParameterTargetController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterTarget_success", methods={"POST"})
+     * Affichage d'un message en cas du succès d'une requête
+     * @Route("/success", name="ParameterTarget_success", methods={"GET"})
      */
     public function success()
     {

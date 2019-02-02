@@ -13,17 +13,17 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/ParameterGraphicStyles")
+ * @Route("/parameterGraphicStyles")
  */
 class ParameterGraphicStylesController extends AbstractController
 {
 
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterGraphicStyles_editShow", methods={"GET","POST"})
+     * Edition d'un paramètre de style graphique par twig
+     * @Route("/edit/{id}", name="ParameterGraphicStyles_edit", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -59,47 +59,8 @@ class ParameterGraphicStylesController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ParameterGraphicStyles_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterGraphicStyles = $em->getRepository(ParameterGraphicStyles::class)->find($id);
-
-        $form = $this->createForm(ParameterGraphicStylesType::class, $ParameterGraphicStyles);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterGraphicStyles_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterGraphicStyles_delete", methods={"DELETE"})
+     * Suppression d'un paramètre de style graphique par twig
+     * @Route("delete/{id}", name="ParameterGraphicStyles_delete", methods={"GET"})
      */
     public function delete()
     {
@@ -107,10 +68,10 @@ class ParameterGraphicStylesController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/create", name="ParameterGraphicStyles_createShow", methods={"GET","POST"})
+     * Création d'un paramètre de style graphique par twig
+     * @Route("/new", name="ParameterGraphicStyles_new", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function new(Request $request)
     {
         $formCreate = $this->createForm(ParameterGraphicStylesType::class);
 
@@ -135,41 +96,8 @@ class ParameterGraphicStylesController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/", name="ParameterGraphicStyles_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $ParameterGraphicStyles = new ParameterGraphicStyles();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(ParameterGraphicStylesType::class, $ParameterGraphicStyles);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ParameterGraphicStyles);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
-    }
-
-    /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterGraphicStyles", methods={"GET"})
+     * Affichage de la liste des paramètres de style graphique par twig
+     * @Route("/", name="ParameterGraphicStyles_index", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
@@ -191,8 +119,8 @@ class ParameterGraphicStylesController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterGraphicStyles_success", methods={"POST"})
+     * Affichage d'un message en cas de succès d'une requête
+     * @Route("/success", name="ParameterGraphicStyles_success", methods={"GET"})
      */
     public function success()
     {

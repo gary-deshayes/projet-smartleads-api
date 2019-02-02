@@ -17,7 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     /**
-     * @Route("", name="user", methods={"GET"})
+     * Récupération de la liste des utilisateurs et affichage sur twig
+     * @Route("", name="user_index", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
@@ -39,17 +40,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="user_edit_show", methods={"GET", "POST"})
-     */
-    public function editShow()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/", name="user_edit", methods={"PUT"})
+     * Edition d'un utilisateur par twig
+     * @Route("/edit/{id}", name="user_edit", methods={"GET", "POST"})
      */
     public function edit()
     {
@@ -59,17 +51,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="user_delete_show", methods={"GET", "POST"})
-     */
-    public function deleteShow()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/", name="user_delete", methods={"DELETE"})
+     * Permet de supprimer un utilisateur par twig
+     * @Route("/delete/{id}", name="user_delete", methods={"GET"})
      */
     public function delete()
     {
@@ -79,9 +62,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="user_create_show", methods={"GET", "POST"})
+     * Création d'un nouvel utilisateur par twig
+     * @Route("/new", name="user_new", methods={"GET", "POST"})
      */
-    public function createShow(Request $request)
+    public function new(Request $request)
     {
         $formCreate = $this->createForm(UserType::class);
 
@@ -95,41 +79,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/", name="user_create", methods={"POST"})
-     */
-    public function create(Request $request, SerializerInterface $serializer)
-    {
-        $user = new User();
-        $response = new Response();
-
-        $json = $serializer->serialize(
-            $user,
-            'json',
-            ['Groups'=>["Light"]]
-        );
-
-        $formCreate = $this->createForm(UserType::class);
-        $formCreate->handleRequest($request);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-        $response->setContent($json);
-        $response->headers->set('Content-Type', 'application/JSON');
-        return $response;
-    }
-
-    /**
-     * @Route("/", name="user", methods={"GET"})
-     */
-    public function show()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
+     * Route qui retourne un message en cas de succès d'une requête
      * @Route("/success", name="user_success", methods={"GET"})
      */
     public function success()

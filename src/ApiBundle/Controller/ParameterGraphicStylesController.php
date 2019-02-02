@@ -13,134 +13,25 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/ParameterGraphicStyles")
+ * @Route("/parameterGraphicStyles")
  */
 class ParameterGraphicStylesController extends AbstractController
 {
 
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterGraphicStyles_editShow", methods={"GET","POST"})
+     * Récupération d'un paramètre de style graphique
+     * @Route("/get/{id}", name="api_ParameterGraphicStyles_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterGraphicStyles = $em->getRepository(ParameterGraphicStyles::class)->find($id);
-
-        $form = $this->createForm(ParameterGraphicStylesType::class, $ParameterGraphicStyles);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($ParameterGraphicStyles->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ParameterGraphicStyles");
-            } else {
-                return $this->render('parameter_graphic_styles/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$ParameterGraphicStyles) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('parameter_graphic_styles/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ParameterGraphicStyles_edit", methods={"PUT"})
+     * Création d'un paramètre de style graphique
+     * @Route("/post", name="api_ParameterGraphicStyles_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterGraphicStyles = $em->getRepository(ParameterGraphicStyles::class)->find($id);
-
-        $form = $this->createForm(ParameterGraphicStylesType::class, $ParameterGraphicStyles);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterGraphicStyles_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterGraphicStyles_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="ParameterGraphicStyles_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ParameterGraphicStylesType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ParameterGraphicStyles');
-            } else {
-                return $this->render('parameter_graphic_styles/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('parameter_graphic_styles/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ParameterGraphicStyles_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $ParameterGraphicStyles = new ParameterGraphicStyles();
 
@@ -167,35 +58,41 @@ class ParameterGraphicStylesController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterGraphicStyles", methods={"GET"})
+     * Edition du paramètre de style graphique
+     * @Route("/edit/{id}", name="api_ParameterGraphicStyles_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ParameterGraphicStyles::class);
-        $ParameterGraphicStyles = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($ParameterGraphicStyles, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $ParameterGraphicStyles = $em->getRepository(ParameterGraphicStyles::class)->find($id);
+
+        $form = $this->createForm(ParameterGraphicStylesType::class, $ParameterGraphicStyles);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('parameter_graphic_styles/index.html.twig', array(
-                "ParameterGraphicStyles" => $ParameterGraphicStyles
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterGraphicStyles_success", methods={"POST"})
+     * Suppression du paramètre de style graphique
+     * @Route("/delete/{id}", name="api_ParameterGraphicStyles_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }

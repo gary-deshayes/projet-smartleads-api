@@ -12,93 +12,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/user", name="user")
+ * @Route("/user", name="api_user")
  */
 class UserController extends AbstractController
 {
     /**
-     * @Route("", name="user", methods={"GET"})
+     * Récupération d'un user
+     * @Route("/get/{id}", name="api_User_get", methods={"GET"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function recuperation(){
 
-        $response = new Response();
-
-        $repo = $this->getDoctrine()->getRepository(User::class);
-        $User = $repo->findAll();
-
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($User, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
-            return $response;
-        } else {
-            return $this->render('user/index.html.twig', array(
-                "User" => $User
-            ));
-        }
     }
 
     /**
-     * @Route("/edit/{id}", name="user_edit_show", methods={"GET", "POST"})
+     * Création d'un user
+     * @Route("/post", name="api_User_post", methods={"POST"})
      */
-    public function editShow()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
+    public function post(){
 
-    /**
-     * @Route("/", name="user_edit", methods={"PUT"})
-     */
-    public function edit()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/delete/{id}", name="user_delete_show", methods={"GET", "POST"})
-     */
-    public function deleteShow()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/", name="user_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/create", name="user_create_show", methods={"GET", "POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(UserType::class);
-
-        if($formCreate->isSubmitted() && $formCreate->isValid()) {
-            $this->create($request);
-        }
-
-        return $this->render('user/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/", name="user_create", methods={"POST"})
-     */
-    public function create(Request $request, SerializerInterface $serializer)
-    {
         $user = new User();
         $response = new Response();
 
@@ -117,25 +48,23 @@ class UserController extends AbstractController
         $response->setContent($json);
         $response->headers->set('Content-Type', 'application/JSON');
         return $response;
+
+    }
+
+
+    /**
+     * Edition de l'user
+     * @Route("/edit/{id}", name="api_User_edit", methods={"PUT"})
+     */
+    public function edit(){
+
     }
 
     /**
-     * @Route("/", name="user", methods={"GET"})
+     * Suppression de l'user
+     * @Route("/delete/{id}", name="api_User_delete", methods={"DELETE"})
      */
-    public function show()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
+    public function delete(){
 
-    /**
-     * @Route("/success", name="user_success", methods={"GET"})
-     */
-    public function success()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
     }
 }
