@@ -17,142 +17,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactCompanyFunctionController extends AbstractController
 {
      /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ContactCompanyFunction_editShow", methods={"GET","POST"})
+     * Récupération de la fonction de l'entreprise d'un contact
+     * @Route("/get/{id}", name="api_ContactCompanyFunction_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $contactCompanyFunction = $em->getRepository(ContactCompanyFunction::class)->find($id);
-
-        $form = $this->createForm(ContactCompanyFunctionType::class, $contactCompanyFunction);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($contactCompanyFunction->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ContactCompanyFunction");
-            } else {
-                return $this->render('contact_company_function/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$contactCompanyFunction) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('contact_company_function/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ContactCompanyFunction_edit", methods={"PUT"})
+     * Création de la fonction de l'entreprise d'un contact
+     * @Route("/post", name="api_ContactCompanyFunction_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
+    public function post(){
 
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $contactCompanyFunction = $em->getRepository(ContactCompanyFunction::class)->find($id);
-
-        $form = $this->createForm(ContactCompanyFunctionType::class, $contactCompanyFunction);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ContactCompanyFunction_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ContactCompanyFunction_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="ContactCompanyFunction_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ContactCompanyFunctionType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ContactCompanyFunction');
-            } else {
-                return $this->render('contact_company_function/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('contact_company_function/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ContactCompanyFunction_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $contactCompanyFunction = new ContactCompanyFunction();
+        $ContactCompanyFunction = new ContactCompanyFunction();
 
         $response = new Response();
 
         $response->headers->set("Content-Type", "Application/JSON");
 
-        $formCreate = $this->createForm(ContactCompanyFunctionType::class, $contactCompanyFunction);
+        $formCreate = $this->createForm(ContactCompanyFunctionType::class, $ContactCompanyFunction);
 
         $formCreate->handleRequest($request);
 
         if ($formCreate->isSubmitted() && $formCreate->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($contactCompanyFunction);
+            $em->persist($ContactCompanyFunction);
             $em->flush();
             $response->setContent("1");
             return $response;
@@ -164,35 +55,41 @@ class ContactCompanyFunctionController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ContactCompanyFunction", methods={"GET"})
+     * Edition de la fonction de l'entreprise d'un contact
+     * @Route("/edit/{id}", name="api_ContactCompanyFunction_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ContactCompanyFunction::class);
-        $contactCompanyFunction = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($contactCompanyFunction, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $ContactCompanyFunction = $em->getRepository(ContactCompanyFunction::class)->find($id);
+
+        $form = $this->createForm(ContactCompanyFunctionType::class, $ContactCompanyFunction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('contact_company_function/index.html.twig', array(
-                "ContactCompanyFunction" => $contactCompanyFunction
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="contactCompanyFunction_success", methods={"POST"})
+     * Suppression de la fonction de l'entreprise d'un contact
+     * @Route("/delete/{id}", name="api_ContactCompanyFunction_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }
