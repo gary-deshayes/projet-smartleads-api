@@ -20,127 +20,18 @@ class CompanyActivityAreaController extends AbstractController
     
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="companyActivityArea_editShow", methods={"GET","POST"})
+     * Récupération d'une zone d'activité de l'entreprise 
+     * @Route("/get/{id}", name="api_companyActivityArea_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $companyActivityArea = $em->getRepository(CompanyActivityArea::class)->find($id);
-
-        $form = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($companyActivityArea->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("companyActivityArea");
-            } else {
-                return $this->render('company_activity_area/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$companyActivityArea) {
-            throw $this->createNotFoundException(
-                'No companyActivityArea found for id ' . $id
-            );
-        }
-
-        return $this->render('company_activity_area/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="companyActivityArea_edit", methods={"PUT"})
+     * Création d'une zone d'activité de l'entreprise
+     * @Route("/post", name="api_companyActivityArea_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $companyActivityArea = $em->getRepository(CompanyActivityArea::class)->find($id);
-
-        $form = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="companyActivityArea_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="companyActivityArea_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="companyActivityArea_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(CompanyActivityAreaType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('companyActivityArea');
-            } else {
-                return $this->render('company_activity_area/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('company_activity_area/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyActivityArea_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $companyActivityArea = new CompanyActivityArea();
 
@@ -167,35 +58,42 @@ class CompanyActivityAreaController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des secteurs d'activités
-     * @Route("/", name="companyActivityArea", methods={"GET"})
+     * Edition d'une zone d'activité de l'entreprise
+     * @Route("/edit/{id}", name="api_companyActivityArea_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(CompanyActivityArea::class);
-        $companyActivityArea = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($companyActivityArea, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $companyActivityArea = $em->getRepository(CompanyActivityArea::class)->find($id);
+
+        $form = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('company_activity_area/index.html.twig', array(
-                "CompanyActivityArea" => $companyActivityArea
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="companyActivityArea_success", methods={"POST"})
+     * Suppression d'une zone d'activité de l'entreprise
+     * @Route("/delete/{id}", name="api_companyActivityArea_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
+
 }
