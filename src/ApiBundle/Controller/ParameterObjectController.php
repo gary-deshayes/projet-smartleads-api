@@ -13,134 +13,25 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/ParameterObject")
+ * @Route("/parameterObject")
  */
 class ParameterObjectController extends AbstractController
 {
 
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ParameterObject_editShow", methods={"GET","POST"})
+     * Récupération d'un paramètre objet
+     * @Route("/get/{id}", name="api_ParameterObject_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterObject = $em->getRepository(ParameterObject::class)->find($id);
-
-        $form = $this->createForm(ParameterObjectType::class, $ParameterObject);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($ParameterObject->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ParameterObject");
-            } else {
-                return $this->render('parameter_object/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$ParameterObject) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('parameter_object/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ParameterObject_edit", methods={"PUT"})
+     * Création d'un paramètre objet
+     * @Route("/post", name="api_ParameterObject_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $ParameterObject = $em->getRepository(ParameterObject::class)->find($id);
-
-        $form = $this->createForm(ParameterObjectType::class, $ParameterObject);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterObject_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterObject_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="ParameterObject_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ParameterObjectType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ParameterObject');
-            } else {
-                return $this->render('parameter_object/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('parameter_object/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ParameterObject_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $ParameterObject = new ParameterObject();
 
@@ -167,35 +58,41 @@ class ParameterObjectController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ParameterObject", methods={"GET"})
+     * Edition du paramètre objet
+     * @Route("/edit/{id}", name="api_ParameterObject_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ParameterObject::class);
-        $ParameterObject = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($ParameterObject, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $ParameterObject = $em->getRepository(ParameterObject::class)->find($id);
+
+        $form = $this->createForm(ParameterObjectType::class, $ParameterObject);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('parameter_object/index.html.twig', array(
-                "ParameterObject" => $ParameterObject
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterObject_success", methods={"POST"})
+     * Suppression du paramètre objet
+     * @Route("/delete/{id}", name="api_ParameterObject_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }
