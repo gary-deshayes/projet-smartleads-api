@@ -16,129 +16,19 @@ use App\ApiBundle\Form\CompanyCategoryType;
 class CompanyCategoryController extends AbstractController
 {
     
-
-    /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="companyCategory_editShow", methods={"GET","POST"})
+ /**
+     * Récupération d'une zone d'activité d'une l'entreprise 
+     * @Route("/get/{id}", name="api_companyCategory_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $companyCategory = $em->getRepository(CompanyCategory::class)->find($id);
-
-        $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($companyCategory->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("companyCategory");
-            } else {
-                return $this->render('company_category/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$companyCategory) {
-            throw $this->createNotFoundException(
-                'No companyActivityArea found for id ' . $id
-            );
-        }
-
-        return $this->render('company_category/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="companyCategory_edit", methods={"PUT"})
+     * Création dd'une zone d'activité d'une l'entreprise 
+     * @Route("/post", name="api_companyCategory_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $companyCategory = $em->getRepository(CompanyCategory::class)->find($id);
-
-        $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="companyCategory_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="companyCategory_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="companyCategory_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(CompanyCategoryType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('companyCategory');
-            } else {
-                return $this->render('company_category/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('company_category/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyCategory_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $companyCategory = new CompanyCategory();
 
@@ -165,35 +55,42 @@ class CompanyCategoryController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des catégories d'entreprises
-     * @Route("/", name="companyCategory", methods={"GET"})
+     * Edition d'une zone d'activité d'une l'entreprise 
+     * @Route("/edit/{id}", name="api_companyCategory_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(CompanyCategory::class);
-        $companyCategory = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($companyCategory, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $companyCategory = $em->getRepository(CompanyCategory::class)->find($id);
+
+        $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('company_category/index.html.twig', array(
-                "companyCategory" => $companyCategory
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="companyCategory_success", methods={"POST"})
+     * Suppression d'une zone d'activité d'une l'entreprise 
+     * @Route("/delete/{id}", name="api_companyCategory_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
+
 }
