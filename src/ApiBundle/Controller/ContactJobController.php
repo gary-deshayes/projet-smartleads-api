@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/ContactJob")
+ * @Route("api/contactJob")
  */
 class ContactJobController extends AbstractController
 {
