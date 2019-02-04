@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\AdminBundle\Form\CompanyLastTurnoverType;
 
 /**
- * @Route("companyLastTurnover")
+ * @Route("admin/companyLastTurnover")
  */
 class CompanyLastTurnoverController extends AbstractController
 {

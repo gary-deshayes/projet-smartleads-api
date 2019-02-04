@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
-* @Route("parameter", name="parameter")
+* @Route("admin/parameter", name="parameter")
 */
 class ParameterController extends AbstractController
 {

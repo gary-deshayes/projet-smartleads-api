@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/user", name="api_user")
+ * @Routeapi/user", name="api_user")
  */
 class UserController extends AbstractController
 {

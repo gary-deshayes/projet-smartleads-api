@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/parameter", name="api_parameter")
+ * @Route("api/parameter", name="api_parameter")
  */
 class ParameterController extends AbstractController
 {
