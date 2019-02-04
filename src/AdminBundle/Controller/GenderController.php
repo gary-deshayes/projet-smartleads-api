@@ -56,49 +56,10 @@ class GenderController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="Gender_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $gender = $em->getRepository(Gender::class)->find($id);
-
-        $form = $this->createForm(GenderType::class, $gender);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="ParameterTypeSite_deleteShow", methods={"GET","POST"})
      */
     public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ParameterTypeSite_delete", methods={"DELETE"})
-     */
-    public function delete()
     {
 
     }
@@ -129,39 +90,6 @@ class GenderController extends AbstractController
         return $this->render('gender/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="Gender", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $gender = new Gender();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(GenderType::class, $gender);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($gender);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

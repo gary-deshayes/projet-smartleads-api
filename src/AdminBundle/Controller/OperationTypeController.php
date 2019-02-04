@@ -15,8 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class OperationTypeController extends AbstractController
 {
-    
-
     /**
      * Affichage du formulaire
      * @Route("/edit/{id}", name="operation_editShow", methods={"GET","POST"})
@@ -57,49 +55,10 @@ class OperationTypeController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="operation_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $CompanyTurnover = $em->getRepository(Operation::class)->find($id);
-
-        $form = $this->createForm(OperationType::class, $CompanyTurnover);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="operation_deleteShow", methods={"GET","POST"})
      */
     public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="operation_delete", methods={"DELETE"})
-     */
-    public function delete()
     {
 
     }
@@ -133,39 +92,6 @@ class OperationTypeController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/", name="operation_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $operation = new Operation();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(OperationType::class, $operation);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($operation);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
-    }
-
-    /**
      * Affichage de la liste de nombre d'employées
      * @Route("/", name="operation", methods={"GET"})
      */
@@ -190,7 +116,7 @@ class OperationTypeController extends AbstractController
 
     /**
      * Affichage du formulaire
-     * @Route("/success", name="operation_success", methods={"POST"})
+     * @Route("/success", name="operation_success", methods={"GET"})
      */
     public function success()
     {

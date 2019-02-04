@@ -12,52 +12,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/Gender")
+ * @Route("api/Gender")
  */
 class GenderController extends AbstractController
 {
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="Gender_editShow", methods={"GET","POST"})
-     */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $gender = $em->getRepository(Gender::class)->find($id);
-
-        $form = $this->createForm(GenderType::class, $gender);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($gender->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("Gender");
-            } else {
-                return $this->render('gender/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$gender) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('gender/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
-
-    }
-
-    /**
      * Edit des données
-     * @Route("/{id}", name="Gender_edit", methods={"PUT"})
+     * @Route("/edit/{id}", name="Gender_edit", methods={"PUT"})
      */
     public function edit($id, $request)
     {
@@ -86,49 +47,12 @@ class GenderController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ParameterTypeSite_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
      * Suppression de l'entreprise
-     * @Route("/", name="ParameterTypeSite_delete", methods={"DELETE"})
+     * @Route("delete/{id}", name="ParameterTypeSite_delete", methods={"DELETE"})
      */
     public function delete()
     {
 
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="Gender_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(GenderType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('Gender');
-            } else {
-                return $this->render('gender/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('gender/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
     }
 
     /**
@@ -166,7 +90,7 @@ class GenderController extends AbstractController
 
     /**
      * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="Gender", methods={"GET"})
+     * @Route("/{id}", name="Gender", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
@@ -185,14 +109,5 @@ class GenderController extends AbstractController
                 "Gender" => $gender
             ));
         }
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/success", name="ParameterTypeSite_success", methods={"POST"})
-     */
-    public function success()
-    {
-
     }
 }
