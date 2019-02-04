@@ -17,7 +17,7 @@ class CompanyLastTurnoverController extends AbstractController
 {
     
 /**
-     * Récupération du dernier chiffre d'affaire d'une entreprise 
+     * Récupération d'un dernier chiffre d'affaire d'une entreprise 
      * @Route("/get/{id}", name="api_companyLastTurnover_get", methods={"GET"})
      */
     public function recuperation(){
