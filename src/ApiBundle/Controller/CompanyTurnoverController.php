@@ -11,134 +11,25 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("companyTurnover")
+ * @Route("api/companyTurnover")
  */
 class CompanyTurnoverController extends AbstractController
 {
     
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="companyTurnover_editShow", methods={"GET","POST"})
+     * Récupération d'un chiffre d'affaire
+     * @Route("/get/{id}", name="api_CompanyTurnover_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $CompanyTurnover = $em->getRepository(CompanyTurnover::class)->find($id);
-
-        $form = $this->createForm(CompanyTurnoverType::class, $CompanyTurnover);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($CompanyTurnover->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("companyTurnover");
-            } else {
-                return $this->render('company_turnover/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$CompanyTurnover) {
-            throw $this->createNotFoundException(
-                'No CompanyTurnover found for id ' . $id
-            );
-        }
-
-        return $this->render('company_turnover/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="companyTurnover_edit", methods={"PUT"})
+     * Création d'un chiffre d'affaire
+     * @Route("/post", name="api_CompanyTurnover_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $CompanyTurnover = $em->getRepository(CompanyTurnover::class)->find($id);
-
-        $form = $this->createForm(CompanyTurnoverType::class, $CompanyTurnover);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="companyTurnover_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="companyNbEmployees_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="companyTurnover_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(CompanyTurnoverType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('companyTurnover');
-            } else {
-                return $this->render('company_turnover/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('company_turnover/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyTurnover_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
+    public function post(){
 
         $CompanyTurnover = new CompanyTurnover();
 
@@ -165,35 +56,41 @@ class CompanyTurnoverController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste de nombre d'employées
-     * @Route("/", name="companyTurnover", methods={"GET"})
+     * Edition du chiffre d'affaire
+     * @Route("/edit/{id}", name="api_CompanyTurnover_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(CompanyTurnover::class);
-        $CompanyTurnover = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($CompanyTurnover, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $CompanyTurnover = $em->getRepository(CompanyTurnover::class)->find($id);
+
+        $form = $this->createForm(CompanyTurnoverType::class, $CompanyTurnover);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('company_turnover/index.html.twig', array(
-                "companyTurnover" => $CompanyTurnover
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="companyTurnover_success", methods={"POST"})
+     * Suppression du chiffre d'ffaire
+     * @Route("/delete/{id}", name="api_CompanyTurnover_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }

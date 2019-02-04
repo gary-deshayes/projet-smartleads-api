@@ -11,149 +11,38 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/Contact")
+ * @Route("api/contact")
  */
 class ContactController extends AbstractController
 {
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="Contact_editShow", methods={"GET","POST"})
+     * Récupération d'un conctact
+     * @Route("/get/{id}", name="api_Contact_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $contact = $em->getRepository(Contact::class)->find($id);
-
-        $form = $this->createForm(ContactType::class, $contact);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($contact->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("Contact");
-            } else {
-                return $this->render('contact/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$contact) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('contact/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="Contact_edit", methods={"PUT"})
+     * Création d'un contact
+     * @Route("/post", name="api_Contact_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
+    public function post(){
 
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $contact = $em->getRepository(Contact::class)->find($id);
-
-        $form = $this->createForm(ContactType::class, $contact);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="Contact_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="Contact_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="Contact_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ContactType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('Contact');
-            } else {
-                return $this->render('contact/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('contact/create.html.twig', [
-            'form' => $formCreate->createView(),			
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="Contact_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $contact = new Contact();
+        $Contact = new Contact();
 
         $response = new Response();
 
         $response->headers->set("Content-Type", "Application/JSON");
 
-        $formCreate = $this->createForm(ContactType::class, $contact);
+        $formCreate = $this->createForm(ContactType::class, $Contact);
 
         $formCreate->handleRequest($request);
-
-        dump($contact);
 
         if ($formCreate->isSubmitted() && $formCreate->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
+            $em->persist($Contact);
             $em->flush();
             $response->setContent("1");
             return $response;
@@ -165,35 +54,41 @@ class ContactController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="Contact", methods={"GET"})
+     * Edition d'un contact
+     * @Route("/edit/{id}", name="api_Contact_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(Contact::class);
-        $contact = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($contact, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $Contact = $em->getRepository(Contact::class)->find($id);
+
+        $form = $this->createForm(ContactType::class, $Contact);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('contact/index.html.twig', array(
-                "Contact" => $contact
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="contact_success", methods={"POST"})
+     * Suppression d'un contact
+     * @Route("/delete/{id}", name="api_Contact_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }

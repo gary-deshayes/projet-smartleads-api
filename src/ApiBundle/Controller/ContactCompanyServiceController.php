@@ -12,147 +12,38 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- * @Route("/ContactCompanyService")
+ * @Route("api/contactCompanyService")
  */
 class ContactCompanyServiceController extends AbstractController
 {
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="ContactCompanyService_editShow", methods={"GET","POST"})
+     * Récupération du service d'un contact de l'entreprise
+     * @Route("/get/{id}", name="api_ContactCompanyService_get", methods={"GET"})
      */
-    public function editShow($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $contactCompanyService = $em->getRepository(ContactCompanyService::class)->find($id);
-
-        $form = $this->createForm(ContactCompanyServiceType::class, $contactCompanyService);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $retour = $this->edit($contactCompanyService->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("ContactCompanyService");
-            } else {
-                return $this->render('contact_company_service/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
-        }
-
-        if (!$contactCompanyService) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
-
-        return $this->render('contact_company_service/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    public function recuperation(){
 
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ContactCompanyService_edit", methods={"PUT"})
+     * Création du service d'un contact de l'entreprise
+     * @Route("/post", name="api_ContactCompanyService_post", methods={"POST"})
      */
-    public function edit($id, $request)
-    {
+    public function post(){
 
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $contactCompanyService = $em->getRepository(ContactCompanyService::class)->find($id);
-
-        $form = $this->createForm(ContactCompanyServiceType::class, $contactCompanyService);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="ContactCompanyService_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ContactCompanyService_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="ContactCompanyService_createShow", methods={"GET","POST"})
-     */
-    public function createShow(Request $request)
-    {
-        $formCreate = $this->createForm(ContactCompanyServiceType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('ContactCompanyService');
-            } else {
-                return $this->render('contact_company_service/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
-        }
-
-        return $this->render('contact_company_service/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ContactCompanyService_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $contactCompanyService = new ContactCompanyService();
+        $ContactCompanyService = new ContactCompanyService();
 
         $response = new Response();
 
         $response->headers->set("Content-Type", "Application/JSON");
 
-        $formCreate = $this->createForm(ContactCompanyServiceType::class, $contactCompanyService);
+        $formCreate = $this->createForm(ContactCompanyServiceType::class, $ContactCompanyService);
 
         $formCreate->handleRequest($request);
 
         if ($formCreate->isSubmitted() && $formCreate->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($contactCompanyService);
+            $em->persist($ContactCompanyService);
             $em->flush();
             $response->setContent("1");
             return $response;
@@ -164,35 +55,41 @@ class ContactCompanyServiceController extends AbstractController
 
     }
 
+
     /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="ContactCompanyService", methods={"GET"})
+     * Edition du service d'un contact de l'entreprise
+     * @Route("/edit/{id}", name="api_ContactCompanyService_edit", methods={"PUT"})
      */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
+    public function edit(){
 
         $response = new Response();
 
-        $repo = $this->getDoctrine()->getRepository(ContactCompanyService::class);
-        $contactCompanyService = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($contactCompanyService, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
+        $ContactCompanyService = $em->getRepository(ContactCompanyService::class)->find($id);
+
+        $form = $this->createForm(ContactCompanyServiceType::class, $ContactCompanyService);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            $response->setContent("1");
             return $response;
-        } else {
-            return $this->render('contact_company_service/index.html.twig', array(
-                "ContactCompanyService" => $contactCompanyService
-            ));
         }
+
+        $response->setContent("0");
+        return $response;
+
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/success", name="contactCompanyService_success", methods={"POST"})
+     * Suppression du service d'un contact de l'entreprise
+     * @Route("/delete/{id}", name="api_ContactCompanyService_delete", methods={"DELETE"})
      */
-    public function success()
-    {
+    public function delete(){
 
     }
 }
