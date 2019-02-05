@@ -7,11 +7,60 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
-    {
-        // $product = new Product();
-        // $manager->persist($product);
+    private $passwordEncoder;
 
-        $manager->flush();
-    }
+
+
+   public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+
+   {
+
+       $this->passwordEncoder = $passwordEncoder;
+
+   }
+
+
+
+   public function load(ObjectManager $manager)
+
+   {
+
+       $users = [
+
+           ["email" => "test@test.com", "password" => "test"],
+
+           ["email" => "toto@test.com", "password" => "toto"],
+
+           ["email" => "tata@test.com", "password" => "tata"],
+
+           ["email" => "titi@test.com", "password" => "titi"],
+
+       ];
+
+       foreach ($users as $data) {
+
+           $user = new User();
+
+           $user->setEmail($data["email"]);
+
+           $user->setPassword($this->passwordEncoder->encodePassword(
+
+               $user,
+
+               $data["password"]
+
+           ));
+
+
+
+           $user->setRoles(["ROLE_ADMIN"]);
+
+           $manager->persist($user);
+
+       }
+
+       $manager->flush();
+
+   }
+
 }
