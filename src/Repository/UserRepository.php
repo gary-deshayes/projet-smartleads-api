@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\UserAdmin;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method UserAdmin|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserAdmin|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserAdmin[]    findAll()
- * @method UserAdmin[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]    findAll()
+ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserAdminRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, UserAdmin::class);
+        parent::__construct($registry, User::class);
     }
 
     // /**
-    //  * @return UserAdmin[] Returns an array of UserAdmin objects
+    //  * @return User[] Returns an array of User objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class UserAdminRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?UserAdmin
+    public function findOneBySomeField($value): ?User
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')
