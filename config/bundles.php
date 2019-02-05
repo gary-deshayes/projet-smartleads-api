@@ -13,4 +13,5 @@ return [
     App\AdminBundle\AdminBundle::class => ['all' => true],
     App\ApiBundle\ApiBundle::class => ['all' => true],
     Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
+    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
 ];
