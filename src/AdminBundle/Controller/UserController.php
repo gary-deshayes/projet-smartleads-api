@@ -12,13 +12,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/user", name="user")
+ * @Route("/user")
  */
 class UserController extends AbstractController
 {
     /**
      * Récupération de la liste des utilisateurs et affichage sur twig
-     * @Route("", name="user_index", methods={"GET"})
+     * @Route("", name="user", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {
