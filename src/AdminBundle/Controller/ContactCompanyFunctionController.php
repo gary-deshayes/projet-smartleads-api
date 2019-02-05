@@ -93,39 +93,6 @@ class ContactCompanyFunctionController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/", name="ContactCompanyFunction_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $contactCompanyFunction = new ContactCompanyFunction();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(ContactCompanyFunctionType::class, $contactCompanyFunction);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contactCompanyFunction);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
-    }
-
-    /**
      * Affichage de la liste des paramètres de type de site
      * @Route("/", name="ContactCompanyFunction", methods={"GET"})
      */
