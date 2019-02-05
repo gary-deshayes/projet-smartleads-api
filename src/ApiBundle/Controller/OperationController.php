@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 /**
- * @Route("/Operation")
+ * @Route("/operation")
  */
 class OperationController extends AbstractController
 {

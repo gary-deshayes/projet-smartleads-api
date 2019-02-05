@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("api/companyActivityArea")
+ * @Route("/companyActivityArea")
  */
 class CompanyActivityAreaController extends AbstractController
 {

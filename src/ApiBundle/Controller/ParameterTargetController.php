@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("api/parameterTarget")
+ * @Route("/parameterTarget")
  */
 class ParameterTargetController extends AbstractController
 {

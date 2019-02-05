@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("api/Gender")
+ * @Route("/gender")
  */
 class GenderController extends AbstractController
 {

@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("api/companyTurnover")
+ * @Route("/companyTurnover")
  */
 class CompanyTurnoverController extends AbstractController
 {

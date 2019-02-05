@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\ApiBundle\Form\CompanyCategoryType;
 
 /**
- * @Route("api/companyCategory")
+ * @Route("/companyCategory")
  */
 class CompanyCategoryController extends AbstractController
 {

@@ -5,6 +5,9 @@ namespace App\ApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/operationParticipation")
+ */
 class OperationParticipationController extends AbstractController
 {
     /**
