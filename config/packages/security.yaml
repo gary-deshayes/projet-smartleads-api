@@ -1,7 +1,5 @@
 security:
     encoders:
-        App\Entity\UserAdmin:
-            algorithm: argon2i
         App\Entity\User:
             algorithm: argon2i
 
