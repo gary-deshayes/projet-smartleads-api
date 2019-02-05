@@ -9,7 +9,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\AdminBundle\Entity\User
                 property: email
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
