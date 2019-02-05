@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use App\AdminBundle\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -27,7 +28,12 @@ class AppFixtures extends Fixture
 
        foreach ($users as $data) {
            $user = new User();
+           $datetime = new DateTime();
            $user->setCode('29727');
+           $user->setFirstName('Baptiste');
+           $user->setName('ROSSIGNOL');
+           $user->setProfil('Commercial');
+           $user->setCreatedAt($datetime);
            $user->setEmail($data["email"]);
            $user->setPassword($this->passwordEncoder->encodePassword(
                $user,
