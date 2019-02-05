@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("admin/operation")
+ * @Route("/operation")
  */
 class OperationTypeController extends AbstractController
 {

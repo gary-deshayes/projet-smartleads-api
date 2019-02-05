@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- * @Route("admin/contactCompanyService")
+ * @Route("/contactCompanyService")
  */
 class ContactCompanyServiceController extends AbstractController
 {

@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("admin/parameterGraphicStyles")
+ * @Route("/parameterGraphicStyles")
  */
 class ParameterGraphicStylesController extends AbstractController
 {

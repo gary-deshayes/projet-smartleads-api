@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("admin/Country")
+ * @Route("/country")
  */
 class CountryController extends AbstractController
 {

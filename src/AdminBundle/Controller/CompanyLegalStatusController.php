@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\AdminBundle\Form\CompanyLegalStatusType;
 
 /**
- * @Route("admin/companyLegalStatus")
+ * @Route("/companyLegalStatus")
  */
 class CompanyLegalStatusController extends AbstractController
 {

@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\AdminBundle\Form\CompanyNbEmployeesType;
 
 /**
- * @Route("admin/companyNbEmployees")
+ * @Route("/companyNbEmployees")
  */
 class CompanyNbEmployeesController extends AbstractController
 {
