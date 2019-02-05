@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OperationParticipationController extends AbstractController
 {
     /**
-     * @Route("admin/operation/participation", name="operation_participation")
+     * @Route("/operation/participation", name="operation_participation")
      */
     public function index()
     {

@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
-* @Route("admin/company")
+* @Route("/company")
 */
 class CompanyController extends AbstractController
 {

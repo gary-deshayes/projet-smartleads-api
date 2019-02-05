@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactJobController extends AbstractController
 {
     /**
-     * @Route("admin/contact/job", name="contact_job")
+     * @Route("/contact/job", name="contact_job")
      */
     public function index()
     {
