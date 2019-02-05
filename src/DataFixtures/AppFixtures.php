@@ -2,8 +2,10 @@
 
 namespace App\DataFixtures;
 
+use App\AdminBundle\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -25,6 +27,7 @@ class AppFixtures extends Fixture
 
        foreach ($users as $data) {
            $user = new User();
+           $user->setCode('29727');
            $user->setEmail($data["email"]);
            $user->setPassword($this->passwordEncoder->encodePassword(
                $user,

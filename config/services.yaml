@@ -34,3 +34,9 @@ services:
         resource: '../src/Security'
         tags: ['security.AppAdminAuthenticator']
 
+    # makes classes in src/AppBundle/DataFixtures available to be used as services
+    # and have a tag that allows actions to type-hint services
+    App\DataFixtures\:
+        resource: '../src/DataFixtures'
+        tags: ['doctrine.fixture.orm']
+
