@@ -11,8 +11,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @Route api/user", name="api_user")
+/***
+ * @Route("api/user")*
  */
 class UserController extends AbstractController
 {
