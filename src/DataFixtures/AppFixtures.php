@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
        foreach ($users as $data) {
            $user = new User();
            $datetime = new DateTime();
+
            $user->setCode('29727');
            $user->setFirstName('Baptiste');
            $user->setName('ROSSIGNOL');
