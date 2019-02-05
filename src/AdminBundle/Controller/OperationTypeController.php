@@ -19,7 +19,7 @@ class OperationTypeController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="operation_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -58,7 +58,7 @@ class OperationTypeController extends AbstractController
      * Affichage du formulaire
      * @Route("delete/{id}", name="operation_deleteShow", methods={"GET","POST"})
      */
-    public function deleteShow()
+    public function delete()
     {
 
     }
@@ -67,7 +67,7 @@ class OperationTypeController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="operation_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(OperationType::class);
 

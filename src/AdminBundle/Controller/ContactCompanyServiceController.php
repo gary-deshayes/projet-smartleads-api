@@ -20,7 +20,7 @@ class ContactCompanyServiceController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="ContactCompanyService_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -54,49 +54,9 @@ class ContactCompanyServiceController extends AbstractController
         ]);
 
     }
-
-    /**
-     * Edit des données
-     * @Route("/{id}", name="ContactCompanyService_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $contactCompanyService = $em->getRepository(ContactCompanyService::class)->find($id);
-
-        $form = $this->createForm(ContactCompanyServiceType::class, $contactCompanyService);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
     /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="ContactCompanyService_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ContactCompanyService_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -107,7 +67,7 @@ class ContactCompanyServiceController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="ContactCompanyService_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(ContactCompanyServiceType::class);
 
@@ -129,39 +89,6 @@ class ContactCompanyServiceController extends AbstractController
         return $this->render('contact_company_service/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="ContactCompanyService_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $contactCompanyService = new ContactCompanyService();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(ContactCompanyServiceType::class, $contactCompanyService);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contactCompanyService);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

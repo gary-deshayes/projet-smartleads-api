@@ -21,7 +21,7 @@ class CompanyNbEmployeesController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="companyNbEmployees_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -57,47 +57,8 @@ class CompanyNbEmployeesController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="companyNbEmployees_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $companyNbEmployee = $em->getRepository(CompanyNbEmployees::class)->find($id);
-
-        $form = $this->createForm(CompanyNbEmployeesType::class, $companyNbEmployee);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="companyNbEmployees_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="companyNbEmployees_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -108,7 +69,7 @@ class CompanyNbEmployeesController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="companyNbEmployees_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(CompanyNbEmployeesType::class);
 
@@ -130,39 +91,6 @@ class CompanyNbEmployeesController extends AbstractController
         return $this->render('company_nb_employees/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyNbEmployees_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $companyNbEmployee = new CompanyNbEmployees();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(CompanyNbEmployeesType::class, $companyNbEmployee);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($companyNbEmployee);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

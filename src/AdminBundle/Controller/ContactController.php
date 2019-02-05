@@ -19,7 +19,7 @@ class ContactController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="Contact_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -55,47 +55,8 @@ class ContactController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="Contact_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $contact = $em->getRepository(Contact::class)->find($id);
-
-        $form = $this->createForm(ContactType::class, $contact);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="Contact_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="Contact_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -106,7 +67,7 @@ class ContactController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="Contact_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(ContactType::class);
 
@@ -131,43 +92,8 @@ class ContactController extends AbstractController
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/", name="Contact_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $contact = new Contact();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(ContactType::class, $contact);
-
-        $formCreate->handleRequest($request);
-
-        dump($contact);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
-    }
-
-    /**
      * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="Contact", methods={"GET"})
+     * @Route("/", name="contact", methods={"GET"})
      */
     public function index(Request $request, SerializerInterface $serializer)
     {

@@ -19,7 +19,7 @@ class CountryController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="Country_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -55,47 +55,8 @@ class CountryController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="Country_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $coutry = $em->getRepository(Country::class)->find($id);
-
-        $form = $this->createForm(CountryType::class, $coutry);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="Country_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="Country_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -106,7 +67,7 @@ class CountryController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="Country_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(CountryType::class);
 
@@ -128,39 +89,6 @@ class CountryController extends AbstractController
         return $this->render('country/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="Country_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $country = new Country();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(CountryType::class, $country);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($country);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

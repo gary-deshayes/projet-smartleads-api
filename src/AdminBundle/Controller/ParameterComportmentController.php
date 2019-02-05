@@ -21,7 +21,7 @@ class ParameterComportmentController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="ParameterComportment_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -60,7 +60,7 @@ class ParameterComportmentController extends AbstractController
      * Affichage du formulaire
      * @Route("delete/{id}", name="ParameterComportment_deleteShow", methods={"GET","POST"})
      */
-    public function deleteShow()
+    public function delete()
     {
 
     }
@@ -69,7 +69,7 @@ class ParameterComportmentController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="ParameterComportment_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(ParameterComportmentType::class);
 

@@ -21,7 +21,7 @@ class CompanyLegalStatusController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="companyLegalStatus_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -55,49 +55,9 @@ class CompanyLegalStatusController extends AbstractController
         ]);
 
     }
-
-    /**
-     * Edit des données
-     * @Route("/{id}", name="companyLegalStatus_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $CompanyLegalStatus = $em->getRepository(CompanyLegalStatus::class)->find($id);
-
-        $form = $this->createForm(CompanyLegalStatusType::class, $CompanyLegalStatus);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
     /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="companyLegalStatus_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du statut legal
-     * @Route("/", name="companyLegalStatus_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -108,7 +68,7 @@ class CompanyLegalStatusController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="companyLegalStatus_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(CompanyLegalStatusType::class);
 
@@ -130,39 +90,6 @@ class CompanyLegalStatusController extends AbstractController
         return $this->render('company_legal_status/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyLegalStatus_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $CompanyLegalStatus = new CompanyLegalStatus();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(CompanyLegalStatusType::class, $CompanyLegalStatus);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($CompanyLegalStatus);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

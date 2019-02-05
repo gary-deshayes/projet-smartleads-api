@@ -20,7 +20,7 @@ class ContactCompanyFunctionController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="ContactCompanyFunction_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -56,47 +56,8 @@ class ContactCompanyFunctionController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="ContactCompanyFunction_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $contactCompanyFunction = $em->getRepository(ContactCompanyFunction::class)->find($id);
-
-        $form = $this->createForm(ContactCompanyFunctionType::class, $contactCompanyFunction);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="ContactCompanyFunction_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression de l'entreprise
-     * @Route("/", name="ContactCompanyFunction_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -107,7 +68,7 @@ class ContactCompanyFunctionController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="ContactCompanyFunction_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(ContactCompanyFunctionType::class);
 

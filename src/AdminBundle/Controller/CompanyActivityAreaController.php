@@ -23,7 +23,7 @@ class CompanyActivityAreaController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="companyActivityArea_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edi($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -59,47 +59,8 @@ class CompanyActivityAreaController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="companyActivityArea_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $companyActivityArea = $em->getRepository(CompanyActivityArea::class)->find($id);
-
-        $form = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="companyActivityArea_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="companyActivityArea_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -132,39 +93,6 @@ class CompanyActivityAreaController extends AbstractController
         return $this->render('company_activity_area/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyActivityArea_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $companyActivityArea = new CompanyActivityArea();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(CompanyActivityAreaType::class, $companyActivityArea);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($companyActivityArea);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

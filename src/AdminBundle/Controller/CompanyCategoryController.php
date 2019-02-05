@@ -21,7 +21,7 @@ class CompanyCategoryController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="companyCategory_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -57,47 +57,8 @@ class CompanyCategoryController extends AbstractController
     }
 
     /**
-     * Edit des données
-     * @Route("/{id}", name="companyCategory_edit", methods={"PUT"})
-     */
-    public function edit($id, $request)
-    {
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $companyCategory = $em->getRepository(CompanyCategory::class)->find($id);
-
-        $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-        return $response;
-
-    }
-
-    /**
      * Affichage du formulaire
      * @Route("delete/{id}", name="companyCategory_deleteShow", methods={"GET","POST"})
-     */
-    public function deleteShow()
-    {
-
-    }
-
-    /**
-     * Suppression du secteur
-     * @Route("/", name="companyCategory_delete", methods={"DELETE"})
      */
     public function delete()
     {
@@ -108,7 +69,7 @@ class CompanyCategoryController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="companyCategory_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(CompanyCategoryType::class);
 
@@ -130,39 +91,6 @@ class CompanyCategoryController extends AbstractController
         return $this->render('company_category/create.html.twig', [
             'form' => $formCreate->createView(),
         ]);
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/", name="companyCategory_create", methods={"POST"})
-     * 
-     */
-    public function create(Request $request)
-    {
-
-        $companyCategory = new CompanyCategory();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($companyCategory);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
     }
 
     /**

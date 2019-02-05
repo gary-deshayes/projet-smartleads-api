@@ -23,7 +23,7 @@ class ParameterObjectController extends AbstractController
      * Edition d'un paramètre objet par twig
      * @Route("/edit/{id}", name="ParameterObject_edit", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 

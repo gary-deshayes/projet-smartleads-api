@@ -20,7 +20,7 @@ class GenderController extends AbstractController
      * Affichage du formulaire
      * @Route("/edit/{id}", name="Gender_editShow", methods={"GET","POST"})
      */
-    public function editShow($id, Request $request)
+    public function edit($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -59,7 +59,7 @@ class GenderController extends AbstractController
      * Affichage du formulaire
      * @Route("delete/{id}", name="ParameterTypeSite_deleteShow", methods={"GET","POST"})
      */
-    public function deleteShow()
+    public function delete()
     {
 
     }
@@ -68,7 +68,7 @@ class GenderController extends AbstractController
      * Affichage du formulaire
      * @Route("/create", name="Gender_createShow", methods={"GET","POST"})
      */
-    public function createShow(Request $request)
+    public function create(Request $request)
     {
         $formCreate = $this->createForm(GenderType::class);
 
