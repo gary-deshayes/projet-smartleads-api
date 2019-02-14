@@ -1,653 +1,231 @@
 <?php
 
-namespace App\AdminBundle\Entity;
+namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
+ * Company
+ *
+ * @ORM\Table(name="company", indexes={@ORM\Index(name="company_company_category0_FK", columns={"id_company_category"}), @ORM\Index(name="company_legal_status2_FK", columns={"id_legal_status"}), @ORM\Index(name="company_activity_area_FK", columns={"id_activity_area"}), @ORM\Index(name="company_number_employees1_FK", columns={"id_number_employees"}), @ORM\Index(name="id_salesperson", columns={"id_salesperson"})})
+ * @ORM\Entity
  */
 class Company
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $code;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $company_code;
-
-    /**
-    * @ORM\Column(type="string", length=255)
-    * @Assert\NotBlank
-    * @Assert\Length(max = 255, maxMessage="Votre nom est trop long!")
-    */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $leader_code;
+    private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(max = 255, maxMessage="Votre statut est trop long!")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
      */
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre url logo est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="comment", type="text", length=0, nullable=true)
      */
-    private $commentary;
+    private $comment;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop longue!")
-     */
-    private $adress;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop longue!")
-     */
-    private $adress_complement;
-
-    /**
-     * @ORM\Column(type="string", length=5, nullable=true)
-     * @Assert\Length(max = 5, maxMessage="Votre code postale est trop long!")
-     */
-    private $postal_code;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre ville est trop long!")
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10, maxMessage="Votre numéro est trop long!")
-     */
-    private $phone;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10, maxMessage="Votre numéro est trop long!")
-     */
-    private $fax;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre url est trop long!")
-     */
-    private $website;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $adress_commentary;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\DateTime
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(max = 255, maxMessage="Votre numero est trop long!")
-     */
-    private $siret_number;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 100, maxMessage="Votre numéro est trop long!")
-     */
-    private $naf_code;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
-     */
-    private $source;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="companies")
-     */
-    private $idCountry;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyActivityArea", inversedBy="companies")
-     */
-    private $idActivityArea;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLegalStatus", inversedBy="companies")
-     */
-    private $idLegalStatus;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyTurnover", inversedBy="companies")
-     */
-    private $idTurnover;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyLastTurnover", inversedBy="companies")
-     */
-    private $idLastTurnover;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="companies")
-     */
-    private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="company")
-     */
-    private $contacts;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
+     * @var string|null
+     *
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
      */
     private $country;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyCategory", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
+     * @var string|null
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
-    private $companyCategory;
+    private $address;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CompanyNbEmployees", inversedBy="companies")
+     * @var string|null
+     *
+     * @ORM\Column(name="additional_address", type="string", length=255, nullable=true)
      */
-    private $companyNbEmployees;
+    private $additionalAddress;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterComportment", inversedBy="companies")
+     * @var string|null
+     *
+     * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
      */
-    private $parameterComportment;
+    private $postalCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterObject", inversedBy="companies")
+     * @var string|null
+     *
+     * @ORM\Column(name="town", type="string", length=255, nullable=true)
      */
-    private $parameterObject;
+    private $town;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTarget", inversedBy="companies")
+     * @var string|null
+     *
+     * @ORM\Column(name="phone", type="string", length=10, nullable=true)
      */
-    private $parameterTarget;
+    private $phone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ParameterTypeSite", inversedBy="companies")
+     * @var string|null
+     *
+     * @ORM\Column(name="fax", type="string", length=10, nullable=true)
      */
-    private $parameterTypeSite;
+    private $fax;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     */
+    private $website;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="created_at_company", type="datetime", nullable=true)
+     */
+    private $createdAtCompany;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="siret", type="string", length=14, nullable=true)
+     */
+    private $siret;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="naf_code", type="string", length=5, nullable=true)
+     */
+    private $nafCode;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="source", type="string", length=5, nullable=true)
+     */
+    private $source;
+
+    /**
+     * @var \ActivityArea
+     *
+     * @ORM\ManyToOne(targetEntity="ActivityArea")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id")
+     * })
+     */
+    private $idActivityArea;
+
+    /**
+     * @var \CompanyCategory
+     *
+     * @ORM\ManyToOne(targetEntity="CompanyCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_company_category", referencedColumnName="id")
+     * })
+     */
+    private $idCompanyCategory;
+
+    /**
+     * @var \Salesperson
+     *
+     * @ORM\ManyToOne(targetEntity="Salesperson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code")
+     * })
+     */
+    private $idSalesperson;
+
+    /**
+     * @var \LegalStatus
+     *
+     * @ORM\ManyToOne(targetEntity="LegalStatus")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_legal_status", referencedColumnName="id")
+     * })
+     */
+    private $idLegalStatus;
+
+    /**
+     * @var \NumberEmployees
+     *
+     * @ORM\ManyToOne(targetEntity="NumberEmployees")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_number_employees", referencedColumnName="id")
+     * })
+     */
+    private $idNumberEmployees;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Turnovers", inversedBy="idCompany")
+     * @ORM\JoinTable(name="last_turnovers",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="id_company", referencedColumnName="code")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="id_turnovers", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $idTurnovers;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Contacts", mappedBy="idCompany")
+     */
+    private $idContact;
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->contacts = new ArrayCollection();
+        $this->idTurnovers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idContact = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getCompanyCode(): ?string
-    {
-        return $this->company_code;
-    }
-
-    public function setCompanyCode(string $company_code): self
-    {
-        $this->company_code = $company_code;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCreatedAtPlug(): ?\DateTimeInterface
-    {
-        return $this->created_at_plug;
-    }
-
-    public function setCreatedAtPlug(\DateTimeInterface $created_at_plug): self
-    {
-        $this->created_at_plug = $created_at_plug;
-
-        return $this;
-    }
-
-    public function getUpdateAtPlug(): ?\DateTimeInterface
-    {
-        return $this->update_at_plug;
-    }
-
-    public function setUpdateAtPlug(\DateTimeInterface $update_at_plug): self
-    {
-        $this->update_at_plug = $update_at_plug;
-
-        return $this;
-    }
-
-    public function getLeaderCode(): ?string
-    {
-        return $this->leader_code;
-    }
-
-    public function setLeaderCode(?string $leader_code): self
-    {
-        $this->leader_code = $leader_code;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    public function setLogo(?string $logo): self
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    public function getCommentary(): ?string
-    {
-        return $this->commentary;
-    }
-
-    public function setCommentary(?string $commentary): self
-    {
-        $this->commentary = $commentary;
-
-        return $this;
-    }
-
-    public function getCoutry(): ?string
-    {
-        return $this->coutry;
-    }
-
-    public function setCoutry(?string $coutry): self
-    {
-        $this->coutry = $coutry;
-
-        return $this;
-    }
-
-    public function getAdress(): ?string
-    {
-        return $this->adress;
-    }
-
-    public function setAdress(?string $adress): self
-    {
-        $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getAdressComplement(): ?string
-    {
-        return $this->adress_complement;
-    }
-
-    public function setAdressComplement(?string $adress_complement): self
-    {
-        $this->adress_complement = $adress_complement;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?string
-    {
-        return $this->postal_code;
-    }
-
-    public function setPostalCode(?string $postal_code): self
-    {
-        $this->postal_code = $postal_code;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getFax(): ?string
-    {
-        return $this->fax;
-    }
-
-    public function setFax(?string $fax): self
-    {
-        $this->fax = $fax;
-
-        return $this;
-    }
-
-    public function getWebsite(): ?string
-    {
-        return $this->website;
-    }
-
-    public function setWebsite(?string $website): self
-    {
-        $this->website = $website;
-
-        return $this;
-    }
-
-    public function getAdressCommentary(): ?string
-    {
-        return $this->adress_commentary;
-    }
-
-    public function setAdressCommentary(?string $adress_commentary): self
-    {
-        $this->adress_commentary = $adress_commentary;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getSiretNumber(): ?string
-    {
-        return $this->siret_number;
-    }
-
-    public function setSiretNumber(string $siret_number): self
-    {
-        $this->siret_number = $siret_number;
-
-        return $this;
-    }
-
-    public function getNafCode(): ?string
-    {
-        return $this->naf_code;
-    }
-
-    public function setNafCode(?string $naf_code): self
-    {
-        $this->naf_code = $naf_code;
-
-        return $this;
-    }
-
-    public function getSource(): ?string
-    {
-        return $this->source;
-    }
-
-    public function setSource(?string $source): self
-    {
-        $this->source = $source;
-
-        return $this;
-    }
-
-
-    public function getIdCountry(): ?Country
-    {
-        return $this->idCountry;
-    }
-
-    public function setIdCountry(?Country $idCountry): self
-    {
-        $this->idCountry = $idCountry;
-
-        return $this;
-    }
-
-    public function getIdActivityArea(): ?CompanyActivityArea
-    {
-        return $this->idActivityArea;
-    }
-
-    public function setIdActivityArea(?CompanyActivityArea $idActivityArea): self
-    {
-        $this->idActivityArea = $idActivityArea;
-
-        return $this;
-    }
-
-    public function getIdLegalStatus(): ?CompanyLegalStatus
-    {
-        return $this->idLegalStatus;
-    }
-
-    public function setIdLegalStatus(?CompanyLegalStatus $idLegalStatus): self
-    {
-        $this->idLegalStatus = $idLegalStatus;
-
-        return $this;
-    }
-
-    public function getIdTurnover(): ?CompanyTurnover
-    {
-        return $this->idTurnover;
-    }
-
-    public function setIdTurnover(?CompanyTurnover $idTurnover): self
-    {
-        $this->idTurnover = $idTurnover;
-
-        return $this;
-    }
-
-    public function getIdLastTurnover(): ?CompanyLastTurnover
-    {
-        return $this->idLastTurnover;
-    }
-
-    public function setIdLastTurnover(?CompanyLastTurnover $idLastTurnover): self
-    {
-        $this->idLastTurnover = $idLastTurnover;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getCompany() === $this) {
-                $contact->setCompany(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getCountry(): ?Country
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Country $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getCompanyCategory(): ?CompanyCategory
-    {
-        return $this->companyCategory;
-    }
-
-    public function setCompanyCategory(?CompanyCategory $companyCategory): self
-    {
-        $this->companyCategory = $companyCategory;
-
-        return $this;
-    }
-
-    public function getCompanyNbEmployees(): ?CompanyNbEmployees
-    {
-        return $this->companyNbEmployees;
-    }
-
-    public function setCompanyNbEmployees(?CompanyNbEmployees $companyNbEmployees): self
-    {
-        $this->companyNbEmployees = $companyNbEmployees;
-
-        return $this;
-    }
-
-    public function getParameterComportment(): ?ParameterComportment
-    {
-        return $this->parameterComportment;
-    }
-
-    public function setParameterComportment(?ParameterComportment $parameterComportment): self
-    {
-        $this->parameterComportment = $parameterComportment;
-
-        return $this;
-    }
-
-    public function getParameterObject(): ?ParameterObject
-    {
-        return $this->parameterObject;
-    }
-
-    public function setParameterObject(?ParameterObject $parameterObject): self
-    {
-        $this->parameterObject = $parameterObject;
-
-        return $this;
-    }
-
-    public function getParameterTarget(): ?ParameterTarget
-    {
-        return $this->parameterTarget;
-    }
-
-    public function setParameterTarget(?ParameterTarget $parameterTarget): self
-    {
-        $this->parameterTarget = $parameterTarget;
-
-        return $this;
-    }
-
-    public function getParameterTypeSite(): ?ParameterTypeSite
-    {
-        return $this->parameterTypeSite;
-    }
-
-    public function setParameterTypeSite(?ParameterTypeSite $parameterTypeSite): self
-    {
-        $this->parameterTypeSite = $parameterTypeSite;
-
-        return $this;
-    }
 }
