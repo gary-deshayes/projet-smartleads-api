@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts index{% endblock %}
+
+{% block body %}
+    <h1>Contacts index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Gender</th>
+                <th>LastName</th>
+                <th>FirstName</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Status</th>
+                <th>DecisionLevel</th>
+                <th>BirthDate</th>
+                <th>MobilePhone</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>EmailPrechecked</th>
+                <th>EmailChecked</th>
+                <th>Linkedin</th>
+                <th>Picture</th>
+                <th>OperationSource</th>
+                <th>Comment</th>
+                <th>OptInNewsletter</th>
+                <th>OptInOffresCommercial</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.code }}</td>
+                <td>{{ contact.gender }}</td>
+                <td>{{ contact.lastName }}</td>
+                <td>{{ contact.firstName }}</td>
+                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contact.updatedAt ? contact.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contact.status ? 'Yes' : 'No' }}</td>
+                <td>{{ contact.decisionLevel }}</td>
+                <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contact.mobilePhone }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.emailPrechecked ? 'Yes' : 'No' }}</td>
+                <td>{{ contact.emailChecked ? 'Yes' : 'No' }}</td>
+                <td>{{ contact.linkedin }}</td>
+                <td>{{ contact.picture }}</td>
+                <td>{{ contact.operationSource }}</td>
+                <td>{{ contact.comment }}</td>
+                <td>{{ contact.optInNewsletter ? 'Yes' : 'No' }}</td>
+                <td>{{ contact.optInOffresCommercial ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('contacts_show', {'code': contact.code}) }}">show</a>
+                    <a href="{{ path('contacts_edit', {'code': contact.code}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('contacts_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Turnovers{% endblock %}
+
+{% block body %}
+    <h1>Edit Turnovers</h1>
+
+    {{ include('turnovers/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('turnovers_index') }}">back to list</a>
+
+    {{ include('turnovers/_delete_form.html.twig') }}
+{% endblock %}

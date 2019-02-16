@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Behavior{% endblock %}
+
+{% block body %}
+    <h1>Create new Behavior</h1>
+
+    {{ include('behavior/_form.html.twig') }}
+
+    <a href="{{ path('behavior_index') }}">back to list</a>
+{% endblock %}

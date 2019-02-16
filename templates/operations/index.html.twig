@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Operations index{% endblock %}
+
+{% block body %}
+    <h1>Operations index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Url</th>
+                <th>TypeOperation</th>
+                <th>VisualHeadband</th>
+                <th>VisuelLateral</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operation in operations %}
+            <tr>
+                <td>{{ operation.name }}</td>
+                <td>{{ operation.url }}</td>
+                <td>{{ operation.typeOperation }}</td>
+                <td>{{ operation.visualHeadband }}</td>
+                <td>{{ operation.visuelLateral }}</td>
+                <td>
+                    <a href="{{ path('operations_show', {'name': operation.name}) }}">show</a>
+                    <a href="{{ path('operations_edit', {'name': operation.name}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('operations_new') }}">Create new</a>
+{% endblock %}

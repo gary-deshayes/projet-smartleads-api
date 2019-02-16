@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GraphicStyle{% endblock %}
+
+{% block body %}
+    <h1>Create new GraphicStyle</h1>
+
+    {{ include('graphic_style/_form.html.twig') }}
+
+    <a href="{{ path('graphic_style_index') }}">back to list</a>
+{% endblock %}

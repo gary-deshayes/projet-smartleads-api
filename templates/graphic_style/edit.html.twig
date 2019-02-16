@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit GraphicStyle{% endblock %}
+
+{% block body %}
+    <h1>Edit GraphicStyle</h1>
+
+    {{ include('graphic_style/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('graphic_style_index') }}">back to list</a>
+
+    {{ include('graphic_style/_delete_form.html.twig') }}
+{% endblock %}

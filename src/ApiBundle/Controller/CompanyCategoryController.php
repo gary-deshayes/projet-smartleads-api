@@ -2,95 +2,98 @@
 
 namespace App\ApiBundle\Controller;
 
-use App\ApiBundle\Entity\CompanyCategory;
+use App\AdminBundle\Entity\CompanyCategory;
+use App\AdminBundle\Form\CompanyCategoryType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\ApiBundle\Form\CompanyCategoryType;
 
 /**
- * @Route("/companyCategory")
+ * @Route("/company/category")
  */
 class CompanyCategoryController extends AbstractController
 {
-    
- /**
-     * Récupération d'une zone d'activité d'une l'entreprise 
-     * @Route("/get/{id}", name="api_companyCategory_get", methods={"GET"})
+    /**
+     * @Route("/", name="company_category_index", methods={"GET"})
      */
-    public function recuperation(){
+    public function index(): Response
+    {
+        $companyCategories = $this->getDoctrine()
+            ->getRepository(CompanyCategory::class)
+            ->findAll();
 
+        return $this->render('company_category/index.html.twig', [
+            'company_categories' => $companyCategories,
+        ]);
     }
 
     /**
-     * Création dd'une zone d'activité d'une l'entreprise 
-     * @Route("/post", name="api_companyCategory_post", methods={"POST"})
+     * @Route("/new", name="company_category_new", methods={"GET","POST"})
      */
-    public function post(){
-
+    public function new(Request $request): Response
+    {
         $companyCategory = new CompanyCategory();
-
-        $response = new Response();
-
-        $response->headers->set("Content-Type", "Application/JSON");
-
-        $formCreate = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($companyCategory);
-            $em->flush();
-            $response->setContent("1");
-            return $response;
-        }
-
-        $response->setContent("0");
-
-        return $response;
-
-    }
-
-
-    /**
-     * Edition d'une zone d'activité d'une l'entreprise 
-     * @Route("/edit/{id}", name="api_companyCategory_edit", methods={"PUT"})
-     */
-    public function edit(){
-
-        $response = new Response();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $companyCategory = $em->getRepository(CompanyCategory::class)->find($id);
-
         $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($companyCategory);
+            $entityManager->flush();
 
-            $em->flush();
-
-            $response->setContent("1");
-            return $response;
+            return $this->redirectToRoute('company_category_index');
         }
 
-        $response->setContent("0");
-        return $response;
-
+        return $this->render('company_category/new.html.twig', [
+            'company_category' => $companyCategory,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * Suppression d'une zone d'activité d'une l'entreprise 
-     * @Route("/delete/{id}", name="api_companyCategory_delete", methods={"DELETE"})
+     * @Route("/{id}", name="company_category_show", methods={"GET"})
      */
-    public function delete(){
-
+    public function show(CompanyCategory $companyCategory): Response
+    {
+        return $this->render('company_category/show.html.twig', [
+            'company_category' => $companyCategory,
+        ]);
     }
 
+    /**
+     * @Route("/{id}/edit", name="company_category_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, CompanyCategory $companyCategory): Response
+    {
+        $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('company_category_index', [
+                'id' => $companyCategory->getId(),
+            ]);
+        }
+
+        return $this->render('company_category/edit.html.twig', [
+            'company_category' => $companyCategory,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="company_category_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, CompanyCategory $companyCategory): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$companyCategory->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($companyCategory);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('company_category_index');
+    }
 }

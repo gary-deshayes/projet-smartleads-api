@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ObjectTable{% endblock %}
+
+{% block body %}
+    <h1>ObjectTable</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ object_table.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ object_table.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('object_table_index') }}">back to list</a>
+
+    <a href="{{ path('object_table_edit', {'id': object_table.id}) }}">edit</a>
+
+    {{ include('object_table/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salesperson{% endblock %}
+
+{% block body %}
+    <h1>Salesperson</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ salesperson.code }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ salesperson.gender }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ salesperson.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ salesperson.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Profile</th>
+                <td>{{ salesperson.profile }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ salesperson.createdAt ? salesperson.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ salesperson.updatedAt ? salesperson.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ salesperson.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>BirthDate</th>
+                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>WorkName</th>
+                <td>{{ salesperson.workName }}</td>
+            </tr>
+            <tr>
+                <th>MobilePhone</th>
+                <td>{{ salesperson.mobilePhone }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ salesperson.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ salesperson.email }}</td>
+            </tr>
+            <tr>
+                <th>Linkedin</th>
+                <td>{{ salesperson.linkedin }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ salesperson.picture }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('salesperson_index') }}">back to list</a>
+
+    <a href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">edit</a>
+
+    {{ include('salesperson/_delete_form.html.twig') }}
+{% endblock %}

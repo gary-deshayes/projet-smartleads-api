@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New OperationSent{% endblock %}
+
+{% block body %}
+    <h1>Create new OperationSent</h1>
+
+    {{ include('operation_sent/_form.html.twig') }}
+
+    <a href="{{ path('operation_sent_index') }}">back to list</a>
+{% endblock %}

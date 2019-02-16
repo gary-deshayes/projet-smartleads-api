@@ -5,216 +5,234 @@ namespace App\AdminBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyRepository")
+ * Company
+ *
+ * @ORM\Table(name="company", indexes={@ORM\Index(name="company_legal_status2_FK", columns={"id_legal_status"}), @ORM\Index(name="company_company_category0_FK", columns={"id_company_category"}), @ORM\Index(name="id_salesperson", columns={"id_salesperson"}), @ORM\Index(name="company_activity_area_FK", columns={"id_activity_area"}), @ORM\Index(name="company_number_employees1_FK", columns={"id_number_employees"})})
+ * @ORM\Entity
  */
 class Company
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $code;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(max = 255)
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $company_code;
-
-    /**
-    * @ORM\Column(type="string", length=255)
-    * @Assert\NotBlank
-    * @Assert\Length(max = 255, maxMessage="Votre nom est trop long!")
-    */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $leader_code;
+    private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(max = 255, maxMessage="Votre statut est trop long!")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
      */
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre url logo est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="comment", type="text", length=0, nullable=true)
      */
-    private $commentary;
+    private $comment;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop longue!")
+     * @var string|null
+     *
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
      */
-    private $adress;
+    private $country;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre adresse est trop longue!")
+     * @var string|null
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
-    private $adress_complement;
+    private $address;
 
     /**
-     * @ORM\Column(type="string", length=5, nullable=true)
-     * @Assert\Length(max = 5, maxMessage="Votre code postale est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="additional_address", type="string", length=255, nullable=true)
      */
-    private $postal_code;
+    private $additionalAddress;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre ville est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
      */
-    private $city;
+    private $postalCode;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10, maxMessage="Votre numéro est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="town", type="string", length=255, nullable=true)
+     */
+    private $town;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="phone", type="string", length=10, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10, maxMessage="Votre numéro est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="fax", type="string", length=10, nullable=true)
      */
     private $fax;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255, maxMessage="Votre url est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
     private $website;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="created_at_company", type="datetime", nullable=true)
      */
-    private $adress_commentary;
+    private $createdAtCompany;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\DateTime
+     * @var string|null
+     *
+     * @ORM\Column(name="siret", type="string", length=14, nullable=true)
      */
-    private $created_at;
+    private $siret;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(max = 255, maxMessage="Votre numero est trop long!")
+     * @var string|null
+     *
+     * @ORM\Column(name="naf_code", type="string", length=5, nullable=true)
      */
-    private $siret_number;
+    private $nafCode;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 100, maxMessage="Votre numéro est trop long!")
-     */
-    private $naf_code;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max = 255)
+     * @var string|null
+     *
+     * @ORM\Column(name="source", type="string", length=5, nullable=true)
      */
     private $source;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\Country", inversedBy="companies")
-     */
-    private $idCountry;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyActivityArea", inversedBy="companies")
+     * @var \ActivityArea
+     *
+     * @ORM\ManyToOne(targetEntity="ActivityArea")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id")
+     * })
      */
     private $idActivityArea;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyLegalStatus", inversedBy="companies")
+     * @var \CompanyCategory
+     *
+     * @ORM\ManyToOne(targetEntity="CompanyCategory")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_company_category", referencedColumnName="id")
+     * })
+     */
+    private $idCompanyCategory;
+
+    /**
+     * @var \Salesperson
+     *
+     * @ORM\ManyToOne(targetEntity="Salesperson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code")
+     * })
+     */
+    private $idSalesperson;
+
+    /**
+     * @var \LegalStatus
+     *
+     * @ORM\ManyToOne(targetEntity="LegalStatus")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_legal_status", referencedColumnName="id")
+     * })
      */
     private $idLegalStatus;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyTurnover", inversedBy="companies")
+     * @var \NumberEmployees
+     *
+     * @ORM\ManyToOne(targetEntity="NumberEmployees")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_number_employees", referencedColumnName="id")
+     * })
      */
-    private $idTurnover;
+    private $idNumberEmployees;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyLastTurnover", inversedBy="companies")
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Turnovers", inversedBy="idCompany")
+     * @ORM\JoinTable(name="last_turnovers",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="id_company", referencedColumnName="code")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="id_turnovers", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $idLastTurnover;
+    private $idTurnovers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\User", inversedBy="companies")
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Contacts", mappedBy="idCompany")
      */
-    private $user;
+    private $idContact;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Contact", mappedBy="company")
+     * Constructor
      */
-    private $contacts;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyCategory", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $companyCategory;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\CompanyNbEmployees", inversedBy="companies")
-     */
-    private $companyNbEmployees;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterComportment", inversedBy="companies")
-     */
-    private $parameterComportment;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterObject", inversedBy="companies")
-     */
-    private $parameterObject;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterTarget", inversedBy="companies")
-     */
-    private $parameterTarget;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\ParameterTypeSite", inversedBy="companies")
-     */
-    private $parameterTypeSite;
-
     public function __construct()
     {
-        $this->contacts = new ArrayCollection();
+        $this->idTurnovers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idContact = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getCode(): ?string
     {
-        return $this->id;
-    }
-
-    public function getCompanyCode(): ?string
-    {
-        return $this->company_code;
-    }
-
-    public function setCompanyCode(string $company_code): self
-    {
-        $this->company_code = $company_code;
-
-        return $this;
+        return $this->code;
     }
 
     public function getName(): ?string
@@ -229,38 +247,26 @@ class Company
         return $this;
     }
 
-    public function getCreatedAtPlug(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at_plug;
+        return $this->createdAt;
     }
 
-    public function setCreatedAtPlug(\DateTimeInterface $created_at_plug): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at_plug = $created_at_plug;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdateAtPlug(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->update_at_plug;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAtPlug(\DateTimeInterface $update_at_plug): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->update_at_plug = $update_at_plug;
-
-        return $this;
-    }
-
-    public function getLeaderCode(): ?string
-    {
-        return $this->leader_code;
-    }
-
-    public function setLeaderCode(?string $leader_code): self
-    {
-        $this->leader_code = $leader_code;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -289,74 +295,74 @@ class Company
         return $this;
     }
 
-    public function getCommentary(): ?string
+    public function getComment(): ?string
     {
-        return $this->commentary;
+        return $this->comment;
     }
 
-    public function setCommentary(?string $commentary): self
+    public function setComment(?string $comment): self
     {
-        $this->commentary = $commentary;
+        $this->comment = $comment;
 
         return $this;
     }
 
-    public function getCoutry(): ?string
+    public function getCountry(): ?string
     {
-        return $this->coutry;
+        return $this->country;
     }
 
-    public function setCoutry(?string $coutry): self
+    public function setCountry(?string $country): self
     {
-        $this->coutry = $coutry;
+        $this->country = $country;
 
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getAddress(): ?string
     {
-        return $this->adress;
+        return $this->address;
     }
 
-    public function setAdress(?string $adress): self
+    public function setAddress(?string $address): self
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getAdressComplement(): ?string
+    public function getAdditionalAddress(): ?string
     {
-        return $this->adress_complement;
+        return $this->additionalAddress;
     }
 
-    public function setAdressComplement(?string $adress_complement): self
+    public function setAdditionalAddress(?string $additionalAddress): self
     {
-        $this->adress_complement = $adress_complement;
+        $this->additionalAddress = $additionalAddress;
 
         return $this;
     }
 
     public function getPostalCode(): ?string
     {
-        return $this->postal_code;
+        return $this->postalCode;
     }
 
-    public function setPostalCode(?string $postal_code): self
+    public function setPostalCode(?string $postalCode): self
     {
-        $this->postal_code = $postal_code;
+        $this->postalCode = $postalCode;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getTown(): ?string
     {
-        return $this->city;
+        return $this->town;
     }
 
-    public function setCity(?string $city): self
+    public function setTown(?string $town): self
     {
-        $this->city = $city;
+        $this->town = $town;
 
         return $this;
     }
@@ -397,50 +403,38 @@ class Company
         return $this;
     }
 
-    public function getAdressCommentary(): ?string
+    public function getCreatedAtCompany(): ?\DateTimeInterface
     {
-        return $this->adress_commentary;
+        return $this->createdAtCompany;
     }
 
-    public function setAdressCommentary(?string $adress_commentary): self
+    public function setCreatedAtCompany(?\DateTimeInterface $createdAtCompany): self
     {
-        $this->adress_commentary = $adress_commentary;
+        $this->createdAtCompany = $createdAtCompany;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getSiret(): ?string
     {
-        return $this->created_at;
+        return $this->siret;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setSiret(?string $siret): self
     {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getSiretNumber(): ?string
-    {
-        return $this->siret_number;
-    }
-
-    public function setSiretNumber(string $siret_number): self
-    {
-        $this->siret_number = $siret_number;
+        $this->siret = $siret;
 
         return $this;
     }
 
     public function getNafCode(): ?string
     {
-        return $this->naf_code;
+        return $this->nafCode;
     }
 
-    public function setNafCode(?string $naf_code): self
+    public function setNafCode(?string $nafCode): self
     {
-        $this->naf_code = $naf_code;
+        $this->nafCode = $nafCode;
 
         return $this;
     }
@@ -457,179 +451,118 @@ class Company
         return $this;
     }
 
-
-    public function getIdCountry(): ?Country
-    {
-        return $this->idCountry;
-    }
-
-    public function setIdCountry(?Country $idCountry): self
-    {
-        $this->idCountry = $idCountry;
-
-        return $this;
-    }
-
-    public function getIdActivityArea(): ?CompanyActivityArea
+    public function getIdActivityArea(): ?ActivityArea
     {
         return $this->idActivityArea;
     }
 
-    public function setIdActivityArea(?CompanyActivityArea $idActivityArea): self
+    public function setIdActivityArea(?ActivityArea $idActivityArea): self
     {
         $this->idActivityArea = $idActivityArea;
 
         return $this;
     }
 
-    public function getIdLegalStatus(): ?CompanyLegalStatus
+    public function getIdCompanyCategory(): ?CompanyCategory
+    {
+        return $this->idCompanyCategory;
+    }
+
+    public function setIdCompanyCategory(?CompanyCategory $idCompanyCategory): self
+    {
+        $this->idCompanyCategory = $idCompanyCategory;
+
+        return $this;
+    }
+
+    public function getIdSalesperson(): ?Salesperson
+    {
+        return $this->idSalesperson;
+    }
+
+    public function setIdSalesperson(?Salesperson $idSalesperson): self
+    {
+        $this->idSalesperson = $idSalesperson;
+
+        return $this;
+    }
+
+    public function getIdLegalStatus(): ?LegalStatus
     {
         return $this->idLegalStatus;
     }
 
-    public function setIdLegalStatus(?CompanyLegalStatus $idLegalStatus): self
+    public function setIdLegalStatus(?LegalStatus $idLegalStatus): self
     {
         $this->idLegalStatus = $idLegalStatus;
 
         return $this;
     }
 
-    public function getIdTurnover(): ?CompanyTurnover
+    public function getIdNumberEmployees(): ?NumberEmployees
     {
-        return $this->idTurnover;
+        return $this->idNumberEmployees;
     }
 
-    public function setIdTurnover(?CompanyTurnover $idTurnover): self
+    public function setIdNumberEmployees(?NumberEmployees $idNumberEmployees): self
     {
-        $this->idTurnover = $idTurnover;
-
-        return $this;
-    }
-
-    public function getIdLastTurnover(): ?CompanyLastTurnover
-    {
-        return $this->idLastTurnover;
-    }
-
-    public function setIdLastTurnover(?CompanyLastTurnover $idLastTurnover): self
-    {
-        $this->idLastTurnover = $idLastTurnover;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
+        $this->idNumberEmployees = $idNumberEmployees;
 
         return $this;
     }
 
     /**
-     * @return Collection|Contact[]
+     * @return Collection|Turnovers[]
      */
-    public function getContacts(): Collection
+    public function getIdTurnovers(): Collection
     {
-        return $this->contacts;
+        return $this->idTurnovers;
     }
 
-    public function addContact(Contact $contact): self
+    public function addIdTurnover(Turnovers $idTurnover): self
     {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setCompany($this);
+        if (!$this->idTurnovers->contains($idTurnover)) {
+            $this->idTurnovers[] = $idTurnover;
         }
 
         return $this;
     }
 
-    public function removeContact(Contact $contact): self
+    public function removeIdTurnover(Turnovers $idTurnover): self
     {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getCompany() === $this) {
-                $contact->setCompany(null);
-            }
+        if ($this->idTurnovers->contains($idTurnover)) {
+            $this->idTurnovers->removeElement($idTurnover);
         }
 
         return $this;
     }
 
-    public function getCompanyCategory(): ?CompanyCategory
+    /**
+     * @return Collection|Contacts[]
+     */
+    public function getIdContact(): Collection
     {
-        return $this->companyCategory;
+        return $this->idContact;
     }
 
-    public function setCompanyCategory(?CompanyCategory $companyCategory): self
+    public function addIdContact(Contacts $idContact): self
     {
-        $this->companyCategory = $companyCategory;
+        if (!$this->idContact->contains($idContact)) {
+            $this->idContact[] = $idContact;
+            $idContact->addIdCompany($this);
+        }
 
         return $this;
     }
 
-    public function getCompanyNbEmployees(): ?CompanyNbEmployees
+    public function removeIdContact(Contacts $idContact): self
     {
-        return $this->companyNbEmployees;
-    }
-
-    public function setCompanyNbEmployees(?CompanyNbEmployees $companyNbEmployees): self
-    {
-        $this->companyNbEmployees = $companyNbEmployees;
+        if ($this->idContact->contains($idContact)) {
+            $this->idContact->removeElement($idContact);
+            $idContact->removeIdCompany($this);
+        }
 
         return $this;
     }
 
-    public function getParameterComportment(): ?ParameterComportment
-    {
-        return $this->parameterComportment;
-    }
-
-    public function setParameterComportment(?ParameterComportment $parameterComportment): self
-    {
-        $this->parameterComportment = $parameterComportment;
-
-        return $this;
-    }
-
-    public function getParameterObject(): ?ParameterObject
-    {
-        return $this->parameterObject;
-    }
-
-    public function setParameterObject(?ParameterObject $parameterObject): self
-    {
-        $this->parameterObject = $parameterObject;
-
-        return $this;
-    }
-
-    public function getParameterTarget(): ?ParameterTarget
-    {
-        return $this->parameterTarget;
-    }
-
-    public function setParameterTarget(?ParameterTarget $parameterTarget): self
-    {
-        $this->parameterTarget = $parameterTarget;
-
-        return $this;
-    }
-
-    public function getParameterTypeSite(): ?ParameterTypeSite
-    {
-        return $this->parameterTypeSite;
-    }
-
-    public function setParameterTypeSite(?ParameterTypeSite $parameterTypeSite): self
-    {
-        $this->parameterTypeSite = $parameterTypeSite;
-
-        return $this;
-    }
 }

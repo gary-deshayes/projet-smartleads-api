@@ -3,125 +3,97 @@
 namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\CompanyCategory;
+use App\AdminBundle\Form\CompanyCategoryType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AdminBundle\Form\CompanyCategoryType;
 
 /**
- * @Route("/companyCategory")
+ * @Route("/company/category")
  */
 class CompanyCategoryController extends AbstractController
 {
-    
+    /**
+     * @Route("/", name="company_category_index", methods={"GET"})
+     */
+    public function index(): Response
+    {
+        $companyCategories = $this->getDoctrine()
+            ->getRepository(CompanyCategory::class)
+            ->findAll();
+
+        return $this->render('company_category/index.html.twig', [
+            'company_categories' => $companyCategories,
+        ]);
+    }
 
     /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="companyCategory_editShow", methods={"GET","POST"})
+     * @Route("/new", name="company_category_new", methods={"GET","POST"})
      */
-    public function edit($id, Request $request)
+    public function new(Request $request): Response
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $companyCategory = $em->getRepository(CompanyCategory::class)->find($id);
-
+        $companyCategory = new CompanyCategory();
         $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($companyCategory);
+            $entityManager->flush();
 
-            $retour = $this->edit($companyCategory->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("companyCategory");
-            } else {
-                return $this->render('company_category/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
+            return $this->redirectToRoute('company_category_index');
         }
 
-        if (!$companyCategory) {
-            throw $this->createNotFoundException(
-                'No companyActivityArea found for id ' . $id
-            );
+        return $this->render('company_category/new.html.twig', [
+            'company_category' => $companyCategory,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="company_category_show", methods={"GET"})
+     */
+    public function show(CompanyCategory $companyCategory): Response
+    {
+        return $this->render('company_category/show.html.twig', [
+            'company_category' => $companyCategory,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="company_category_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, CompanyCategory $companyCategory): Response
+    {
+        $form = $this->createForm(CompanyCategoryType::class, $companyCategory);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('company_category_index', [
+                'id' => $companyCategory->getId(),
+            ]);
         }
 
         return $this->render('company_category/edit.html.twig', [
+            'company_category' => $companyCategory,
             'form' => $form->createView(),
         ]);
-
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="companyCategory_deleteShow", methods={"GET","POST"})
+     * @Route("/{id}", name="company_category_delete", methods={"DELETE"})
      */
-    public function delete()
+    public function delete(Request $request, CompanyCategory $companyCategory): Response
     {
-
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/create", name="companyCategory_createShow", methods={"GET","POST"})
-     */
-    public function create(Request $request)
-    {
-        $formCreate = $this->createForm(CompanyCategoryType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('companyCategory');
-            } else {
-                return $this->render('company_category/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
+        if ($this->isCsrfTokenValid('delete'.$companyCategory->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($companyCategory);
+            $entityManager->flush();
         }
 
-        return $this->render('company_category/create.html.twig', [
-            'form' => $formCreate->createView(),
-        ]);
-    }
-
-    /**
-     * Affichage de la liste des catégories d'entreprises
-     * @Route("/", name="companyCategory", methods={"GET"})
-     */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
-
-        $response = new Response();
-
-        $repo = $this->getDoctrine()->getRepository(CompanyCategory::class);
-        $companyCategory = $repo->findAll();
-
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($companyCategory, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
-            return $response;
-        } else {
-            return $this->render('company_category/index.html.twig', array(
-                "companyCategory" => $companyCategory
-            ));
-        }
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/success", name="companyCategory_success", methods={"POST"})
-     */
-    public function success()
-    {
-
+        return $this->redirectToRoute('company_category_index');
     }
 }
