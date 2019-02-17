@@ -3,7 +3,7 @@ admin_controllers:
     type: annotation
     prefix: "/admin"
 
-# api_controllers:
-#     resource: ../../src/ApiBundle/Controller/
-#     type: annotation
-#     prefix: "/api"
+api_controllers:
+    resource: ../../src/ApiBundle/Controller/
+    type: annotation
+    prefix: "/api"

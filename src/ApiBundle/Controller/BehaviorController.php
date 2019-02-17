@@ -18,7 +18,7 @@ class BehaviorController extends AbstractController
      * Récupération des comportements
      * @Route("/get/{id}", name="api_behavior_get", methods={"GET"})
      */
-    public function get(){
+    public function getter(){
     }
     /**
      * Création d'un comportement

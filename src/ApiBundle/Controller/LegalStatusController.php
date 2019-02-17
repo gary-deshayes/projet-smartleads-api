@@ -10,90 +10,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/legal/status")
+ * @Route("/legalstatus")
  */
 class LegalStatusController extends AbstractController
 {
     /**
-     * @Route("/", name="legal_status_index", methods={"GET"})
+     * Récupération des statut légaux
+     * @Route("/get/{id}", name="api_legalstatus_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $legalStatuses = $this->getDoctrine()
-            ->getRepository(LegalStatus::class)
-            ->findAll();
-
-        return $this->render('legal_status/index.html.twig', [
-            'legal_statuses' => $legalStatuses,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="legal_status_new", methods={"GET","POST"})
+     * Création d'un statut légal
+     * @Route("/post", name="api_legalstatus_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $legalStatus = new LegalStatus();
-        $form = $this->createForm(LegalStatusType::class, $legalStatus);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($legalStatus);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('legal_status_index');
-        }
-
-        return $this->render('legal_status/new.html.twig', [
-            'legal_status' => $legalStatus,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{id}", name="legal_status_show", methods={"GET"})
+     * Edition d'un statut légal
+     * @Route("/edit/{id}", name="api_legalstatus_edit", methods={"PUT"})
      */
-    public function show(LegalStatus $legalStatus): Response
-    {
-        return $this->render('legal_status/show.html.twig', [
-            'legal_status' => $legalStatus,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{id}/edit", name="legal_status_edit", methods={"GET","POST"})
+     * Suppression d'un statut légal
+     * @Route("/delete/{id}", name="api_legalstatus_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, LegalStatus $legalStatus): Response
-    {
-        $form = $this->createForm(LegalStatusType::class, $legalStatus);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('legal_status_index', [
-                'id' => $legalStatus->getId(),
-            ]);
-        }
-
-        return $this->render('legal_status/edit.html.twig', [
-            'legal_status' => $legalStatus,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="legal_status_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, LegalStatus $legalStatus): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$legalStatus->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($legalStatus);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('legal_status_index');
+    public function delete(){
     }
 }

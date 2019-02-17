@@ -15,85 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class OperationsController extends AbstractController
 {
     /**
-     * @Route("/", name="operations_index", methods={"GET"})
+     * Récupération des opérations
+     * @Route("/get/{id}", name="api_operations_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $operations = $this->getDoctrine()
-            ->getRepository(Operations::class)
-            ->findAll();
-
-        return $this->render('operations/index.html.twig', [
-            'operations' => $operations,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="operations_new", methods={"GET","POST"})
+     * Création d'une opération
+     * @Route("/post", name="api_operations_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $operation = new Operations();
-        $form = $this->createForm(OperationsType::class, $operation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($operation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('operations_index');
-        }
-
-        return $this->render('operations/new.html.twig', [
-            'operation' => $operation,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{name}", name="operations_show", methods={"GET"})
+     * Edition d'une opération
+     * @Route("/edit/{id}", name="api_operations_edit", methods={"PUT"})
      */
-    public function show(Operations $operation): Response
-    {
-        return $this->render('operations/show.html.twig', [
-            'operation' => $operation,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{name}/edit", name="operations_edit", methods={"GET","POST"})
+     * Suppression d'une opération
+     * @Route("/delete/{id}", name="api_operations_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, Operations $operation): Response
-    {
-        $form = $this->createForm(OperationsType::class, $operation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('operations_index', [
-                'name' => $operation->getName(),
-            ]);
-        }
-
-        return $this->render('operations/edit.html.twig', [
-            'operation' => $operation,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{name}", name="operations_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Operations $operation): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$operation->getName(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($operation);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('operations_index');
+    public function delete(){
     }
 }

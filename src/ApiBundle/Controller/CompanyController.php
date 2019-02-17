@@ -15,85 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyController extends AbstractController
 {
     /**
-     * @Route("/", name="company_index", methods={"GET"})
+     * Récupération des entreprises
+     * @Route("/get/{id}", name="api_company_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $companies = $this->getDoctrine()
-            ->getRepository(Company::class)
-            ->findAll();
-
-        return $this->render('company/index.html.twig', [
-            'companies' => $companies,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="company_new", methods={"GET","POST"})
+     * Création d'une entreprise
+     * @Route("/post", name="api_company_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $company = new Company();
-        $form = $this->createForm(CompanyType::class, $company);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($company);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('company_index');
-        }
-
-        return $this->render('company/new.html.twig', [
-            'company' => $company,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{code}", name="company_show", methods={"GET"})
+     * Edition d'une entreprise
+     * @Route("/edit/{id}", name="api_company_edit", methods={"PUT"})
      */
-    public function show(Company $company): Response
-    {
-        return $this->render('company/show.html.twig', [
-            'company' => $company,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{code}/edit", name="company_edit", methods={"GET","POST"})
+     * Suppression d'une entreprise
+     * @Route("/delete/{id}", name="api_company_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, Company $company): Response
-    {
-        $form = $this->createForm(CompanyType::class, $company);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('company_index', [
-                'code' => $company->getCode(),
-            ]);
-        }
-
-        return $this->render('company/edit.html.twig', [
-            'company' => $company,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{code}", name="company_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Company $company): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$company->getCode(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($company);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('company_index');
+    public function delete(){
     }
 }

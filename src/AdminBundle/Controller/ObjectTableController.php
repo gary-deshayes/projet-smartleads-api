@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/object/table")
+ * @Route("/objecttable")
  */
 class ObjectTableController extends AbstractController
 {

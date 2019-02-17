@@ -15,85 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactsController extends AbstractController
 {
     /**
-     * @Route("/", name="contacts_index", methods={"GET"})
+     * Récupération des contacts
+     * @Route("/get/{id}", name="api_contacts_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $contacts = $this->getDoctrine()
-            ->getRepository(Contacts::class)
-            ->findAll();
-
-        return $this->render('contacts/index.html.twig', [
-            'contacts' => $contacts,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="contacts_new", methods={"GET","POST"})
+     * Création d'un contact
+     * @Route("/post", name="api_contacts_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $contact = new Contacts();
-        $form = $this->createForm(ContactsType::class, $contact);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($contact);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('contacts_index');
-        }
-
-        return $this->render('contacts/new.html.twig', [
-            'contact' => $contact,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{code}", name="contacts_show", methods={"GET"})
+     * Edition d'un contact
+     * @Route("/edit/{id}", name="api_contacts_edit", methods={"PUT"})
      */
-    public function show(Contacts $contact): Response
-    {
-        return $this->render('contacts/show.html.twig', [
-            'contact' => $contact,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{code}/edit", name="contacts_edit", methods={"GET","POST"})
+     * Suppression d'un contact
+     * @Route("/delete/{id}", name="api_contacts_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, Contacts $contact): Response
-    {
-        $form = $this->createForm(ContactsType::class, $contact);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('contacts_index', [
-                'code' => $contact->getCode(),
-            ]);
-        }
-
-        return $this->render('contacts/edit.html.twig', [
-            'contact' => $contact,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{code}", name="contacts_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Contacts $contact): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$contact->getCode(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($contact);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('contacts_index');
+    public function delete(){
     }
 }

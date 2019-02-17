@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/site/type")
+ * @Route("/sitetype")
  */
 class SiteTypeController extends AbstractController
 {

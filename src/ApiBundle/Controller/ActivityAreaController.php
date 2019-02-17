@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/activity/area")
+ * @Route("/activityarea")
  */
 class ActivityAreaController extends AbstractController
 {
@@ -18,7 +18,7 @@ class ActivityAreaController extends AbstractController
      * Récupération des aires d'activités
      * @Route("/get/{id}", name="api_activityarea_get", methods={"GET"})
      */
-    public function get(){
+    public function getter(){
     }
     /**
      * Création d'une aire d'activité

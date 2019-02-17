@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/operation/sent")
+ * @Route("/operationsent")
  */
 class OperationSentController extends AbstractController
 {

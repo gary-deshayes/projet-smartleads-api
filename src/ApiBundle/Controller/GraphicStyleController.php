@@ -10,90 +10,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/graphic/style")
+ * @Route("/graphicstyle")
  */
 class GraphicStyleController extends AbstractController
 {
     /**
-     * @Route("/", name="graphic_style_index", methods={"GET"})
+     * Récupération des styles graphiques
+     * @Route("/get/{id}", name="api_graphicstyle_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $graphicStyles = $this->getDoctrine()
-            ->getRepository(GraphicStyle::class)
-            ->findAll();
-
-        return $this->render('graphic_style/index.html.twig', [
-            'graphic_styles' => $graphicStyles,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="graphic_style_new", methods={"GET","POST"})
+     * Création d'un style graphique
+     * @Route("/post", name="api_graphicstyle_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $graphicStyle = new GraphicStyle();
-        $form = $this->createForm(GraphicStyleType::class, $graphicStyle);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($graphicStyle);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('graphic_style_index');
-        }
-
-        return $this->render('graphic_style/new.html.twig', [
-            'graphic_style' => $graphicStyle,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{id}", name="graphic_style_show", methods={"GET"})
+     * Edition d'un style graphique
+     * @Route("/edit/{id}", name="api_graphicstyle_edit", methods={"PUT"})
      */
-    public function show(GraphicStyle $graphicStyle): Response
-    {
-        return $this->render('graphic_style/show.html.twig', [
-            'graphic_style' => $graphicStyle,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{id}/edit", name="graphic_style_edit", methods={"GET","POST"})
+     * Suppression d'un style graphique
+     * @Route("/delete/{id}", name="api_graphicstyle_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, GraphicStyle $graphicStyle): Response
-    {
-        $form = $this->createForm(GraphicStyleType::class, $graphicStyle);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('graphic_style_index', [
-                'id' => $graphicStyle->getId(),
-            ]);
-        }
-
-        return $this->render('graphic_style/edit.html.twig', [
-            'graphic_style' => $graphicStyle,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="graphic_style_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, GraphicStyle $graphicStyle): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$graphicStyle->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($graphicStyle);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('graphic_style_index');
+    public function delete(){
     }
 }

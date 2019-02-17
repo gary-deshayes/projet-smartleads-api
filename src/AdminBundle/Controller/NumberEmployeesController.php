@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/number/employees")
+ * @Route("/numberemployees")
  */
 class NumberEmployeesController extends AbstractController
 {

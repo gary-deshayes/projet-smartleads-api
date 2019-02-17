@@ -15,85 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class TurnoversController extends AbstractController
 {
     /**
-     * @Route("/", name="turnovers_index", methods={"GET"})
+     * Récupération des chiffres d'affaires
+     * @Route("/get/{id}", name="api_turnovers_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $turnovers = $this->getDoctrine()
-            ->getRepository(Turnovers::class)
-            ->findAll();
-
-        return $this->render('turnovers/index.html.twig', [
-            'turnovers' => $turnovers,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="turnovers_new", methods={"GET","POST"})
+     * Création d'un chiffre d'affaire
+     * @Route("/post", name="api_turnovers_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $turnover = new Turnovers();
-        $form = $this->createForm(TurnoversType::class, $turnover);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($turnover);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('turnovers_index');
-        }
-
-        return $this->render('turnovers/new.html.twig', [
-            'turnover' => $turnover,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{id}", name="turnovers_show", methods={"GET"})
+     * Edition d'un chiffre d'affaire
+     * @Route("/edit/{id}", name="api_turnovers_edit", methods={"PUT"})
      */
-    public function show(Turnovers $turnover): Response
-    {
-        return $this->render('turnovers/show.html.twig', [
-            'turnover' => $turnover,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{id}/edit", name="turnovers_edit", methods={"GET","POST"})
+     * Suppression d'un chiffre d'affaire
+     * @Route("/delete/{id}", name="api_turnovers_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, Turnovers $turnover): Response
-    {
-        $form = $this->createForm(TurnoversType::class, $turnover);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('turnovers_index', [
-                'id' => $turnover->getId(),
-            ]);
-        }
-
-        return $this->render('turnovers/edit.html.twig', [
-            'turnover' => $turnover,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="turnovers_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Turnovers $turnover): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$turnover->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($turnover);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('turnovers_index');
+    public function delete(){
     }
 }

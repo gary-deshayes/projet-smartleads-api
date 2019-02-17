@@ -15,85 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfessionController extends AbstractController
 {
     /**
-     * @Route("/", name="profession_index", methods={"GET"})
+     * Récupération des métiers
+     * @Route("/get/{id}", name="api_profession_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $professions = $this->getDoctrine()
-            ->getRepository(Profession::class)
-            ->findAll();
-
-        return $this->render('profession/index.html.twig', [
-            'professions' => $professions,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="profession_new", methods={"GET","POST"})
+     * Création d'un métier
+     * @Route("/post", name="api_profession_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $profession = new Profession();
-        $form = $this->createForm(ProfessionType::class, $profession);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($profession);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('profession_index');
-        }
-
-        return $this->render('profession/new.html.twig', [
-            'profession' => $profession,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{id}", name="profession_show", methods={"GET"})
+     * Edition d'un métier
+     * @Route("/edit/{id}", name="api_profession_edit", methods={"PUT"})
      */
-    public function show(Profession $profession): Response
-    {
-        return $this->render('profession/show.html.twig', [
-            'profession' => $profession,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{id}/edit", name="profession_edit", methods={"GET","POST"})
+     * Suppression d'un métier
+     * @Route("/delete/{id}", name="api_profession_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, Profession $profession): Response
-    {
-        $form = $this->createForm(ProfessionType::class, $profession);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('profession_index', [
-                'id' => $profession->getId(),
-            ]);
-        }
-
-        return $this->render('profession/edit.html.twig', [
-            'profession' => $profession,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="profession_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Profession $profession): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$profession->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($profession);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('profession_index');
+    public function delete(){
     }
 }

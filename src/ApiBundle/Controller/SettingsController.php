@@ -15,85 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class SettingsController extends AbstractController
 {
     /**
-     * @Route("/", name="settings_index", methods={"GET"})
+     * Récupération des paramètres
+     * @Route("/get/{id}", name="api_settings_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $settings = $this->getDoctrine()
-            ->getRepository(Settings::class)
-            ->findAll();
-
-        return $this->render('settings/index.html.twig', [
-            'settings' => $settings,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="settings_new", methods={"GET","POST"})
+     * Création d'un paramètre
+     * @Route("/post", name="api_settings_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $setting = new Settings();
-        $form = $this->createForm(SettingsType::class, $setting);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($setting);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('settings_index');
-        }
-
-        return $this->render('settings/new.html.twig', [
-            'setting' => $setting,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{id}", name="settings_show", methods={"GET"})
+     * Edition d'un paramètre
+     * @Route("/edit/{id}", name="api_settings_edit", methods={"PUT"})
      */
-    public function show(Settings $setting): Response
-    {
-        return $this->render('settings/show.html.twig', [
-            'setting' => $setting,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{id}/edit", name="settings_edit", methods={"GET","POST"})
+     * Suppression d'un paramètre
+     * @Route("/delete/{id}", name="api_settings_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, Settings $setting): Response
-    {
-        $form = $this->createForm(SettingsType::class, $setting);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('settings_index', [
-                'id' => $setting->getId(),
-            ]);
-        }
-
-        return $this->render('settings/edit.html.twig', [
-            'setting' => $setting,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="settings_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Settings $setting): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$setting->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($setting);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('settings_index');
+    public function delete(){
     }
 }

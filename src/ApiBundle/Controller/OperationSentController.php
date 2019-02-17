@@ -10,90 +10,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/operation/sent")
+ * @Route("/operationsent")
  */
 class OperationSentController extends AbstractController
 {
     /**
-     * @Route("/", name="operation_sent_index", methods={"GET"})
+     * Récupération des opérations envoyées
+     * @Route("/get/{id}", name="api_operationsent_get", methods={"GET"})
      */
-    public function index(): Response
-    {
-        $operationSents = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->findAll();
-
-        return $this->render('operation_sent/index.html.twig', [
-            'operation_sents' => $operationSents,
-        ]);
+    public function getter(){
     }
-
     /**
-     * @Route("/new", name="operation_sent_new", methods={"GET","POST"})
+     * Création d'une opération envoyée
+     * @Route("/post", name="api_operationsent_post", methods={"POST"})
      */
-    public function new(Request $request): Response
-    {
-        $operationSent = new OperationSent();
-        $form = $this->createForm(OperationSentType::class, $operationSent);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($operationSent);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('operation_sent_index');
-        }
-
-        return $this->render('operation_sent/new.html.twig', [
-            'operation_sent' => $operationSent,
-            'form' => $form->createView(),
-        ]);
+    public function post(){
+        
     }
-
     /**
-     * @Route("/{idSalesperson}", name="operation_sent_show", methods={"GET"})
+     * Edition d'une opération envoyée
+     * @Route("/edit/{id}", name="api_operationsent_edit", methods={"PUT"})
      */
-    public function show(OperationSent $operationSent): Response
-    {
-        return $this->render('operation_sent/show.html.twig', [
-            'operation_sent' => $operationSent,
-        ]);
+    public function edit(){
     }
-
     /**
-     * @Route("/{idSalesperson}/edit", name="operation_sent_edit", methods={"GET","POST"})
+     * Suppression d'une opération envoyée
+     * @Route("/delete/{id}", name="api_operationsent_delete", methods={"DELETE"})
      */
-    public function edit(Request $request, OperationSent $operationSent): Response
-    {
-        $form = $this->createForm(OperationSentType::class, $operationSent);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('operation_sent_index', [
-                'idSalesperson' => $operationSent->getIdSalesperson(),
-            ]);
-        }
-
-        return $this->render('operation_sent/edit.html.twig', [
-            'operation_sent' => $operationSent,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{idSalesperson}", name="operation_sent_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, OperationSent $operationSent): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$operationSent->getIdSalesperson(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($operationSent);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('operation_sent_index');
+    public function delete(){
     }
 }
