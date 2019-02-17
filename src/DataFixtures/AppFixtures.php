@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use DateTime;
-use App\AdminBundle\Entity\User;
+use App\AdminBundle\Entity\Salesperson;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -25,24 +25,27 @@ class AppFixtures extends Fixture
            ["email" => "tata@test.com", "password" => "tata"],
            ["email" => "titi@test.com", "password" => "titi"],
        ];
-
+        $i = 0;
        foreach ($users as $data) {
-           $user = new User();
+           $salesperson = new Salesperson();
            $datetime = new DateTime();
 
-           $user->setCode('29727');
-           $user->setFirstName('Baptiste');
-           $user->setName('ROSSIGNOL');
-           $user->setProfil('Commercial');
-           $user->setCreatedAt($datetime);
-           $user->setEmail($data["email"]);
-           $user->setPassword($this->passwordEncoder->encodePassword(
-               $user,
+           $salesperson->setGender("Homme");
+           $salesperson->setCode("AZERTYUIO" . $i);
+            $i++;
+           $salesperson->setFirstName('Baptiste');
+           $salesperson->setLastName('ROSSIGNOL');
+           $salesperson->setProfile('Commercial');
+           $salesperson->setCreatedAt($datetime);
+           $salesperson->setUpdatedAt($datetime);
+           $salesperson->setEmail($data["email"]);
+           $salesperson->setPassword($this->passwordEncoder->encodePassword(
+               $salesperson,
                $data["password"]
            ));
 
-           $user->setRoles(["ROLE_ADMIN"]);
-           $manager->persist($user);
+           $salesperson->setRoles(["ROLE_ADMIN"]);
+           $manager->persist($salesperson);
        }
 
        $manager->flush();

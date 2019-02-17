@@ -2,9 +2,11 @@
 
 namespace App\Security;
 
+use App\AdminBundle\Entity\Salesperson;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -17,17 +19,19 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class AppAdminAuthenticator extends AbstractFormLoginAuthenticator
+class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
-    private $router;
+    private $entityManager;
+    private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
 
-    public function __construct(RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->router = $router;
+        $this->entityManager = $entityManager;
+        $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
     }
@@ -60,9 +64,7 @@ class AppAdminAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        // Load / create our user however you need.
-        // You can do this by calling the user provider, or with custom logic here.
-        $user = $userProvider->loadUserByUsername($credentials['email']);
+        $user = $this->entityManager->getRepository(Salesperson::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
             // fail authentication with a custom error
@@ -83,12 +85,12 @@ class AppAdminAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->router->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        // For example : 
+        return new RedirectResponse($this->urlGenerator->generate('company_index'));
     }
 
     protected function getLoginUrl()
     {
-        return $this->router->generate('app_login');
+        return $this->urlGenerator->generate('app_login');
     }
 }
