@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.6",
+        "fzaninotto/faker": "^1.8",
         "nelmio/api-doc-bundle": "^3.3",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "4.1.*",
