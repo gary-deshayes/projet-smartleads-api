@@ -2,23 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Faker;
 use App\AdminBundle\Entity\Profession;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ProfessionFixtures extends Fixture
+class ProfessionFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create('fr_FR');
-
-        for ($i = 0; $i < 5; $i++) {
-            $Profession = new Profession();
-            $Profession->setLibelle($faker->word);
-            $manager->persist($Profession);
-        }
- 
+        $this->createMany(10, "Profession", function ($count) {
+            $profession = new Profession();
+            $profession->setLibelle($this->faker->word);
+            return $profession;
+        });
         $manager->flush();
     }
 }

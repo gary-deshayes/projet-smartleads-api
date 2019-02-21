@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
            $datetime = new DateTime();
 
            $salesperson->setGender("Homme");
-           $salesperson->setCode("AZERTYUIO" . $i);
+           $salesperson->setCode("AZERTYUOO" . $i);
             $i++;
            $salesperson->setFirstName('Baptiste');
            $salesperson->setLastName('ROSSIGNOL');

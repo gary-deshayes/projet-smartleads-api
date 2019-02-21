@@ -1,22 +1,19 @@
 <?php
 
 namespace App\DataFixtures;
-use Faker;
+
 use App\AdminBundle\Entity\Behavior;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class BehaviorFixtures extends Fixture
+class BehaviorFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create('fr_FR');
-
-        for ($i = 0; $i < 5; $i++) {
+        $this->createMany(10, "Behavior", function($count){
             $behavior = new Behavior();
-            $behavior->setLibelle($faker->word);
-            $manager->persist($behavior);
-        }
+            $behavior->setLibelle($this->faker->word);
+            return $behavior;
+        });
  
         $manager->flush();
     }

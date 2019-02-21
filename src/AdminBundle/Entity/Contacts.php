@@ -19,7 +19,6 @@ class Contacts
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $code;
 
@@ -192,6 +191,13 @@ class Contacts
     public function getCode(): ?string
     {
         return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     public function getGender(): ?string

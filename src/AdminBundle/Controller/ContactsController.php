@@ -3,11 +3,12 @@
 namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Entity\Profession;
 use App\AdminBundle\Form\ContactsType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/contacts")
@@ -22,6 +23,7 @@ class ContactsController extends AbstractController
         $contacts = $this->getDoctrine()
             ->getRepository(Contacts::class)
             ->findAll();
+
 
         return $this->render('contacts/index.html.twig', [
             'contacts' => $contacts,
