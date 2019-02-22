@@ -2,15 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\GraphicStyle;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class GraphicStyleFixtures extends Fixture
+class GraphicStyleFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(10, "GraphicStyle", function($count){
+            $GraphicStyle = new GraphicStyle();
+            $GraphicStyle->setLibelle($this->faker->word);
+            return $GraphicStyle;
+        });
 
         $manager->flush();
     }

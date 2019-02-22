@@ -23,8 +23,16 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setStatus($this->faker->boolean());
             $contacts->setDecisionLevel($this->faker->numberBetween($min = 1, $max = 5));
             $contacts->setBirthDate($this->faker->dateTime($max = 'now', $timezone = null));
-            // $contacts->setMobilePhone(str_replace("+33" , "0", str_replace(" ", "", $this->faker->mobileNumber)));
-            // $contacts->setPhone(str_replace("+33", "0", str_replace(" ", "", $this->faker->phoneNumber)));
+            do{
+                $mobileNumber = str_replace(" ", "", $this->faker->mobileNumber);
+            }while(strlen($mobileNumber) != 10);
+            do{
+                $phoneNumber = str_replace(" ", "", $this->faker->phoneNumber);
+            }while(strlen($phoneNumber) != 10);
+            dump($mobileNumber);
+            dump($phoneNumber);
+            $contacts->setMobilePhone($mobileNumber);
+            $contacts->setPhone($phoneNumber);
             $contacts->setEmail($this->faker->email);
             $contacts->setEmailPrechecked($this->faker->boolean());
             $contacts->setEmailChecked($this->faker->boolean());

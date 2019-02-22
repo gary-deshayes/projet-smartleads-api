@@ -2,15 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\Turnovers;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TurnoversFixtures extends Fixture
+class TurnoversFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(10, "Turnovers", function($count){
+            $turnovers = new Turnovers();
+            $turnovers->setLibelle($this->faker->randomNumber($nbDigits = NULL, $strict = false));
+            return $turnovers;
+        });
 
         $manager->flush();
     }

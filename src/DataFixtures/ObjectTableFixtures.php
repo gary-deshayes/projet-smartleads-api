@@ -2,15 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\ObjectTable;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ObjectTableFixtures extends Fixture
+class ObjectTableFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(10, "ObjectTable", function($count){
+            $objectTable = new ObjectTable();
+            $objectTable->setLibelle($this->faker->word);
+            return $objectTable;
+        });
 
         $manager->flush();
     }

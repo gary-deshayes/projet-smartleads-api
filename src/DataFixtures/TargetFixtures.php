@@ -2,15 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\Target;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TargetFixtures extends Fixture
+class TargetFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(10, "Target", function($count){
+            $target = new Target();
+            $target->setLibelle($this->faker->word);
+            return $target;
+        });
 
         $manager->flush();
     }

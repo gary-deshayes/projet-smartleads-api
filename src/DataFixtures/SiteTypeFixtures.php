@@ -2,15 +2,19 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\SiteType;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class SiteTypeFixtures extends Fixture
+class SiteTypeFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(10, "SiteType", function($count){
+            $siteType = new SiteType();
+            $siteType->setLibelle($this->faker->word);
+            return $siteType;
+        });
+        
 
         $manager->flush();
     }

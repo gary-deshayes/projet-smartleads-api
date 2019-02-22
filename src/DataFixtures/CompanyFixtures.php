@@ -2,16 +2,29 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\Company;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class CompanyFixtures extends Fixture
+class CompanyFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        // $this->createMany(10, "Company", function($count){
+        //     $company = new Company();
+        //     $company->
+        // });
 
-        $manager->flush();
+        // $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            ActivityAreaFixtures::class,
+            CompanyCategoryFixtures::class,
+            SalespersonFixtures::class,
+            LegalStatusFixtures::class,
+            NumberEmployeesFixtures::class
+        ];
     }
 }
