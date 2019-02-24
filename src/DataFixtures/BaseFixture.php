@@ -52,8 +52,9 @@ abstract class BaseFixture extends Fixture
             $this->manager->persist($entity);
             // store for usage later as groupName_#COUNT#
             $this->addReference(sprintf('%s_%d', $groupName, $i), $entity);
-            // dump($this);
+            
         }
+        // dump($this);
     }
 
     protected function getRandomReference(string $className) {

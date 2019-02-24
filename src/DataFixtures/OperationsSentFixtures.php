@@ -2,16 +2,32 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\OperationSent;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class OperationsSentFixtures extends Fixture
+class OperationsSentFixtures extends BaseFixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(5, "OperationSent", function($count){
+            $operationSent = new OperationSent();
+            $operationSent->setIdContacts($this->getRandomReference("Contacts"));
+            $operationSent->setIdOperation($this->getRandomReference("Operation"));
+            $operationSent->setIdSalesperson($this->getRandomReference("Salesperson"));
+            $operationSent->setSentAt(new \DateTime());
+            return $operationSent;
+        });
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            ContactsFixtures::class,
+            SalespersonFixtures::class,
+            OperationsFixtures::class
+        );
     }
 }

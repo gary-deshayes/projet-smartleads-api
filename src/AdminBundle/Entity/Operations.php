@@ -17,7 +17,6 @@ class Operations
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $name;
 
@@ -53,6 +52,14 @@ class Operations
     {
         return $this->name;
     }
+
+    public function setName($name): ?self
+    {
+         $this->name = $name;
+
+         return $this;
+    }
+
 
     public function getUrl(): ?string
     {

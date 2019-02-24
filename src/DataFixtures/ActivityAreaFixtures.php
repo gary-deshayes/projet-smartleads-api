@@ -19,4 +19,11 @@ class ActivityAreaFixtures extends BaseFixture
 
         $manager->flush();
     }
+
+    public function getDependencies()
+    {
+        return array(
+            CompanyCategoryFixtures::class
+        );
+    }
 }

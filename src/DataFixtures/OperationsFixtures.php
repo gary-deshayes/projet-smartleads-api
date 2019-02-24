@@ -2,15 +2,22 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\AdminBundle\Entity\Operations;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class OperationsFixtures extends Fixture
+class OperationsFixtures extends BaseFixture
 {
-    public function load(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->createMany(10, "Operation", function($count){
+            $operation = new Operations();
+            $operation->setName($this->faker->word);
+            $operation->setUrl($this->faker->url);
+            $operation->setTypeOperation($this->faker->randomElement(array('Commerciale', 'Informations', 'Prospection')));
+            $operation->setVisualHeadband($this->faker->imageUrl($width = 640, $height = 120));
+            $operation->setVisuelLateral($this->faker->imageUrl($width = 120, $height = 680));
+            return $operation;
+        });
 
         $manager->flush();
     }

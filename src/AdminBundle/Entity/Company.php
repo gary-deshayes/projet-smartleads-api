@@ -19,7 +19,6 @@ class Company
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $code;
 
@@ -233,6 +232,13 @@ class Company
     public function getCode(): ?string
     {
         return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     public function getName(): ?string
