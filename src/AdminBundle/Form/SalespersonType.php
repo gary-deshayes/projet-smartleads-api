@@ -26,7 +26,7 @@ class SalespersonType extends AbstractType
             ->add('email')
             ->add('linkedin')
             ->add('picture')
-            ->add('idLeader')
+            // ->add('idLeader')
         ;
     }
 
