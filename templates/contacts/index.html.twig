@@ -30,10 +30,10 @@
                 <td>{{ contact.lastName }}</td>
                 <td>{{ contact.firstName }}</td>
                 <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td><i title="{{ contact.mobilePhone }}" class="fas fa-mobile" style="font-size: 24px;"></i></td>
-                <td><i class="fas fa-phone-square" title="{{ contact.phone }}" style="font-size: 24px;"></i></td>
+                <td><i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i></td>
+                <td><i class="fas fa-phone-square" title="{{ contact.phone }}"></i></td>
                 <td>{{ contact.email }}</td>
-                <td><a href="{{ contact.linkedin }}"><i class="fab fa-linkedin" style="font-size: 24px;"></i></a></td>
+                <td><a href="{{ contact.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
                 <td><img class="img-fluid" src="{{ contact.picture }}"></td>
                 <td>{{ contact.comment }}</td>
                 <td>
