@@ -1,33 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contacts index{% endblock %}
+{% block title %}Liste des contacts | {{settings[0].applicationname}}{% endblock %}
 
 {% block body %}
-    <h1>Contacts index</h1>
+    <h1>Contacts</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Code</th>
-                <th>Gender</th>
-                <th>LastName</th>
-                <th>FirstName</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>Status</th>
-                <th>DecisionLevel</th>
-                <th>BirthDate</th>
-                <th>MobilePhone</th>
-                <th>Phone</th>
+                <th>Sexe</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Mobile</th>
+                <th>Téléphone</th>
                 <th>Email</th>
-                <th>EmailPrechecked</th>
-                <th>EmailChecked</th>
                 <th>Linkedin</th>
                 <th>Picture</th>
-                <th>OperationSource</th>
-                <th>Comment</th>
-                <th>OptInNewsletter</th>
-                <th>OptInOffresCommercial</th>
+                <th>Commentaire</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -38,22 +29,13 @@
                 <td>{{ contact.gender }}</td>
                 <td>{{ contact.lastName }}</td>
                 <td>{{ contact.firstName }}</td>
-                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ contact.updatedAt ? contact.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ contact.status ? 'Yes' : 'No' }}</td>
-                <td>{{ contact.decisionLevel }}</td>
                 <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ contact.mobilePhone }}</td>
                 <td>{{ contact.phone }}</td>
                 <td>{{ contact.email }}</td>
-                <td>{{ contact.emailPrechecked ? 'Yes' : 'No' }}</td>
-                <td>{{ contact.emailChecked ? 'Yes' : 'No' }}</td>
-                <td>{{ contact.linkedin }}</td>
-                <td>{{ contact.picture }}</td>
-                <td>{{ contact.operationSource }}</td>
+                <td><a href="{{ contact.linkedin }}"><img src="{{asset('app/Assets/888065_logo_512x512.png')}}" class="img-fluid"></a></td>
+                <td><img class="img-fluid" src="{{ contact.picture }}"></td>
                 <td>{{ contact.comment }}</td>
-                <td>{{ contact.optInNewsletter ? 'Yes' : 'No' }}</td>
-                <td>{{ contact.optInOffresCommercial ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('contacts_show', {'code': contact.code}) }}">show</a>
                     <a href="{{ path('contacts_edit', {'code': contact.code}) }}">edit</a>
@@ -67,5 +49,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('contacts_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('contacts_new') }}">Créer un contact</a>
 {% endblock %}
