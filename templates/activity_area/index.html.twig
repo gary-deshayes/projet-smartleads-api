@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ActivityArea index{% endblock %}
+
+{% block body %}
+    <h1>ActivityArea index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activity_area in activity_areas %}
+            <tr>
+                <td>{{ activity_area.id }}</td>
+                <td>{{ activity_area.libelle }}</td>
+                <td>
+                    <a href="{{ path('activity_area_show', {'id': activity_area.id}) }}">show</a>
+                    <a href="{{ path('activity_area_edit', {'id': activity_area.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('activity_area_new') }}">Create new</a>
+{% endblock %}

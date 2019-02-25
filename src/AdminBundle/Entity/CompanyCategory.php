@@ -2,126 +2,48 @@
 
 namespace App\AdminBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyCategoryRepository")
+ * CompanyCategory
+ *
+ * @ORM\Table(name="company_category")
+ * @ORM\Entity
  */
 class CompanyCategory
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255,
-     *      minMessage = "Il faut au moins 1 caractère.",
-     *      maxMessage = "La limite est de 255 caractères.")
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=255, nullable=false)
      */
-    private $label;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Parameter", mappedBy="companyCategory")
-     */
-    private $parameters;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Company", mappedBy="companyCategory")
-     */
-    private $companies;
-
-    public function __construct()
-    {
-        $this->parameters = new ArrayCollection();
-        $this->companies = new ArrayCollection();
-    }
+    private $libelle;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLabel(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->label;
+        return $this->libelle;
     }
 
-    public function setLabel(string $label): self
+    public function setLibelle(string $libelle): self
     {
-        $this->label = $label;
+        $this->libelle = $libelle;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Parameter[]
-     */
-    public function getParameters(): Collection
-    {
-        return $this->parameters;
-    }
 
-    public function addParameter(Parameter $parameter): self
-    {
-        if (!$this->parameters->contains($parameter)) {
-            $this->parameters[] = $parameter;
-            $parameter->setCompanyCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParameter(Parameter $parameter): self
-    {
-        if ($this->parameters->contains($parameter)) {
-            $this->parameters->removeElement($parameter);
-            // set the owning side to null (unless already changed)
-            if ($parameter->getCompanyCategory() === $this) {
-                $parameter->setCompanyCategory(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
-    {
-        return $this->companies;
-    }
-
-    public function addCompany(Company $company): self
-    {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setCompanyCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getCompanyCategory() === $this) {
-                $company->setCompanyCategory(null);
-            }
-        }
-
-        return $this;
-    }
 }

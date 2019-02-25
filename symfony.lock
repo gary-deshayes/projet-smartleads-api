@@ -80,6 +80,9 @@
     "exsyst/swagger": {
         "version": "v0.4.1"
     },
+    "fzaninotto/faker": {
+        "version": "v1.8.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Target{% endblock %}
+
+{% block body %}
+    <h1>Target</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ target.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ target.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('target_index') }}">back to list</a>
+
+    <a href="{{ path('target_edit', {'id': target.id}) }}">edit</a>
+
+    {{ include('target/_delete_form.html.twig') }}
+{% endblock %}

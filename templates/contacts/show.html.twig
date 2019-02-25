@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block body %}
+    <h1>Contacts</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ contact.code }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ contact.gender }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ contact.lastName }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ contact.firstName }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ contact.updatedAt ? contact.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ contact.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DecisionLevel</th>
+                <td>{{ contact.decisionLevel }}</td>
+            </tr>
+            <tr>
+                <th>BirthDate</th>
+                <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>MobilePhone</th>
+                <td>{{ contact.mobilePhone }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ contact.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>EmailPrechecked</th>
+                <td>{{ contact.emailPrechecked ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>EmailChecked</th>
+                <td>{{ contact.emailChecked ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Linkedin</th>
+                <td>{{ contact.linkedin }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ contact.picture }}</td>
+            </tr>
+            <tr>
+                <th>OperationSource</th>
+                <td>{{ contact.operationSource }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ contact.comment }}</td>
+            </tr>
+            <tr>
+                <th>OptInNewsletter</th>
+                <td>{{ contact.optInNewsletter ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>OptInOffresCommercial</th>
+                <td>{{ contact.optInOffresCommercial ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('contacts_index') }}">back to list</a>
+
+    <a href="{{ path('contacts_edit', {'code': contact.code}) }}">edit</a>
+
+    {{ include('contacts/_delete_form.html.twig') }}
+{% endblock %}

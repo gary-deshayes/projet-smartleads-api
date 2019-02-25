@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Behavior{% endblock %}
+
+{% block body %}
+    <h1>Edit Behavior</h1>
+
+    {{ include('behavior/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('behavior_index') }}">back to list</a>
+
+    {{ include('behavior/_delete_form.html.twig') }}
+{% endblock %}

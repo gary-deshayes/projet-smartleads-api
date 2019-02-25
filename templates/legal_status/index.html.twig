@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LegalStatus index{% endblock %}
+
+{% block body %}
+    <h1>LegalStatus index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for legal_status in legal_statuses %}
+            <tr>
+                <td>{{ legal_status.id }}</td>
+                <td>{{ legal_status.libelle }}</td>
+                <td>
+                    <a href="{{ path('legal_status_show', {'id': legal_status.id}) }}">show</a>
+                    <a href="{{ path('legal_status_edit', {'id': legal_status.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('legal_status_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salesperson index{% endblock %}
+
+{% block body %}
+    <h1>Salesperson index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Gender</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Profile</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Status</th>
+                <th>BirthDate</th>
+                <th>WorkName</th>
+                <th>MobilePhone</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Linkedin</th>
+                <th>Picture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for salesperson in salespeople %}
+            <tr>
+                <td>{{ salesperson.code }}</td>
+                <td>{{ salesperson.gender }}</td>
+                <td>{{ salesperson.firstName }}</td>
+                <td>{{ salesperson.lastName }}</td>
+                <td>{{ salesperson.profile }}</td>
+                <td>{{ salesperson.createdAt ? salesperson.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salesperson.updatedAt ? salesperson.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salesperson.status ? 'Yes' : 'No' }}</td>
+                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salesperson.workName }}</td>
+                <td>{{ salesperson.mobilePhone }}</td>
+                <td>{{ salesperson.phone }}</td>
+                <td>{{ salesperson.email }}</td>
+                <td>{{ salesperson.linkedin }}</td>
+                <td>{{ salesperson.picture }}</td>
+                <td>
+                    <a href="{{ path('salesperson_show', {'code': salesperson.code}) }}">show</a>
+                    <a href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('salesperson_new') }}">Create new</a>
+{% endblock %}

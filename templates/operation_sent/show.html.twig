@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OperationSent{% endblock %}
+
+{% block body %}
+    <h1>OperationSent</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>SentAt</th>
+                <td>{{ operation_sent.sentAt ? operation_sent.sentAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('operation_sent_index') }}">back to list</a>
+
+    <a href="{{ path('operation_sent_edit', {'idSalesperson': operation_sent.idSalesperson}) }}">edit</a>
+
+    {{ include('operation_sent/_delete_form.html.twig') }}
+{% endblock %}

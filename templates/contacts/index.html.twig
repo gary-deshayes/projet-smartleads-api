@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des contacts | {{settings[0].applicationname}}{% endblock %}
+
+{% block body %}
+    <h1>Contacts</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Sexe</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Mobile</th>
+                <th>Téléphone</th>
+                <th>Email</th>
+                <th>Linkedin</th>
+                <th>Picture</th>
+                <th>Commentaire</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.code }}</td>
+                <td>{{ contact.gender }}</td>
+                <td>{{ contact.lastName }}</td>
+                <td>{{ contact.firstName }}</td>
+                <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contact.mobilePhone }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.email }}</td>
+                <td><a href="{{ contact.linkedin }}"><img src="{{asset('app/Assets/888065_logo_512x512.png')}}" class="img-fluid"></a></td>
+                <td><img class="img-fluid" src="{{ contact.picture }}"></td>
+                <td>{{ contact.comment }}</td>
+                <td>
+                    <a href="{{ path('contacts_show', {'code': contact.code}) }}">show</a>
+                    <a href="{{ path('contacts_edit', {'code': contact.code}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('contacts_new') }}">Créer un contact</a>
+{% endblock %}

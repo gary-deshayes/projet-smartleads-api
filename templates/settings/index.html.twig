@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Settings index{% endblock %}
+
+{% block body %}
+    <h1>Settings index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ApplicationName</th>
+                <th>ApplicationLogo</th>
+                <th>Address</th>
+                <th>AdditionalAddress</th>
+                <th>Phone</th>
+                <th>Fax</th>
+                <th>Email</th>
+                <th>EmailAdmin</th>
+                <th>EmailContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for setting in settings %}
+            <tr>
+                <td>{{ setting.id }}</td>
+                <td>{{ setting.applicationName }}</td>
+                <td>{{ setting.applicationLogo }}</td>
+                <td>{{ setting.address }}</td>
+                <td>{{ setting.additionalAddress }}</td>
+                <td>{{ setting.phone }}</td>
+                <td>{{ setting.fax }}</td>
+                <td>{{ setting.email }}</td>
+                <td>{{ setting.emailAdmin }}</td>
+                <td>{{ setting.emailContact }}</td>
+                <td>
+                    <a href="{{ path('settings_show', {'id': setting.id}) }}">show</a>
+                    <a href="{{ path('settings_edit', {'id': setting.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('settings_new') }}">Create new</a>
+{% endblock %}

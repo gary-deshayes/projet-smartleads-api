@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit OperationSent{% endblock %}
+
+{% block body %}
+    <h1>Edit OperationSent</h1>
+
+    {{ include('operation_sent/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('operation_sent_index') }}">back to list</a>
+
+    {{ include('operation_sent/_delete_form.html.twig') }}
+{% endblock %}

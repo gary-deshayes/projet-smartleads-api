@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GraphicStyle index{% endblock %}
+
+{% block body %}
+    <h1>GraphicStyle index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for graphic_style in graphic_styles %}
+            <tr>
+                <td>{{ graphic_style.id }}</td>
+                <td>{{ graphic_style.libelle }}</td>
+                <td>
+                    <a href="{{ path('graphic_style_show', {'id': graphic_style.id}) }}">show</a>
+                    <a href="{{ path('graphic_style_edit', {'id': graphic_style.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('graphic_style_new') }}">Create new</a>
+{% endblock %}

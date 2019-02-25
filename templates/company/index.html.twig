@@ -1,15 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les entreprises{% endblock %}
+{% block title %}Company index{% endblock %}
 
 {% block body %}
-<label>Les entreprises: </label>
-<ul>
-    {% for company in Company %}
-    <a href='{{ path("Company_editShow",{"id": company.id }) }}'><li>{{ company.label }}</li></a>
-    {% endfor %}
+    <h1>Company index</h1>
 
-</ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Status</th>
+                <th>Logo</th>
+                <th>Comment</th>
+                <th>Country</th>
+                <th>Address</th>
+                <th>AdditionalAddress</th>
+                <th>PostalCode</th>
+                <th>Town</th>
+                <th>Phone</th>
+                <th>Fax</th>
+                <th>Website</th>
+                <th>CreatedAtCompany</th>
+                <th>Siret</th>
+                <th>NafCode</th>
+                <th>Source</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td>{{ company.code }}</td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.createdAt ? company.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ company.updatedAt ? company.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ company.status }}</td>
+                <td>{{ company.logo }}</td>
+                <td>{{ company.comment }}</td>
+                <td>{{ company.country }}</td>
+                <td>{{ company.address }}</td>
+                <td>{{ company.additionalAddress }}</td>
+                <td>{{ company.postalCode }}</td>
+                <td>{{ company.town }}</td>
+                <td>{{ company.phone }}</td>
+                <td>{{ company.fax }}</td>
+                <td>{{ company.website }}</td>
+                <td>{{ company.createdAtCompany ? company.createdAtCompany|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ company.siret }}</td>
+                <td>{{ company.nafCode }}</td>
+                <td>{{ company.source }}</td>
+                <td>
+                    <a href="{{ path('company_show', {'code': company.code}) }}">show</a>
+                    <a href="{{ path('company_edit', {'code': company.code}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="20">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-<a href="{{ path('Company_createShow') }}">Créer une entreprise</a>
+    <a href="{{ path('company_new') }}">Create new</a>
 {% endblock %}

@@ -4,125 +4,96 @@ namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Form\CompanyType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
-* @Route("/company")
-*/
+ * @Route("/company")
+ */
 class CompanyController extends AbstractController
 {
-
-   /**
-     * Affichage du formulaire
-     * @Route("/edit/{id}", name="Company_editShow", methods={"GET","POST"})
+    /**
+     * @Route("/", name="company_index", methods={"GET"})
      */
-    public function edit($id, Request $request)
+    public function index(): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $companies = $this->getDoctrine()
+            ->getRepository(Company::class)
+            ->findAll();
 
-        $company = $em->getRepository(Company::class)->find($id);
+        return $this->render('company/index.html.twig', [
+            'companies' => $companies,
+        ]);
+    }
 
+    /**
+     * @Route("/new", name="company_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $company = new Company();
         $form = $this->createForm(CompanyType::class, $company);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($company);
+            $entityManager->flush();
 
-            $retour = $this->edit($company->getId(), $request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute("Company");
-            } else {
-                return $this->render('company/create.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }
+            return $this->redirectToRoute('company_index');
         }
 
-        if (!$company) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
+        return $this->render('company/new.html.twig', [
+            'company' => $company,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{code}", name="company_show", methods={"GET"})
+     */
+    public function show(Company $company): Response
+    {
+        return $this->render('company/show.html.twig', [
+            'company' => $company,
+        ]);
+    }
+
+    /**
+     * @Route("/{code}/edit", name="company_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Company $company): Response
+    {
+        $form = $this->createForm(CompanyType::class, $company);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('company_index', [
+                'code' => $company->getCode(),
+            ]);
         }
 
         return $this->render('company/edit.html.twig', [
+            'company' => $company,
             'form' => $form->createView(),
         ]);
-
-    }
-
-
-    /**
-     * Affichage du formulaire
-     * @Route("delete/{id}", name="company_deleteShow", methods={"GET","POST"})
-     */
-    public function delete()
-    {
-
     }
 
     /**
-     * Affichage du formulaire
-     * @Route("/create", name="Company_createShow", methods={"GET","POST"})
+     * @Route("/{code}", name="company_delete", methods={"DELETE"})
      */
-    public function create(Request $request)
+    public function delete(Request $request, Company $company): Response
     {
-        $formCreate = $this->createForm(CompanyType::class);
-
-        $formCreate->handleRequest($request);
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-
-            $retour = $this->create($request);
-
-            if ($retour->getContent() == 1) {
-                return $this->redirectToRoute('Company');
-            } else {
-                return $this->render('company/create.html.twig', [
-                    'form' => $formCreate->createView(),
-                ]);
-            }
+        if ($this->isCsrfTokenValid('delete'.$company->getCode(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($company);
+            $entityManager->flush();
         }
 
-        return $this->render('company/create.html.twig', [
-            'form' => $formCreate->createView(),			
-        ]);
-    }
-
-   
-    /**
-     * Affichage de la liste des paramètres de type de site
-     * @Route("/", name="company", methods={"GET"})
-     */
-    public function index(Request $request, SerializerInterface $serializer)
-    {
-
-        $response = new Response();
-
-        $repo = $this->getDoctrine()->getRepository(Company::class);
-        $company = $repo->findAll();
-
-        if ($request->isXmlHttpRequest()) {
-            $json = $serializer->serialize($company, "json", ["GROUPS" => ["Light"]]);
-            $response->setContent($json);
-            return $response;
-        } else {
-            return $this->render('company/index.html.twig', array(
-                "Company" => $company
-            ));
-        }
-    }
-
-    /**
-     * Affichage du formulaire
-     * @Route("/success", name="company_success", methods={"POST"})
-     */
-    public function success()
-    {
-
+        return $this->redirectToRoute('company_index');
     }
 }

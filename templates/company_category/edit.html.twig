@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edition d'une catégorie d'entreprise{% endblock %}
+{% block title %}Edit CompanyCategory{% endblock %}
 
 {% block body %}
-<a href="{{ path('companyCategory') }}">Retour à la liste des catégories d'entreprises</a>
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-{{ form_widget(form) }}
-{{ form_widget(form.save, { 'label': 'Modifier' }) }}
-{{ form_end(form) }}
+    <h1>Edit CompanyCategory</h1>
+
+    {{ include('company_category/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('company_category_index') }}">back to list</a>
+
+    {{ include('company_category/_delete_form.html.twig') }}
 {% endblock %}

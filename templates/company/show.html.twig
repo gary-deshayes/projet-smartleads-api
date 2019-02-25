@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Company{% endblock %}
+
+{% block body %}
+    <h1>Company</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ company.code }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ company.name }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ company.createdAt ? company.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ company.updatedAt ? company.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ company.status }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td>{{ company.logo }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ company.comment }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ company.country }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ company.address }}</td>
+            </tr>
+            <tr>
+                <th>AdditionalAddress</th>
+                <td>{{ company.additionalAddress }}</td>
+            </tr>
+            <tr>
+                <th>PostalCode</th>
+                <td>{{ company.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Town</th>
+                <td>{{ company.town }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ company.phone }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ company.fax }}</td>
+            </tr>
+            <tr>
+                <th>Website</th>
+                <td>{{ company.website }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAtCompany</th>
+                <td>{{ company.createdAtCompany ? company.createdAtCompany|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ company.siret }}</td>
+            </tr>
+            <tr>
+                <th>NafCode</th>
+                <td>{{ company.nafCode }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ company.source }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('company_index') }}">back to list</a>
+
+    <a href="{{ path('company_edit', {'code': company.code}) }}">edit</a>
+
+    {{ include('company/_delete_form.html.twig') }}
+{% endblock %}

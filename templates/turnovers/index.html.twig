@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Turnovers index{% endblock %}
+
+{% block body %}
+    <h1>Turnovers index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for turnover in turnovers %}
+            <tr>
+                <td>{{ turnover.id }}</td>
+                <td>{{ turnover.libelle }}</td>
+                <td>
+                    <a href="{{ path('turnovers_show', {'id': turnover.id}) }}">show</a>
+                    <a href="{{ path('turnovers_edit', {'id': turnover.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('turnovers_new') }}">Create new</a>
+{% endblock %}

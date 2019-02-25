@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OperationSent index{% endblock %}
+
+{% block body %}
+    <h1>OperationSent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SentAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operation_sent in operation_sents %}
+            <tr>
+                <td>{{ operation_sent.sentAt ? operation_sent.sentAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('operation_sent_show', {'idSalesperson': operation_sent.idSalesperson}) }}">show</a>
+                    <a href="{{ path('operation_sent_edit', {'idSalesperson': operation_sent.idSalesperson}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('operation_sent_new') }}">Create new</a>
+{% endblock %}
