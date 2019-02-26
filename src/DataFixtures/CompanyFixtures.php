@@ -10,7 +10,7 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(1500, "Company", function($count){
+        $this->createMany(10, "Company", function($count){
             $company = new Company();
             $company->setCode($this->faker->regexify('[A-Z]{10}'));
             $company->setIdActivityArea($this->getRandomReference("ActivityArea"));

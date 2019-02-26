@@ -10,28 +10,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManager;
+use Faker;
 
 /**
  * @Route("/contacts")
  */
 class ContactsController extends AbstractController
 {
+    /** @var Faker */
+    protected $faker;
+
     /**
      * @Route("/", name="contacts_index", methods={"GET"})
      */
     public function index(): Response
     {
 
-        
+
         $contacts = $this->getDoctrine()
             ->getRepository(Contacts::class)
-            ->findAll();
-        
+            ->findBy(array(), array('lastName' => 'ASC'));
+
 
         $settings = $this->getDoctrine()
-        ->getRepository(Settings::class)
-        ->findAll();
+            ->getRepository(Settings::class)
+            ->findAll();
 
         return $this->render('contacts/index.html.twig', [
             'contacts' => $contacts,
@@ -44,11 +47,21 @@ class ContactsController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $repoContact = $this->getDoctrine()->getRepository(Contacts::class);
+        $this->faker = Faker\Factory::create('fr_FR');
         $contact = new Contacts();
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
-
+        $data = $request->request->get("contacts");
         if ($form->isSubmitted() && $form->isValid()) {
+            do{
+                $code = $this->faker->regexify("[A-Z]{10}");
+                
+            }while($repoContact->findOneBy(array("code" => $code)) != null);
+            
+            $contact->setCode($code);
+            $contact->setCreatedAt(new \DateTime());
+            $contact->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contact);
             $entityManager->flush();
@@ -99,7 +112,7 @@ class ContactsController extends AbstractController
      */
     public function delete(Request $request, Contacts $contact): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contact->getCode(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $contact->getCode(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($contact);
             $entityManager->flush();

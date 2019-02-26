@@ -12,9 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ContactsType extends AbstractType
@@ -24,8 +22,10 @@ class ContactsType extends AbstractType
         $builder
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
-                    'Homme' => 0,
-                    'Femme' => 1
+                    "Non précisé" => "Non précisé",
+                    'Homme' => "Homme",
+                    'Femme' => "Femme"
+                    
                 ],
                 'label' => "Genre :"
             ])
@@ -58,35 +58,44 @@ class ContactsType extends AbstractType
                 "years" => range(date('Y'), date('Y') - 70)
             ])
             ->add('mobilePhone', TelType::class, [
-                "label" => "Téléphone mobile :"
+                "label" => "Téléphone mobile :",
+                "required" => false
             ])
             ->add('phone',TelType::class, [
-                "label" => "Téléphone fixe :"
+                "label" => "Téléphone fixe :",
+                "required" => false
             ])
             ->add('email', EmailType::class, [
-                "label" => "Email :"
+                "label" => "Email :",
+                "required" => false
             ])
             ->add('linkedin', UrlType::class, [
-                "label" => "Lien LinkedIn :"
+                "label" => "Lien LinkedIn :",
+                "required" => false
             ])
             ->add('picture', FileType::class, [
-                "label" => "Image :"
+                "label" => "Image :",
+                "required" => false
             ])
             ->add('operationSource', ChoiceType::class, [
                 'choices' => [
                     "Operation 1",
                     "Operation 2"
                 ],
-                "label" => "Opération qui a permis de créer le contact"
+                "label" => "Opération qui a permis de créer le contact",
+                "required" => false
             ])
             ->add('comment', TextType::class, [
-                "label" => "Commentaires"
+                "label" => "Commentaires",
+                "required" => false
             ])
             ->add('optInNewsletter', CheckboxType::class, [
-                "label" => "Recevoir les newsletter"
+                "label" => "Recevoir les newsletter",
+                "required" => false
             ])
             ->add('optInOffresCommercial', CheckboxType::class, [
-                "label" => "Recevoir les offres commercial"
+                "label" => "Recevoir les offres commercial",
+                "required" => false
             ])
         ;
     }
