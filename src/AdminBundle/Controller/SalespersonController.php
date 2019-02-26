@@ -4,13 +4,16 @@ namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Form\SalespersonType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * @Route("/salesperson")
+ * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
  */
 class SalespersonController extends AbstractController
 {
@@ -19,6 +22,8 @@ class SalespersonController extends AbstractController
      */
     public function index(): Response
     {
+
+        
         $salespeople = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->findAll();

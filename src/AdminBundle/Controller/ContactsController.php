@@ -22,6 +22,8 @@ class ContactsController extends AbstractController
      */
     public function index(): Response
     {
+
+        
         $contacts = $this->getDoctrine()
             ->getRepository(Contacts::class)
             ->findAll();
