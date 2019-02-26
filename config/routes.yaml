@@ -1,3 +1,6 @@
 home:
     path: /
     controller: App\AdminBundle\Controller\SecurityController::login
+adminhome:
+    path: /admin/
+    controller: App\AdminBundle\Controller\SecurityController::login
