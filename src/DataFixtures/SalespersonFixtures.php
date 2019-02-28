@@ -27,9 +27,9 @@ class SalespersonFixtures extends BaseFixture
 
             $salesperson->setCode($this->faker->regexify('[A-Z]{10}'));
 
-            $salesperson->setFirstName($this->faker->name);
+            $salesperson->setFirstName($this->faker->firstName('male'|'female'));
 
-            $salesperson->setLastName($this->faker->name);
+            $salesperson->setLastName($this->faker->lastName);
 
             $salesperson->setProfile($this->faker->randomElement($array = array('Commercial', 'Directeur commercial', 'Responsable d\'équipe')));
 
@@ -60,6 +60,9 @@ class SalespersonFixtures extends BaseFixture
             return $salesperson;
         });
 
+        
+
         $manager->flush();
     }
+
 }

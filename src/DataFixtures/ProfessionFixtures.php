@@ -11,7 +11,7 @@ class ProfessionFixtures extends BaseFixture
     {
         $this->createMany(10, "Profession", function ($count) {
             $profession = new Profession();
-            $profession->setLibelle($this->faker->word);
+            $profession->setLibelle($this->faker->jobTitle);
             return $profession;
         });
         $manager->flush();
