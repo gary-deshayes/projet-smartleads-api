@@ -17,7 +17,6 @@
                 <th>Téléphone</th>
                 <th>Email</th>
                 <th>Linkedin</th>
-                <th>Picture</th>
                 <th>Commentaire</th>
                 <th>actions</th>
             </tr>
@@ -34,7 +33,6 @@
                 <td><i class="fas fa-phone-square" title="{{ contact.phone }}"></i></td>
                 <td><i class="fas fa-at" title="{{ contact.email }}"></i></td>
                 <td><a href="{{ contact.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
-                <td><img class="img-fluid" src="{{ contact.picture }}"></td>
                 <td>{{ contact.comment }}</td>
                 <td>
                     <a href="{{ path('contacts_show', {'code': contact.code}) }}">show</a>

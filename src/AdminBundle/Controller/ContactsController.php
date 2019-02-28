@@ -58,6 +58,12 @@ class ContactsController extends AbstractController
                 $code = $this->faker->regexify("[A-Z]{10}");
                 
             }while($repoContact->findOneBy(array("code" => $code)) != null);
+            // 23 caractere unique
+            $nomImage = uniqid('', true) . ".jpg";
+
+            $file = $form['picture']->getData();
+            $file->move("img/", $nomImage);
+            $contact->setPicture($nomImage);
             
             $contact->setCode($code);
             $contact->setCreatedAt(new \DateTime());
