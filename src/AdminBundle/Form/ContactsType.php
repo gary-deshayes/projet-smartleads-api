@@ -75,7 +75,9 @@ class ContactsType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 "label" => "Image :",
-                "required" => false
+                "required" => false,
+                'data_class' => null
+
             ])
             ->add('operationSource', ChoiceType::class, [
                 'choices' => [

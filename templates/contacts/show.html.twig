@@ -12,43 +12,35 @@
                 <td>{{ contact.code }}</td>
             </tr>
             <tr>
-                <th>Gender</th>
+                <th>Genre</th>
                 <td>{{ contact.gender }}</td>
             </tr>
             <tr>
-                <th>LastName</th>
+                <th>Nom</th>
                 <td>{{ contact.lastName }}</td>
             </tr>
             <tr>
-                <th>FirstName</th>
+                <th>Prénom</th>
                 <td>{{ contact.firstName }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ contact.updatedAt ? contact.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Status</th>
-                <td>{{ contact.status ? 'Yes' : 'No' }}</td>
+                <td>{{ contact.status ? 'Actif' : 'Inactif' }}</td>
             </tr>
             <tr>
-                <th>DecisionLevel</th>
+                <th>Niveau de décision</th>
                 <td>{{ contact.decisionLevel }}</td>
             </tr>
             <tr>
-                <th>BirthDate</th>
-                <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de naissance</th>
+                <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>MobilePhone</th>
+                <th>Mobile</th>
                 <td>{{ contact.mobilePhone }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>Téléphone fixe</th>
                 <td>{{ contact.phone }}</td>
             </tr>
             <tr>
@@ -56,36 +48,28 @@
                 <td>{{ contact.email }}</td>
             </tr>
             <tr>
-                <th>EmailPrechecked</th>
-                <td>{{ contact.emailPrechecked ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>EmailChecked</th>
-                <td>{{ contact.emailChecked ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
                 <th>Linkedin</th>
                 <td>{{ contact.linkedin }}</td>
             </tr>
             <tr>
-                <th>Picture</th>
-                <td>{{ contact.picture }}</td>
+                <th>Image</th>
+                <td><img class="img-fluid" src="{{ asset('img/' ~ contact.picture) }}"></td>
             </tr>
             <tr>
-                <th>OperationSource</th>
+                <th>Opération qui a permis l'ajout</th>
                 <td>{{ contact.operationSource }}</td>
             </tr>
             <tr>
-                <th>Comment</th>
+                <th>Commentaire</th>
                 <td>{{ contact.comment }}</td>
             </tr>
             <tr>
-                <th>OptInNewsletter</th>
-                <td>{{ contact.optInNewsletter ? 'Yes' : 'No' }}</td>
+                <th>Envoi des newsletter</th>
+                <td>{{ contact.optInNewsletter ? 'Oui' : 'Non' }}</td>
             </tr>
             <tr>
-                <th>OptInOffresCommercial</th>
-                <td>{{ contact.optInOffresCommercial ? 'Yes' : 'No' }}</td>
+                <th>Envoi des offres commerciales</th>
+                <td>{{ contact.optInOffresCommercial ? 'Oui' : 'Non' }}</td>
             </tr>
         </tbody>
     </table>
