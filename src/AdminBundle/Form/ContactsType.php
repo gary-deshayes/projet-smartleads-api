@@ -5,6 +5,7 @@ namespace App\AdminBundle\Form;
 use App\AdminBundle\Entity\Contacts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Proxies\__CG__\App\AdminBundle\Entity\Profession;
 
 class ContactsType extends AbstractType
 {
@@ -41,6 +43,10 @@ class ContactsType extends AbstractType
                     'Inactif' => 0
                 ],
                 'label' => "Statut :"
+            ])
+            ->add('profession', EntityType::class, [
+                'label' => "Métier :",
+                'class' => Profession::class
             ])
             ->add('decisionLevel', ChoiceType::class, [
                 'label' => "Niveau de décision :",
@@ -78,14 +84,6 @@ class ContactsType extends AbstractType
                 "required" => false,
                 'data_class' => null
 
-            ])
-            ->add('operationSource', ChoiceType::class, [
-                'choices' => [
-                    "Operation 1",
-                    "Operation 2"
-                ],
-                "label" => "Opération qui a permis de créer le contact",
-                "required" => false
             ])
             ->add('comment', TextType::class, [
                 "label" => "Commentaires",

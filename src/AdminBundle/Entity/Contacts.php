@@ -431,12 +431,12 @@ class Contacts
         return $this;
     }
 
-    public function getIdProfession(): ?Profession
+    public function getProfession(): ?Profession
     {
         return $this->idProfession;
     }
 
-    public function setIdProfession(?Profession $idProfession): self
+    public function setProfession(?Profession $idProfession): self
     {
         $this->idProfession = $idProfession;
 
