@@ -22,9 +22,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('contacts_index') }}">Contacts</a>
                     </li>
+                    {% if is_granted("ROLE_DIRECTEUR") %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('company_index') }}">Entreprises</a>
                     </li>

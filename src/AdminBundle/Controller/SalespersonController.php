@@ -2,6 +2,7 @@
 
 namespace App\AdminBundle\Controller;
 
+use Faker;
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Form\SalespersonType;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
@@ -36,13 +38,32 @@ class SalespersonController extends AbstractController
     /**
      * @Route("/new", name="salesperson_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
+        $this->faker = Faker\Factory::create('fr_FR');
         $salesperson = new Salesperson();
         $form = $this->createForm(SalespersonType::class, $salesperson);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->get("salesperson");
+            do{
+                $code = $this->faker->regexify("[A-Z]{10}");
+                
+            }while($repoSalesperson->findOneBy(array("code" => $code)) != null);
+            $roles = [];
+            if($data["profile"] == "Commercial"){
+                $roles = ["ROLE_COMMERCIAL"];
+            } else {
+                $roles = ["ROLE_RESPONSABLE"];
+            }
+            $salesperson->setRoles($roles);
+            $salesperson->setCode($code);
+            $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, "azerty"));
+            $salesperson->setCreatedAt(new \DateTime());
+            $salesperson->setUpdatedAt(new \DateTime());
+            $salesperson->setLeader($repoSalesperson->findOneBy(array("code" => $data["leader"])));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($salesperson);
             $entityManager->flush();
@@ -61,6 +82,7 @@ class SalespersonController extends AbstractController
      */
     public function show(Salesperson $salesperson): Response
     {
+        dump($salesperson);
         return $this->render('salesperson/show.html.twig', [
             'salesperson' => $salesperson,
         ]);

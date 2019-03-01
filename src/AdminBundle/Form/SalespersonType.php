@@ -2,9 +2,11 @@
 
 namespace App\AdminBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use App\AdminBundle\Entity\Salesperson;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -61,7 +63,7 @@ class SalespersonType extends AbstractType
                 "label" => "Téléphone mobile :",
                 "required" => false
             ])
-            ->add('phone',TelType::class, [
+            ->add('phone', TelType::class, [
                 "label" => "Téléphone fixe :",
                 "required" => false
             ])
@@ -77,7 +79,16 @@ class SalespersonType extends AbstractType
                 "label" => "Image :",
                 "required" => false,
                 'data_class' => null
-
+            ])
+            ->add('leader', EntityType::class, [
+                'class' => Salesperson::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('salesperson')
+                        ->where("salesperson.status = 1")
+                        ->andWhere('salesperson.roles like :roles')
+                        ->orderBy('salesperson.firstName', 'ASC')
+                        ->setParameter(":roles", '["ROLE_RESPONSABLE"]');
+                }
             ])
             // ->add('idLeader')
         ;

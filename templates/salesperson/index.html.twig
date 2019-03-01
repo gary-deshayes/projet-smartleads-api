@@ -30,7 +30,7 @@
                 <td>{{ salesperson.gender }}</td>
                 <td>{{ salesperson.profile }}</td>
                 <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
-                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
                 <td>{{ salesperson.workName }}</td>
                 <td> <i class="fas fa-mobile"  title="{{ salesperson.mobilePhone }}"></i></td>
                 <td><i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i></td>
