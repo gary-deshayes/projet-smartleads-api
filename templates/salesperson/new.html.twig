@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Salesperson{% endblock %}
+{% block title %}Création de commercial{% endblock %}
 
 {% block body %}
-    <h1>Create new Salesperson</h1>
+    <h1>Créer un commercial</h1>
 
     {{ include('salesperson/_form.html.twig') }}
 
-    <a href="{{ path('salesperson_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('salesperson_index') }}">Retour à la liste</a>
 {% endblock %}
