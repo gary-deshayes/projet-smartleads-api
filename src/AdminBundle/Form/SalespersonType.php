@@ -88,7 +88,8 @@ class SalespersonType extends AbstractType
                         ->andWhere('salesperson.roles like :roles')
                         ->orderBy('salesperson.firstName', 'ASC')
                         ->setParameter(":roles", '["ROLE_RESPONSABLE"]');
-                }
+                },
+                'required' => false
             ])
             // ->add('idLeader')
         ;
