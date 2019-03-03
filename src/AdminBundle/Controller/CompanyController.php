@@ -2,12 +2,14 @@
 
 namespace App\AdminBundle\Controller;
 
+use Faker;
 use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Form\CompanyType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AdminBundle\Entity\Salesperson;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/company")
@@ -33,11 +35,20 @@ class CompanyController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $repoCompany = $this->getDoctrine()->getRepository(Company::class);
+        $this->faker = Faker\Factory::create('fr_FR');
         $company = new Company();
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            do{
+                $code = $this->faker->regexify("[A-Z]{10}");
+                
+            }while($repoCompany->findOneBy(array("code" => $code)) != null);
+            dump($request);
+            $company->setCode($code);
+            $company->setCreatedAt(new \DateTime());
+            $company->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($company);
             $entityManager->flush();

@@ -3,6 +3,7 @@
 namespace App\AdminBundle\Controller;
 
 use Faker;
+use App\Service\FileUploader;
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Form\SalespersonType;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class SalespersonController extends AbstractController
     public function index(): Response
     {
 
-        
+
         $salespeople = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->findAll();
@@ -38,7 +39,7 @@ class SalespersonController extends AbstractController
     /**
      * @Route("/new", name="salesperson_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder, FileUploader $fileUploader): Response
     {
         $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
         $this->faker = Faker\Factory::create('fr_FR');
@@ -48,16 +49,18 @@ class SalespersonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $request->request->get("salesperson");
-            do{
+            do {
                 $code = $this->faker->regexify("[A-Z]{10}");
-                
-            }while($repoSalesperson->findOneBy(array("code" => $code)) != null);
+            } while ($repoSalesperson->findOneBy(array("code" => $code)) != null);
             $roles = [];
-            if($data["profile"] == "Commercial"){
+            if ($data["profile"] == "Commercial") {
                 $roles = ["ROLE_COMMERCIAL"];
             } else {
                 $roles = ["ROLE_RESPONSABLE"];
             }
+
+            $fileName = $fileUploader->upload($form['picture']->getData());
+            $salesperson->setPicture($fileName);
             $salesperson->setRoles($roles);
             $salesperson->setCode($code);
             $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, "azerty"));
@@ -82,7 +85,6 @@ class SalespersonController extends AbstractController
      */
     public function show(Salesperson $salesperson): Response
     {
-        dump($salesperson);
         return $this->render('salesperson/show.html.twig', [
             'salesperson' => $salesperson,
         ]);
@@ -115,7 +117,7 @@ class SalespersonController extends AbstractController
      */
     public function delete(Request $request, Salesperson $salesperson): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$salesperson->getCode(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $salesperson->getCode(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($salesperson);
             $entityManager->flush();

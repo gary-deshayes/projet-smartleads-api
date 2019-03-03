@@ -24,6 +24,10 @@
                 <td>{{ salesperson.lastName }}</td>
             </tr>
             <tr>
+                <th>Photo</th>
+                <td><img class="img-fluid" src="{{ asset('img/' ~ salesperson.picture) }}"></td>
+            </tr>
+            <tr>
                 <th>Profil</th>
                 <td>{{ salesperson.profile }}</td>
             </tr>
@@ -59,10 +63,7 @@
                 <th>Linkedin</th>
                 <td>{{ salesperson.linkedin }}</td>
             </tr>
-            <tr>
-                <th>Photo</th>
-                <td><img src="{{ salesperson.picture }}" ></td>
-            </tr>
+            
         </tbody>
     </table>
 
