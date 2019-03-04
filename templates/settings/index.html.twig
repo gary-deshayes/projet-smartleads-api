@@ -8,27 +8,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>ApplicationName</th>
-                <th>ApplicationLogo</th>
-                <th>Address</th>
-                <th>AdditionalAddress</th>
-                <th>Phone</th>
+                <th>Nom</th>
+                <th>Logo</th>
+                <th>Numéro</th>
                 <th>Fax</th>
                 <th>Email</th>
-                <th>EmailAdmin</th>
-                <th>EmailContact</th>
-                <th>actions</th>
+                <th>Email de l'Admin</th>
+                <th>Email de contact</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for setting in settings %}
             <tr>
-                <td>{{ setting.id }}</td>
                 <td>{{ setting.applicationName }}</td>
                 <td>{{ setting.applicationLogo }}</td>
-                <td>{{ setting.address }}</td>
-                <td>{{ setting.additionalAddress }}</td>
                 <td>{{ setting.phone }}</td>
                 <td>{{ setting.fax }}</td>
                 <td>{{ setting.email }}</td>
