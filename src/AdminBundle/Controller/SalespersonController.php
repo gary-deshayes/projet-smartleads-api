@@ -25,6 +25,7 @@ class SalespersonController extends AbstractController
      */
     public function index(): Response
     {
+        dump($this->getUser());
 
 
         $salespeople = $this->getDoctrine()
@@ -124,5 +125,21 @@ class SalespersonController extends AbstractController
         }
 
         return $this->redirectToRoute('salesperson_index');
+    }
+
+    /**
+     * @Route("/Responsable/team", name="salesperson_team")
+     */
+    public function team()
+    {
+        if($this->getUser()){
+            $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
+            $salespersons = $repoSalesperson->findBy(["idLeader" => $this->getUser()->getCode()]);
+
+        }
+
+        return $this->render('salesperson/team.html.twig', [
+            "salespersons" => $salespersons
+        ]);
     }
 }

@@ -33,8 +33,8 @@ class CompanyType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices'  => [
-                    "1" => "Actif",
-                    '0' => "Inactif"
+                    'Actif' => 1,
+                    'Inactif' => 0
                 ],
                 'label' => "Statut :"
             ])
