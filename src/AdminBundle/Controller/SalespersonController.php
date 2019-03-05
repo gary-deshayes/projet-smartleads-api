@@ -27,9 +27,6 @@ class SalespersonController extends AbstractController
      */
     public function index(): Response
     {
-        dump($this->getUser());
-
-
         $salespeople = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->findAll();
@@ -156,26 +153,74 @@ class SalespersonController extends AbstractController
     public function ajoutMembreTeam(Request $request)
     {
         $salesperson = new Salesperson();
+        $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
         $defaultData = ['message' => 'Type your message here'];
+
+        $requeteCount = $repoSalesperson->createQueryBuilder('salesperson')
+                            ->select("count(salesperson)")
+                            ->where("salesperson.status = 1")
+                            ->andWhere('salesperson.roles like :roles')
+                            ->andWhere('salesperson.idLeader IS NULL')
+                            ->orderBy('salesperson.firstName', 'ASC')
+                            ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
+
+        $nb = $requeteCount->getQuery()->getSingleScalarResult();
+        
         $form = $this->createFormBuilder($defaultData)
-                     ->add('name', EntityType::class, [
+                     ->add('salesperson', EntityType::class, [
+                        "label" => "Commercial :",
                         'class' => Salesperson::class,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('salesperson')
-                                ->orderBy('salesperson.firstName', 'ASC');
+                            ->where("salesperson.status = 1")
+                            ->andWhere('salesperson.roles like :roles')
+                            ->andWhere('salesperson.idLeader IS NULL')
+                            ->orderBy('salesperson.firstName', 'ASC')
+                            ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
                         },
                         'required' => false
                     ])
                      ->getForm();
-        $form->handleRequest($request);
-        // if($this->getUser()){
-        //     $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
-        //     $salespersons = $repoSalesperson->findBy(["idLeader" => $this->getUser()->getCode()]);
 
-        // }
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $salesperson = $form["salesperson"]->getData();
+            $salesperson->setLeader($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($salesperson);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('salesperson_team');
+        }
 
         return $this->render('salesperson/ajout_membre.html.twig', [
-            "formSalesperson" => $form->createView()
+            "formSalesperson" => $form->createView(),
+            "nombreCommercial" => (int)$nb
         ]);
+    }
+
+    /**
+     * @Route("/responsable/team/delete/{code}", name="salesperson_team_delete", methods={"GET"})
+     * @IsGranted("ROLE_RESPONSABLE", statusCode=403)
+     */
+    public function team_delete(Request $request, Salesperson $salesperson): Response
+    {
+        $salesperson->setLeader(NULL);
+        $entityManager = $this->getDoctrine()->getManager();
+        $message;
+        try{
+            $entityManager->persist($salesperson);
+            $entityManager->flush();
+            $message = $salesperson->__toString() . " a été supprimé(e) de votre équipe";
+        }catch(\Exception $e){
+            $message = $e->getMessage();
+        }
+
+        $this->addFlash(
+            'message',
+            $message
+        );
+        return $this->redirectToRoute('salesperson_team');
     }
 }

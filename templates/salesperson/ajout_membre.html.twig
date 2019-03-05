@@ -2,9 +2,14 @@
 {% block title %}Commerciaux{% endblock %}
 {% block body %}
     <h1>Ajout de membre à l'équipe</h1>
-
-    {{ form_start(formSalesperson)}}
-    {{ form_end(formSalesperson) }}
-
-    <a class="btn btn-primary" href="{{ path('salesperson_team_ajout_membre') }}">Agrandir mon équipe</a>
-{% endblock %}
+    {% if nombreCommercial > 0 %}
+        {{ form_start(formSalesperson)}}
+        {{ form_widget(formSalesperson)}}
+        <button class="btn btn-primary">{{ button_label|default('Ajouter à l\'équipe') }}</button>
+        {{ form_end(formSalesperson) }}
+    {% else %}
+    <p>Aucun commercial trouvé</p>
+    {% endif %}
+    <a class="btn btn-primary" href="{{ path('salesperson_team') }}">Retour à la liste de mon équipe</a>
+{% endblock %}  
+            

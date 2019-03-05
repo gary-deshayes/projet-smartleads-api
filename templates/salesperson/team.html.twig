@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Commerciaux{% endblock %}
-
 {% block body %}
     <h1>Mon équipe</h1>
-
+    {% for message in app.flashes('message') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
     <table class="table">
         <thead>
             <tr>
@@ -23,31 +25,46 @@
             </tr>
         </thead>
         <tbody>
-        {% for salesperson in salespersons %}
-            <tr>
-                <td>{{ salesperson.firstName }}</td>
-                <td>{{ salesperson.lastName }}</td>
-                <td>{{ salesperson.gender }}</td>
-                <td>{{ salesperson.profile }}</td>
-                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
-                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
-                <td>{{ salesperson.workName }}</td>
-                <td> <i class="fas fa-mobile"  title="{{ salesperson.mobilePhone }}"></i></td>
-                <td><i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i></td>
-                <td><i class="fas fa-at" title="{{ salesperson.email }}"></i></td>
-                <td><a href="{{ salesperson.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
-                <td>
-                    <a href="{{ path('salesperson_show', {'code': salesperson.code}) }}">Afficher</a>
-                    <a href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="16">Aucun membre dans l'équipe</td>
-            </tr>
-        {% endfor %}
+            {% for salesperson in salespersons %}
+                <tr>
+                    <td>
+                        {{ salesperson.firstName }}</td>
+                    <td>
+                        {{ salesperson.lastName }}</td>
+                    <td>
+                        {{ salesperson.gender }}</td>
+                    <td>
+                        {{ salesperson.profile }}</td>
+                    <td>
+                        {{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
+                    <td>
+                        {{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
+                    <td>
+                        {{ salesperson.workName }}</td>
+                    <td>
+                        <i class="fas fa-mobile" title="{{ salesperson.mobilePhone }}"></i>
+                    </td>
+                    <td>
+                        <i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i>
+                    </td>
+                    <td>
+                        <i class="fas fa-at" title="{{ salesperson.email }}"></i>
+                    </td>
+                    <td>
+                        <a href="{{ salesperson.linkedin }}">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('salesperson_team_delete', {'code': salesperson.code}) }}">Retirer</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="16">Aucun membre dans l'équipe</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
     <a class="btn btn-primary" href="{{ path('salesperson_team_ajout_membre') }}">Agrandir mon équipe</a>
 {% endblock %}
