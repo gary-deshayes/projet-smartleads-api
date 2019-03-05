@@ -8,11 +8,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Url</th>
-                <th>TypeOperation</th>
-                <th>VisualHeadband</th>
-                <th>VisuelLateral</th>
+                <th>Nom</th>
+                <th>Lien</th>
+                <th>Type</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,12 +19,10 @@
             <tr>
                 <td>{{ operation.name }}</td>
                 <td>{{ operation.url }}</td>
-                <td>{{ operation.typeOperation }}</td>
-                <td>{{ operation.visualHeadband }}</td>
-                <td>{{ operation.visuelLateral }}</td>
+                <td>{{ operation.typeoperation }}</td>
                 <td>
-                    <a href="{{ path('operations_show', {'name': operation.name}) }}">show</a>
-                    <a href="{{ path('operations_edit', {'name': operation.name}) }}">edit</a>
+                    <a href="{{ path('operations_show', {'name': operation.name}) }}">Afficher</a>
+                    <a href="{{ path('operations_edit', {'name': operation.name}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('operations_new') }}">Create new</a>
+    <a href="{{ path('operations_new') }}">Créer une opération</a>
 {% endblock %}

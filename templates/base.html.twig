@@ -22,9 +22,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('contacts_index') }}">Contacts</a>
                     </li>
+                    {% if is_granted("ROLE_DIRECTEUR") %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
                     </li>
+                    {% endif %}
+                    {% if is_granted("ROLE_RESPONSABLE") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('salesperson_team') }}">Mon équipe</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('company_index') }}">Entreprises</a>
                     </li>
@@ -34,7 +41,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('settings_index') }}">Paramètres</a>
                     </li>
-                    {% if is_granted("ROLE_ADMIN")%}
+                    {% if is_granted("IS_AUTHENTICATED_FULLY")%}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                     </li>

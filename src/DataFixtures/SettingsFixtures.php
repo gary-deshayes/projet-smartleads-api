@@ -11,7 +11,7 @@ class SettingsFixtures extends BaseFixture
     public function loadData(ObjectManager $manager)
     {
         $settings = new Settings();
-        $settings->setApplicationName($this->faker->word);
+        $settings->setApplicationName("Smartleads");
         $settings->setApplicationLogo($this->faker->imageUrl($width = 640, $height = 480));
         $settings->setAddress($this->faker->region);
         $settings->setAdditionalAddress($this->faker->secondaryAddress);

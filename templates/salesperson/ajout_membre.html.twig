@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Commerciaux{% endblock %}
+{% block body %}
+    <h1>Ajout de membre à l'équipe</h1>
+
+    {{ form_start(formSalesperson)}}
+    {{ form_end(formSalesperson) }}
+
+    <a class="btn btn-primary" href="{{ path('salesperson_team_ajout_membre') }}">Agrandir mon équipe</a>
+{% endblock %}

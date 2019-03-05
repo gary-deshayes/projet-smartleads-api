@@ -3,7 +3,7 @@
 {% block title %}Salesperson{% endblock %}
 
 {% block body %}
-    <h1>Salesperson</h1>
+    <h1>Fiche du commercial : {{salesperson.lastName ~ " " ~ salesperson.firstName}}</h1>
 
     <table class="table">
         <tbody>
@@ -12,47 +12,47 @@
                 <td>{{ salesperson.code }}</td>
             </tr>
             <tr>
-                <th>Gender</th>
+                <th>Genre</th>
                 <td>{{ salesperson.gender }}</td>
             </tr>
             <tr>
-                <th>FirstName</th>
+                <th>Nom</th>
                 <td>{{ salesperson.firstName }}</td>
             </tr>
             <tr>
-                <th>LastName</th>
+                <th>Prénom</th>
                 <td>{{ salesperson.lastName }}</td>
             </tr>
             <tr>
-                <th>Profile</th>
+                <th>Photo</th>
+                <td><img class="img-fluid" src="{{ asset('img/' ~ salesperson.picture) }}"></td>
+            </tr>
+            <tr>
+                <th>Profil</th>
                 <td>{{ salesperson.profile }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ salesperson.createdAt ? salesperson.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Statut</th>
+                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
             </tr>
             <tr>
-                <th>UpdatedAt</th>
-                <td>{{ salesperson.updatedAt ? salesperson.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de naissance</th>
+                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Status</th>
-                <td>{{ salesperson.status ? 'Yes' : 'No' }}</td>
+                <th>Responsable commercial</th>
+                <td>{{ salesperson.getLeader }}</td>
             </tr>
             <tr>
-                <th>BirthDate</th>
-                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>WorkName</th>
+                <th>Poste</th>
                 <td>{{ salesperson.workName }}</td>
             </tr>
             <tr>
-                <th>MobilePhone</th>
+                <th>Mobile</th>
                 <td>{{ salesperson.mobilePhone }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>Fixe</th>
                 <td>{{ salesperson.phone }}</td>
             </tr>
             <tr>
@@ -63,16 +63,13 @@
                 <th>Linkedin</th>
                 <td>{{ salesperson.linkedin }}</td>
             </tr>
-            <tr>
-                <th>Picture</th>
-                <td><img src="{{ salesperson.picture }}" ></td>
-            </tr>
+            
         </tbody>
     </table>
 
-    <a href="{{ path('salesperson_index') }}">back to list</a>
+    <a class="btn btn-warning" href="{{ path('salesperson_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">Modifier</a>
 
     {{ include('salesperson/_delete_form.html.twig') }}
 {% endblock %}

@@ -5,12 +5,15 @@ namespace App\AdminBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Contacts
  *
  * @ORM\Table(name="contacts", indexes={@ORM\Index(name="id_profession", columns={"id_profession"})})
  * @ORM\Entity
+ * @UniqueEntity("code")
  */
 class Contacts
 {
@@ -428,12 +431,12 @@ class Contacts
         return $this;
     }
 
-    public function getIdProfession(): ?Profession
+    public function getProfession(): ?Profession
     {
         return $this->idProfession;
     }
 
-    public function setIdProfession(?Profession $idProfession): self
+    public function setProfession(?Profession $idProfession): self
     {
         $this->idProfession = $idProfession;
 
@@ -464,6 +467,11 @@ class Contacts
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->lastName . " " . $this->firstName;
     }
 
 }

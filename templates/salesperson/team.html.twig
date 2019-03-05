@@ -3,8 +3,7 @@
 {% block title %}Commerciaux{% endblock %}
 
 {% block body %}
-    <h1>Commerciaux</h1>
-    <a class="nav-link" href="{{ path('salesperson_team') }}">Mon équipe</a>
+    <h1>Mon équipe</h1>
 
     <table class="table">
         <thead>
@@ -24,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for salesperson in salespeople %}
+        {% for salesperson in salespersons %}
             <tr>
                 <td>{{ salesperson.firstName }}</td>
                 <td>{{ salesperson.lastName }}</td>
@@ -44,11 +43,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="16">no records found</td>
+                <td colspan="16">Aucun membre dans l'équipe</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('salesperson_new') }}">Créer un commercial</a>
+    <a class="btn btn-primary" href="{{ path('salesperson_team_ajout_membre') }}">Agrandir mon équipe</a>
 {% endblock %}

@@ -383,16 +383,21 @@ class Salesperson implements UserInterface
         return $this;
     }
 
-    public function getIdLeader(): ?self
+    public function getLeader(): ?self
     {
         return $this->idLeader;
     }
 
-    public function setIdLeader(?self $idLeader): self
+    public function setLeader(?self $idLeader): self
     {
         $this->idLeader = $idLeader;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->lastName . " " . $this->firstName;
     }
 
 
