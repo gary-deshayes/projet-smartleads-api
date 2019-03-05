@@ -2,7 +2,11 @@
 {% block title %}Liste des contacts |
     {{settings[0].applicationname}}{% endblock %}
 {% block body %}
-    <h1>Contacts</h1>
+    {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
+        <h1>Mes contacts</h1>
+    {% else %}
+        <h1>Contacts de tous les commerciaux</h1>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>

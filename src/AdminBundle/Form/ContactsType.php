@@ -2,10 +2,13 @@
 
 namespace App\AdminBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Proxies\__CG__\App\AdminBundle\Entity\Profession;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -15,7 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Proxies\__CG__\App\AdminBundle\Entity\Profession;
 
 class ContactsType extends AbstractType
 {
@@ -47,6 +49,16 @@ class ContactsType extends AbstractType
             ->add('profession', EntityType::class, [
                 'label' => "Métier :",
                 'class' => Profession::class
+            ])
+            ->add('Company', EntityType::class, [
+                'class' => Company::class,
+                'query_builder' => function (EntityRepository $er) {
+                    dump($er->createQueryBuilder('c')->getQuery()->getResult());
+                    return $er->createQueryBuilder('c');
+                        // ->orderBy('c.name', 'ASC');
+                },
+                "label" => "Entreprise : ",
+                'required' => false
             ])
             ->add('decisionLevel', ChoiceType::class, [
                 'label' => "Niveau de décision :",
@@ -97,6 +109,7 @@ class ContactsType extends AbstractType
                 "label" => "Recevoir les offres commercial",
                 "required" => false
             ])
+            
         ;
     }
 

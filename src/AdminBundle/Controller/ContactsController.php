@@ -2,6 +2,8 @@
 
 namespace App\AdminBundle\Controller;
 
+use Faker;
+use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Entity\Settings;
 use App\AdminBundle\Entity\Profession;
@@ -10,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Faker;
 
 /**
  * @Route("/contacts")
@@ -24,12 +25,25 @@ class ContactsController extends AbstractController
      * @Route("/", name="contacts_index", methods={"GET"})
      */
     public function index(): Response
-    {
-
-
-        $contacts = $this->getDoctrine()
+    {   
+        $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+        $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
+        //Affichage des contacts du commercial
+        if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
+            // dump($this->getUser());
+            $companies = $repositoryCompany->findBy(array("idSalesperson"=> $this->getUser()->getCode()));
+            $contacts = $repositoryContacts->findBy(
+                array("company" => $companies),
+                array("lastName" => "ASC")
+            );
+        } else {
+            $contacts = $this->getDoctrine()
             ->getRepository(Contacts::class)
             ->findBy(array(), array('lastName' => 'ASC'));
+        }
+
+
+        
 
 
         $settings = $this->getDoctrine()

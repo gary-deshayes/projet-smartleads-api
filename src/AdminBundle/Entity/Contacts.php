@@ -169,27 +169,14 @@ class Contacts
     private $idProfession;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Company
      *
-     * @ORM\ManyToMany(targetEntity="Company", inversedBy="idContact")
-     * @ORM\JoinTable(name="work_contacts_companys",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_contact", referencedColumnName="code")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id_company", referencedColumnName="code")
-     *   }
-     * )
+     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_company", referencedColumnName="code")
+     * })
      */
-    private $idCompany;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->idCompany = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $company;
 
     public function getCode(): ?string
     {
@@ -444,30 +431,20 @@ class Contacts
     }
 
     /**
-     * @return Collection|Company[]
+     * @return Company
      */
-    public function getIdCompany(): Collection
+    public function getCompany()
     {
-        return $this->idCompany;
+        return $this->company;
     }
 
-    public function addIdCompany(Company $idCompany): self
+    public function setCompany(Company $company): self
     {
-        if (!$this->idCompany->contains($idCompany)) {
-            $this->idCompany[] = $idCompany;
-        }
+        $this->company = $company;
 
         return $this;
     }
 
-    public function removeIdCompany(Company $idCompany): self
-    {
-        if ($this->idCompany->contains($idCompany)) {
-            $this->idCompany->removeElement($idCompany);
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {
