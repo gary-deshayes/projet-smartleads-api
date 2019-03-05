@@ -4,11 +4,13 @@ namespace App\AdminBundle\Controller;
 
 use Faker;
 use App\Service\FileUploader;
+use Doctrine\ORM\EntityRepository;
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Form\SalespersonType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -16,12 +18,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/salesperson")
- * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
  */
 class SalespersonController extends AbstractController
 {
     /**
      * @Route("/", name="salesperson_index", methods={"GET"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function index(): Response
     {
@@ -39,6 +41,7 @@ class SalespersonController extends AbstractController
 
     /**
      * @Route("/new", name="salesperson_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder, FileUploader $fileUploader): Response
     {
@@ -83,6 +86,7 @@ class SalespersonController extends AbstractController
 
     /**
      * @Route("/{code}", name="salesperson_show", methods={"GET"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function show(Salesperson $salesperson): Response
     {
@@ -93,6 +97,7 @@ class SalespersonController extends AbstractController
 
     /**
      * @Route("/{code}/edit", name="salesperson_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function edit(Request $request, Salesperson $salesperson): Response
     {
@@ -128,7 +133,8 @@ class SalespersonController extends AbstractController
     }
 
     /**
-     * @Route("/Responsable/team", name="salesperson_team")
+     * @Route("/responsable/team", name="salesperson_team")
+     * @IsGranted("ROLE_RESPONSABLE", statusCode=403)
      */
     public function team()
     {
@@ -140,6 +146,36 @@ class SalespersonController extends AbstractController
 
         return $this->render('salesperson/team.html.twig', [
             "salespersons" => $salespersons
+        ]);
+    }
+
+    /**
+     * @Route("/responsable/team/ajout", name="salesperson_team_ajout_membre", methods={"GET","POST"})
+     * @IsGranted("ROLE_RESPONSABLE", statusCode=403)
+     */
+    public function ajoutMembreTeam(Request $request)
+    {
+        $salesperson = new Salesperson();
+        $defaultData = ['message' => 'Type your message here'];
+        $form = $this->createFormBuilder($defaultData)
+                     ->add('name', EntityType::class, [
+                        'class' => Salesperson::class,
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('salesperson')
+                                ->orderBy('salesperson.firstName', 'ASC');
+                        },
+                        'required' => false
+                    ])
+                     ->getForm();
+        $form->handleRequest($request);
+        // if($this->getUser()){
+        //     $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
+        //     $salespersons = $repoSalesperson->findBy(["idLeader" => $this->getUser()->getCode()]);
+
+        // }
+
+        return $this->render('salesperson/ajout_membre.html.twig', [
+            "formSalesperson" => $form->createView()
         ]);
     }
 }
