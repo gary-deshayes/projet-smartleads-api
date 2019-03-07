@@ -29,6 +29,12 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le genre doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le genre ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $gender;
 
@@ -36,6 +42,12 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $lastName;
 
@@ -43,6 +55,12 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le prénom doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le prénom ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $firstName;
 
@@ -85,6 +103,16 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     * )
      */
     private $mobilePhone;
 
@@ -92,6 +120,16 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     * )
      */
     private $phone;
 
@@ -99,6 +137,10 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $email;
 
@@ -120,6 +162,10 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le lien LinkedIn ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $linkedin;
 
@@ -127,6 +173,9 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
      */
     private $picture;
 

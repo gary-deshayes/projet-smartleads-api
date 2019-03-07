@@ -53,7 +53,7 @@ class ContactsType extends AbstractType
             ->add('Company', EntityType::class, [
                 'class' => Company::class,
                 'query_builder' => function (EntityRepository $er) {
-                    dump($er->createQueryBuilder('c')->getQuery()->getResult());
+                    //dump($er->createQueryBuilder('c')->getQuery()->getResult());
                     return $er->createQueryBuilder('c');
                         // ->orderBy('c.name', 'ASC');
                 },
