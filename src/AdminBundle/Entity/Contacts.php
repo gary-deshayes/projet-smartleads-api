@@ -108,7 +108,7 @@ class Contacts
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
      * @Assert\Type(
-     *     type="integer",
+     *     type="string",
      *     message="Veuillez ne saisir que des numéros."
      * )
      * @Assert\Length(
@@ -125,7 +125,7 @@ class Contacts
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
      * @Assert\Type(
-     *     type="integer",
+     *     type="string",
      *     message="Veuillez ne saisir que des numéros."
      * )
      * @Assert\Length(

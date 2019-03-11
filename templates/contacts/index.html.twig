@@ -30,13 +30,13 @@
                     <td>
                         {{ contact.lastName }}</td>
                     <td>
-                        {{ contact.company.name }}</td>
+                        {{ (contact.company != null) ? contact.company.name : "" }}</td>
                     <td>
                         {{ contact.Profession.libelle}}</td>
                     <td>
-                        {{ contact.company.postalCode }}</td>
+                        {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
                     <td>
-                        {{ contact.company.town }}</td>
+                        {{ (contact.company != null) ? contact.company.town : "" }}</td>
                     <td>
                         <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
                         <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>

@@ -26,13 +26,11 @@ class ContactsController extends AbstractController
      */
     public function index(): Response
     {   
-        $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
         $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
         //Affichage des contacts du commercial
         if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
-            $companies = $repositoryCompany->findBy(array("idSalesperson"=> $this->getUser()->getCode()));
             $contacts = $repositoryContacts->findBy(
-                array("company" => $companies),
+                array("salesperson" => $this->getUser()),
                 array("lastName" => "ASC")
             );
         } else {
@@ -40,12 +38,6 @@ class ContactsController extends AbstractController
             ->getRepository(Contacts::class)
             ->findBy(array(), array('lastName' => 'ASC'));
         }
-        dump($contacts);
-
-
-        
-
-
         $settings = $this->getDoctrine()
             ->getRepository(Settings::class)
             ->findAll();
@@ -68,17 +60,20 @@ class ContactsController extends AbstractController
         $form->handleRequest($request);
         $data = $request->request->get("contacts");
         if ($form->isSubmitted() && $form->isValid()) {
-            do{
-                $code = $this->faker->regexify("[A-Z]{10}");
-                
-            }while($repoContact->findOneBy(array("code" => $code)) != null);
+            if($contact->getCode() == null){
+                do{
+                    $code = $this->faker->regexify("[A-Z]{10}");
+                    
+                }while($repoContact->findOneBy(array("code" => $code)) != null);
+                $contact->setCode($code);
+            }
             // 23 caractere unique
             // $nomImage = uniqid('', true) . ".jpg";
 
             // $file = $form['picture']->getData();
             // $file->move("img/", $nomImage);
             // $contact->setPicture($nomImage);
-            $contact->setCode($code);
+            
             $contact->setCreatedAt(new \DateTime());
             $contact->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
@@ -112,6 +107,7 @@ class ContactsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('contacts_index', [

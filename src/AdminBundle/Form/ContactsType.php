@@ -27,7 +27,8 @@ class ContactsType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, [
-                "label" => "Code client"
+                "label" => "Code client",
+                "required" => false
             ])
             ->add('gender', ChoiceType::class, [
                 'choices'  => [
