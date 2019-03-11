@@ -1,12 +1,61 @@
+@import 'variables';
+
 h1 {
     font-size: 34px;
 }
 
+p {
+    font-size: 12px;
+}
+
 i {
+    color: #D9D9D9;
     font-size: 24px;
 }
 
-.row {
+input {
+    background-color: transparent !important;
+    border: none !important;
+    font-size: 13px !important;
+}
+
+.primary-btn {
+    border-color: $primary-color;
+    background-color: $primary-color !important;
+    letter-spacing: 1px;
+    border-radius: 4px;
+
+    &:focus {
+        background-color: desaturate($primary-color, 10) !important;
+        color: #fff;
+    }
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.flex-center {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.text-muted {
+    font-weight: 400;
+    color: #CECECE !important;
+}
+
+.text-description {
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
 }
