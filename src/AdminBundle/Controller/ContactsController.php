@@ -30,7 +30,6 @@ class ContactsController extends AbstractController
         $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
         //Affichage des contacts du commercial
         if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
-            // dump($this->getUser());
             $companies = $repositoryCompany->findBy(array("idSalesperson"=> $this->getUser()->getCode()));
             $contacts = $repositoryContacts->findBy(
                 array("company" => $companies),
@@ -41,6 +40,7 @@ class ContactsController extends AbstractController
             ->getRepository(Contacts::class)
             ->findBy(array(), array('lastName' => 'ASC'));
         }
+        dump($contacts);
 
 
         
@@ -87,7 +87,6 @@ class ContactsController extends AbstractController
 
             return $this->redirectToRoute('contacts_index');
         }
-
         return $this->render('contacts/new.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),

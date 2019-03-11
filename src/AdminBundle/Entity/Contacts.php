@@ -86,11 +86,15 @@ class Contacts
     private $status;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="decision_level", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="decision_making", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255
+     * )
      */
-    private $decisionLevel;
+    private $decisionMaking;
 
     /**
      * @var \DateTime|null
@@ -136,6 +140,23 @@ class Contacts
     /**
      * @var string|null
      *
+     * @ORM\Column(name="standard_phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     * )
+     */
+    private $standardPhone;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      * @Assert\Length(
      *      max = 255,
@@ -161,6 +182,17 @@ class Contacts
     /**
      * @var string|null
      *
+     * @ORM\Column(name="work_name", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom du poste ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $workName;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
      * @Assert\Length(
      *      max = 255,
@@ -168,6 +200,28 @@ class Contacts
      * )
      */
     private $linkedin;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le lien Facebook ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $facebook;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le lien twitter ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $twitter;
 
     /**
      * @var string|null
@@ -227,6 +281,28 @@ class Contacts
      */
     private $company;
 
+    /**
+     * @var \Salesperson
+     * Un contact n'a qu'un seul commercial
+     * @ORM\ManyToOne(targetEntity="Salesperson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code")
+     * })
+     */
+    private $salesperson;
+
+    public function getSalesperson(): ?Salesperson
+    {
+        return $this->salesperson;
+    }
+
+    public function setSalesperson(Salesperson $salesperson): self
+    {
+        $this->salesperson = $salesperson;
+
+        return $this;
+    }
+
     public function getCode(): ?string
     {
         return $this->code;
@@ -275,6 +351,18 @@ class Contacts
         return $this;
     }
 
+    public function getWorkName(): ?string
+    {
+        return $this->workName;
+    }
+
+    public function setWorkName(string $workName): self
+    {
+        $this->workName = $workName;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -311,14 +399,14 @@ class Contacts
         return $this;
     }
 
-    public function getDecisionLevel(): ?string
+    public function getDecisionMaking(): ?string
     {
-        return $this->decisionLevel;
+        return $this->decisionMaking;
     }
 
-    public function setDecisionLevel(?string $decisionLevel): self
+    public function setDecisionMaking(?string $decisionMaking): self
     {
-        $this->decisionLevel = $decisionLevel;
+        $this->decisionMaking = $decisionMaking;
 
         return $this;
     }
@@ -343,6 +431,18 @@ class Contacts
     public function setMobilePhone(?string $mobilePhone): self
     {
         $this->mobilePhone = $mobilePhone;
+
+        return $this;
+    }
+
+    public function getStandardPhone(): ?string
+    {
+        return $this->standardPhone;
+    }
+
+    public function setStandardPhone(?string $standardPhone): self
+    {
+        $this->standardPhone = $standardPhone;
 
         return $this;
     }
@@ -403,6 +503,30 @@ class Contacts
     public function setLinkedin(?string $linkedin): self
     {
         $this->linkedin = $linkedin;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
 
         return $this;
     }
