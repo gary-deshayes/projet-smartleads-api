@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création d'un contact{% endblock %}
+{% block title %}Saisie d'un nouveau contact{% endblock %}
 
 {% block body %}
-    <h1>Création d'un contact</h1>
+    <h1>Saisie d'un nouveau contact</h1>
 
-    {{ include('contacts/_form.html.twig') }}
+    {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('contacts_index') }}">Retour à la liste</a>
+    <a class="btn btn-basic" href="{{ path('contacts_index') }}">Retour</a>
 {% endblock %}

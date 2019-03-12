@@ -169,6 +169,13 @@ class Company
     private $idCompanyCategory;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="decision_level", type="string", length=1, nullable=true, options={"fixed"=true})
+     */
+    private $decisionLevel;
+
+    /**
      * @var \Salesperson
      *
      * @ORM\ManyToOne(targetEntity="Salesperson")
@@ -569,6 +576,11 @@ class Company
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
 }

@@ -2,8 +2,9 @@
 
 namespace App\AdminBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Salesperson
@@ -141,6 +142,44 @@ class Salesperson implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * Un commercial a plusieurs contacts
+     * @OneToMany(targetEntity="Contacts", mappedBy="code")
+     */
+    private $contacts;
+
+    public function __construct() {
+        $this->contacts = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Contacts[]
+     */
+    public function getIdContact()
+    {
+        return $this->contacts;
+    }
+
+    public function addIdContact(Contacts $idContact): self
+    {
+        if (!$this->contacts->contains($idContact)) {
+            $this->contacts[] = $idContact;
+            $contacts->addIdCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdContact(Contacts $idContact): self
+    {
+        if ($this->contacts->contains($idContact)) {
+            $this->contacts->removeElement($idContact);
+            $contacts->removeIdCompany($this);
+        }
+
+        return $this;
+    }
 
     /**
      * A visual identifier that represents this user.
