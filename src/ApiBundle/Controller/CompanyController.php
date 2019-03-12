@@ -15,6 +15,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyController extends AbstractController
 {
     /**
+     * Récupération des entreprises actives de type client
+     * @Route("/getactivecompanies", name="api_company_getactiveclient", methods={"GET"})
+     */
+    public function getActifClient(){
+        $companies = $this->getDoctrine()
+                           ->getRepository("AdminBundle:Company")
+                           ->findBy(array("status" => "Client"));
+        
+        
+        $data = array("nombre" => count($companies));
+        $response = new Response(json_encode($data), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+
+    /**
      * Récupération des entreprises
      * @Route("/get/{id}", name="api_company_get", methods={"GET"})
      */
