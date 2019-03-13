@@ -119,7 +119,7 @@ class ContactsType extends AbstractType
                 "label" => "Profil Twitter",
                 "required" => false
             ])
-            ->add('picture', FileType::class, [
+            ->add('imageFile', FileType::class, [
                 "label" => "Photo",
                 "required" => false,
                 'data_class' => null

@@ -2,10 +2,11 @@
 
 namespace App\AdminBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\AdminBundle\Entity\Salesperson;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -14,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="contacts", indexes={@ORM\Index(name="id_profession", columns={"id_profession"})})
  * @ORM\Entity
  * @UniqueEntity("code")
+ * @Vich\Uploadable
  */
 class Contacts
 {
@@ -224,12 +226,21 @@ class Contacts
     private $twitter;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="contacts_image", fileNameProperty="picture")
      * @Assert\Image(
      *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
      * )
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     
      */
     private $picture;
 
@@ -622,6 +633,22 @@ class Contacts
     public function __toString()
     {
         return $this->lastName . " " . $this->firstName;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 }

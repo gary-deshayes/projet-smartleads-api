@@ -4,6 +4,9 @@
 /.env.*.local
 /public/bundles/
 /public/img/
+/public/media/
+/public/images/
+/src/Migrations/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -13,3 +16,7 @@
 ###< symfony/web-server-bundle ###
 
 /public/.sass-cache
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

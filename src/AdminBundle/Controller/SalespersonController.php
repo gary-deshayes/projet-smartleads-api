@@ -3,7 +3,6 @@
 namespace App\AdminBundle\Controller;
 
 use Faker;
-use App\Service\FileUploader;
 use Doctrine\ORM\EntityRepository;
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Form\SalespersonType;
@@ -40,7 +39,7 @@ class SalespersonController extends AbstractController
      * @Route("/new", name="salesperson_new", methods={"GET","POST"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder, FileUploader $fileUploader): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
         $this->faker = Faker\Factory::create('fr_FR');
@@ -59,9 +58,6 @@ class SalespersonController extends AbstractController
             } else {
                 $roles = ["ROLE_RESPONSABLE"];
             }
-
-            $fileName = $fileUploader->upload($form['picture']->getData());
-            $salesperson->setPicture($fileName);
             $salesperson->setRoles($roles);
             $salesperson->setCode($code);
             $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, "azerty"));

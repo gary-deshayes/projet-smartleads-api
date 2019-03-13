@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title %}Liste des contacts |
-    {{settings[0].applicationname}}{% endblock %}
+{% block title %}Liste des contacts{% endblock %}
 {% block body %}
     {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
         <h1>Mes contacts ({{contacts|length}})</h1>
-    {% else %}
+        {% else %}
         <h1>Contacts de tous les commerciaux({{contacts|length}})</h1>
     {% endif %}
     <table class="table">
         <thead>
             <tr>
-            <th></th>
+                <th></th>
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Entreprise</th>
@@ -22,38 +21,44 @@
         </thead>
         <tbody>
             {% for contact in contacts %}
-            
                 <tr>
-                <td><input type="checkbox" name="checkBox[]"  id="ic" value="{{ contact.code }}" /></td>
                     <td>
-                        {{ contact.firstName }}</td>
-                    <td>
-                        {{ contact.lastName }}</td>
-                    <td>
-                        {{ (contact.company != null) ? contact.company.name : "" }}</td>
-                    <td>
-                        {{ contact.Profession.libelle}}</td>
-                    <td>
-                        {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
-                    <td>
-                        {{ (contact.company != null) ? contact.company.town : "" }}</td>
-                    <td>
-                        <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
-                        <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
-                        <i class="fas fa-at" title="{{ contact.email }}"></i>
-                    </td>
-                    
-                    <td>
-                        <a href="{{ path('contacts_show', {'code': contact.code}) }}">Afficher</a>
-                        <a href="{{ path('contacts_edit', {'code': contact.code}) }}">Modifier</a>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="21">Aucun contact trouvé</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a class="btn btn-primary" href="{{ path('contacts_new') }}">Créer un contact</a>
-{% endblock %}
+                        <input type="checkbox" name="checkBox[]" id="ic" value="{{ contact.code }}"/>
+                        {% if vich_uploader_asset(contact, 'imageFile') is null %}
+                            <img alt src="">
+                                {% else %}
+                                <img src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature') }}" alt>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ contact.firstName }}</td>
+                            <td>
+                                {{ contact.lastName }}</td>
+                            <td>
+                                {{ (contact.company != null) ? contact.company.name : "" }}</td>
+                            <td>
+                                {{ contact.Profession.libelle}}</td>
+                            <td>
+                                {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
+                            <td>
+                                {{ (contact.company != null) ? contact.company.town : "" }}</td>
+                            <td>
+                                <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
+                                <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
+                                <i class="fas fa-at" title="{{ contact.email }}"></i>
+                            </td>
+                            <td>
+                                <a href="{{ path('contacts_show', {'code': contact.code}) }}">Afficher</a>
+                                <a href="{{ path('contacts_edit', {'code': contact.code}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="21">Aucun contact trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="{{ path('contacts_new') }}">Créer un contact</a>
+        {% endblock %}
+    

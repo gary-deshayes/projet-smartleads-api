@@ -41,6 +41,7 @@ services:
         resource: '../src/DataFixtures'
         tags: ['doctrine.fixture.orm']
 
-    App\Service\:
-        resource: '../src/Service/'
+    App\Listener\ImageCacheSubscriber:
+        tags: 
+        - { name: doctrine.event_subscriber }
 
