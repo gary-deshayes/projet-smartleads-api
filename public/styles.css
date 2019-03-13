@@ -27,6 +27,9 @@ input {
 .center {
   margin: 0 auto; }
 
+.row {
+  margin-right: 0; }
+
 .flex-center {
   display: flex;
   justify-content: center;
