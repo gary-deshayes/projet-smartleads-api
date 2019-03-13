@@ -22,28 +22,29 @@ class ContactsController extends AbstractController
      */
     public function lastWeekNewContacts(){
         $contactsRepository = $this->getDoctrine()->getRepository("AdminBundle:Contacts");
-        $dateNow = date("Y-m-d");
-        $dateBefore = date("Y-m-d", strtotime('-7 days'));
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime('-7 days'));
         $query = $contactsRepository->createQueryBuilder("contacts")
              ->select("COUNT(contacts.createdAt) as nb, contacts.createdAt")
-             ->where("contacts.createdAt => :date_debut")
-             ->andWhere("contacts.createdAt <= :date_fin")
+             ->where("contacts.createdAt BETWEEN :date_debut AND :date_fin")
              ->groupby("contacts.createdAt")
              ->setParameter('date_debut', $dateBefore)
              ->setParameter('date_fin', $dateNow)
              ->getQuery();
-           dump($query->getResult());
-           SELECT COUNT(*), date(created_at) FROM contacts WHERE DATE(created_at) BETWEEN CURRENT_DATE()-8 AND CURRENT_DATE() GROUP BY DATE(created_at)
+        $result = $query->execute();
 
-
-
-                        
-        
-        
-        // $data = array("nombre" => count($companies));
-        // $response = new Response(json_encode($data), 200);
-        // $response->headers->set('Content-Type', 'application/json');
-        // return $response;
+        $data = array();
+        foreach($result as $res){
+            $res_data = array(
+                $res["createdAt"]->format("Y-m-d") => $res["nb"]
+                
+            );
+            array_push($data, $res_data);
+        }
+        $response = new Response(json_encode($data), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
 
     }
 
