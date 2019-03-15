@@ -10,14 +10,14 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(5, "Contacts", function ($count) {
+        $this->createMany(500, "Contacts", function ($count) {
             $contacts = new Contacts();
             $contacts->setCode($this->faker->regexify('[A-Z]{10}'));
             $contacts->setProfession($this->getRandomReference("Profession"));
             $contacts->setGender($this->faker->randomElement($array = array('Homme', 'Femme', 'Non précisé')));
             $contacts->setLastName($this->faker->lastName);
             $contacts->setFirstName($this->faker->firstName('male'|'female'));
-            $contacts->setCreatedAt(new \DateTime());
+            $contacts->setCreatedAt($this->faker->dateTimeBetween($startDate = '-2 weeks', $endDate = 'now', $timezone = null));
             $contacts->setUpdatedAt(new \DateTime());
             $contacts->setStatus($this->faker->boolean());
             $contacts->setBirthDate($this->faker->dateTime($max = 'now', $timezone = null));
