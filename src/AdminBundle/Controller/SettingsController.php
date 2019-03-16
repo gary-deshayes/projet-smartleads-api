@@ -4,10 +4,11 @@ namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\Settings;
 use App\AdminBundle\Form\SettingsType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/settings")
@@ -16,6 +17,7 @@ class SettingsController extends AbstractController
 {
     /**
      * @Route("/", name="settings_index", methods={"GET"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function index(): Response
     {
@@ -30,6 +32,7 @@ class SettingsController extends AbstractController
 
     /**
      * @Route("/new", name="settings_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function new(Request $request): Response
     {
@@ -53,6 +56,7 @@ class SettingsController extends AbstractController
 
     /**
      * @Route("/{id}", name="settings_show", methods={"GET"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function show(Settings $setting): Response
     {
@@ -63,6 +67,7 @@ class SettingsController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="settings_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function edit(Request $request, Settings $setting): Response
     {
@@ -85,6 +90,7 @@ class SettingsController extends AbstractController
 
     /**
      * @Route("/{id}", name="settings_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
     public function delete(Request $request, Settings $setting): Response
     {
