@@ -3,10 +3,7 @@
 namespace App\AdminBundle\Controller;
 
 use Faker;
-use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Entity\Settings;
-use App\AdminBundle\Entity\Profession;
 use App\AdminBundle\Form\ContactsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,13 +35,9 @@ class ContactsController extends AbstractController
             ->getRepository(Contacts::class)
             ->findBy(array(), array('lastName' => 'ASC'));
         }
-        $settings = $this->getDoctrine()
-            ->getRepository(Settings::class)
-            ->findAll();
 
         return $this->render('contacts/index.html.twig', [
-            'contacts' => $contacts,
-            'settings' => $settings
+            'contacts' => $contacts
         ]);
     }
 
@@ -58,7 +51,6 @@ class ContactsController extends AbstractController
         $contact = new Contacts();
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
-        $data = $request->request->get("contacts");
         if ($form->isSubmitted() && $form->isValid()) {
             if($contact->getCode() == null){
                 do{
@@ -67,13 +59,6 @@ class ContactsController extends AbstractController
                 }while($repoContact->findOneBy(array("code" => $code)) != null);
                 $contact->setCode($code);
             }
-            // 23 caractere unique
-            // $nomImage = uniqid('', true) . ".jpg";
-
-            // $file = $form['picture']->getData();
-            // $file->move("img/", $nomImage);
-            // $contact->setPicture($nomImage);
-            
             $contact->setCreatedAt(new \DateTime());
             $contact->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
@@ -107,6 +92,8 @@ class ContactsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Permet de supprimer l'image du cache miniature
+            
             $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 

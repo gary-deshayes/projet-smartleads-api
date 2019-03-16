@@ -1,0 +1,9 @@
+vich_uploader:
+    db_driver: orm
+
+    #Ou sera envoyées les images
+    mappings:
+        contacts_image:
+            uri_prefix: /images/contacts
+            upload_destination: '%kernel.project_dir%/public/images/contacts'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
