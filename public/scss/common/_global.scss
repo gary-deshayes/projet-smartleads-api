@@ -1,5 +1,8 @@
 @import 'variables';
 
+body {
+    background-color: $back;
+}
 h1 {
     font-size: 34px;
 }
@@ -67,4 +70,24 @@ input {
 .input-group-text {
     background-color: transparent;
     border: none;
+}
+
+/* Ajout de Gary à voir si c'est bon pour les inté*/
+//table row clickable
+.clickable-row:hover {
+    background:  #f2f2f2;
+    cursor: pointer;
+}
+
+.btn-radius-red {
+    background-color: $primary-color;
+    border-radius: 0.25rem;
+}
+
+.container-content {
+    border-radius: 0.25rem;
+    background-color: #FFFFFF;
+}
+.red-primary{
+    color: $primary-color;
 }
