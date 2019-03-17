@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Niveau de décision</th>
-                <td>{{ contact.decisionLevel }}</td>
+                <td>{{ contact.decisionMaking }}</td>
             </tr>
             <tr>
                 <th>Date de naissance</th>
@@ -53,7 +53,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td><img class="img-fluid" src="{{ asset('img/' ~ contact.picture) }}"></td>
+                <td><img class="img-fluid" src="{{ vich_uploader_asset(contact, "imageFile") }}"></td>
             </tr>
             <tr>
                 <th>Opération qui a permis l'ajout</th>

@@ -20,7 +20,6 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setCreatedAt(new \DateTime());
             $contacts->setUpdatedAt(new \DateTime());
             $contacts->setStatus($this->faker->boolean());
-            $contacts->setDecisionLevel($this->faker->numberBetween($min = 1, $max = 5));
             $contacts->setBirthDate($this->faker->dateTime($max = 'now', $timezone = null));
             $contacts->setMobilePhone("06" . $this->faker->regexify('[0-9]{8}'));
             $contacts->setPhone("03" . $this->faker->regexify('[0-9]{8}'));
@@ -33,8 +32,9 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setComment($this->faker->text($maxNbChars = 50));
             $contacts->setOptInNewsletter($this->faker->boolean());
             $contacts->setOptInOffresCommercial($this->faker->boolean());
+            $contacts->setDecisionMaking($this->faker->randomElement($array = array('Cadre', 'Cadre supérieur', 'PDG')));
 
-            $contacts->addIdCompany($this->getRandomReference("Company"));
+            $contacts->setCompany($this->getRandomReference("Company"));
             return $contacts;
         });
         $manager->flush();

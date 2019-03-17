@@ -2,10 +2,11 @@
 
 namespace App\AdminBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\AdminBundle\Entity\Salesperson;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -14,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="contacts", indexes={@ORM\Index(name="id_profession", columns={"id_profession"})})
  * @ORM\Entity
  * @UniqueEntity("code")
+ * @Vich\Uploadable
  */
 class Contacts
 {
@@ -29,6 +31,12 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le genre doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le genre ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $gender;
 
@@ -36,6 +44,12 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $lastName;
 
@@ -43,6 +57,12 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le prénom doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le prénom ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $firstName;
 
@@ -68,11 +88,15 @@ class Contacts
     private $status;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="decision_level", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="decision_making", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255
+     * )
      */
-    private $decisionLevel;
+    private $decisionMaking;
 
     /**
      * @var \DateTime|null
@@ -85,6 +109,16 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="string",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     * )
      */
     private $mobilePhone;
 
@@ -92,13 +126,44 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="string",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     * )
      */
     private $phone;
 
     /**
      * @var string|null
      *
+     * @ORM\Column(name="standard_phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     * )
+     */
+    private $standardPhone;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $email;
 
@@ -119,14 +184,63 @@ class Contacts
     /**
      * @var string|null
      *
+     * @ORM\Column(name="work_name", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom du poste ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $workName;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le lien LinkedIn ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $linkedin;
 
     /**
      * @var string|null
      *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le lien Facebook ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $facebook;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le lien twitter ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $twitter;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="contacts_image", fileNameProperty="picture")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     
      */
     private $picture;
 
@@ -169,26 +283,35 @@ class Contacts
     private $idProfession;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Company
      *
-     * @ORM\ManyToMany(targetEntity="Company", inversedBy="idContact")
-     * @ORM\JoinTable(name="work_contacts_companys",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_contact", referencedColumnName="code")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id_company", referencedColumnName="code")
-     *   }
-     * )
+     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_company", referencedColumnName="code")
+     * })
      */
-    private $idCompany;
+    private $company;
 
     /**
-     * Constructor
+     * @var \Salesperson
+     * Un contact n'a qu'un seul commercial
+     * @ORM\ManyToOne(targetEntity="Salesperson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code")
+     * })
      */
-    public function __construct()
+    private $salesperson;
+
+    public function getSalesperson(): ?Salesperson
     {
-        $this->idCompany = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->salesperson;
+    }
+
+    public function setSalesperson(Salesperson $salesperson): self
+    {
+        $this->salesperson = $salesperson;
+
+        return $this;
     }
 
     public function getCode(): ?string
@@ -239,6 +362,18 @@ class Contacts
         return $this;
     }
 
+    public function getWorkName(): ?string
+    {
+        return $this->workName;
+    }
+
+    public function setWorkName(string $workName): self
+    {
+        $this->workName = $workName;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -275,14 +410,14 @@ class Contacts
         return $this;
     }
 
-    public function getDecisionLevel(): ?string
+    public function getDecisionMaking(): ?string
     {
-        return $this->decisionLevel;
+        return $this->decisionMaking;
     }
 
-    public function setDecisionLevel(?string $decisionLevel): self
+    public function setDecisionMaking(?string $decisionMaking): self
     {
-        $this->decisionLevel = $decisionLevel;
+        $this->decisionMaking = $decisionMaking;
 
         return $this;
     }
@@ -307,6 +442,18 @@ class Contacts
     public function setMobilePhone(?string $mobilePhone): self
     {
         $this->mobilePhone = $mobilePhone;
+
+        return $this;
+    }
+
+    public function getStandardPhone(): ?string
+    {
+        return $this->standardPhone;
+    }
+
+    public function setStandardPhone(?string $standardPhone): self
+    {
+        $this->standardPhone = $standardPhone;
 
         return $this;
     }
@@ -367,6 +514,30 @@ class Contacts
     public function setLinkedin(?string $linkedin): self
     {
         $this->linkedin = $linkedin;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
 
         return $this;
     }
@@ -444,34 +615,40 @@ class Contacts
     }
 
     /**
-     * @return Collection|Company[]
+     * @return Company
      */
-    public function getIdCompany(): Collection
+    public function getCompany()
     {
-        return $this->idCompany;
+        return $this->company;
     }
 
-    public function addIdCompany(Company $idCompany): self
+    public function setCompany(Company $company): self
     {
-        if (!$this->idCompany->contains($idCompany)) {
-            $this->idCompany[] = $idCompany;
-        }
+        $this->company = $company;
 
         return $this;
     }
 
-    public function removeIdCompany(Company $idCompany): self
-    {
-        if ($this->idCompany->contains($idCompany)) {
-            $this->idCompany->removeElement($idCompany);
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {
         return $this->lastName . " " . $this->firstName;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 }

@@ -2,15 +2,13 @@
 
 namespace App\AdminBundle\Controller;
 
+use Faker;
 use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Entity\Settings;
-use App\AdminBundle\Entity\Profession;
 use App\AdminBundle\Form\ContactsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Faker;
 
 /**
  * @Route("/contacts")
@@ -24,21 +22,22 @@ class ContactsController extends AbstractController
      * @Route("/", name="contacts_index", methods={"GET"})
      */
     public function index(): Response
-    {
-
-
-        $contacts = $this->getDoctrine()
+    {   
+        $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
+        //Affichage des contacts du commercial
+        if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
+            $contacts = $repositoryContacts->findBy(
+                array("salesperson" => $this->getUser()),
+                array("lastName" => "ASC")
+            );
+        } else {
+            $contacts = $this->getDoctrine()
             ->getRepository(Contacts::class)
             ->findBy(array(), array('lastName' => 'ASC'));
-
-
-        $settings = $this->getDoctrine()
-            ->getRepository(Settings::class)
-            ->findAll();
+        }
 
         return $this->render('contacts/index.html.twig', [
-            'contacts' => $contacts,
-            'settings' => $settings
+            'contacts' => $contacts
         ]);
     }
 
@@ -52,19 +51,14 @@ class ContactsController extends AbstractController
         $contact = new Contacts();
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
-        $data = $request->request->get("contacts");
         if ($form->isSubmitted() && $form->isValid()) {
-            do{
-                $code = $this->faker->regexify("[A-Z]{10}");
-                
-            }while($repoContact->findOneBy(array("code" => $code)) != null);
-            // 23 caractere unique
-            // $nomImage = uniqid('', true) . ".jpg";
-
-            // $file = $form['picture']->getData();
-            // $file->move("img/", $nomImage);
-            // $contact->setPicture($nomImage);
-            $contact->setCode($code);
+            if($contact->getCode() == null){
+                do{
+                    $code = $this->faker->regexify("[A-Z]{10}");
+                    
+                }while($repoContact->findOneBy(array("code" => $code)) != null);
+                $contact->setCode($code);
+            }
             $contact->setCreatedAt(new \DateTime());
             $contact->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
@@ -73,7 +67,6 @@ class ContactsController extends AbstractController
 
             return $this->redirectToRoute('contacts_index');
         }
-
         return $this->render('contacts/new.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
@@ -99,6 +92,9 @@ class ContactsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Permet de supprimer l'image du cache miniature
+            
+            $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('contacts_index', [

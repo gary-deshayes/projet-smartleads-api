@@ -1,63 +1,64 @@
 {% extends 'base.html.twig' %}
-{% block title %}Liste des contacts |
-    {{settings[0].applicationname}}{% endblock %}
+{% block title %}Liste des contacts{% endblock %}
 {% block body %}
-    <h1>Contacts</h1>
+    {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
+        <h1>Mes contacts ({{contacts|length}})</h1>
+        {% else %}
+        <h1>Contacts de tous les commerciaux({{contacts|length}})</h1>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
-                <th>Nom</th>
+                <th></th>
                 <th>Prénom</th>
-                <th>Sexe</th>
-                <th>Date de naissance</th>
-                <th>Commentaire</th>
-                <th>Mobile</th>
-                <th>Téléphone</th>
-                <th>Email</th>
-                <th>Linkedin</th>
-                
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Entreprise</th>
+                <th>Fonction</th>
+                <th>CP</th>
+                <th>Ville</th>
+                <th>...</th>
             </tr>
         </thead>
         <tbody>
             {% for contact in contacts %}
                 <tr>
                     <td>
-                        {{ contact.lastName }}</td>
-                    <td>
-                        {{ contact.firstName }}</td>
-                    <td>
-                        {{ contact.gender }}</td>
-                    <td>
-                        {{ contact.birthDate ? contact.birthDate|date('Y-m-d') : '' }}</td>
-                        <td>
-                        {{ contact.comment }}</td>
-                    <td>
-                        <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
-                    </td>
-                    <td>
-                        <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
-                    </td>
-                    <td>
-                        <i class="fas fa-at" title="{{ contact.email }}"></i>
-                    </td>
-                    <td>
-                        <a href="{{ contact.linkedin }}">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </td>
-                    
-                    <td>
-                        <a href="{{ path('contacts_show', {'code': contact.code}) }}">Afficher</a>
-                        <a href="{{ path('contacts_edit', {'code': contact.code}) }}">Modifier</a>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="21">Aucun contact trouvé</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a class="btn btn-primary" href="{{ path('contacts_new') }}">Créer un contact</a>
-{% endblock %}
+                        <input type="checkbox" name="checkBox[]" id="ic" value="{{ contact.code }}"/>
+                        {% if vich_uploader_asset(contact, 'imageFile') is null %}
+                            <img alt src="">
+                                {% else %}
+                                <img src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature') }}" alt>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ contact.firstName }}</td>
+                            <td>
+                                {{ contact.lastName }}</td>
+                            <td>
+                                {{ (contact.company != null) ? contact.company.name : "" }}</td>
+                            <td>
+                                {{ contact.Profession.libelle}}</td>
+                            <td>
+                                {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
+                            <td>
+                                {{ (contact.company != null) ? contact.company.town : "" }}</td>
+                            <td>
+                                <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
+                                <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
+                                <i class="fas fa-at" title="{{ contact.email }}"></i>
+                            </td>
+                            <td>
+                                <a href="{{ path('contacts_show', {'code': contact.code}) }}">Afficher</a>
+                                <a href="{{ path('contacts_edit', {'code': contact.code}) }}">Modifier</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="21">Aucun contact trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="{{ path('contacts_new') }}">Créer un contact</a>
+        {% endblock %}
+    

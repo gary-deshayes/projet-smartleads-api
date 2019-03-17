@@ -45,7 +45,7 @@ class CompanyController extends AbstractController
                 $code = $this->faker->regexify("[A-Z]{10}");
                 
             }while($repoCompany->findOneBy(array("code" => $code)) != null);
-            dump($request);
+            //dump($request);
             $company->setCode($code);
             $company->setCreatedAt(new \DateTime());
             $company->setUpdatedAt(new \DateTime());
