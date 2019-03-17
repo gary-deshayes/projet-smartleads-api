@@ -12,16 +12,17 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ path('dashboard') }}">Accueil</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav mr-auto">
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <img class="img-primary" src="{{ asset("img/logo-login.png") }}">
+                    <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
+                    <i class="fas fa-angle-left" id="sidebarCollapse"></i>
+                </div>
+                <ul class="navbar-nav mr-auto nav-active">
                     <li class="nav-item">
+                        <i class="fas fa-user-friends"></i>
                         <a class="nav-link" href="{{ path('contacts_index') }}">Contacts</a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
@@ -31,39 +32,67 @@
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
                     <li class="nav-item">
+                        <i class="fas fa-user-circle"></i>
                         <a class="nav-link" href="{{ path('salesperson_team') }}">Équipe commerciale</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
+                        <i class="fas fa-building"></i>
                         <a class="nav-link" href="{{ path('company_index') }}">Entreprises</a>
                     </li>
                     <li class="nav-item">
+                        <i class="fas fa-star"></i>
                         <a class="nav-link" href="{{ path('operations_index') }}">Opérations</a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
                     <li class="nav-item">
+                        <i class="fas fa-cog"></i>
                         <a class="nav-link" href="{{ path('settings_index') }}">Paramètres</a>
                     </li>
                     {% endif %}
-                    {% if is_granted("IS_AUTHENTICATED_FULLY")%}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-                    </li>
-                    {% endif %}
-
                     {% if is_granted("IS_AUTHENTICATED_FULLY")%}
                     <li class="navbar-text" style="color:red;">
                         {{ app.user.lastName ~ " " ~ app.user.firstName ~ " (" ~ app.user.roles[0] ~ ")"}}
                     </li>
                     {% endif %}
-                   
                 </ul>
-            </div>
-        </nav>
+            </nav>
 
-      
-        <div class="container">
-        {% block body %}{% endblock %}
+            <!-- Page Content  -->
+            <div id="content">
+                <nav class="navbar navbar-expand-lg">
+                    <form class="form-inline">
+                        <div class="md-form my-0">
+                            <i class="fas fa-search"></i>
+                            <input class="form-control form-search mr-sm-2" type="text" placeholder="Rechercher..." aria-label="Rechercher...">
+                        </div>
+                    </form>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link waves-effect waves-light">1
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a class="dropdown-item waves-effect waves-light" href="#">Mon Compte</a>
+                                    <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}">Déconnexion</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="content">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
         </div>
         
         {% block javascripts %}
