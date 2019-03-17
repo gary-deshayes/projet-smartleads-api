@@ -17,11 +17,12 @@
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <img class="img-primary" src="{{ asset("img/logo-login.png") }}">
-                    <strong>HF</strong>
+                    <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto nav-active">
                     <li class="nav-item">
+                        <i class="fas fa-user-friends"></i>
                         <a class="nav-link" href="{{ path('contacts_index') }}">Contacts</a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
@@ -31,17 +32,21 @@
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
                     <li class="nav-item">
+                        <i class="fas fa-user-circle"></i>
                         <a class="nav-link" href="{{ path('salesperson_team') }}">Équipe commerciale</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
+                        <i class="fas fa-building"></i>
                         <a class="nav-link" href="{{ path('company_index') }}">Entreprises</a>
                     </li>
                     <li class="nav-item">
+                        <i class="fas fa-star"></i>
                         <a class="nav-link" href="{{ path('operations_index') }}">Opérations</a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
                     <li class="nav-item">
+                        <i class="fas fa-cog"></i>
                         <a class="nav-link" href="{{ path('settings_index') }}">Paramètres</a>
                     </li>
                     {% endif %}
