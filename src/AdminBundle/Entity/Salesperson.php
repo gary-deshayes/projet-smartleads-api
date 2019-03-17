@@ -4,7 +4,11 @@ namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -12,6 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="salesperson", indexes={@ORM\Index(name="id_leader", columns={"id_leader"})})
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Salesperson implements UserInterface
 {
@@ -113,6 +118,17 @@ class Salesperson implements UserInterface
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
      */
     private $linkedin;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="salespersons_image", fileNameProperty="picture")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @var string|null
@@ -438,6 +454,23 @@ class Salesperson implements UserInterface
     public function __toString()
     {
         return $this->lastName . " " . $this->firstName;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 

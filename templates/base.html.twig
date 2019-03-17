@@ -2,17 +2,21 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Accueil{% endblock %}</title>
+        <title>
+            {% block title %}Accueil{% endblock %}
+        </title>
         <!-- Bootstrap core CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/css/mdb.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset("styles.css") }}">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="wrapper">
+        <div
+            class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
@@ -26,15 +30,15 @@
                         <a class="nav-link" href="{{ path('contacts_index') }}">Contacts</a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
+                        </li>
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
-                    <li class="nav-item">
-                        <i class="fas fa-user-circle"></i>
-                        <a class="nav-link" href="{{ path('salesperson_team') }}">Équipe commerciale</a>
-                    </li>
+                        <li class="nav-item">
+                            <i class="fas fa-user-circle"></i>
+                            <a class="nav-link" href="{{ path('salesperson_team') }}">Équipe commerciale</a>
+                        </li>
                     {% endif %}
                     <li class="nav-item">
                         <i class="fas fa-building"></i>
@@ -45,29 +49,23 @@
                         <a class="nav-link" href="{{ path('operations_index') }}">Opérations</a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                    <li class="nav-item">
-                        <i class="fas fa-cog"></i>
-                        <a class="nav-link" href="{{ path('settings_index') }}">Paramètres</a>
-                    </li>
-                    {% endif %}
-                    {% if is_granted("IS_AUTHENTICATED_FULLY")%}
-                    <li class="navbar-text" style="color:red;">
-                        {{ app.user.lastName ~ " " ~ app.user.firstName ~ " (" ~ app.user.roles[0] ~ ")"}}
-                    </li>
+                        <li class="nav-item">
+                            <i class="fas fa-cog"></i>
+                            <a class="nav-link" href="{{ path('settings_index') }}">Paramètres</a>
+                        </li>
                     {% endif %}
                 </ul>
             </nav>
-
             <!-- Page Content  -->
             <div id="content">
                 <nav class="navbar navbar-expand-lg">
                     <form class="form-inline">
                         <div class="md-form my-0">
                             <i class="fas fa-search"></i>
-                            <input class="form-control form-search mr-sm-2" type="text" placeholder="Rechercher..." aria-label="Rechercher...">
+                            <input aria-label="Rechercher..." class="form-control form-search mr-sm-2" placeholder="Rechercher..." type="text">
                         </div>
                     </form>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                    <button aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent-4" data-toggle="collapse" type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
@@ -78,9 +76,19 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-user"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" id="navbarDropdownMenuLink-4">
+                                    {% if vich_uploader_asset(app.user, 'imageFile') is null %}
+                                        <i class="fas fa-user"></i>
+                                        {% else %}
+                                        <img class="rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('profile_menu') }}">
+                                    {% endif %}
+                                    
+                                </a>
+                                <div aria-labelledby="navbarDropdownMenuLink-4" class="dropdown-menu dropdown-menu-right dropdown-info">
+                                    <p class="dropdown-item ">
+                                        {{ app.user.lastName ~ " " ~ app.user.firstName }}</p>
+                                    <p class="dropdown-item">
+                                        {{  app.user.roles[0] }}</p>
                                     <a class="dropdown-item waves-effect waves-light" href="#">Mon Compte</a>
                                     <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}">Déconnexion</a>
                                 </div>
@@ -88,24 +96,22 @@
                         </ul>
                     </div>
                 </nav>
-
                 <div class="content">
                     {% block body %}{% endblock %}
                 </div>
             </div>
         </div>
-        
         {% block javascripts %}
             <!-- JQuery -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
             <!-- Bootstrap tooltips -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js" type="text/javascript"></script>
             <!-- Bootstrap core JavaScript -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
             <!-- MDB core JavaScript -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/js/mdb.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/js/mdb.min.js" type="text/javascript"></script>
             <!-- Application Javascript -->
-            <script type="text/javascript" src="{{ asset("js/application.js") }}")"></script>
+            <script type="text/javascript" src="{{ asset("js/application.js") }}" )"></script>
         {% endblock %}
     </body>
 </html>
