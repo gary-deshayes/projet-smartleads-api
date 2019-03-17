@@ -12,6 +12,12 @@ liip_imagine:
                 thumbnail:
                     size:   [100, 100]
                     mode:   outbound
+        profile_menu:
+            quality: 80
+            filters:
+                thumbnail:
+                    size:   [36, 36]
+                    mode:   outbound
             
     
     

@@ -128,3 +128,7 @@ nav#sidebar {
     min-height: 100vh;
     transition: all 0.3s;
 }
+
+#sidebarCollapse {
+    cursor: pointer;
+}

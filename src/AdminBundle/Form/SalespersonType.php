@@ -75,8 +75,8 @@ class SalespersonType extends AbstractType
                 "label" => "Lien LinkedIn :",
                 "required" => false
             ])
-            ->add('picture', FileType::class, [
-                "label" => "Image :",
+            ->add('imageFile', FileType::class, [
+                "label" => "Photo",
                 "required" => false,
                 'data_class' => null
             ])

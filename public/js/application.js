@@ -7,3 +7,9 @@ $(document).ready(function($) {
         window.location = $(this).data("href");
     });
 });
+//Side nav bar
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+});

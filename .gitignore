@@ -3,9 +3,8 @@
 /.env.local
 /.env.*.local
 /public/bundles/
-/public/img/
-/public/media/
-/public/images/
+/public/images/contacts/
+/public/images/salespersons/
 /src/Migrations/
 /var/
 /vendor/

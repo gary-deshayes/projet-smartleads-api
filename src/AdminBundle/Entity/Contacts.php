@@ -302,7 +302,7 @@ class Contacts
      */
     private $salesperson;
 
-    public function getSalesperson(): ?Salesperson
+    public function getSalesperson(): ? Salesperson
     {
         return $this->salesperson;
     }
@@ -314,7 +314,7 @@ class Contacts
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getCode(): ? string
     {
         return $this->code;
     }
@@ -326,7 +326,7 @@ class Contacts
         return $this;
     }
 
-    public function getGender(): ?string
+    public function getGender(): ? string
     {
         return $this->gender;
     }
@@ -338,7 +338,7 @@ class Contacts
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getLastName(): ? string
     {
         return $this->lastName;
     }
@@ -350,7 +350,7 @@ class Contacts
         return $this;
     }
 
-    public function getFirstName(): ?string
+    public function getFirstName(): ? string
     {
         return $this->firstName;
     }
@@ -362,7 +362,7 @@ class Contacts
         return $this;
     }
 
-    public function getWorkName(): ?string
+    public function getWorkName(): ? string
     {
         return $this->workName;
     }
@@ -374,7 +374,7 @@ class Contacts
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ? \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -386,7 +386,7 @@ class Contacts
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ? \DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -398,216 +398,216 @@ class Contacts
         return $this;
     }
 
-    public function getStatus(): ?bool
+    public function getStatus(): ? bool
     {
         return $this->status;
     }
 
-    public function setStatus(?bool $status): self
+    public function setStatus(? bool $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getDecisionMaking(): ?string
+    public function getDecisionMaking(): ? string
     {
         return $this->decisionMaking;
     }
 
-    public function setDecisionMaking(?string $decisionMaking): self
+    public function setDecisionMaking(? string $decisionMaking): self
     {
         $this->decisionMaking = $decisionMaking;
 
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBirthDate(): ? \DateTimeInterface
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    public function setBirthDate(? \DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
 
         return $this;
     }
 
-    public function getMobilePhone(): ?string
+    public function getMobilePhone(): ? string
     {
         return $this->mobilePhone;
     }
 
-    public function setMobilePhone(?string $mobilePhone): self
+    public function setMobilePhone(? string $mobilePhone): self
     {
         $this->mobilePhone = $mobilePhone;
 
         return $this;
     }
 
-    public function getStandardPhone(): ?string
+    public function getStandardPhone(): ? string
     {
         return $this->standardPhone;
     }
 
-    public function setStandardPhone(?string $standardPhone): self
+    public function setStandardPhone(? string $standardPhone): self
     {
         $this->standardPhone = $standardPhone;
 
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getPhone(): ? string
     {
         return $this->phone;
     }
 
-    public function setPhone(?string $phone): self
+    public function setPhone(? string $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): ? string
     {
         return $this->email;
     }
 
-    public function setEmail(?string $email): self
+    public function setEmail(? string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getEmailPrechecked(): ?bool
+    public function getEmailPrechecked(): ? bool
     {
         return $this->emailPrechecked;
     }
 
-    public function setEmailPrechecked(?bool $emailPrechecked): self
+    public function setEmailPrechecked(? bool $emailPrechecked): self
     {
         $this->emailPrechecked = $emailPrechecked;
 
         return $this;
     }
 
-    public function getEmailChecked(): ?bool
+    public function getEmailChecked(): ? bool
     {
         return $this->emailChecked;
     }
 
-    public function setEmailChecked(?bool $emailChecked): self
+    public function setEmailChecked(? bool $emailChecked): self
     {
         $this->emailChecked = $emailChecked;
 
         return $this;
     }
 
-    public function getLinkedin(): ?string
+    public function getLinkedin(): ? string
     {
         return $this->linkedin;
     }
 
-    public function setLinkedin(?string $linkedin): self
+    public function setLinkedin(? string $linkedin): self
     {
         $this->linkedin = $linkedin;
 
         return $this;
     }
 
-    public function getFacebook(): ?string
+    public function getFacebook(): ? string
     {
         return $this->facebook;
     }
 
-    public function setFacebook(?string $facebook): self
+    public function setFacebook(? string $facebook): self
     {
         $this->facebook = $facebook;
 
         return $this;
     }
 
-    public function getTwitter(): ?string
+    public function getTwitter(): ? string
     {
         return $this->twitter;
     }
 
-    public function setTwitter(?string $twitter): self
+    public function setTwitter(? string $twitter): self
     {
         $this->twitter = $twitter;
 
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPicture(): ? string
     {
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): self
+    public function setPicture(? string $picture): self
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function getOperationSource(): ?string
+    public function getOperationSource(): ? string
     {
         return $this->operationSource;
     }
 
-    public function setOperationSource(?string $operationSource): self
+    public function setOperationSource(? string $operationSource): self
     {
         $this->operationSource = $operationSource;
 
         return $this;
     }
 
-    public function getComment(): ?string
+    public function getComment(): ? string
     {
         return $this->comment;
     }
 
-    public function setComment(?string $comment): self
+    public function setComment(? string $comment): self
     {
         $this->comment = $comment;
 
         return $this;
     }
 
-    public function getOptInNewsletter(): ?bool
+    public function getOptInNewsletter(): ? bool
     {
         return $this->optInNewsletter;
     }
 
-    public function setOptInNewsletter(?bool $optInNewsletter): self
+    public function setOptInNewsletter(? bool $optInNewsletter): self
     {
         $this->optInNewsletter = $optInNewsletter;
 
         return $this;
     }
 
-    public function getOptInOffresCommercial(): ?bool
+    public function getOptInOffresCommercial(): ? bool
     {
         return $this->optInOffresCommercial;
     }
 
-    public function setOptInOffresCommercial(?bool $optInOffresCommercial): self
+    public function setOptInOffresCommercial(? bool $optInOffresCommercial): self
     {
         $this->optInOffresCommercial = $optInOffresCommercial;
 
         return $this;
     }
 
-    public function getProfession(): ?Profession
+    public function getProfession(): ? Profession
     {
         return $this->idProfession;
     }
 
-    public function setProfession(?Profession $idProfession): self
+    public function setProfession(? Profession $idProfession): self
     {
         $this->idProfession = $idProfession;
 
@@ -635,12 +635,12 @@ class Contacts
         return $this->lastName . " " . $this->firstName;
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile(): ? File
     {
         return $this->imageFile;
     }
 
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(? File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
@@ -651,4 +651,22 @@ class Contacts
         }
     }
 
+    public function getAge()
+    {
+        return $this->birthDate->diff(new \DateTime)->format('%y');
+    }
+
+    public function getCivilite()
+    {
+        $civilite = "";
+        switch($this->gender){
+            case "Homme":
+                $civilite = "M.";
+            break;
+            case "Femme":
+                $civilite = "Madame";
+            break;
+        }
+        return $civilite;
+    }
 }

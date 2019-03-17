@@ -61,7 +61,7 @@ class ContactsType extends AbstractType
                 },
                 "required" => false
             ])
-            ->add('Company', EntityType::class, [
+            ->add('company', EntityType::class, [
                 'class' => Company::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
@@ -120,7 +120,6 @@ class ContactsType extends AbstractType
                 "required" => false
             ])
             ->add('imageFile', FileType::class, [
-                "label" => "Photo",
                 "required" => false,
                 'data_class' => null
             ])
