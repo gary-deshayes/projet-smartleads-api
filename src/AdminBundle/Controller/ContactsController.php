@@ -90,13 +90,9 @@ class ContactsController extends AbstractController
     {
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            //Permet de supprimer l'image du cache miniature
-            
             $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('contacts_index', [
                 'code' => $contact->getCode(),
             ]);

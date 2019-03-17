@@ -57,9 +57,7 @@ class ImageCacheSubscriber implements EventSubscriber
         if(!$entity instanceof Contacts){
             return;
         }
-        dump($args);
         if($entity->getImageFile() instanceof UploadedFile){
-            dump("toto");
             $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
         }
     }

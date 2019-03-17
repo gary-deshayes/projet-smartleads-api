@@ -31,7 +31,15 @@
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
                         <li class="nav-item">
+                        
+                        <i class="fas fa-user-tie"></i>
                             <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted("ROLE_DIRECTEUR") %}
+                        <li class="nav-item">
+                        <i class="fas fa-user-tie"></i>
+                            <a class="nav-link" href="{{ path('salesperson_list_responsable') }}">Responsables d'équipes</a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
@@ -88,7 +96,7 @@
                                     <p class="dropdown-item ">
                                         {{ app.user.lastName ~ " " ~ app.user.firstName }}</p>
                                     <p class="dropdown-item">
-                                        {{  app.user.roles[0] }}</p>
+                                        {{  app.user.getRolesFormat() }}</p>
                                     <a class="dropdown-item waves-effect waves-light" href="#">Mon Compte</a>
                                     <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}">Déconnexion</a>
                                 </div>
