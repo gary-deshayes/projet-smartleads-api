@@ -25,15 +25,18 @@
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
                 <ul class="navbar-nav mr-auto nav-active">
-                    <li class="nav-item">
-                        <i class="fas fa-user-friends"></i>
-                        <a class="nav-link" href="{{ path('contacts_index') }}">Contacts</a>
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'contacts' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('contacts_index') }}">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Contacts</span>
+                        </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item">
-                        
-                        <i class="fas fa-user-tie"></i>
-                            <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
+                        <li class="nav-item {% if app.request.attributes.get('_route') starts with 'salesperson' %}li-active{% endif %}" >
+                            <a class="nav-link" href="{{ path('salesperson_index') }}">
+                            
+                                <span>Commerciaux</span>
+                            </a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_DIRECTEUR") %}
@@ -44,23 +47,31 @@
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
                         <li class="nav-item">
+                        <a class="nav-link" href="{{ path('salesperson_team') }}">
                             <i class="fas fa-user-circle"></i>
-                            <a class="nav-link" href="{{ path('salesperson_team') }}">Équipe commerciale</a>
+                            <span>Équipe commerciale</span>
+                        </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'company' %}li-active{% endif %}">         
+                        <a class="nav-link" href="{{ path('company_index') }}">
                         <i class="fas fa-building"></i>
-                        <a class="nav-link" href="{{ path('company_index') }}">Entreprises</a>
+                            <span>Entreprises</span>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <i class="fas fa-star"></i>
-                        <a class="nav-link" href="{{ path('operations_index') }}">Opérations</a>
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'operations' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('operations_index') }}">
+                            <i class="fas fa-star"></i>
+                            <span>Opérations</span>
+                        </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item">
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'settings' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('settings_index') }}">
                             <i class="fas fa-cog"></i>
-                            <a class="nav-link" href="{{ path('settings_index') }}">Paramètres</a>
-                        </li>
+                            <span>Paramètres</span>
+                        </a>
+                    </li>
                     {% endif %}
                 </ul>
             </nav>
@@ -68,9 +79,11 @@
             <div id="content">
                 <nav class="navbar navbar-expand-lg">
                     <form class="form-inline">
-                        <div class="md-form my-0">
-                            <i class="fas fa-search"></i>
-                            <input aria-label="Rechercher..." class="form-control form-search mr-sm-2" placeholder="Rechercher..." type="text">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <input aria-label="Rechercher..." class="form-control form-search" placeholder="Rechercher..." type="text">
                         </div>
                     </form>
                     <button aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent-4" data-toggle="collapse" type="button">
@@ -78,11 +91,6 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link waves-effect waves-light">1
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" id="navbarDropdownMenuLink-4">
                                     {% if vich_uploader_asset(app.user, 'imageFile') is null %}

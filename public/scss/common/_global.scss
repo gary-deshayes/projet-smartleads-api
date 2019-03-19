@@ -1,8 +1,9 @@
 @import 'variables';
 
-body {
-    background-color: $back;
+html {
+    font-family: Roboto,sans-serif;
 }
+
 h1 {
     font-size: 34px;
 }
@@ -23,8 +24,11 @@ i {
 
 input {
     background-color: transparent !important;
-    // border: none !important;
     font-size: 13px !important;
+
+    &:focus {
+        border: none;
+    }
 }
 
 .primary-btn {
@@ -88,10 +92,10 @@ input {
     border-radius: 0.25rem;
     background-color: #FFFFFF;
 }
-.red-primary{
+
+.red-primary {
     color: $primary-color;
 }
-
 .btn-retour-radius{
     background-color: $retourBtn;
     border-radius: 0.25rem;

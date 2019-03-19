@@ -5,12 +5,16 @@ namespace App\AdminBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Company
  *
  * @ORM\Table(name="company", indexes={@ORM\Index(name="company_legal_status2_FK", columns={"id_legal_status"}), @ORM\Index(name="company_company_category0_FK", columns={"id_company_category"}), @ORM\Index(name="id_salesperson", columns={"id_salesperson"}), @ORM\Index(name="company_activity_area_FK", columns={"id_activity_area"}), @ORM\Index(name="company_number_employees1_FK", columns={"id_number_employees"})})
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Company
 {
@@ -26,6 +30,15 @@ class Company
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $name;
 
@@ -47,13 +60,39 @@ class Company
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le statut doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le statut ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $status;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logo")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le logo doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le logo ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $logo;
 
@@ -68,6 +107,12 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="country", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le pays doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le pays ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $country;
 
@@ -75,6 +120,12 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "L'adresse doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'adresse ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $address;
 
@@ -82,6 +133,12 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="additional_address", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le complément d'adresse doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le complément d'adresse ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $additionalAddress;
 
@@ -89,6 +146,12 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "Le code postal doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le code postal ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $postalCode;
 
@@ -96,6 +159,12 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="town", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "La ville doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "La ville ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $town;
 
@@ -103,6 +172,15 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     * )
      */
     private $phone;
 
@@ -110,6 +188,15 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="fax", type="string", length=10, nullable=true)
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le fax en 0612345678",
+     *      maxMessage = "Veuillez saisir le fax en 0612345678"
+     * )
      */
     private $fax;
 
@@ -117,6 +204,12 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le site web doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le site web ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $website;
 
@@ -124,6 +217,7 @@ class Company
      * @var \DateTime|null
      *
      * @ORM\Column(name="created_at_company", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $createdAtCompany;
 
@@ -131,15 +225,40 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="siret", type="string", length=14, nullable=true)
+     * @Assert\Length(
+     *      min = 14,
+     *      max = 14,
+     *      minMessage = "Le numéro de SIRET doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le numéro de SIRET ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $siret;
 
     /**
      * @var string|null
      *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $email;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="naf_code", type="string", length=5, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "Le NAF code doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le NAF code ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $nafCode;
+
+
 
     /**
      * @var string|null
@@ -223,9 +342,9 @@ class Company
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Contacts", mappedBy="idCompany")
+     * @ORM\OneToMany(targetEntity="Contacts", mappedBy="company")
      */
-    private $idContact;
+    private $contacts;
 
     /**
      * Constructor
@@ -233,7 +352,7 @@ class Company
     public function __construct()
     {
         $this->idTurnovers = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->idContact = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getCode(): ?string
@@ -256,6 +375,18 @@ class Company
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -555,24 +686,24 @@ class Company
      */
     public function getIdContact(): Collection
     {
-        return $this->idContact;
+        return $this->contacts;
     }
 
-    public function addIdContact(Contacts $idContact): self
+    public function addIdContact(Contacts $contact): self
     {
-        if (!$this->idContact->contains($idContact)) {
-            $this->idContact[] = $idContact;
-            $idContact->addIdCompany($this);
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->addIdCompany($this);
         }
 
         return $this;
     }
 
-    public function removeIdContact(Contacts $idContact): self
+    public function removeIdContact(Contacts $contact): self
     {
-        if ($this->idContact->contains($idContact)) {
-            $this->idContact->removeElement($idContact);
-            $idContact->removeIdCompany($this);
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            $contact->removeIdCompany($this);
         }
 
         return $this;
@@ -581,6 +712,39 @@ class Company
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getDecisionLevel(): ?NumberEmployees
+    {
+        return $this->decisionLevel;
+    }
+
+    public function setDecisionLevel($decisionLevel): self
+    {
+        $this->decisionLevel = $decisionLevel;
+
+        return $this;
+    }
+
+    public function getImageFile(): ? File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(? File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getNombreContacts(): int
+    {
+        return count($this->contacts);
     }
 
 }
