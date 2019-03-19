@@ -25,28 +25,36 @@
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
                 <ul class="navbar-nav mr-auto nav-active">
-                    <li class="nav-item" onclick="location.href='{{ path('contacts_index') }}';">
-                        <i class="fas fa-user-friends"></i>
-                        <a class="nav-link">Contacts</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('contacts_index') }}">
+                            <i class="fas fa-user-friends"></i>
+                            Contacts
+                        </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item" onclick="location.href='{{ path('salesperson_index') }}';">
-                            <a class="nav-link">Commerciaux</a>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
-                        <li class="nav-item" onclick="location.href='{{ path('salesperson_team') }}';">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ path('salesperson_team') }}">
                             <i class="fas fa-user-circle"></i>
-                            <a class="nav-link" >Équipe commerciale</a>
+                            Équipe commerciale
+                        </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item" onclick="location.href='{{ path('company_index') }}';">
+                    <li class="nav-item">         
+                        <a class="nav-link" href="{{ path('company_index') }}">
                         <i class="fas fa-building"></i>
-                        <a class="nav-link">Entreprises</a>
+                            Entreprises
+                        </a>
                     </li>
-                    <li class="nav-item" onclick="location.href='{{ path('operations_index') }}';">
-                        <i class="fas fa-star"></i>
-                        <a class="nav-link">Opérations</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('operations_index') }}">
+                            <i class="fas fa-star"></i>
+                            Opérations
+                        </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
                         <li class="nav-item" onclick="location.href='{{ path('settings_index') }}';">

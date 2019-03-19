@@ -109,7 +109,7 @@ input:focus {
 }
 
 nav#sidebar .nav-item {
-  padding: 5px 0 5px 25px;
+  padding: 5px 0 5px 0;
   border-bottom: 2px #f9f9f9 solid;
   display: flex;
   align-items: center;
@@ -136,9 +136,10 @@ nav#sidebar .nav-item i {
 #sidebar ul li:hover {
   cursor: pointer;
   border-left: 3px solid #CF1740;
+  background-color: #f9f9f9;
 }
 #sidebar ul li a {
-  padding: 10px 0 10px 20px;
+  padding: 10px 127px 10px 20px;
   font-size: 1.1em;
   display: block;
   text-align: left;
