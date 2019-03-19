@@ -1,4 +1,93 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="d-flex">
+    <div class="col-lg-2">
+        {# {% if vich_uploader_asset(setting, 'imageFile') is null %}
+            <img alt src="">
+                {% else %}
+                <img src="{{ vich_uploader_asset(setting, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+                {% endif %}
+                {{ form_widget(form.imageFile) }} #}
+            </div>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            {{ form_label(form.applicationName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.applicationName, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            {{ form_errors(form.applicationName) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            {{ form_label(form.applicationLogo, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.applicationLogo, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.applicationLogo) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            {{ form_label(form.address, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.address, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            {{ form_errors(form.address) }}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            {{ form_label(form.additionalAddress, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.additionalAddress, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.additionalAddress) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            {{ form_label(form.phone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.phone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.phone) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            {{ form_label(form.fax, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.fax, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.fax) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            {{ form_label(form.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.email, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.email) }}                       
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            {{ form_label(form.emailAdmin, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.emailAdmin, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.emailAdmin) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            {{ form_label(form.emailContact, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.emailContact, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.emailContact) }}
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-radius-red">Supprimer</button>
+                <button class="btn btn-radius-red">Demande de mise à jour</button>
+                <button class="btn btn-radius-red">
+                    {{ button_label|default('Save') }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+        
