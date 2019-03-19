@@ -5,7 +5,8 @@ html {
 }
 
 h1 {
-    font-size: 34px;
+    font-size: 40px;
+    color: #707070
 }
 
 p {
@@ -18,7 +19,7 @@ i {
 }
 
 .content {
-    padding: 40px 30px;
+    padding: 22px 35px;
     background-color: #FAFAFA;
 }
 
@@ -91,8 +92,20 @@ input {
 .container-content {
     border-radius: 0.25rem;
     background-color: #FFFFFF;
+    margin-top: 20px;
+    box-shadow: 0 0 15px 0px #eeeeee;
 }
 
 .red-primary {
     color: $primary-color;
+    font-size: 20px;
+}
+
+.table thead th{
+    border-bottom: 2px solid #eeeeee;
+}
+
+.table td{
+    border-top: 2px solid #eeeeee;
+    border-bottom: 2px solid #eeeeee;
 }

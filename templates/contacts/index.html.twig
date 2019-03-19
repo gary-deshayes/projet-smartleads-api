@@ -4,7 +4,7 @@
     {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
         <h1>Mes contacts</h1><h2 class="red-primary"> ({{contacts|length}})</h2>
         {% else %}
-        <h1>Contacts de tous les commerciaux</h1><h2 class="red-primary"> ({{contacts|length}})</h2>
+        <h1>Contacts <strong class="red-primary">({{contacts|length}})</strong></h1>
     {% endif %}
     <div class="container-content">
         <table class="table">
