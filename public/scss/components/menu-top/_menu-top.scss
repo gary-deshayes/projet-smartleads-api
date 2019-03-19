@@ -20,7 +20,7 @@
 
 nav#sidebar {
     .nav-item {
-        padding: 5px 0 5px 15px;
+        padding: 5px 0 5px 25px;
         border-bottom: 2px #f9f9f9 solid;
         display: flex;
         align-items: center;
@@ -47,20 +47,24 @@ nav#sidebar {
     color: #fff;
     transition: all 0.3s;
 
-    ul li a {
-        padding: 10px 0 10px 20px;
-        font-size: 1.1em;
-        display: block;
-        text-align: left;
+    ul li {
 
         &:hover {
-            background: #fff;
+            cursor: pointer; 
+            //background-color: #f9f9f9;
+            border-left: 3px solid #CF1740;
         }
-
-        i {
-            margin-right: 15px;
-        }
-    }
+            a {
+                padding: 10px 0 10px 20px;
+                font-size: 1.1em;
+                display: block;
+                text-align: left;
+        
+                i {
+                    margin-right: 15px;
+                }
+            }
+    } 
 
     &.active {
         min-width: 80px;
