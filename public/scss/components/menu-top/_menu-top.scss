@@ -29,6 +29,9 @@ nav#sidebar {
         display: flex;
         align-items: center;
 
+        li:hover {
+            background-color: blue;
+        }
         a {
             color: #999999;
             font-size: 13px;
@@ -52,9 +55,12 @@ nav#sidebar {
     transition: all 0.3s;
 
     ul li {
-
         &:hover {
             cursor: pointer; 
+<<<<<<< HEAD
+=======
+            color: blue !important;
+>>>>>>> 296b6baac57c380407a08dc5b96c36e0c57b8d98
             border-left: 3px solid #CF1740;
             background-color: #f9f9f9;
         }
@@ -77,7 +83,7 @@ nav#sidebar {
         text-align: center;
 
         .sidebar-header {
-            padding: 17px 9px;
+            padding: 18.5px 9px;
 
             strong {
                 display: block;
@@ -108,9 +114,10 @@ nav#sidebar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 20px;
+        padding: 11.5px 20px;
         box-shadow: 0px 5px 5px rgba(0,0,0,.16);
         color: black;
+        z-index: 2;
 
         img {
             width: 150px;
