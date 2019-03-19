@@ -10,7 +10,7 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(5, "Contacts", function ($count) {
+        $this->createMany(100, "Contacts", function ($count) {
             $contacts = new Contacts();
             $contacts->setCode($this->faker->regexify('[A-Z]{10}'));
             $contacts->setProfession($this->getRandomReference("Profession"));

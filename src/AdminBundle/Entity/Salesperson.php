@@ -186,6 +186,16 @@ class Salesperson implements UserInterface
     private $comment;
 
     /**
+     * @var \Department
+     *
+     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_department", referencedColumnName="code")
+     * })
+     */
+    private $department;
+
+    /**
      * @var \Salesperson
      *
      * @ORM\ManyToOne(targetEntity="Salesperson")
@@ -579,6 +589,18 @@ class Salesperson implements UserInterface
             
             $this->updatedAt = new \DateTime('now');
         }
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
+
+        return $this;
     }
 
 

@@ -4,10 +4,12 @@ namespace App\DataFixtures;
 
 
 use App\AdminBundle\Entity\Salesperson;
+use App\DataFixtures\DepartmentFixtures;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class SalespersonFixtures extends BaseFixture
+class SalespersonFixtures extends BaseFixture implements DependentFixtureInterface
 {
 
     private $passwordEncoder;
@@ -19,7 +21,7 @@ class SalespersonFixtures extends BaseFixture
     }
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(10, "Salesperson", function ($count) {
+        $this->createMany(100, "Salesperson", function ($count) {
 
             $salesperson = new Salesperson();
 
@@ -53,6 +55,8 @@ class SalespersonFixtures extends BaseFixture
 
             $salesperson->setPassword($this->passwordEncoder->encodePassword($salesperson, "azerty"));
 
+            $salesperson->setDepartment($this->getRandomReference("Department"));
+
             $salesperson->setRoles($this->faker->randomElement($array = array(["ROLE_DIRECTEUR"], ["ROLE_COMMERCIAL"], ["ROLE_RESPONSABLE"])));
 
             return $salesperson;
@@ -61,6 +65,13 @@ class SalespersonFixtures extends BaseFixture
         
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            DepartmentFixtures::class
+        );
     }
 
 }

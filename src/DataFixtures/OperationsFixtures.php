@@ -11,7 +11,7 @@ class OperationsFixtures extends BaseFixture
     {
         $this->createMany(10, "Operation", function($count){
             $operation = new Operations();
-            $operation->setName($this->faker->word);
+            $operation->setName($this->faker->word . "-" . $count);
             $operation->setUrl($this->faker->url);
             $operation->setTypeOperation($this->faker->randomElement(array('Commerciale', 'Informations', 'Prospection')));
             $operation->setVisualHeadband($this->faker->imageUrl($width = 640, $height = 120));
