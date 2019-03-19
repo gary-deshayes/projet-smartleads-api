@@ -1,4 +1,19 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+
+    {{ form_row(form.gender) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.profile) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.birthDate) }}
+    {{ form_row(form.workname) }}
+    {{ form_row(form.mobilePhone) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.linkedin) }}
+    {{ form_row(form.imageFile) }}
+    {{ form_row(form.leader) }}
+
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
