@@ -57,10 +57,12 @@
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item" onclick="location.href='{{ path('settings_index') }}';">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('settings_index') }}">
                             <i class="fas fa-cog"></i>
-                            <a class="nav-link">Paramètres</a>
-                        </li>
+                            Paramètres
+                        </a>
+                    </li>
                     {% endif %}
                 </ul>
             </nav>
