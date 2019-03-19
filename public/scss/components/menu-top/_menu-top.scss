@@ -6,7 +6,7 @@
 
 .navbar {
     padding: 1.25rem 1rem;
-    box-shadow: 10px 5px 25px 0px #e6e6e6;
+    box-shadow: 10px 5px 25px 0px #f1f1f1;
     border-left: 1px solid rgb(240, 240, 240);
 
     .form-inline {
@@ -62,6 +62,8 @@ nav#sidebar {
     max-width: 250px;
     color: #fff;
     transition: all 0.3s;
+    box-shadow: 4px 90px 20px 0px #f1f1f1;
+    z-index: 1;
 
     ul li {
         &:hover {
@@ -126,7 +128,7 @@ nav#sidebar {
         justify-content: space-between;
         align-items: center;
         padding: 11.5px 20px;
-        box-shadow: -10px 5px 25px 0px #e6e6e6;
+        box-shadow: -10px 5px 25px 0px #f1f1f1;
         color: #000;
         border-right: 1px solid rgb(240, 240, 240);
 
