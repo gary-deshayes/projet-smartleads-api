@@ -27,7 +27,6 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setEmailPrechecked($this->faker->boolean());
             $contacts->setEmailChecked($this->faker->boolean());
             $contacts->setLinkedin($this->faker->url);
-            $contacts->setPicture($this->faker->imageUrl($width = 640, $height = 480));
             $contacts->setOperationSource($this->faker->word);
             $contacts->setComment($this->faker->text($maxNbChars = 50));
             $contacts->setOptInNewsletter($this->faker->boolean());

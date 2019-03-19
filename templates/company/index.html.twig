@@ -21,7 +21,7 @@
                     <td>
                         <input type="checkbox" name="checkBox[]" id="check-{{ company.code }}" value="{{ company.code }}"/>
                         {% if vich_uploader_asset(company, 'imageFile') is null %}
-                            <img alt src="">
+                            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
                                 {% else %}
                                 <img class="rounded-circle" src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature') }}" alt>
                                 {% endif %}

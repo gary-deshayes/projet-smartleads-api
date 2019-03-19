@@ -51,8 +51,6 @@ class SalespersonFixtures extends BaseFixture
 
             $salesperson->setLinkedin($this->faker->url);
 
-            $salesperson->setPicture($this->faker->imageUrl($width = 640, $height = 480));
-
             $salesperson->setPassword($this->passwordEncoder->encodePassword($salesperson, "azerty"));
 
             $salesperson->setRoles($this->faker->randomElement($array = array(["ROLE_DIRECTEUR"], ["ROLE_COMMERCIAL"], ["ROLE_RESPONSABLE"])));
