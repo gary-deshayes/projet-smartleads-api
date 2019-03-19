@@ -1,5 +1,9 @@
 @import 'variables';
 
+html {
+    font-family: Roboto,sans-serif;
+}
+
 h1 {
     font-size: 34px;
 }
@@ -23,7 +27,7 @@ input {
     font-size: 13px !important;
 
     &:focus {
-        border-bottom: none;
+        border: none;
     }
 }
 

@@ -23,24 +23,26 @@
 }
 
 nav#sidebar {
-    .nav-item {
-        padding: 5px 0 5px 0;
-        border-bottom: 2px #f9f9f9 solid;
-        display: flex;
-        align-items: center;
+    ul {
+        margin-top: 5px;
 
-        li:hover {
-            background-color: blue;
-        }
-        a {
-            color: #999999;
-            font-size: 13px;
-        }
+        .nav-item {
+            border-bottom: 2px #f9f9f9 solid;
+            display: flex;
+            align-items: center;
 
-        i {
-            font-size: 16px;
-        }
-    }    
+            a {
+                color: #999999;
+                font-size: 13px;
+                width: 100%;
+                padding: 15px;
+            }
+
+            i {
+                font-size: 16px;
+            }
+        }  
+    }
 }
 
 .wrapper {
@@ -56,17 +58,12 @@ nav#sidebar {
 
     ul li {
         &:hover {
-            cursor: pointer; 
-<<<<<<< HEAD
-=======
-            color: blue !important;
->>>>>>> 296b6baac57c380407a08dc5b96c36e0c57b8d98
+            cursor: pointer;
             border-left: 3px solid #CF1740;
             background-color: #f9f9f9;
         }
 
         a {
-            padding: 10px 127px 10px 20px;
             font-size: 1.1em;
             display: block;
             text-align: left;
@@ -117,7 +114,6 @@ nav#sidebar {
         padding: 11.5px 20px;
         box-shadow: 0px 5px 5px rgba(0,0,0,.16);
         color: black;
-        z-index: 2;
 
         img {
             width: 150px;
