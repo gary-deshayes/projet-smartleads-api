@@ -153,7 +153,8 @@ class Salesperson implements UserInterface
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX) "
      * )
      */
     private $mobilePhone;
@@ -170,7 +171,8 @@ class Salesperson implements UserInterface
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX)"
      * )
      */
     private $phone;
@@ -181,7 +183,6 @@ class Salesperson implements UserInterface
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      * @Assert\Email(
      *     message = "L'email '{{ value }}' n'est pas valide.",
-     *     checkMX = true
      * )
      * @Assert\Length(
      *      max = 255,

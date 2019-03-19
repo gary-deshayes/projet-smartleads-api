@@ -14,12 +14,14 @@
                         <div class="row">
                             {{ form_label(form.gender, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.gender, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            {{ form_errors(form.gender) }}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.lastName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.lastName, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.lastName) }}
                         </div>
                     </div>
                 </div>
@@ -28,12 +30,15 @@
                         <div class="row">
                             {{ form_label(form.firstName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.firstName, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            {{ form_errors(form.firstName) }}
+
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.profile, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.profile, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.profile) }}
                         </div>
                     </div>
                 </div>
@@ -42,12 +47,14 @@
                         <div class="row">
                             {{ form_label(form.status, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.status, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.status) }}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.birthDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.birthDate, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.birthDate) }}
                         </div>
                     </div>
                 </div>
@@ -56,12 +63,14 @@
                         <div class="row">
                             {{ form_label(form.workname, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.workname, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.workname) }}                       
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.mobilePhone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.mobilePhone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.mobilePhone) }}
                         </div>
                     </div>
                 </div>
@@ -70,12 +79,14 @@
                         <div class="row">
                             {{ form_label(form.phone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.phone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.phone) }}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.email, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.email) }}
                         </div>
                     </div>
                 </div>
@@ -84,12 +95,14 @@
                         <div class="row">
                             {{ form_label(form.linkedin, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.linkedin, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.linkedin) }}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.imageFile, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.imageFile, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.imageFile) }}
                         </div>
                     </div>
                 </div>
@@ -98,6 +111,7 @@
                         <div class="row">
                             {{ form_label(form.leader, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.leader, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.leader) }}
                         </div>
                     </div>
                 </div>
