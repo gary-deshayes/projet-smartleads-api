@@ -134,10 +134,11 @@ nav#sidebar ul {
       #sidebar.active .sidebar-header .img-secondary {
         display: block; }
     #sidebar.active .nav-active .nav-item {
-      padding: 15px;
       justify-content: center; }
-      #sidebar.active .nav-active .nav-item a {
+      #sidebar.active .nav-active .nav-item a span {
         display: none; }
+      #sidebar.active .nav-active .nav-item i {
+        margin-left: 15px; }
   #sidebar .sidebar-header {
     display: flex;
     justify-content: space-between;

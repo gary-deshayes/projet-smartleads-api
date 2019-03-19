@@ -97,11 +97,16 @@ nav#sidebar {
 
         .nav-active {
             .nav-item {
-                padding: 15px;
                 justify-content: center;
 
                 a {
-                    display: none;
+                    span {
+                        display: none;
+                    }
+                }
+
+                i {
+                    margin-left: 15px;
                 }
             }
         }
