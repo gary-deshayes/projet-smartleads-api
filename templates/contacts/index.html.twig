@@ -17,6 +17,7 @@
                     <th>Fonction</th>
                     <th>CP</th>
                     <th>Ville</th>
+                    <th>Statut</th>
                     <th>...</th>
                 </tr>
             </thead>
@@ -44,6 +45,8 @@
                                 <td>
                                     {{ (contact.company != null) ? contact.company.town : "" }}</td>
                                 <td>
+                                </td>
+                                <td>
                                     <i class="fas fa-at" title="{{ contact.email }}"></i>
                                     <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
                                     <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
@@ -56,15 +59,20 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                    <select class="">
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                    </select>
-                    <i class="fas fa-trash" title="Supprimer"></i>
-                    <i class="fas fa-download" title="Télécharger"></i>
-                    <i class="fas fa-plus-circle" title="Importer"></i>
-                <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+                <div class="panel-Boutons" >
+                    <div class="panel-left">
+                        <select class="form-control form-control-lg">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                        </select>
+                        <i class="fas fa-trash" title="Supprimer"></i>
+                        <i class="fas fa-download" title="Télécharger"></i>
+                        <i class="fas fa-plus-circle" title="Importer"></i>
+                    </div>
+                    <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+                </div>
+                    
             </div>
         {% endblock %}
     
