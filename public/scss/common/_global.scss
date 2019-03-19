@@ -20,8 +20,11 @@ i {
 
 input {
     background-color: transparent !important;
-    border: none !important;
     font-size: 13px !important;
+
+    &:focus {
+        border-bottom: none;
+    }
 }
 
 .primary-btn {
@@ -85,6 +88,7 @@ input {
     border-radius: 0.25rem;
     background-color: #FFFFFF;
 }
-.red-primary{
+
+.red-primary {
     color: $primary-color;
 }

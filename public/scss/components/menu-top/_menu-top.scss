@@ -9,11 +9,15 @@
     .form-inline {
         border: 2px solid #e3e3e3 !important;
         border-radius: 25px !important;
-        padding-left: 20px;
-        padding-top: 6px;
+        padding: 5px 0 5px 25px;
 
         i {
             font-size: 16px;
+            margin-top: 7px;
+        }
+
+        input {
+            border: none;
         }
     }
 }
@@ -52,10 +56,6 @@ nav#sidebar {
         font-size: 1.1em;
         display: block;
         text-align: left;
-
-        &:hover {
-            background: #fff;
-        }
 
         i {
             margin-right: 15px;
