@@ -43,7 +43,7 @@ class ImageCacheSubscriber implements EventSubscriber
      */
     public function preRemove(LifecycleEventArgs $args){
         $entity = $args->getEntity();
-        if(!$entity instanceof Contacts){
+        if(!$entity instanceof Contacts || !$entity instanceof Salesperson || !$entity instanceof Company){
             return;
         }
         $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
@@ -54,12 +54,10 @@ class ImageCacheSubscriber implements EventSubscriber
      */
     public function preUpdate(PreUpdateEventArgs $args){
         $entity = $args->getEntity();
-        if(!$entity instanceof Contacts){
+        if(!$entity instanceof Contacts || !$entity instanceof Salesperson || !$entity instanceof Company){
             return;
         }
-        dump($args);
         if($entity->getImageFile() instanceof UploadedFile){
-            dump("toto");
             $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
         }
     }

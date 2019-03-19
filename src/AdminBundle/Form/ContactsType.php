@@ -103,6 +103,10 @@ class ContactsType extends AbstractType
                 "label" => "Tél. Fixe",
                 "required" => false
             ])
+            ->add('standardPhone',TelType::class, [
+                "label" => "Tél. Standard",
+                "required" => false
+            ])
             ->add('email', EmailType::class, [
                 "label" => "Email",
                 "required" => false

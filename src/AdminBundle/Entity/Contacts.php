@@ -31,6 +31,9 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
@@ -44,6 +47,9 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
@@ -57,6 +63,9 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
@@ -91,6 +100,9 @@ class Contacts
      * @var string
      *
      * @ORM\Column(name="decision_making", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255
@@ -185,6 +197,9 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="work_name", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "Le nom du poste ne doit pas dépasser {{ limit }} caractères."
@@ -285,7 +300,7 @@ class Contacts
     /**
      * @var \Company
      *
-     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="contacts")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_company", referencedColumnName="code")
      * })
