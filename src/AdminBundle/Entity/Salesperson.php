@@ -565,5 +565,21 @@ class Salesperson implements UserInterface
         }
     }
 
+    public function getRolesFormat(){
+        $role = "";
+        switch($this->roles[0]){
+            case 'ROLE_COMMERCIAL':
+                $role = "Commercial";
+            break;
+            case 'ROLE_RESPONSABLE':
+                $role = "Responsable commercial";
+            break;
+            case 'ROLE_DIRECTEUR':
+                $role = "Directeur commercial";
+            break;
+        }
+        return $role;
+    }
+
 
 }

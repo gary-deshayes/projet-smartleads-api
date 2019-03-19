@@ -85,9 +85,10 @@ class ContactsType extends AbstractType
             ->add('decisionMaking', ChoiceType::class, [
                 'label' => "Niveau de décision",
                 'choices' => [
-                    "Responsable technique" => "Responsable technique",
-                    "Cadre" => "Cadre",
-                    "Cadre supérieur" => "Cadre supérieur"
+                    "Associé" => "Associé",
+                    "Salarié" => "Salarié",
+                    "Chef de service" => "Chef de service",
+                    "Dirigeant" => "Dirigeant"
                 ]
             ])
             ->add('birthDate', DateType::class, [
