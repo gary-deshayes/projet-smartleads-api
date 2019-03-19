@@ -1,8 +1,5 @@
 @import 'variables';
 
-body {
-    background-color: $back;
-}
 h1 {
     font-size: 34px;
 }
@@ -23,7 +20,7 @@ i {
 
 input {
     background-color: transparent !important;
-    // border: none !important;
+    border: none !important;
     font-size: 13px !important;
 }
 
