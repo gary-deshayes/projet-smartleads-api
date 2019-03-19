@@ -25,14 +25,14 @@
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
                 <ul class="navbar-nav mr-auto nav-active">
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'contacts' %}li-active{% endif %}">
                         <a class="nav-link" href="{{ path('contacts_index') }}">
                             <i class="fas fa-user-friends"></i>
                             <span>Contacts</span>
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item" >
+                        <li class="nav-item {% if app.request.attributes.get('_route') starts with 'salesperson' %}li-active{% endif %}" >
                             <a class="nav-link" href="{{ path('salesperson_index') }}">
                             
                                 <span>Commerciaux</span>
