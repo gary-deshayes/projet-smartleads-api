@@ -87,6 +87,8 @@ input {
       margin-top: 7px; }
     .navbar .form-inline input {
       border: none; }
+      .navbar .form-inline input.form-control:focus {
+        box-shadow: none; }
 
 nav#sidebar ul {
   margin-top: 5px; }
