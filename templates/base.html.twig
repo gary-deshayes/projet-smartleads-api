@@ -28,39 +28,42 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('contacts_index') }}">
                             <i class="fas fa-user-friends"></i>
-                            Contacts
+                            <span>Contacts</span>
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
                         <li class="nav-item" >
-                            <a class="nav-link" href="{{ path('salesperson_index') }}">Commerciaux</a>
+                            <a class="nav-link" href="{{ path('salesperson_index') }}">
+                            
+                                <span>Commerciaux</span>
+                            </a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
                         <li class="nav-item">
                         <a class="nav-link" href="{{ path('salesperson_team') }}">
                             <i class="fas fa-user-circle"></i>
-                            Équipe commerciale
+                            <span>Équipe commerciale</span>
                         </a>
                         </li>
                     {% endif %}
                     <li class="nav-item">         
                         <a class="nav-link" href="{{ path('company_index') }}">
                         <i class="fas fa-building"></i>
-                            Entreprises
+                            <span>Entreprises</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('operations_index') }}">
                             <i class="fas fa-star"></i>
-                            Opérations
+                            <span>Opérations</span>
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('settings_index') }}">
                             <i class="fas fa-cog"></i>
-                            Paramètres
+                            <span>Paramètres</span>
                         </a>
                     </li>
                     {% endif %}
