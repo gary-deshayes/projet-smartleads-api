@@ -30,7 +30,6 @@
                 <td>{{ setting.emailContact }}</td>
                 <td>
                     <a href="{{ path('settings_show', {'id': setting.id}) }}">show</a>
-                    <a href="{{ path('settings_edit', {'id': setting.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +40,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('settings_new') }}">Create new</a>
 {% endblock %}

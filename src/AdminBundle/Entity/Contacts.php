@@ -229,6 +229,20 @@ class Contacts
      */
     private $facebook;
 
+        /**
+    * @var \DateTime
+    * @Assert\DateTime
+    * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
+    */
+    private $arrivalDate;    
+    
+    /**
+    * @var \DateTime
+    * @Assert\DateTime
+    * @ORM\Column(name="departure_date", type="datetime", nullable=true)
+    */
+    private $departureDate;
+    
     /**
      * @var string|null
      *
@@ -397,6 +411,30 @@ class Contacts
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getArrivalDate(): ?string
+    {
+        return $this->arrivalDate;
+    }
+
+    public function setArrivalDate(string $code): self
+    {
+        $this->arrivalDate = $arrivalDate;
+
+        return $this;
+    }
+
+    public function getDepartureDate(): ?string
+    {
+        return $this->departureDate;
+    }
+
+    public function setDepartureDate(string $code): self
+    {
+        $this->departureDate = $departureDate;
 
         return $this;
     }
