@@ -105,6 +105,11 @@ input:focus {
   border-bottom: 2px solid #eeeeee;
 }
 
+.btn-retour-radius {
+  background-color: #f5f5f5;
+  border-radius: 0.25rem;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

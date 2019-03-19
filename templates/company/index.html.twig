@@ -1,47 +1,71 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Entreprises{% endblock %}
-
 {% block body %}
     <h1>Entreprises</h1>
-
     <table class="table">
         <thead>
             <tr>
+                <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
                 <th>Nom</th>
-                <th>Statut</th>
-                <th>Pays</th>
                 <th>Code postal</th>
                 <th>Ville</th>
-                <th>Numéro</th>
-                <th>Fax</th>
-                <th>Site</th>
-                <th>Actions</th>
+                <th>Responsable de compte</th>
+                <th>Statut</th>
+                <th>Contacts</th>
+                <th>...</th>
             </tr>
         </thead>
         <tbody>
-        {% for company in companies %}
-            <tr>
-                <td>{{ company.name }}</td>
-                <td>{{ company.status }}</td>
-                <td>{{ company.country }}</td>
-                <td>{{ company.address }}</td>
-                <td>{{ company.town }}</td>
-                <td><i class="fas fa-phone-square" title="{{ company.phone }}"></i></td>
-                <td><i class="fas fa-fax" title="{{ company.fax }}"></i></td>
-                <td><a href="{{ company.website }}" target="_blank"><i class="fas fa-info" title="{{ company.website }}"></i></a></td>
-                <td>
-                    <a href="{{ path('company_show', {'code': company.code}) }}">Afficher</a>
-                    <a href="{{ path('company_edit', {'code': company.code}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="20">Aucune entreprise enregistrée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {% for company in companies %}
+                <tr class="clickable-row" data-href="{{ path('company_edit', {'code': company.code}) }}">
+                    <td>
+                        <input type="checkbox" name="checkBox[]" id="check-{{ company.code }}" value="{{ company.code }}"/>
+                        {% if vich_uploader_asset(company, 'imageFile') is null %}
+                            <img alt src="">
+                                {% else %}
+                                <img class="rounded-circle" src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature') }}" alt>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ company.name }}</td>
+                            <td>
+                                {{ company.postalCode }}</td>
+                            <td>
+                                {{ company.town }}</td>
+                            <td>
+                                {{ company.idSalesperson.firstName ~ " " ~ company.idSalesperson.lastName }}</td>
+                            <td>
+                                {% if company.status == "Client" %}
+                                    <span class="badge badge-pill badge-success">{{ company.status }}</span>
+                                {% endif %}
+                                {% if company.status == "Prospect" %}
+                                    <span class="badge badge-pill badge-warning">{{ company.status }}</span>
+                                {% endif %}
+                                {% if company.status == "Piste" %}
+                                    <span class="badge badge-pill badge-light">{{ company.status }}</span>
+                                {% endif %}
+                                
+                                </td>
+                            <td>
+                                {% if company.getNombreContacts > 0 %}
+                                <span class="badge badge-pill badge-danger">{{ company.getNombreContacts }}</span>
+                                    </td>
+                                {% else %}
+                                <span class="badge badge-pill badge-light">{{ company.getNombreContacts }}</span>
 
-    <a href="{{ path('company_new') }}">Créer une entreprise</a>
-{% endblock %}
+                                {% endif %}
+                            <td>
+                                <i class="fas fa-at" title="{{ company.email }}"></i>
+                                <i title="{{ company.phone }}" class="fas fa-phone"></i>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="20">Aucune entreprise enregistrée</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-radius-red" href="{{ path('company_new') }}">AJOUTER</a>
+        {% endblock %}
+    

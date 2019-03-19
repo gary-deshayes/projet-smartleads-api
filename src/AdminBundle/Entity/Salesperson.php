@@ -24,6 +24,8 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
      * @ORM\Id
      */
     private $code;
@@ -32,6 +34,14 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le genre doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le genre ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $gender;
 
@@ -39,6 +49,14 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le prénom doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le prénom ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $firstName;
 
@@ -46,6 +64,14 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $lastName;
 
@@ -53,19 +79,31 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="profile", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le profile doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le profile ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $profile;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
@@ -74,12 +112,18 @@ class Salesperson implements UserInterface
      * @var bool|null
      *
      * @ORM\Column(name="status", type="boolean", nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $status;
 
     /**
      * @var \DateTime|null
-     *
+     * @Assert\DateTime
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      */
     private $birthDate;
@@ -88,6 +132,12 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="work_name", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le poste doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le poste ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $workName;
 
@@ -95,6 +145,17 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
+     * @Assert\Type(
+     *     type="string",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX) "
+     * )
      */
     private $mobilePhone;
 
@@ -102,6 +163,17 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+     * * @Assert\Type(
+     *     type="string",
+     *     message="Veuillez ne saisir que des numéros."
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
+     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX)"
+     * )
      */
     private $phone;
 
@@ -109,6 +181,13 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide.",
+     * )
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $email;
 
@@ -116,6 +195,12 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'url linkedin doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'url linkedin ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $linkedin;
 
@@ -134,6 +219,12 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'image doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'image ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $picture;
 
@@ -157,6 +248,7 @@ class Salesperson implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * 
      */
     private $password;
 
@@ -471,6 +563,22 @@ class Salesperson implements UserInterface
             
             $this->updatedAt = new \DateTime('now');
         }
+    }
+
+    public function getRolesFormat(){
+        $role = "";
+        switch($this->roles[0]){
+            case 'ROLE_COMMERCIAL':
+                $role = "Commercial";
+            break;
+            case 'ROLE_RESPONSABLE':
+                $role = "Responsable commercial";
+            break;
+            case 'ROLE_DIRECTEUR':
+                $role = "Directeur commercial";
+            break;
+        }
+        return $role;
     }
 
 

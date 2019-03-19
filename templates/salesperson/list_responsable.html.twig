@@ -3,12 +3,11 @@
 {% block title %}Commerciaux{% endblock %}
 
 {% block body %}
-    <h1>Commerciaux</h1>
+    <h1>Liste des responsables d'équipe</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Genre</th>
@@ -21,13 +20,11 @@
                 <th>Email</th>
                 <th>Linkedin</th>
                 <th>actions</th>
-
             </tr>
         </thead>
         <tbody>
         {% for salesperson in salespeople %}
-            <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
-                <td><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></td>
+            <tr>
                 <td>{{ salesperson.firstName }}</td>
                 <td>{{ salesperson.lastName }}</td>
                 <td>{{ salesperson.gender }}</td>

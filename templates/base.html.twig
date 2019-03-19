@@ -39,6 +39,12 @@
                             </a>
                         </li>
                     {% endif %}
+                    {% if is_granted("ROLE_DIRECTEUR") %}
+                        <li class="nav-item">
+                        <i class="fas fa-user-tie"></i>
+                            <a class="nav-link" href="{{ path('salesperson_list_responsable') }}">Responsables d'équipes</a>
+                        </li>
+                    {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
                         <li class="nav-item">
                         <a class="nav-link" href="{{ path('salesperson_team') }}">
@@ -47,20 +53,20 @@
                         </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">         
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'company' %}li-active{% endif %}">         
                         <a class="nav-link" href="{{ path('company_index') }}">
                         <i class="fas fa-building"></i>
                             <span>Entreprises</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'operations' %}li-active{% endif %}">
                         <a class="nav-link" href="{{ path('operations_index') }}">
                             <i class="fas fa-star"></i>
                             <span>Opérations</span>
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'settings' %}li-active{% endif %}">
                         <a class="nav-link" href="{{ path('settings_index') }}">
                             <i class="fas fa-cog"></i>
                             <span>Paramètres</span>
@@ -98,7 +104,7 @@
                                     <p class="dropdown-item ">
                                         {{ app.user.lastName ~ " " ~ app.user.firstName }}</p>
                                     <p class="dropdown-item">
-                                        {{  app.user.roles[0] }}</p>
+                                        {{  app.user.getRolesFormat() }}</p>
                                     <a class="dropdown-item waves-effect waves-light" href="#">Mon Compte</a>
                                     <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}">Déconnexion</a>
                                 </div>

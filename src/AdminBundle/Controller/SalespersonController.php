@@ -131,10 +131,9 @@ class SalespersonController extends AbstractController
      */
     public function team()
     {
-        if($this->getUser()){
+        if ($this->getUser()) {
             $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
             $salespersons = $repoSalesperson->findBy(["idLeader" => $this->getUser()->getCode()]);
-
         }
 
         return $this->render('salesperson/team.html.twig', [
@@ -153,30 +152,30 @@ class SalespersonController extends AbstractController
         $defaultData = ['message' => 'Type your message here'];
 
         $requeteCount = $repoSalesperson->createQueryBuilder('salesperson')
-                            ->select("count(salesperson)")
-                            ->where("salesperson.status = 1")
-                            ->andWhere('salesperson.roles like :roles')
-                            ->andWhere('salesperson.idLeader IS NULL')
-                            ->orderBy('salesperson.firstName', 'ASC')
-                            ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
+            ->select("count(salesperson)")
+            ->where("salesperson.status = 1")
+            ->andWhere('salesperson.roles like :roles')
+            ->andWhere('salesperson.idLeader IS NULL')
+            ->orderBy('salesperson.firstName', 'ASC')
+            ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
 
         $nb = $requeteCount->getQuery()->getSingleScalarResult();
-        
+
         $form = $this->createFormBuilder($defaultData)
-                     ->add('salesperson', EntityType::class, [
-                        "label" => "Commercial :",
-                        'class' => Salesperson::class,
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('salesperson')
-                            ->where("salesperson.status = 1")
-                            ->andWhere('salesperson.roles like :roles')
-                            ->andWhere('salesperson.idLeader IS NULL')
-                            ->orderBy('salesperson.firstName', 'ASC')
-                            ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
-                        },
-                        'required' => false
-                    ])
-                     ->getForm();
+            ->add('salesperson', EntityType::class, [
+                "label" => "Commercial :",
+                'class' => Salesperson::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('salesperson')
+                        ->where("salesperson.status = 1")
+                        ->andWhere('salesperson.roles like :roles')
+                        ->andWhere('salesperson.idLeader IS NULL')
+                        ->orderBy('salesperson.firstName', 'ASC')
+                        ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
+                },
+                'required' => false
+            ])
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -202,14 +201,14 @@ class SalespersonController extends AbstractController
      */
     public function team_delete(Request $request, Salesperson $salesperson): Response
     {
-        $salesperson->setLeader(NULL);
+        $salesperson->setLeader(null);
         $entityManager = $this->getDoctrine()->getManager();
         $message;
-        try{
+        try {
             $entityManager->persist($salesperson);
             $entityManager->flush();
             $message = $salesperson->__toString() . " a été supprimé(e) de votre équipe";
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
 
@@ -218,5 +217,20 @@ class SalespersonController extends AbstractController
             $message
         );
         return $this->redirectToRoute('salesperson_team');
+    }
+    /**
+     * @Route("/responsable/list", name="salesperson_list_responsable", methods={"GET"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
+     */
+    public function list_responsable(): Response
+    {
+        $query = $this->getDoctrine()->getRepository(Salesperson::class)->createQueryBuilder('salesperson')
+            ->andWhere('salesperson.roles like :roles')
+            ->orderBy('salesperson.lastName', 'ASC')
+            ->setParameter(":roles", '["ROLE_RESPONSABLE"]')->getQuery();
+        $salespeople = $query->getResult();
+        return $this->render('salesperson/index.html.twig', [
+            'salespeople' => $salespeople,
+        ]);
     }
 }
