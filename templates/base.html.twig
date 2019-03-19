@@ -25,6 +25,12 @@
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
                 <ul class="navbar-nav mr-auto nav-active">
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'dashboard' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('dashboard') }}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
                     <li class="nav-item {% if app.request.attributes.get('_route') starts with 'contacts' %}li-active{% endif %}">
                         <a class="nav-link" href="{{ path('contacts_index') }}">
                             <i class="fas fa-user-friends"></i>
@@ -41,8 +47,10 @@
                     {% endif %}
                     {% if is_granted("ROLE_DIRECTEUR") %}
                         <li class="nav-item">
-                        <i class="fas fa-user-tie"></i>
-                            <a class="nav-link" href="{{ path('salesperson_list_responsable') }}">Responsables d'équipes</a>
+                            <a class="nav-link" href="{{ path('salesperson_list_responsable') }}">
+                                <i class="fas fa-user-tie"></i>
+                                Responsables d'équipes
+                            </a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
