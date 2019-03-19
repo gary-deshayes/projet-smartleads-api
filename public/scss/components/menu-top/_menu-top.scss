@@ -4,7 +4,8 @@
 
 .navbar {
     padding: 1.25rem 1rem;
-    box-shadow: 0px 5px 5px rgba(0,0,0,.16);
+    box-shadow: 10px 5px 25px 0px #e6e6e6;
+    border-left: 1px solid rgb(240, 240, 240);
 
     .form-inline {
         border: 2px solid #e3e3e3 !important;
@@ -121,8 +122,9 @@ nav#sidebar {
         justify-content: space-between;
         align-items: center;
         padding: 11.5px 20px;
-        box-shadow: 0px 5px 5px rgba(0,0,0,.16);
-        color: black;
+        box-shadow: -10px 5px 25px 0px #e6e6e6;
+        color: #000;
+        border-right: 1px solid rgb(240, 240, 240);
 
         img {
             width: 150px;
