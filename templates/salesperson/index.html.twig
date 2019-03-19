@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Genre</th>
@@ -20,11 +21,13 @@
                 <th>Email</th>
                 <th>Linkedin</th>
                 <th>actions</th>
+
             </tr>
         </thead>
         <tbody>
         {% for salesperson in salespeople %}
-            <tr>
+            <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
+                <td><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></td>
                 <td>{{ salesperson.firstName }}</td>
                 <td>{{ salesperson.lastName }}</td>
                 <td>{{ salesperson.gender }}</td>
