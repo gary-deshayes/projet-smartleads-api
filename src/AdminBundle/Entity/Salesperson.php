@@ -202,7 +202,8 @@ class Salesperson implements UserInterface
      *      maxMessage = "L'url linkedin ne doit pas dépasser {{ limit }} caractères."
      * )
      */
-    private $linkedin;
+
+        private $linkedin;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -257,6 +258,7 @@ class Salesperson implements UserInterface
      * @OneToMany(targetEntity="Contacts", mappedBy="code")
      */
     private $contacts;
+
 
     public function __construct() {
         $this->contacts = new ArrayCollection();
