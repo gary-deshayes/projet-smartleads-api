@@ -93,8 +93,6 @@ class Salesperson implements UserInterface
     /**
      * @var \DateTime
      * @Assert\DateTime
-     * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -102,11 +100,24 @@ class Salesperson implements UserInterface
     /**
      * @var \DateTime
      * @Assert\DateTime
-     * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+
+    /**
+     * @var \DateTime
+     * @Assert\DateTime
+     * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
+     */
+    private $arrivalDate;
+
+    /**
+     * @var \DateTime
+     * @Assert\DateTime
+     * @ORM\Column(name="departure_date", type="datetime", nullable=true)
+     */
+    private $departureDate;
+
 
     /**
      * @var bool|null
@@ -206,6 +217,32 @@ class Salesperson implements UserInterface
         private $linkedin;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'url facebook doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'url facebook ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $facebook;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'url twitter doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'url twitter ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $twitter;
+
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="salespersons_image", fileNameProperty="picture")
@@ -228,6 +265,23 @@ class Salesperson implements UserInterface
      * )
      */
     private $picture;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="comment", type="text", length=0, nullable=true)
+     */
+    private $comment;
+
+    /**
+     * @var \Department
+     *
+     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_department", referencedColumnName="code")
+     * })
+     */
+    private $department;
 
     /**
      * @var \Salesperson
@@ -437,6 +491,30 @@ class Salesperson implements UserInterface
         return $this;
     }
 
+    public function getDepartureDate(): ?\DateTimeInterface
+    {
+        return $this->departureDate;
+    }
+
+    public function setDepartureDate(\DateTimeInterface $departureDate): self
+    {
+        $this->departureDate = $departureDate;
+
+        return $this;
+    }
+
+    public function getArrivalDate(): ?\DateTimeInterface
+    {
+        return $this->arrivalDate;
+    }
+
+    public function setArrivalDate(\DateTimeInterface $arrivalDate): self
+    {
+        $this->arrivalDate = $arrivalDate;
+
+        return $this;
+    }
+
     public function getStatus(): ?bool
     {
         return $this->status;
@@ -457,6 +535,18 @@ class Salesperson implements UserInterface
     public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getComment(): ? string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(? string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
@@ -521,6 +611,30 @@ class Salesperson implements UserInterface
         return $this;
     }
 
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $linkedin;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -567,20 +681,16 @@ class Salesperson implements UserInterface
         }
     }
 
-    public function getRolesFormat(){
-        $role = "";
-        switch($this->roles[0]){
-            case 'ROLE_COMMERCIAL':
-                $role = "Commercial";
-            break;
-            case 'ROLE_RESPONSABLE':
-                $role = "Responsable commercial";
-            break;
-            case 'ROLE_DIRECTEUR':
-                $role = "Directeur commercial";
-            break;
-        }
-        return $role;
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
+
+        return $this;
     }
 
 

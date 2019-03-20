@@ -60,7 +60,7 @@ class SalespersonController extends AbstractController
             }
             $salesperson->setRoles($roles);
             $salesperson->setCode($code);
-            $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, "azerty"));
+            $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
             $salesperson->setCreatedAt(new \DateTime());
             $salesperson->setUpdatedAt(new \DateTime());
             $salesperson->setLeader($repoSalesperson->findOneBy(array("code" => $data["leader"])));
@@ -229,7 +229,7 @@ class SalespersonController extends AbstractController
             ->orderBy('salesperson.lastName', 'ASC')
             ->setParameter(":roles", '["ROLE_RESPONSABLE"]')->getQuery();
         $salespeople = $query->getResult();
-        return $this->render('salesperson/index.html.twig', [
+        return $this->render('salesperson/list_responsable.html.twig', [
             'salespeople' => $salespeople,
         ]);
     }

@@ -10,7 +10,7 @@ class OperationsSentFixtures extends BaseFixture implements DependentFixtureInte
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(5, "OperationSent", function($count){
+        $this->createMany(1, "OperationSent", function($count){
             $operationSent = new OperationSent();
             $operationSent->setIdContacts($this->getRandomReference("Contacts"));
             $operationSent->setIdOperation($this->getRandomReference("Operation"));
