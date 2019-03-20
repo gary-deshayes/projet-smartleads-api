@@ -87,6 +87,11 @@ input {
 .btn-radius-red {
     background-color: $primary-color;
     border-radius: 0.25rem;
+
+    &:hover {
+        color: #fff;
+        background-color: desaturate($primary-color, 30);
+    }
 }
 
 .container-content {

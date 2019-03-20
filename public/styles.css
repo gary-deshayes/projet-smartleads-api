@@ -65,6 +65,9 @@ input {
 .btn-radius-red {
   background-color: #CF1740;
   border-radius: 0.25rem; }
+  .btn-radius-red:hover {
+    color: #fff;
+    background-color: #ad3a53; }
 
 .container-content {
   border-radius: 0.25rem;
@@ -93,22 +96,19 @@ input {
   align-items: center;
   padding-bottom: 20px;
   padding-right: 20px;
-  padding-left: 20px;
-}
+  padding-left: 20px; }
 
 .panel-left {
   width: 20%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-}
+  align-items: center; }
 
 .form-control-lg {
   max-width: 75px;
   color: #a7a7a7;
   margin-right: 10px;
-  font-size: 16px;
-}
+  font-size: 16px; }
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
