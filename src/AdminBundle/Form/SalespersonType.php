@@ -2,7 +2,9 @@
 
 namespace App\AdminBundle\Form;
 
+use App\AdminBundle\Entity\Region;
 use Doctrine\ORM\EntityRepository;
+use App\AdminBundle\Entity\Department;
 use App\AdminBundle\Entity\Salesperson;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,12 +65,12 @@ class SalespersonType extends AbstractType
                 "years" => range(date('Y'), date('Y') - 70)
             ])
             ->add('arrivalDate', DateType::class, [
-                "label" => "Date de naissance",
+                "label" => "Date d'arrivée",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70)
             ])
             ->add('departureDate', DateType::class, [
-                "label" => "Date de naissance",
+                "label" => "Date de départ",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70)
             ])
@@ -76,11 +78,11 @@ class SalespersonType extends AbstractType
                 "label" => "Fonction/poste"
             ])
             ->add('mobilePhone', TelType::class, [
-                "label" => "Téléphone mobile",
+                "label" => "Tél. mobile",
                 "required" => false
             ])
             ->add('phone', TelType::class, [
-                "label" => "Tel. fixe direct",
+                "label" => "Tél. fixe direct",
                 "required" => false
             ])
             ->add('email', EmailType::class, [
@@ -119,11 +121,20 @@ class SalespersonType extends AbstractType
                     return $er->createQueryBuilder('salesperson')
                         ->where("salesperson.status = 1")
                         ->andWhere('salesperson.roles like :roles')
-                        ->orderBy('salesperson.firstName', 'ASC')
+                        ->orderBy('salesperson.lastName', 'ASC')
                         ->setParameter(":roles", '["ROLE_RESPONSABLE"]');
                 },
                 'required' => false,
                 "label" => "Responsable N+1"
+            ])
+            ->add('department', EntityType::class, [
+                'class' => Region::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('region')
+                        ->orderBy('region.libelle', 'ASC');
+                },
+                'required' => false,
+                "label" => "Zone affectée"
             ])
         ;
     }

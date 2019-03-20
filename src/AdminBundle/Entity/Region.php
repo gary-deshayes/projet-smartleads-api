@@ -3,20 +3,20 @@
 namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\DepartmentRepository")
+ * @ORM\Entity
  */
-class Department
+class Region
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=3, nullable=false)
-     * @ORM\Id
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
-    private $code;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -24,9 +24,14 @@ class Department
     private $libelle;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $codes;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Salesperson", mappedBy="department")
+     * @ORM\OneToMany(targetEntity="Salesperson", mappedBy="region")
      */
     private $salesperson;
 
@@ -60,8 +65,6 @@ class Department
         return $this;
     }
 
-    
-
     public function getId(): ?int
     {
         return $this->id;
@@ -79,14 +82,14 @@ class Department
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getCodes(): ?string
     {
-        return $this->code;
+        return $this->codes;
     }
 
-    public function setCode(string $code): self
+    public function setCodes(string $codes): self
     {
-        $this->code = $code;
+        $this->codes = $codes;
 
         return $this;
     }

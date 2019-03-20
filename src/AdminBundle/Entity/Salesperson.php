@@ -274,14 +274,14 @@ class Salesperson implements UserInterface
     private $comment;
 
     /**
-     * @var \Department
+     * @var \Region
      *
-     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\ManyToOne(targetEntity="Region")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_department", referencedColumnName="code")
+     *   @ORM\JoinColumn(name="id_region", referencedColumnName="id")
      * })
      */
-    private $department;
+    private $region;
 
     /**
      * @var \Salesperson
@@ -681,16 +681,32 @@ class Salesperson implements UserInterface
         }
     }
 
-    public function getDepartment(): ?Department
+    public function getRegion(): ?Region
     {
-        return $this->department;
+        return $this->region;
     }
 
-    public function setDepartment(?Department $department): self
+    public function setRegion(?Region $region): self
     {
-        $this->department = $department;
+        $this->region = $region;
 
         return $this;
+    }
+
+    public function getRolesFormat(){
+        $role = "";
+        switch($this->roles[0]){
+            case 'ROLE_COMMERCIAL':
+                $role = "Commercial";
+            break;
+            case 'ROLE_RESPONSABLE':
+                $role = "Responsable commercial";
+            break;
+            case 'ROLE_DIRECTEUR':
+                $role = "Directeur commercial";
+            break;
+        }
+        return $role;
     }
 
 
