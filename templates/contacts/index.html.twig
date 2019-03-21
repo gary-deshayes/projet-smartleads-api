@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
-{% block title %}Liste des contacts{% endblock %}
+{% block title %}Liste des contacts
+{% endblock %}
 {% block body %}
-    {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
-        <h1>Mes contacts</h1><h2 class="red-primary"> ({{contacts|length}})</h2>
-        {% else %}
-        <h1>Contacts <strong class="red-primary">({{contacts|length}})</strong></h1>
-    {% endif %}
-    <div class="container-content">
     <div>
-        {{ form_start(formsearch) }}
-            {{ form_row(formsearch.search)}}
-            <button></button>
+        {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
+            <h1 class="inline-search">Mes contacts</h1>
+            <h2 class="red-primary">
+                ({{contacts|length}})</h2>
+        {% else %}
+            <h1 class="inline-search">Contacts
+                <strong class="red-primary">({{contacts|length}})</strong>
+            </h1>
+        {% endif %}
+        {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
+        {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
+        <i aria-hidden="true" class="fas fa-search"></i>
         {{ form_end(formsearch) }}
     </div>
+    <div class="container-content">
         <table class="table">
             <thead>
                 <tr>
@@ -34,7 +39,7 @@
                             <input type="checkbox" name="checkBox[]" id="check-{{ contact.code }}" value="{{ contact.code }}"/>
                             {% if vich_uploader_asset(contact, 'imageFile') is null %}
                                 <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
-                                    {% else %}
+                                {% else %}
                                     <img class="rounded-circle" src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature') }}" alt>
                                     {% endif %}
                                 </td>
@@ -50,22 +55,21 @@
                                     {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
                                 <td>
                                     {{ (contact.company != null) ? contact.company.town : "" }}</td>
-                                <td>
-                                </td>
+                                <td></td>
                                 <td>
                                     <i class="fas fa-at" title="{{ contact.email }}"></i>
                                     <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
                                     <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
                                 </td>
                             </tr>
-                            {% else %}
+                        {% else %}
                             <tr>
                                 <td colspan="21">Aucun contact trouvé</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                <div class="panel-Boutons" >
+                <div class="panel-Boutons">
                     <div class="panel-left">
                         <select class="form-control form-control-lg">
                             <option>10</option>
@@ -79,7 +83,5 @@
                     </div>
                     <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
                 </div>
-                    
             </div>
         {% endblock %}
-    
