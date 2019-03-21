@@ -241,4 +241,29 @@ class SalespersonController extends AbstractController
             'salespeople' => $salespeople,
         ]);
     }
+
+    /**
+     * @Route("/responsable/team/{code}", name="salespersonlist_list_team_one_responsable", methods={"GET"})
+     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
+     */
+    public function list_team_one_responsable($code): Response
+    {
+        $queryR = $this->getDoctrine()->getRepository(Salesperson::class)->createQueryBuilder('salesperson')
+        ->andWhere('salesperson.code = :responsable')
+         ->setParameter('responsable', $code)->getQuery();
+        // ->setParameter(":roles", '["ROLE_C"]')
+        $responsable = $queryR->getResult();
+        
+        $query = $this->getDoctrine()->getRepository(Salesperson::class)->createQueryBuilder('salesperson')
+            // ->andWhere('salesperson.roles like :roles')
+            ->andWhere('salesperson.idLeader = :lead')
+            ->orderBy('salesperson.lastName', 'ASC')
+             ->setParameter('lead', $code)->getQuery();
+            // ->setParameter(":roles", '["ROLE_COMMERCIAL"]')
+        $salespeople = $query->getResult();
+        return $this->render('salesperson/list_team_one_responsable.html.twig', [
+            'salespeople' => $salespeople,
+            'responsable' => $responsable
+        ]);
+    }
 }
