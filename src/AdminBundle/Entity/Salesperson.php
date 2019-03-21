@@ -123,12 +123,7 @@ class Salesperson implements UserInterface
      * @var bool|null
      *
      * @ORM\Column(name="status", type="boolean", nullable=true)
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255,
-     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
-     * )
+     * @Assert\Type("boolean")
      */
     private $status;
 
@@ -156,16 +151,14 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
-     * @Assert\Type(
-     *     type="string",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX) "
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $mobilePhone;
@@ -173,17 +166,14 @@ class Salesperson implements UserInterface
     /**
      * @var string|null
      *
-     * @ORM\Column(name="phone", type="string", length=10, nullable=true)
-     * * @Assert\Type(
-     *     type="string",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX)"
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $phone;
@@ -274,14 +264,14 @@ class Salesperson implements UserInterface
     private $comment;
 
     /**
-     * @var \Department
+     * @var \Region
      *
-     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\ManyToOne(targetEntity="Region")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_department", referencedColumnName="code")
+     *   @ORM\JoinColumn(name="id_region", referencedColumnName="id")
      * })
      */
-    private $department;
+    private $region;
 
     /**
      * @var \Salesperson
@@ -681,16 +671,32 @@ class Salesperson implements UserInterface
         }
     }
 
-    public function getDepartment(): ?Department
+    public function getRegion(): ?Region
     {
-        return $this->department;
+        return $this->region;
     }
 
-    public function setDepartment(?Department $department): self
+    public function setRegion(?Region $region): self
     {
-        $this->department = $department;
+        $this->region = $region;
 
         return $this;
+    }
+
+    public function getRolesFormat(){
+        $role = "";
+        switch($this->roles[0]){
+            case 'ROLE_COMMERCIAL':
+                $role = "Commercial";
+            break;
+            case 'ROLE_RESPONSABLE':
+                $role = "Responsable commercial";
+            break;
+            case 'ROLE_DIRECTEUR':
+                $role = "Directeur commercial";
+            break;
+        }
+        return $role;
     }
 
 

@@ -5,10 +5,13 @@ namespace App\AdminBundle\Controller;
 use Faker;
 use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Form\ContactsType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AdminBundle\EntitySearch\ContactsSearch;
+use App\AdminBundle\Form\ContactsSearchType;
 
 /**
  * @Route("/contacts")
@@ -21,23 +24,28 @@ class ContactsController extends AbstractController
     /**
      * @Route("/", name="contacts_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {   
+        $search = new ContactsSearch();
+
+        $form = $this->createForm(ContactsSearchType::class, $search);
+
+        $form->handleRequest($request);
         $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
         //Affichage des contacts du commercial
         if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
-            $contacts = $repositoryContacts->findBy(
-                array("salesperson" => $this->getUser()),
-                array("lastName" => "ASC")
-            );
+            $queryContacts = $repositoryContacts->getContactsCommercial($search);
         } else {
-            $contacts = $this->getDoctrine()
-            ->getRepository(Contacts::class)
-            ->findBy(array(), array('lastName' => 'ASC'));
+            $queryContacts = $repositoryContacts->getAllContacts($search);
         }
+        $contacts = $paginator->paginate(
+            $queryContacts,
+            $request->query->getInt('page', 1,10)
+        );
 
         return $this->render('contacts/index.html.twig', [
-            'contacts' => $contacts
+            'contacts' => $contacts,
+            'formsearch' => $form->createView()
         ]);
     }
 

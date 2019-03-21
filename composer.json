@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "doctrine/annotations": "^1.6",
         "fzaninotto/faker": "^1.8",
+        "knplabs/knp-paginator-bundle": "^3.0",
         "liip/imagine-bundle": "^2.1",
         "nelmio/api-doc-bundle": "^3.3",
         "sensio/framework-extra-bundle": "^5.2",

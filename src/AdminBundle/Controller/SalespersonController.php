@@ -2,18 +2,17 @@
 
 namespace App\AdminBundle\Controller;
 
-use Faker;
-use Doctrine\ORM\EntityRepository;
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Form\SalespersonType;
+use Doctrine\ORM\EntityRepository;
+use Faker;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 
 /**
  * @Route("/salesperson")
@@ -39,8 +38,7 @@ class SalespersonController extends AbstractController
      * @Route("/new", name="salesperson_new", methods={"GET","POST"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    function new (Request $request, UserPasswordEncoderInterface $passwordEncoder): Response {
         $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
         $this->faker = Faker\Factory::create('fr_FR');
         $salesperson = new Salesperson();
@@ -92,14 +90,24 @@ class SalespersonController extends AbstractController
      * @Route("/{code}/edit", name="salesperson_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function edit(Request $request, Salesperson $salesperson): Response
+    public function edit(Request $request, Salesperson $salesperson, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        $data = $request->request->get("salesperson");
+        $tmpPassword = $salesperson->getPassword();
         $form = $this->createForm(SalespersonType::class, $salesperson);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
+            
+            if ($data["password"] == "") {
+                $salesperson->setPassword($tmpPassword);
+            } else {
+                $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
+            }
+            $salesperson->setUpdatedAt(new \DateTime());
+
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('salesperson_index', [
                 'code' => $salesperson->getCode(),
             ]);
@@ -137,7 +145,7 @@ class SalespersonController extends AbstractController
         }
 
         return $this->render('salesperson/team.html.twig', [
-            "salespersons" => $salespersons
+            "salespersons" => $salespersons,
         ]);
     }
 
@@ -173,7 +181,7 @@ class SalespersonController extends AbstractController
                         ->orderBy('salesperson.firstName', 'ASC')
                         ->setParameter(":roles", '["ROLE_COMMERCIAL"]');
                 },
-                'required' => false
+                'required' => false,
             ])
             ->getForm();
 
@@ -191,7 +199,7 @@ class SalespersonController extends AbstractController
 
         return $this->render('salesperson/ajout_membre.html.twig', [
             "formSalesperson" => $form->createView(),
-            "nombreCommercial" => (int)$nb
+            "nombreCommercial" => (int) $nb,
         ]);
     }
 

@@ -7,6 +7,12 @@
         <h1>Contacts <strong class="red-primary">({{contacts|length}})</strong></h1>
     {% endif %}
     <div class="container-content">
+    <div>
+        {{ form_start(formsearch) }}
+            {{ form_row(formsearch.search)}}
+            <button></button>
+        {{ form_end(formsearch) }}
+    </div>
         <table class="table">
             <thead>
                 <tr>
@@ -69,6 +75,7 @@
                         <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                         <i class="fas fa-download fa-lg" title="Télécharger"></i>
                         <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+                        {{ knp_pagination_render(contacts) }}
                     </div>
                     <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
                 </div>

@@ -55,7 +55,7 @@ class SalespersonFixtures extends BaseFixture implements DependentFixtureInterfa
 
             $salesperson->setPassword($this->passwordEncoder->encodePassword($salesperson, "azerty"));
 
-            $salesperson->setDepartment($this->getRandomReference("Department"));
+            $salesperson->setRegion($this->getRandomReference("Region"));
 
             $salesperson->setRoles($this->faker->randomElement($array = array(["ROLE_DIRECTEUR"], ["ROLE_COMMERCIAL"], ["ROLE_RESPONSABLE"])));
 
@@ -70,7 +70,7 @@ class SalespersonFixtures extends BaseFixture implements DependentFixtureInterfa
     public function getDependencies()
     {
         return array(
-            DepartmentFixtures::class
+            RegionFixtures::class
         );
     }
 
