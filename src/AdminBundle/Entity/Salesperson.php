@@ -123,12 +123,7 @@ class Salesperson implements UserInterface
      * @var bool|null
      *
      * @ORM\Column(name="status", type="boolean", nullable=true)
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255,
-     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
-     * )
+     * @Assert\Type("boolean")
      */
     private $status;
 
@@ -156,16 +151,14 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
-     * @Assert\Type(
-     *     type="string",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX) "
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $mobilePhone;
@@ -173,17 +166,14 @@ class Salesperson implements UserInterface
     /**
      * @var string|null
      *
-     * @ORM\Column(name="phone", type="string", length=10, nullable=true)
-     * * @Assert\Type(
-     *     type="string",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      exactMessage = "Veuillez saisir uniquement des numéros (format :0X-XX-XX-XX-XX)"
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $phone;

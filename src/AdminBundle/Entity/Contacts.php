@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Contacts
  *
  * @ORM\Table(name="contacts", indexes={@ORM\Index(name="id_profession", columns={"id_profession"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ContactsRepository")
  * @UniqueEntity("code")
  * @Vich\Uploadable
  */

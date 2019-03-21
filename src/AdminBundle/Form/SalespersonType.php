@@ -113,7 +113,8 @@ class SalespersonType extends AbstractType
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe",
                 "required" => false,
-                'data_class' => null
+                'data_class' => null,
+                'empty_data' => ''
             ])
             ->add('leader', EntityType::class, [
                 'class' => Salesperson::class,
