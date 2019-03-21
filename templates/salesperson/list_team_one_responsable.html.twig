@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des responsables d'équipe{% endblock %}
+{% block title %} Equipe d'un responsable {% endblock %}
 
 {% block body %}
-    <h1>Liste des responsables d'équipe <strong class="red-primary">({{salespeople|length}})</strong></h1>
+        {% for leader in responsable %}
 
+        <h1>Equipe de {{ leader.firstName }} {{ leader.lastName }} <strong class="red-primary">({{salespeople|length}})</strong></h1>
+
+        {% endfor %}
+        
     <table class="table">
         <thead>
             <tr>
@@ -24,7 +28,7 @@
         </thead>
         <tbody>
         {% for salesperson in salespeople %}
-            <tr class="clickable-row" data-href="{{ path('salespersonlist_list_team_one_responsable', {'code': salesperson.code}) }}" >
+            <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
                 <td>{{ salesperson.firstName }}</td>
                 <td>{{ salesperson.lastName }}</td>
                 <td>{{ salesperson.gender }}</td>
@@ -38,7 +42,6 @@
                 <td><a href="{{ salesperson.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
                 <td>
                     <a href="{{ path('salesperson_show', {'code': salesperson.code}) }}">Afficher</a>
-                    <a href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
