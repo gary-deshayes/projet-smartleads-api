@@ -112,7 +112,7 @@ class SalespersonType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe",
-                "required" => true,
+                "required" => false,
                 'data_class' => null
             ])
             ->add('leader', EntityType::class, [
@@ -127,7 +127,7 @@ class SalespersonType extends AbstractType
                 'required' => false,
                 "label" => "Responsable N+1"
             ])
-            ->add('department', EntityType::class, [
+            ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('region')

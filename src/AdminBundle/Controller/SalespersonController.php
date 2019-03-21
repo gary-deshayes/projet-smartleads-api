@@ -92,14 +92,27 @@ class SalespersonController extends AbstractController
      * @Route("/{code}/edit", name="salesperson_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function edit(Request $request, Salesperson $salesperson): Response
+    public function edit(Request $request, Salesperson $salesperson, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        dump($request->request->get("salesperson"));
         $form = $this->createForm(SalespersonType::class, $salesperson);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->get("salesperson");
             $this->getDoctrine()->getManager()->flush();
-
+            dump($data);
+            dump($passwordEncoder->encodePassword($salesperson, $data["password"]));
+            if($data["password"] == ""){
+                
+                $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $salesperson->getPassword()));
+            } else {
+                
+                $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
+            }
+            dump($data);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
             return $this->redirectToRoute('salesperson_index', [
                 'code' => $salesperson->getCode(),
             ]);
