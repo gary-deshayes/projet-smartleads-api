@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AdminBundle\EntitySearch\ContactsSearch;
-use App\AdminBundle\Form\ContactsSearchType;
+use App\AdminBundle\EntitySearch\Search;
+use App\AdminBundle\Form\SearchType;
 
 /**
  * @Route("/contacts")
@@ -26,12 +26,13 @@ class ContactsController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {   
-        $search = new ContactsSearch();
+        $search = new Search();
 
-        $form = $this->createForm(ContactsSearchType::class, $search);
+        $form = $this->createForm(SearchType::class, $search);
 
         $form->handleRequest($request);
-        $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
+        $repositoryContacts = $this->getDoctrine()
+            ->getRepository(Contacts::class);
         //Affichage des contacts du commercial
         if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
             $queryContacts = $repositoryContacts->getContactsCommercial($search);
@@ -72,7 +73,7 @@ class ContactsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contact);
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('contacts_index');
         }
         return $this->render('contacts/new.html.twig', [

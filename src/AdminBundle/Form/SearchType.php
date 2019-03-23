@@ -2,13 +2,13 @@
 
 namespace App\AdminBundle\Form;
 
-use App\AdminBundle\EntitySearch\ContactsSearch;
+use App\AdminBundle\EntitySearch\Search;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class ContactsSearchType extends AbstractType
+class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,7 +20,7 @@ class ContactsSearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ContactsSearch::class,
+            'data_class' => Search::class,
             'method' => "get",
             'csrf_protection' => false
         ]);

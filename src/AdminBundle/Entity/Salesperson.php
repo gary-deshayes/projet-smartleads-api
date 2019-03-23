@@ -2,6 +2,7 @@
 
 namespace App\AdminBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\HttpFoundation\File\File;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Salesperson
  *
  * @ORM\Table(name="salesperson", indexes={@ORM\Index(name="id_leader", columns={"id_leader"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\SalespersonRepository")
  * @Vich\Uploadable
  */
 class Salesperson implements UserInterface
@@ -697,6 +698,49 @@ class Salesperson implements UserInterface
             break;
         }
         return $role;
+    }
+
+    public function getIdLeader(): ?self
+    {
+        return $this->idLeader;
+    }
+
+    public function setIdLeader(?self $idLeader): self
+    {
+        $this->idLeader = $idLeader;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contacts[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contacts $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setCode($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contacts $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getCode() === $this) {
+                $contact->setCode(null);
+            }
+        }
+
+        return $this;
     }
 
 

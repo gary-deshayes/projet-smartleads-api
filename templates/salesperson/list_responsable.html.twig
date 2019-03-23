@@ -3,8 +3,12 @@
 {% block title %}Liste des responsables d'équipe{% endblock %}
 
 {% block body %}
-    <h1>Liste des responsables d'équipe <strong class="red-primary">({{salespeople|length}})</strong></h1>
-
+    <h1>Liste des responsables d'équipe <strong class="red-primary">({{leaders|length}})</strong></h1>
+    {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
+    {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
+    <i aria-hidden="true" class="fas fa-search"></i>
+    {{ form_end(formsearch) }}
+<div class="container-content">
     <table class="table">
         <thead>
             <tr>
@@ -23,31 +27,46 @@
             </tr>
         </thead>
         <tbody>
-        {% for salesperson in salespeople %}
-            <tr class="clickable-row" data-href="{{ path('salespersonlist_list_team_one_responsable', {'code': salesperson.code}) }}" >
-                <td>{{ salesperson.firstName }}</td>
-                <td>{{ salesperson.lastName }}</td>
-                <td>{{ salesperson.gender }}</td>
-                <td>{{ salesperson.profile }}</td>
-                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
-                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
-                <td>{{ salesperson.workName }}</td>
-                <td> <i class="fas fa-mobile"  title="{{ salesperson.mobilePhone }}"></i></td>
-                <td><i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i></td>
-                <td><i class="fas fa-at" title="{{ salesperson.email }}"></i></td>
-                <td><a href="{{ salesperson.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
+        {% for leader in leaders %}
+            <tr class="clickable-row" data-href="{{ path('list_team_one_responsable', {'code': leader.code}) }}" >
+                <td>{{ leader.firstName }}</td>
+                <td>{{ leader.lastName }}</td>
+                <td>{{ leader.gender }}</td>
+                <td>{{ leader.profile }}</td>
+                <td>{{ leader.status ? 'Actif' : 'Inactif' }}</td>
+                <td>{{ leader.birthDate ? leader.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ leader.workName }}</td>
+                <td> <i class="fas fa-mobile"  title="{{ leader.mobilePhone }}"></i></td>
+                <td><i class="fas fa-phone-square" title="{{ leader.phone }}"></i></td>
+                <td><i class="fas fa-at" title="{{ leader.email }}"></i></td>
+                <td><a href="{{ leader.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
                 <td>
-                    <a href="{{ path('salesperson_show', {'code': salesperson.code}) }}">Afficher</a>
-                    <a href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">Modifier</a>
+                    <a href="{{ path('salesperson_show', {'code': leader.code}) }}">Afficher</a>
+                    <a href="{{ path('salesperson_edit', {'code': leader.code}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="16">no records found</td>
+                <td colspan="16">Aucun contact trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    <div class="panel-Boutons">
+            <div class="panel-left">
+                <select class="form-control form-control-lg">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                </select>
+                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                <i class="fas fa-download fa-lg" title="Télécharger"></i>
+                <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+                {{ knp_pagination_render(leaders) }}
+            </div>
+            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+    </div>
+</div>
 
     <a class="btn btn-primary" href="{{ path('salesperson_new') }}">Créer un commercial</a>
 {% endblock %}
