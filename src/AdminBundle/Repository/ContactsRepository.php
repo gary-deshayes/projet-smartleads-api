@@ -2,7 +2,7 @@
 
 namespace App\AdminBundle\Repository;
 
-use App\AdminBundle\EntitySearch\ContactsSearch;
+use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Entity\Contacts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -21,7 +21,7 @@ class ContactsRepository extends ServiceEntityRepository
 
     /**
      * @return Contacts[] Returns an array of Contacts objects
-     * @param ContactsSearch $search Un objet de recherche
+     * @param Search $search Un objet de recherche
      */
     public function getContactsCommercial(ContactsSearch $search, $id_user)
     {
@@ -42,7 +42,7 @@ class ContactsRepository extends ServiceEntityRepository
 
     /**
      * @return Contacts[] Returns an array of Contacts objects
-     * @param ContactsSearch $search Un objet de recherche
+     * @param Search $search Un objet de recherche
      */
     public function getAllContacts($search)
     {
