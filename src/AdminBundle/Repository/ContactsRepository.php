@@ -6,6 +6,7 @@ use App\AdminBundle\EntitySearch\ContactsSearch;
 use App\AdminBundle\Entity\Contacts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Proxies\__CG__\App\AdminBundle\Entity\Salesperson;
 
 /**
  * @method Contacts[]    getAllContacts(ContactsSearch $search)
@@ -22,12 +23,12 @@ class ContactsRepository extends ServiceEntityRepository
      * @return Contacts[] Returns an array of Contacts objects
      * @param ContactsSearch $search Un objet de recherche
      */
-    public function getContactsCommercial(ContactsSearch $search)
+    public function getContactsCommercial(ContactsSearch $search, $id_user)
     {
         $query = $this->createQueryBuilder('contacts')
-            ->where("contacts.id_salesperson = :salesperson")
+            ->where("contacts.salesperson = :salesperson")
             ->orderBy('contacts.lastName', 'ASC')
-            ->setParameter(":salesperson", $this->getUser());
+            ->setParameter(":salesperson", $id_user);
 
         if ($search->getSearch()) {
             $query->andWhere('contacts.lastName LIKE :search');

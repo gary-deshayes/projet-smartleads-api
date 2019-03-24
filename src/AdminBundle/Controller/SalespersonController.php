@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\AdminBundle\Form\SalespersonUpdateHisDataType;
 
 /**
  * @Route("/salesperson")
@@ -211,7 +212,7 @@ class SalespersonController extends AbstractController
     {
         $salesperson->setLeader(null);
         $entityManager = $this->getDoctrine()->getManager();
-        $message;
+        $message = "";
         try {
             $entityManager->persist($salesperson);
             $entityManager->flush();
@@ -265,5 +266,40 @@ class SalespersonController extends AbstractController
             'salespeople' => $salespeople,
             'responsable' => $responsable
         ]);
+    }
+    
+    /**
+     * @Route("/my_parameters/{code}", name="user_parameters", methods={"GET","POST"})
+     */
+    public function parameters_user(Request $request, Salesperson $salesperson, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        if($this->getUser() != $salesperson){
+            return $this->redirectToRoute("dashboard");
+        }
+        $tmpPassword = $salesperson->getPassword();
+        $form = $this->createForm(SalespersonUpdateHisDataType::class, $salesperson);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->get("salesperson_update_his_data");
+            if ($data["password"] == "") {
+                $salesperson->setPassword($tmpPassword);
+            } else {
+                $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
+            }
+            $salesperson->setUpdatedAt(new \DateTime());
+            dump($salesperson);
+            dump($request);
+            $this->getDoctrine()->getManager()->flush();
+            $salesperson->setImageFile(null);
+            return $this->redirectToRoute("dashboard");
+        }
+
+        return $this->render('salesperson/parameters.html.twig', [
+            'parameters' => $form->createView(),
+            'salesperson' => $salesperson
+        ]);
+
+
     }
 }

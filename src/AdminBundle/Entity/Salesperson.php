@@ -608,7 +608,7 @@ class Salesperson implements UserInterface
 
     public function setTwitter(?string $twitter): self
     {
-        $this->twitter = $linkedin;
+        $this->twitter = $twitter;
 
         return $this;
     }
