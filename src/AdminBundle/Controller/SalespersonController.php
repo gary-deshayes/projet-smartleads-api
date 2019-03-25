@@ -33,17 +33,22 @@ class SalespersonController extends AbstractController
 
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
-        $querySalespeople = $this->getDoctrine()
+        $querySalesperson = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->getAllSalespersons($search);
 
-        $salespeople = $paginator->paginate(
-            $querySalespeople,
+        $pageSalespersons = $paginator->paginate(
+            $querySalesperson,
             $request->query->getInt('page', 1,10)
         );
         
+        $nbSalespersons = $this->getDoctrine()
+        ->getRepository(Salesperson::class)
+        ->getCountAllSalespersons();
+
         return $this->render('salesperson/index.html.twig', [
-            'salespeople' => $salespeople,
+            'salespersons' => $pageSalespersons,
+            'nbSalespersons' => $nbSalespersons,
             'formsearch' => $form->createView()
         ]);
     }
@@ -256,13 +261,18 @@ class SalespersonController extends AbstractController
             ->getRepository(Salesperson::class)
             ->getAllLeader($search);
             
-        $leaders = $paginator->paginate(
+        $pageLeaders = $paginator->paginate(
             $queryLeaders,
             $request->query->getInt('page', 1,10)
         );
 
+        $nbLeaders = $this->getDoctrine()
+        ->getRepository(Salesperson::class)
+        ->getCountAllLeader();
+
         return $this->render('salesperson/list_responsable.html.twig', [
-            'leaders' => $leaders,
+            'leaders' => $pageLeaders,
+            'nbLeaders' => $nbLeaders,
             'formsearch' => $form->createView()
         ]);
     }
@@ -285,14 +295,11 @@ class SalespersonController extends AbstractController
         $leader = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->getLeader($code);
-        
-            $queryLeader = $this->getDoctrine()
+
+        $nbCommercials = $this->getDoctrine()
             ->getRepository(Salesperson::class)
-            ->createQueryBuilder('salesperson')
-            ->andWhere('salesperson.code = :leader')
-            ->orderBy('salesperson.lastName', 'ASC')
-            ->setParameter('leader', $code);
-            $queryLeader->getQuery();
+            ->getCountTeamOneLeader($code);
+        
 
         $salespersons = $paginator->paginate(
             $querySalespersons,
@@ -302,6 +309,7 @@ class SalespersonController extends AbstractController
 
         return $this->render('salesperson/list_team_one_responsable.html.twig', [
             'salespersons' => $salespersons,
+            'nbCommercials' => $nbCommercials,
             'leader' => $leader,
             'formsearch' => $form->createView()
         ]);

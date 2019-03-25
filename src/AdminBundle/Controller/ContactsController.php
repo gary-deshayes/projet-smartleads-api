@@ -36,16 +36,21 @@ class ContactsController extends AbstractController
         //Affichage des contacts du commercial
         if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
             $queryContacts = $repositoryContacts->getContactsCommercial($search, $this->getUser()->getCode());
+            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountContactsCommercial($this->getUser()->getCode());
         } else {
             $queryContacts = $repositoryContacts->getAllContacts($search);
+            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountAllContacts();
         }
-        $contacts = $paginator->paginate(
+        $pageContacts = $paginator->paginate(
             $queryContacts,
             $request->query->getInt('page', 1,10)
         );
 
+        
+
         return $this->render('contacts/index.html.twig', [
-            'contacts' => $contacts,
+            'contacts' => $pageContacts,
+            'nbContactsCommercial' => $nbContactsCommercial,
             'formsearch' => $form->createView()
         ]);
     }

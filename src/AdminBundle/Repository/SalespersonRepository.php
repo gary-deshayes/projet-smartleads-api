@@ -33,12 +33,21 @@ class SalespersonRepository extends ServiceEntityRepository
             $query->orWhere('salesperson.firstName LIKE :search');
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-        if($search->getSearch() == "")
-        {
-
-        }
+      
         return $query->getQuery();
+    }
 
+    /**
+     * @return Salesperson[] Returns an array of Contacts objects
+     */
+    public function getCountAllSalespersons()
+    {
+        $query = $this->createQueryBuilder('salesperson')
+            ->select('count(salesperson.code)')
+            ->orderBy('salesperson.lastName', 'ASC')
+            ->getQuery();
+            
+        return $query->getSingleScalarResult();
     }
 
     /**
@@ -65,6 +74,21 @@ class SalespersonRepository extends ServiceEntityRepository
 
     /**
      * @return Salesperson[] Returns an array of Contacts objects
+     */
+    public function getCountAllLeader()
+    {
+        $query = $this->createQueryBuilder('salesperson')
+            ->select('count(salesperson.code)')
+            ->andWhere('salesperson.roles LIKE :roles')
+            ->orderBy('salesperson.lastName', 'ASC')
+            ->setParameter(":roles", '["ROLE_RESPONSABLE"]')
+            ->getQuery();
+            
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @return Salesperson[] Returns an array of Contacts objects
      * @param SalespersonSearch $search Un objet de recherche
      */
     public function getAllTeamOneLeader($search, $code)
@@ -80,10 +104,24 @@ class SalespersonRepository extends ServiceEntityRepository
 
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-        
         return $query->getQuery();
-
     }
+
+    /**
+     * @return Salesperson[] Returns an array of Contacts objects
+     */
+    public function getCountTeamOneLeader($code)
+    {
+        $query = $this->createQueryBuilder('salesperson')
+            ->select('count(salesperson.code)')
+            ->andWhere('salesperson.idLeader = :leader')
+            ->orderBy('salesperson.lastName', 'ASC')
+            ->setParameter(':leader', $code)
+            ->getQuery();
+            
+        return $query->getSingleScalarResult();
+    }
+
 
     /**
      * @return Salesperson[] Returns an array of Contacts objects

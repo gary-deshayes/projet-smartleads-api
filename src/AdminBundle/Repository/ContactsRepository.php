@@ -42,6 +42,21 @@ class ContactsRepository extends ServiceEntityRepository
 
     /**
      * @return Contacts[] Returns an array of Contacts objects
+     */
+    public function getCountContactsCommercial($id_user)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->select('count(contacts.code)')
+            ->where("contacts.salesperson = :salesperson")
+            ->orderBy('contacts.lastName', 'ASC')
+            ->setParameter(":salesperson", $id_user)
+            ->getQuery();
+            
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @return Contacts[] Returns an array of Contacts objects
      * @param Search $search Un objet de recherche
      */
     public function getAllContacts($search)
@@ -56,5 +71,18 @@ class ContactsRepository extends ServiceEntityRepository
         }
         return $query->getQuery();
 
+    }
+
+    /**
+     * @return Contacts[] Returns an array of Contacts objects
+     */
+    public function getCountAllContacts()
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->select('count(contacts.code)')
+            ->orderBy('contacts.lastName', 'ASC')
+            ->getQuery();
+            
+        return $query->getSingleScalarResult();
     }
 }
