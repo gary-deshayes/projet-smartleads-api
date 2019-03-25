@@ -6,7 +6,7 @@
     <h1>Liste des responsables d'équipe <strong class="red-primary">({{leaders|length}})</strong></h1>
     {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
     {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
-    <i aria-hidden="true" class="fas fa-search"></i>
+    <button class="btn-search"><i aria-hidden="true" class="fas fa-search"></i></button>
     {{ form_end(formsearch) }}
 <div class="container-content">
     <table class="table">
