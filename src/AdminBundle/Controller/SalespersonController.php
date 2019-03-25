@@ -10,10 +10,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\AdminBundle\Form\SalespersonUpdateHisDataType;
 
+use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\EntitySearch\Search;
 /**
  * @Route("/salesperson")
  */
@@ -23,14 +27,24 @@ class SalespersonController extends AbstractController
      * @Route("/", name="salesperson_index", methods={"GET"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $salespeople = $this->getDoctrine()
-            ->getRepository(Salesperson::class)
-            ->findAll();
+        $search = new Search();
 
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+        $querySalespeople = $this->getDoctrine()
+            ->getRepository(Salesperson::class)
+            ->getAllSalespersons($search);
+
+        $salespeople = $paginator->paginate(
+            $querySalespeople,
+            $request->query->getInt('page', 1,10)
+        );
+        
         return $this->render('salesperson/index.html.twig', [
             'salespeople' => $salespeople,
+            'formsearch' => $form->createView()
         ]);
     }
 
@@ -211,7 +225,7 @@ class SalespersonController extends AbstractController
     {
         $salesperson->setLeader(null);
         $entityManager = $this->getDoctrine()->getManager();
-        $message;
+        $message = "";
         try {
             $entityManager->persist($salesperson);
             $entityManager->flush();
@@ -230,40 +244,101 @@ class SalespersonController extends AbstractController
      * @Route("/responsable/list", name="salesperson_list_responsable", methods={"GET"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function list_responsable(): Response
-    {
-        $query = $this->getDoctrine()->getRepository(Salesperson::class)->createQueryBuilder('salesperson')
-            ->andWhere('salesperson.roles like :roles')
-            ->orderBy('salesperson.lastName', 'ASC')
-            ->setParameter(":roles", '["ROLE_RESPONSABLE"]')->getQuery();
-        $salespeople = $query->getResult();
+    public function list_responsable(PaginatorInterface $paginator, Request $request): Response
+    {   
+        $search = new Search();
+
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form->handleRequest($request);
+
+        $queryLeaders = $this->getDoctrine()
+            ->getRepository(Salesperson::class)
+            ->getAllLeader($search);
+            
+        $leaders = $paginator->paginate(
+            $queryLeaders,
+            $request->query->getInt('page', 1,10)
+        );
+
         return $this->render('salesperson/list_responsable.html.twig', [
-            'salespeople' => $salespeople,
+            'leaders' => $leaders,
+            'formsearch' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/responsable/team/{code}", name="salespersonlist_list_team_one_responsable", methods={"GET"})
+     * @Route("/responsable/team/{code}", name="list_team_one_responsable", methods={"GET"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
      */
-    public function list_team_one_responsable($code): Response
-    {
-        $queryR = $this->getDoctrine()->getRepository(Salesperson::class)->createQueryBuilder('salesperson')
-        ->andWhere('salesperson.code = :responsable')
-         ->setParameter('responsable', $code)->getQuery();
-        // ->setParameter(":roles", '["ROLE_C"]')
-        $responsable = $queryR->getResult();
+    public function list_team_one_responsable($code, PaginatorInterface $paginator, Request $request): Response
+    {   
+        $search = new Search();
+
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form->handleRequest($request);
+        $querySalespersons = $this->getDoctrine()
+                ->getRepository(Salesperson::class)
+                ->getAllTeamOneLeader($search, $code);
+
+        $leader = $this->getDoctrine()
+            ->getRepository(Salesperson::class)
+            ->getLeader($code);
         
-        $query = $this->getDoctrine()->getRepository(Salesperson::class)->createQueryBuilder('salesperson')
-            // ->andWhere('salesperson.roles like :roles')
-            ->andWhere('salesperson.idLeader = :lead')
+            $queryLeader = $this->getDoctrine()
+            ->getRepository(Salesperson::class)
+            ->createQueryBuilder('salesperson')
+            ->andWhere('salesperson.code = :leader')
             ->orderBy('salesperson.lastName', 'ASC')
-             ->setParameter('lead', $code)->getQuery();
-            // ->setParameter(":roles", '["ROLE_COMMERCIAL"]')
-        $salespeople = $query->getResult();
+            ->setParameter('leader', $code);
+            $queryLeader->getQuery();
+
+        $salespersons = $paginator->paginate(
+            $querySalespersons,
+            $request->query->getInt('page', 1,10)
+        );
+        
+
         return $this->render('salesperson/list_team_one_responsable.html.twig', [
-            'salespeople' => $salespeople,
-            'responsable' => $responsable
+            'salespersons' => $salespersons,
+            'leader' => $leader,
+            'formsearch' => $form->createView()
         ]);
+    }
+    
+    /**
+     * @Route("/my_parameters/{code}", name="user_parameters", methods={"GET","POST"})
+     */
+    public function parameters_user(Request $request, Salesperson $salesperson, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        if($this->getUser() != $salesperson){
+            return $this->redirectToRoute("dashboard");
+        }
+        $tmpPassword = $salesperson->getPassword();
+        $form = $this->createForm(SalespersonUpdateHisDataType::class, $salesperson);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->get("salesperson_update_his_data");
+            if ($data["password"] == "") {
+                $salesperson->setPassword($tmpPassword);
+            } else {
+                $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
+            }
+            $salesperson->setUpdatedAt(new \DateTime());
+            dump($salesperson);
+            dump($request);
+            $this->getDoctrine()->getManager()->flush();
+            $salesperson->setImageFile(null);
+            return $this->redirectToRoute("dashboard");
+        }
+
+        return $this->render('salesperson/parameters.html.twig', [
+            'parameters' => $form->createView(),
+            'salesperson' => $salesperson
+        ]);
+
+
     }
 }

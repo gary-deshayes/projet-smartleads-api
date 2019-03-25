@@ -2,7 +2,7 @@
 
 namespace App\AdminBundle\EntitySearch;
 
-class ContactsSearch {
+class Search {
 
     /**
      * var string|null

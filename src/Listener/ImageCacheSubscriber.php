@@ -2,8 +2,10 @@
 
 namespace App\Listener;
 
+use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
 use Doctrine\Common\EventSubscriber;
+use App\AdminBundle\Entity\Salesperson;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -43,10 +45,13 @@ class ImageCacheSubscriber implements EventSubscriber
      */
     public function preRemove(LifecycleEventArgs $args){
         $entity = $args->getEntity();
-        if(!$entity instanceof Contacts || !$entity instanceof Salesperson || !$entity instanceof Company){
+        if($entity instanceof Contacts || $entity instanceof Salesperson || $entity instanceof Company){
+            if($entity->getImageFile() instanceof UploadedFile){
+                $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
+            }
+        } else {
             return;
         }
-        $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
     }
 
     /**
@@ -54,11 +59,14 @@ class ImageCacheSubscriber implements EventSubscriber
      */
     public function preUpdate(PreUpdateEventArgs $args){
         $entity = $args->getEntity();
-        if(!$entity instanceof Contacts || !$entity instanceof Salesperson || !$entity instanceof Company){
+        if($entity instanceof Contacts || $entity instanceof Salesperson || $entity instanceof Company){
+            if($entity->getImageFile() instanceof UploadedFile){
+                $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
+            }
+        } else {
             return;
         }
-        if($entity->getImageFile() instanceof UploadedFile){
-            $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
-        }
+        
+        
     }
 }
