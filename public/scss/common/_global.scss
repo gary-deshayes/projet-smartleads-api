@@ -68,12 +68,12 @@ input {
     color: #CECECE !important;
 }
 
-.titleSearch{
+.titleSearch {
     display: flex;
     justify-content: space-between;
 }
 
-.inline-search{
+.inline-search {
     display: flex !important;
     align-items: center;
 }
@@ -118,13 +118,17 @@ input {
     margin-left: 15px;
 }
 
-.table thead th{
-    border-bottom: 2px solid #eeeeee;
-}
+.table {
+    thead {
+        th {
+            border-bottom: 2px solid #eeeeee;
+        }
+    }
 
-.table td{
-    border-top: 2px solid #eeeeee;
-    border-bottom: 2px solid #eeeeee;
+    td {
+        border-top: 2px solid #eeeeee;
+        border-bottom: 2px solid #eeeeee;
+    }
 }
 
 .btn-retour-radius {
@@ -132,7 +136,7 @@ input {
     border-radius: 0.25rem;
 }
 
-.panel-Boutons{
+.panel-Boutons {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -141,14 +145,14 @@ input {
     padding-left: 20px;
 }
 
-.panel-left{
+.panel-left {
     width: 20%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.form-control-lg{
+.form-control-lg {
     max-width: 75px;
     color: #a7a7a7;
     margin-right: 10px;
@@ -161,7 +165,7 @@ input {
     width: 125px;
 }
 
-::placeholder{
+::placeholder {
     color: rgb(150, 150, 150);
 }
 
@@ -170,7 +174,7 @@ input {
     padding-right: 20px;
 }
 
-#compteur{
+#compteur {
     display: flex;
     align-items: flex-end;
 }
