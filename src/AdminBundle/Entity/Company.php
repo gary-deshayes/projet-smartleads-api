@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * Company
  *
  * @ORM\Table(name="company", indexes={@ORM\Index(name="company_legal_status2_FK", columns={"id_legal_status"}), @ORM\Index(name="company_company_category0_FK", columns={"id_company_category"}), @ORM\Index(name="id_salesperson", columns={"id_salesperson"}), @ORM\Index(name="company_activity_area_FK", columns={"id_activity_area"}), @ORM\Index(name="company_number_employees1_FK", columns={"id_number_employees"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyRepository")
  * @Vich\Uploadable
  */
 class Company

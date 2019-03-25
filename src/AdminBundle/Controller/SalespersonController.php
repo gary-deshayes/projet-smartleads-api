@@ -301,14 +301,14 @@ class SalespersonController extends AbstractController
             ->getCountTeamOneLeader($code);
         
 
-        $salespersons = $paginator->paginate(
+        $pageSalespersons = $paginator->paginate(
             $querySalespersons,
             $request->query->getInt('page', 1,10)
         );
         
 
         return $this->render('salesperson/list_team_one_responsable.html.twig', [
-            'salespersons' => $salespersons,
+            'salespersons' => $pageSalespersons,
             'nbCommercials' => $nbCommercials,
             'leader' => $leader,
             'formsearch' => $form->createView()
