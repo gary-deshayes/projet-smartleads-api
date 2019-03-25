@@ -23,7 +23,7 @@ class ContactsRepository extends ServiceEntityRepository
      * @return Contacts[] Returns an array of Contacts objects
      * @param Search $search Un objet de recherche
      */
-    public function getContactsCommercial(ContactsSearch $search, $id_user)
+    public function getContactsCommercial($search, $id_user)
     {
         $query = $this->createQueryBuilder('contacts')
             ->where("contacts.salesperson = :salesperson")
