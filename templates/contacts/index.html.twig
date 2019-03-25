@@ -2,13 +2,13 @@
 {% block title %}Liste des contacts
 {% endblock %}
 {% block body %}
-    <div>
+    <div class="titleSearch">
         {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
             <h1 class="inline-search">Mes contacts</h1>
             <h2 class="red-primary">
                 ({{contacts|length}})</h2>
         {% else %}
-            <h1 class="inline-search">Contacts
+            <h1 id= "compteur" class="inline-search">Contacts
                 <strong class="red-primary">({{contacts|length}})</strong>
             </h1>
         {% endif %}

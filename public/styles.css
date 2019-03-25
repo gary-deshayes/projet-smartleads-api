@@ -63,6 +63,16 @@ input:focus {
   color: #CECECE !important;
 }
 
+.titleSearch {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inline-search {
+  display: flex !important;
+  align-items: center;
+}
+
 .text-description {
   color: #b3b3b3;
   font-size: 12px;
@@ -97,7 +107,8 @@ input:focus {
 
 .red-primary {
   color: #CF1740;
-  font-size: 20px;
+  font-size: 25px;
+  margin-left: 15px;
 }
 
 .table thead th {
@@ -139,10 +150,22 @@ input:focus {
 
 .search-input {
   border: none;
+  font-size: 20px !important;
+  width: 125px;
+}
+
+::placeholder {
+  color: #969696;
 }
 
 .inline-search {
   display: inline-block;
+  padding-right: 20px;
+}
+
+#compteur {
+  display: flex;
+  align-items: flex-end;
 }
 
 /* ---------------------------------------------------
