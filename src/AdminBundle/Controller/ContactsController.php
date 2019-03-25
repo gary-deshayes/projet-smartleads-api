@@ -102,11 +102,11 @@ class ContactsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
+            
             return $this->redirectToRoute('contacts_index', [
                 'code' => $contact->getCode(),
             ]);
         }
-
         return $this->render('contacts/edit.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
