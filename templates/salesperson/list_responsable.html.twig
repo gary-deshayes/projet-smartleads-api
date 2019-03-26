@@ -6,7 +6,7 @@
         <h1>Liste des responsables d'équipe
             <strong class="red-primary">({{nbLeaders}})</strong>
         </h1>
-        {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
+        {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
         {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
         <button class="btn-search">
             <i aria-hidden="true" class="fas fa-search"></i>
@@ -27,7 +27,6 @@
                     <th>Fixe</th>
                     <th>Email</th>
                     <th>Linkedin</th>
-                    <th>actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,10 +53,6 @@
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </td>
-                        <td>
-                            <a href="{{ path('salesperson_show', {'code': leader.code}) }}">Afficher</a>
-                            <a href="{{ path('salesperson_edit', {'code': leader.code}) }}">Modifier</a>
-                        </td>
                     </tr>
                 {% else %}
                     <tr>
@@ -68,7 +63,7 @@
         </table>
         <div class="panel-Boutons">
             <div class="panel-left">
-            {{ form_widget(formsearch.limit, {'attr': {'class': 'form-control form-control-lg'}})}}
+            {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
                 <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>

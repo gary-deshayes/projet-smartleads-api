@@ -3,8 +3,8 @@
 
 //Permet de rendre les lignes des tables clickable
 $(document).ready(function ($) {
-    $(".clickable-row").click(function () {
-        window.location = $(this).data("href");
+    $(".clickable-row").on("click", "td:gt(0)",function () {
+        window.location = $(this).parent().data("href");
     });
 });
 //Side nav bar

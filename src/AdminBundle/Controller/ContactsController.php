@@ -47,7 +47,7 @@ class ContactsController extends AbstractController
         }
         $pageContacts = $paginator->paginate(
             $queryContacts,
-            $request->query->getInt('page', 1,10),
+            $request->query->getInt('page', 1, $search->getLimit()),
             $search->getLimit()
         );
 
