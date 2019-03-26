@@ -10,7 +10,13 @@
     <table class="table">
         <thead>
             <tr>
-                <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
+                <th>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="check-all" value="all">
+                    <label class="custom-control-label" for="check-all"></label>
+                </div>
+                </th>
+                <th></th>
                 <th>Nom</th>
                 <th>Code postal</th>
                 <th>Ville</th>
@@ -23,8 +29,13 @@
         <tbody>
             {% for company in companies %}
                 <tr class="clickable-row" data-href="{{ path('company_edit', {'code': company.code}) }}">
-                    <td>
-                        <input type="checkbox" name="checkBox[]" id="check-{{ company.code }}" value="{{ company.code }}"/>
+                    <td class="check-user">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="check-{{ company.code }}" value="{{ company.code }}">
+                            <label class="custom-control-label" for="check-{{ company.code }}"></label>
+                        </div>
+                    </td>
+                    <td class="logo-table">
                         {% if vich_uploader_asset(company, 'imageFile') is null %}
                             <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
                                 {% else %}
@@ -81,8 +92,8 @@
                 <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>
-                {{ knp_pagination_render(companies) }}
             </div>
+            {{ knp_pagination_render(companies) }}
             <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
         </div>
     </div>

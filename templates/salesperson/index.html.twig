@@ -16,7 +16,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
+                    <th>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="check-all" value="all">
+                    <label class="custom-control-label" for="check-all"></label>
+                </div>
+                </th>
+                    <th></th>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Genre</th>
@@ -34,8 +40,13 @@
             <tbody>
                 {% for salesperson in salespeople %}
                     <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
-                        <td>
-                            <input id="check-all" name="checkBox[]" type="checkbox" value="all"/>
+                        <td class="check-user">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check-{{ salesperson.code }}" value="{{ salesperson.code }}">
+                                <label class="custom-control-label" for="check-{{ salesperson.code }}"></label>
+                            </div>
+                        </td>
+                        <td class="logo-table">
                             {% if vich_uploader_asset(salesperson, 'imageFile') is null %}
                                 <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
                                 {% else %}
