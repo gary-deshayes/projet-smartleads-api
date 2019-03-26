@@ -99,14 +99,13 @@ class ContactsType extends AbstractType
                 'html5' => false
             ])
             ->add('arrivalDate', DateType::class, [
-                "label" => "Date de naissance",
+                "label" => "Début/fin du poste",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false
             ])
             ->add('departureDate', DateType::class, [
-                "label" => "Date de naissance",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
@@ -149,11 +148,11 @@ class ContactsType extends AbstractType
                 "required" => false
             ])
             ->add('optInNewsletter', CheckboxType::class, [
-                "label" => "Recevoir les newsletter",
+                "label" => "Newsletters",
                 "required" => false
             ])
             ->add('optInOffresCommercial', CheckboxType::class, [
-                "label" => "Recevoir les offres commercial",
+                "label" => "Offres/promos",
                 "required" => false
             ])
             
