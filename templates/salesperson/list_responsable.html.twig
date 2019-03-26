@@ -2,9 +2,7 @@
 {% block title %}Liste des responsables d'équipe
 {% endblock %}
 {% block body %}
-    <h1>Liste des responsables d'équipe
-        <strong class="red-primary">({{leaders|length}})</strong>
-    </h1>
+    <h1>Liste des responsables d'équipe <strong class="red-primary">({{nbLeaders}})</strong></h1>
     {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
     {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
     <button class="btn-search">

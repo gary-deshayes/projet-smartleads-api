@@ -5,10 +5,10 @@
     <div class="titleSearch">
         {% if is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RESPONSABLE") %}
             <h1 class="inline-search">Mes contacts</h1>
-            <h2 class="red-primary">({{contacts|length}})</h2>
+            <h2 class="red-primary">({{nbContactsCommercial}})</h2>
         {% else %}
-            <h1 id="compteur" class="inline-search">Contacts
-                <strong class="red-primary">({{contacts|length}})</strong>
+            <h1 id= "compteur" class="inline-search">Contacts
+                <strong class="red-primary">({{nbContactsCommercial}})</strong>
             </h1>
         {% endif %}
         {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
