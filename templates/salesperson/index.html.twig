@@ -1,77 +1,92 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Commerciaux{% endblock %}
-
+{% block title %}Commerciaux
+{% endblock %}
 {% block body %}
-    <h1 class="inline-search">Commerciaux</h1>
-    <strong class="red-primary">({{salespeople|length}})</strong>
-
-    {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
-    {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
-    <i aria-hidden="true" class="fas fa-search"></i>
-    {{ form_end(formsearch) }}
-<div class="container-content">
-    <table class="table">
-        <thead>
-            <tr>
-                <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Genre</th>
-                <th>Type</th>
-                <th>Statut</th>
-                <th>Date de naissance</th>
-                <th>Poste</th>
-                <th>Mobile</th>
-                <th>Fixe</th>
-                <th>Email</th>
-                <th>Linkedin</th>
-                <th>actions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-        {% for salesperson in salespeople %}
-            <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
-                <td><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></td>
-                <td>{{ salesperson.firstName }}</td>
-                <td>{{ salesperson.lastName }}</td>
-                <td>{{ salesperson.gender }}</td>
-                <td>{{ salesperson.profile }}</td>
-                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
-                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
-                <td>{{ salesperson.workName }}</td>
-                <td> <i class="fas fa-mobile"  title="{{ salesperson.mobilePhone }}"></i></td>
-                <td><i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i></td>
-                <td><i class="fas fa-at" title="{{ salesperson.email }}"></i></td>
-                <td><a href="{{ salesperson.linkedin }}"><i class="fab fa-linkedin"></i></a></td>
-                <td>
-                    <a href="{{ path('salesperson_show', {'code': salesperson.code}) }}">Afficher</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="16">Aucun contact trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-     <div class="panel-Boutons">
-            <div class="panel-left">
-                <select class="form-control form-control-lg">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>30</option>
-                </select>
-                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
-                <i class="fas fa-download fa-lg" title="Télécharger"></i>
-                <i class="fas fa-user-plus fa-lg" title="Importer"></i>
-                {{ knp_pagination_render(salespeople) }}
-            </div>
-            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
-        </div>
+    <h1 class="inline-search">Commerciaux <strong class="red-primary">({{ nbSalespersons }})</strong></h1>
+    
+    <div class="titleSearch">
+    <div><h1 class="inline-search">Commerciaux<strong class="red-primary">({{salespeople|length}})</strong></h1></div>
+    {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
+        {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
+        <button class="btn-search"><i aria-hidden="true" class="fas fa-search"></i></button>
+        
     </div>
 
-
-    <a class="btn btn-primary" href="{{ path('salesperson_new') }}">Créer un commercial</a>
-{% endblock %}
+    
+    
+    <div class="container-content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><input id="check-all" name="checkBox[]" type="checkbox" value="all"/></th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Genre</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                    <th>Date de naissance</th>
+                    <th>Poste</th>
+                    <th>Mobile</th>
+                    <th>Fixe</th>
+                    <th>Email</th>
+                    <th>Linkedin</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for salesperson in salespeople %}
+                    <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
+                        <td>
+                            <input id="check-all" name="checkBox[]" type="checkbox" value="all"/>
+                            {% if vich_uploader_asset(salesperson, 'imageFile') is null %}
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
+                                {% else %}
+                                    <img class="rounded-circle" src="{{ vich_uploader_asset(salesperson, 'imageFile') | imagine_filter('miniature') }}" alt>
+                                    {% endif %}
+                                </td>
+                                <td>{{ salesperson.firstName }}</td>
+                                <td>{{ salesperson.lastName }}</td>
+                                <td>{{ salesperson.gender }}</td>
+                                <td>{{ salesperson.profile }}</td>
+                                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
+                                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
+                                <td>{{ salesperson.workName }}</td>
+                                <td>
+                                    <i class="fas fa-mobile" title="{{ salesperson.mobilePhone }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fas fa-at" title="{{ salesperson.email }}"></i>
+                                </td>
+                                <td>
+                                    <a href="{{ salesperson.linkedin }}">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('salesperson_show', {'code': salesperson.code}) }}">Afficher</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="16">Aucun contact trouvé</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="panel-Boutons">
+                    <div class="panel-left">
+                        {{ form_widget(formsearch.limit)}}
+                        <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                        <i class="fas fa-download fa-lg" title="Télécharger"></i>
+                        <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+                        {{ knp_pagination_render(salespeople) }}
+                    </div>
+                    <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+                </div>
+            </div>
+            {{ form_end(formsearch) }}
+            <a class="btn btn-primary" href="{{ path('salesperson_new') }}">Créer un commercial</a>
+        {% endblock %}

@@ -7,13 +7,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', TextType::class)
+            ->add('search', TextType::class, [
+                'required'   => false
+            ])
+            ->add('limit', ChoiceType::class, [
+                'choices'  => [
+                    10 => 10,
+                    20 => 20,
+                    30 => 30,
+                ],
+            ]);
         ;
     }
 

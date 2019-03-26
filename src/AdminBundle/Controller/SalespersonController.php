@@ -30,20 +30,29 @@ class SalespersonController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
-        $querySalespeople = $this->getDoctrine()
+        $querySalesperson = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->getAllSalespersons($search);
 
         $salespeople = $paginator->paginate(
             $querySalespeople,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
         
+        $nbSalespersons = $this->getDoctrine()
+        ->getRepository(Salesperson::class)
+        ->getCountAllSalespersons();
+
         return $this->render('salesperson/index.html.twig', [
-            'salespeople' => $salespeople,
+            'salespersons' => $pageSalespersons,
+            'nbSalespersons' => $nbSalespersons,
             'formsearch' => $form->createView()
         ]);
     }
@@ -247,6 +256,9 @@ class SalespersonController extends AbstractController
     public function list_responsable(PaginatorInterface $paginator, Request $request): Response
     {   
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
 
@@ -256,13 +268,19 @@ class SalespersonController extends AbstractController
             ->getRepository(Salesperson::class)
             ->getAllLeader($search);
             
-        $leaders = $paginator->paginate(
+        $pageLeaders = $paginator->paginate(
             $queryLeaders,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
 
+        $nbLeaders = $this->getDoctrine()
+        ->getRepository(Salesperson::class)
+        ->getCountAllLeader();
+
         return $this->render('salesperson/list_responsable.html.twig', [
-            'leaders' => $leaders,
+            'leaders' => $pageLeaders,
+            'nbLeaders' => $nbLeaders,
             'formsearch' => $form->createView()
         ]);
     }
@@ -274,6 +292,9 @@ class SalespersonController extends AbstractController
     public function list_team_one_responsable($code, PaginatorInterface $paginator, Request $request): Response
     {   
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
 
@@ -285,23 +306,22 @@ class SalespersonController extends AbstractController
         $leader = $this->getDoctrine()
             ->getRepository(Salesperson::class)
             ->getLeader($code);
-        
-            $queryLeader = $this->getDoctrine()
-            ->getRepository(Salesperson::class)
-            ->createQueryBuilder('salesperson')
-            ->andWhere('salesperson.code = :leader')
-            ->orderBy('salesperson.lastName', 'ASC')
-            ->setParameter('leader', $code);
-            $queryLeader->getQuery();
 
-        $salespersons = $paginator->paginate(
+        $nbCommercials = $this->getDoctrine()
+            ->getRepository(Salesperson::class)
+            ->getCountTeamOneLeader($code);
+        
+
+        $pageSalespersons = $paginator->paginate(
             $querySalespersons,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
         
 
         return $this->render('salesperson/list_team_one_responsable.html.twig', [
-            'salespersons' => $salespersons,
+            'salespersons' => $pageSalespersons,
+            'nbCommercials' => $nbCommercials,
             'leader' => $leader,
             'formsearch' => $form->createView()
         ]);

@@ -200,6 +200,43 @@ input:focus {
   align-items: flex-end;
 }
 
+.btn-search {
+  border: none;
+  background: transparent;
+}
+
+.div-photo .btn-photo {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+.div-photo i {
+  color: #D9D9D9;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+}
+.div-photo .suppression-img:hover {
+  cursor: pointer;
+}
+.div-photo label {
+  border: 2px solid #F5F5F5;
+  background-color: #FAFAFA;
+  border-radius: 4px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #B3B3B3;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-left: 10px;
+}
+.div-photo label:hover {
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -493,6 +530,9 @@ nav#sidebar ul .nav-item i {
   margin-bottom: 15px;
   border: 2px #F5F5F5 solid;
   border-radius: 4px;
+}
+.form-connect form .div-input input {
+  border: none;
 }
 .form-connect form button {
   width: 100%;

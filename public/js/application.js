@@ -2,8 +2,8 @@
 
 
 //Permet de rendre les lignes des tables clickable
-$(document).ready(function($) {
-    $(".clickable-row").click(function() {
+$(document).ready(function ($) {
+    $(".clickable-row").click(function () {
         window.location = $(this).data("href");
     });
 });
@@ -13,3 +13,22 @@ $(document).ready(function () {
         $('#sidebar').toggleClass('active');
     });
 });
+$(function () {
+    $("#datepicker").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        maxDate: "+0d",
+        buttonText: "<i class='fa fa-calendar'></i>"
+    });
+
+
+    $("#anim").on("change", function () {
+        $("#datepicker").datepicker("option", "showAnim", $(this).val());
+    });
+});
+
+$("#search_limit").on("change", function(){
+    $("#form_search").submit();
+})

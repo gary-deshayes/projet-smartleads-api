@@ -94,7 +94,23 @@ class ContactsType extends AbstractType
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",
                 'format' => 'dd-MM-yyyy',
-                "years" => range(date('Y'), date('Y') - 70)
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false
+            ])
+            ->add('arrivalDate', DateType::class, [
+                "label" => "Date de naissance",
+                'format' => 'dd-MM-yyyy',
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false
+            ])
+            ->add('departureDate', DateType::class, [
+                "label" => "Date de naissance",
+                'format' => 'dd-MM-yyyy',
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false
             ])
             ->add('mobilePhone', TelType::class, [
                 "label" => "Tél. mobile",

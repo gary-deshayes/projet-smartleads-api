@@ -8,13 +8,21 @@
     {{ form_start(parameters) }}
 
     <div class="d-flex">
-    <div class="col-lg-2">
+    <div class="col-lg-2 div-photo">
+    <div>
         {% if vich_uploader_asset(salesperson, 'imageFile') is null %}
-            <img alt src="">
+        
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
                 {% else %}
                 <img src="{{ vich_uploader_asset(salesperson, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
                 {% endif %}
-                {{ form_widget(parameters.imageFile) }}
+                <div class="row">
+                    <label for="salesperson_update_his_data_imageFile" class="col-lg-6" ><i class="fas fa-sync"></i>PHOTO</label>
+                    <i class="fas fa-times suppression-img col-lg-6" alt="Suppression de l'image"></i>
+                </div>
+                
+                {{ form_widget(parameters.imageFile, { "attr" : { "class" : "btn-photo"}}) }}
+                </div>
             </div>
             <div class="col-lg-10">
                 <div class="row">

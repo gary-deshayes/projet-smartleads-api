@@ -75,7 +75,7 @@
                     <div class="col-lg-4">
                         <div class="row">
                             {{ form_label(form.birthDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                            {{ form_widget(form.birthDate, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_widget(form.birthDate, { "id":"datepicker", "attr" : { "class" : "form-control col-lg-8"}}) }}
                             {{ form_errors(form.birthDate) }}
                         </div>
                     </div>

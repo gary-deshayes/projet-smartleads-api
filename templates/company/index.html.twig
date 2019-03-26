@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block title %}Entreprises{% endblock %}
 {% block body %}
-    <h1>Entreprises</h1>
+    <h1>Entreprises <strong class="red-primary">({{ nbCompanies }})</strong></h1>
+    {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
+    {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
+    <i aria-hidden="true" class="fas fa-search"></i>
+    {{ form_end(formsearch) }}
+<div class="container-content">
     <table class="table">
         <thead>
             <tr>
@@ -66,6 +71,21 @@
                     {% endfor %}
                 </tbody>
             </table>
+             <div class="panel-Boutons">
+            <div class="panel-left">
+                <select class="form-control form-control-lg">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                </select>
+                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                <i class="fas fa-download fa-lg" title="Télécharger"></i>
+                <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+                {{ knp_pagination_render(companies) }}
+            </div>
+            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+        </div>
+    </div>
             <a class="btn btn-radius-red" href="{{ path('company_new') }}">AJOUTER</a>
         {% endblock %}
     
