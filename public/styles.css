@@ -113,11 +113,40 @@ input:focus {
 
 .table thead th {
   border-bottom: 2px solid #eeeeee;
+  color: #8a8a8a;
 }
 
 .table td {
   border-top: 2px solid #eeeeee;
   border-bottom: 2px solid #eeeeee;
+  font-weight: 500;
+  color: #999999;
+  vertical-align: middle;
+}
+
+.logo-table {
+  width: 30px;
+  padding: 0px 0px 0px 0px !important;
+}
+
+.check-user {
+  width: 55px;
+}
+
+.custom-control-label::before {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.custom-control-label::after {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #CF1740;
+  background-color: #CF1740;
 }
 
 .btn-retour-radius {
@@ -152,6 +181,9 @@ input:focus {
   border: none;
   font-size: 20px !important;
   width: 125px;
+}
+.search-input:focus {
+  border: none;
 }
 
 ::placeholder {
@@ -319,6 +351,115 @@ nav#sidebar ul .nav-item i {
 
 .tab-content {
   margin-top: 30px;
+}
+
+.pagination .previous {
+  background-color: #F5F5F5;
+  border-radius: 6px;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: Roboto, Medium;
+}
+.pagination .previous a {
+  color: #999999;
+  font-weight: 300;
+  font-size: 30px;
+}
+.pagination .current {
+  background-color: #CECECE;
+  border-radius: 6px;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: Roboto, Medium;
+}
+.pagination .page {
+  background-color: white;
+  border: 3px solid #F5F5F5;
+  color: red !important;
+  border-radius: 6px;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+.pagination .page a {
+  color: #B3B3B3;
+  font-family: Roboto, Medium;
+  font-weight: 500px;
+}
+.pagination .next {
+  background-color: #F5F5F5;
+  border-radius: 6px;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: Roboto, Medium;
+}
+.pagination .next a {
+  color: #999999;
+  font-weight: 300;
+  font-size: 30px;
+}
+.pagination .first {
+  display: none !important;
+  background-color: #F5F5F5;
+  border-radius: 6px;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: Roboto, Medium;
+}
+.pagination .first a {
+  color: #999999;
+  font-weight: 300;
+  font-size: 25px;
+}
+.pagination .last {
+  display: none !important;
+  background-color: #F5F5F5;
+  border-radius: 6px;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: Roboto, Medium;
+}
+.pagination .last a {
+  color: #999999;
+  font-weight: 300;
+  font-size: 25px;
+}
+.pagination a {
+  padding: 7px 17px;
 }
 
 .background-img {

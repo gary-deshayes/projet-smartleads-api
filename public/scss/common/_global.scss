@@ -118,13 +118,42 @@ input {
     margin-left: 15px;
 }
 
-.table thead th{
+.table thead th {
     border-bottom: 2px solid #eeeeee;
+    color: #8a8a8a
 }
 
-.table td{
+.table td {
     border-top: 2px solid #eeeeee;
     border-bottom: 2px solid #eeeeee;
+    font-weight: 500;
+    color: #999999;
+    vertical-align: middle;
+}
+
+.logo-table {
+    width: 30px;
+    padding: 0px 0px 0px 0px !important;
+}
+
+.check-user {
+    width: 55px;
+}
+
+.custom-control-label::before {
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.custom-control-label::after {
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #CF1740;
+    background-color: #CF1740;
 }
 
 .btn-retour-radius {
@@ -159,6 +188,10 @@ input {
     border:none;
     font-size: 20px !important;
     width: 125px;
+
+    &:focus {
+        border : none;
+    }
 }
 
 ::placeholder{
