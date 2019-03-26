@@ -2,10 +2,8 @@
 {% block title %}Commerciaux
 {% endblock %}
 {% block body %}
-    <h1 class="inline-search">Commerciaux <strong class="red-primary">({{ nbSalespersons }})</strong></h1>
-    
     <div class="titleSearch">
-    <div><h1 class="inline-search">Commerciaux<strong class="red-primary">({{salespeople|length}})</strong></h1></div>
+    <div><h1 class="inline-search">Commerciaux<strong class="red-primary">({{ nbSalespersons }})</strong></h1></div>
     {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
         {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
         <button class="btn-search"><i aria-hidden="true" class="fas fa-search"></i></button>

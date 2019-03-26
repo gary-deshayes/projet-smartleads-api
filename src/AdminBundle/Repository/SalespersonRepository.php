@@ -40,14 +40,19 @@ class SalespersonRepository extends ServiceEntityRepository
     /**
      * @return Salesperson[] Returns an array of Contacts objects
      */
-    public function getCountAllSalespersons()
+    public function getCountAllSalespersons($search)
     {
         $query = $this->createQueryBuilder('salesperson')
             ->select('count(salesperson.code)')
-            ->orderBy('salesperson.lastName', 'ASC')
-            ->getQuery();
+            ->orderBy('salesperson.lastName', 'ASC');
             
-        return $query->getSingleScalarResult();
+        if ($search->getSearch()) {
+            $query->andWhere('salesperson.lastName LIKE :search');
+            $query->orWhere('salesperson.firstName LIKE :search');
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
+      
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /**

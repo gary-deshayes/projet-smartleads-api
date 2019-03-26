@@ -41,17 +41,17 @@ class SalespersonController extends AbstractController
             ->getAllSalespersons($search);
 
         $salespeople = $paginator->paginate(
-            $querySalespeople,
+            $querySalesperson,
             $request->query->getInt('page', 1,10),
             $search->getLimit()
         );
         
         $nbSalespersons = $this->getDoctrine()
         ->getRepository(Salesperson::class)
-        ->getCountAllSalespersons();
-
+        ->getCountAllSalespersons($search);
+        dump($nbSalespersons);
         return $this->render('salesperson/index.html.twig', [
-            'salespersons' => $pageSalespersons,
+            'salespeople' => $salespeople,
             'nbSalespersons' => $nbSalespersons,
             'formsearch' => $form->createView()
         ]);
