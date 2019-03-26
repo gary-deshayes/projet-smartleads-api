@@ -23,7 +23,7 @@
             border: none;
 
             &.form-control:focus {
-                box-shadow: none;
+                @include no-shadow();
             }
         }
     }
