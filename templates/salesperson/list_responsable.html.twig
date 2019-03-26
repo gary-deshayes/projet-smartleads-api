@@ -2,12 +2,16 @@
 {% block title %}Liste des responsables d'équipe
 {% endblock %}
 {% block body %}
-    <h1>Liste des responsables d'équipe <strong class="red-primary">({{nbLeaders}})</strong></h1>
-    {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
-    {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
-    <button class="btn-search">
-        <i aria-hidden="true" class="fas fa-search"></i>
-    </button>
+    <div class="titleSearch">
+        <h1>Liste des responsables d'équipe
+            <strong class="red-primary">({{nbLeaders}})</strong>
+        </h1>
+        {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
+        {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
+        <button class="btn-search">
+            <i aria-hidden="true" class="fas fa-search"></i>
+        </button>
+    </div>
     <div class="container-content">
         <table class="table">
             <thead>
@@ -64,6 +68,7 @@
         </table>
         <div class="panel-Boutons">
             <div class="panel-left">
+            {{ form_widget(formsearch.limit)}}
                 <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>

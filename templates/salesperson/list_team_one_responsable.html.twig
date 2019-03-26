@@ -4,7 +4,7 @@
 
 {% block body %}
     
-    <h1 class="inline-search">Equipe de  <strong class="red-primary">({{salespersons|length}})</strong></h1>
+    <h1 class="inline-search">Equipe de {{ leader.firstName ~ " " ~ leader.lastName }} <strong class="red-primary">({{salespersons|length}})</strong></h1>
     
     
     {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}

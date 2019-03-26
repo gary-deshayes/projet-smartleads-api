@@ -28,6 +28,10 @@ class ContactsController extends AbstractController
     {   
         $search = new Search();
 
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
+
         $form = $this->createForm(SearchType::class, $search);
 
         $form->handleRequest($request);
@@ -43,7 +47,8 @@ class ContactsController extends AbstractController
         }
         $pageContacts = $paginator->paginate(
             $queryContacts,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
 
         

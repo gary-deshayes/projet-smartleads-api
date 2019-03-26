@@ -11,10 +11,9 @@
                 <strong class="red-primary">({{nbContactsCommercial}})</strong>
             </h1>
         {% endif %}
-        {{ form_start(formsearch, {'attr': {'class': 'inline-search'}}) }}
+        {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
         {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
         <button class="btn-search"><i aria-hidden="true" class="fas fa-search"></i></button>
-        {{ form_end(formsearch) }}
     </div>
     <div class="container-content">
         <table class="table">
@@ -81,11 +80,7 @@
                 </table>
                 <div class="panel-Boutons">
                     <div class="panel-left">
-                        <select class="form-control form-control-lg">
-                            <option>10</option>
-                            <option>20</option>
-                            <option>30</option>
-                        </select>
+                        {{ form_widget(formsearch.limit)}}
                         <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                         <i class="fas fa-download fa-lg" title="Télécharger"></i>
                         <i class="fas fa-user-plus fa-lg" title="Importer"></i>

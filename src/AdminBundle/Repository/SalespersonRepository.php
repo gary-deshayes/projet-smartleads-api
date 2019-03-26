@@ -104,8 +104,7 @@ class SalespersonRepository extends ServiceEntityRepository
             ->setParameter(':leader', $code);
 
         if($search->getSearch()) {
-            $query->andWhere('salesperson.lastName LIKE :search');
-            $query->orWhere('salesperson.firstName LIKE :search');
+            $query->andWhere('salesperson.lastName LIKE :search OR salesperson.firstName LIKE :search');
 
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
@@ -115,16 +114,20 @@ class SalespersonRepository extends ServiceEntityRepository
     /**
      * @return Salesperson[] Returns an array of Contacts objects
      */
-    public function getCountTeamOneLeader($code)
+    public function getCountTeamOneLeader($code, $search)
     {
         $query = $this->createQueryBuilder('salesperson')
             ->select('count(salesperson.code)')
             ->andWhere('salesperson.idLeader = :leader')
             ->orderBy('salesperson.lastName', 'ASC')
-            ->setParameter(':leader', $code)
-            ->getQuery();
-            
-        return $query->getSingleScalarResult();
+            ->setParameter(':leader', $code);
+
+            if($search->getSearch()) {
+                $query->andWhere('salesperson.lastName LIKE :search OR salesperson.firstName LIKE :search');
+    
+                $query->setParameter(":search", "%" . $search->getSearch() . "%");
+            }
+        return $query->getQuery()->getSingleScalarResult();
     }
 
 
@@ -141,36 +144,4 @@ class SalespersonRepository extends ServiceEntityRepository
         return $query->getQuery();
 
     }
-
-
-
-
-    // /**
-    //  * @return Salesperson[] Returns an array of Salesperson objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Salesperson
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

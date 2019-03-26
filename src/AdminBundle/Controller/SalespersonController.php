@@ -49,7 +49,7 @@ class SalespersonController extends AbstractController
         $nbSalespersons = $this->getDoctrine()
         ->getRepository(Salesperson::class)
         ->getCountAllSalespersons($search);
-        dump($nbSalespersons);
+
         return $this->render('salesperson/index.html.twig', [
             'salespeople' => $salespeople,
             'nbSalespersons' => $nbSalespersons,
@@ -276,7 +276,7 @@ class SalespersonController extends AbstractController
 
         $nbLeaders = $this->getDoctrine()
         ->getRepository(Salesperson::class)
-        ->getCountAllLeader();
+        ->getCountAllSalespersons($search);
 
         return $this->render('salesperson/list_responsable.html.twig', [
             'leaders' => $pageLeaders,
@@ -305,11 +305,11 @@ class SalespersonController extends AbstractController
 
         $leader = $this->getDoctrine()
             ->getRepository(Salesperson::class)
-            ->getLeader($code);
+            ->getLeader($code)->getSingleResult();
 
         $nbCommercials = $this->getDoctrine()
             ->getRepository(Salesperson::class)
-            ->getCountTeamOneLeader($code);
+            ->getCountTeamOneLeader($code, $search);
         
 
         $pageSalespersons = $paginator->paginate(
@@ -317,7 +317,6 @@ class SalespersonController extends AbstractController
             $request->query->getInt('page', 1,10),
             $search->getLimit()
         );
-        
 
         return $this->render('salesperson/list_team_one_responsable.html.twig', [
             'salespersons' => $pageSalespersons,
