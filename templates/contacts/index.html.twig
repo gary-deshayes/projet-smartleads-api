@@ -33,7 +33,9 @@
                     <th>CP</th>
                     <th>Ville</th>
                     <th>Statut</th>
-                    <th>...</th>
+                    <th>email</th>
+                    <th>mobile</th>
+                    <th>téléphone</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +69,11 @@
                                 <td></td>
                                 <td>
                                     <i class="fas fa-at" title="{{ contact.email }}"></i>
+                                </td>
+                                <td>
                                     <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
+                                </td>
+                                <td>    
                                     <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
                                 </td>
                             </tr>
@@ -80,7 +86,7 @@
                 </table>
                 <div class="panel-Boutons">
                     <div class="panel-left">
-                        {{ form_widget(formsearch.limit)}}
+                        {{ form_widget(formsearch.limit, {'attr': {'class': 'form-control form-control-lg'}})}}
                         <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                         <i class="fas fa-download fa-lg" title="Télécharger"></i>
                         <i class="fas fa-user-plus fa-lg" title="Importer"></i>

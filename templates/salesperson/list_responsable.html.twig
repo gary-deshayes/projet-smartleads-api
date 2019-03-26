@@ -68,12 +68,12 @@
         </table>
         <div class="panel-Boutons">
             <div class="panel-left">
-            {{ form_widget(formsearch.limit)}}
+            {{ form_widget(formsearch.limit, {'attr': {'class': 'form-control form-control-lg'}})}}
                 <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>
-                {{ knp_pagination_render(leaders) }}
             </div>
+                {{ knp_pagination_render(leaders) }}
             <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
         </div>
     </div>
