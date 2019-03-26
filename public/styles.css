@@ -181,13 +181,27 @@ input:focus {
   border: none;
   font-size: 20px !important;
   width: 125px;
+  color: #747474;
 }
 .search-input:focus {
-  border: none;
+  border-color: red !important;
+}
+
+input#search-search:focus {
+  border-color: red !important;
 }
 
 ::placeholder {
   color: #969696;
+}
+
+:focus::placeholder {
+  color: #cecece;
+  border-bottom: 3px solid #cfcfcf;
+}
+
+::placeholder:focus {
+  color: #d4d4d4;
 }
 
 .inline-search {

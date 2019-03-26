@@ -188,14 +188,28 @@ input {
     border:none;
     font-size: 20px !important;
     width: 125px;
+    color: rgb(116, 116, 116);
 
     &:focus {
-        border : none;
+        border-color: red !important;
     }
+}
+
+input#search-search:focus{
+    border-color: red !important;
 }
 
 ::placeholder {
     color: rgb(150, 150, 150);
+}
+
+:focus::placeholder{
+    color: rgb(206, 206, 206);
+    border-bottom: 3px solid rgb(207, 207, 207);
+}
+
+::placeholder:focus {
+    color: rgb(212, 212, 212);
 }
 
 .inline-search {
