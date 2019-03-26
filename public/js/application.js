@@ -28,3 +28,7 @@ $(function () {
         $("#datepicker").datepicker("option", "showAnim", $(this).val());
     });
 });
+
+$("#search_limit").on("change", function(){
+    $("#form_search").submit();
+})

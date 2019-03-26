@@ -30,6 +30,9 @@ class SalespersonController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
@@ -39,7 +42,8 @@ class SalespersonController extends AbstractController
 
         $salespeople = $paginator->paginate(
             $querySalespeople,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
         
         return $this->render('salesperson/index.html.twig', [
@@ -247,6 +251,9 @@ class SalespersonController extends AbstractController
     public function list_responsable(PaginatorInterface $paginator, Request $request): Response
     {   
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
 
@@ -258,7 +265,8 @@ class SalespersonController extends AbstractController
             
         $leaders = $paginator->paginate(
             $queryLeaders,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
 
         return $this->render('salesperson/list_responsable.html.twig', [
@@ -274,6 +282,9 @@ class SalespersonController extends AbstractController
     public function list_team_one_responsable($code, PaginatorInterface $paginator, Request $request): Response
     {   
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
 
@@ -296,7 +307,8 @@ class SalespersonController extends AbstractController
 
         $salespersons = $paginator->paginate(
             $querySalespersons,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1,10),
+            $search->getLimit()
         );
         
 
