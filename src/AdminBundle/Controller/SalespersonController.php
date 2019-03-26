@@ -42,7 +42,7 @@ class SalespersonController extends AbstractController
 
         $salespeople = $paginator->paginate(
             $querySalesperson,
-            $request->query->getInt('page', 1,10),
+            $request->query->getInt('page', 1, $search->getLimit()),
             $search->getLimit()
         );
         
@@ -270,7 +270,7 @@ class SalespersonController extends AbstractController
             
         $pageLeaders = $paginator->paginate(
             $queryLeaders,
-            $request->query->getInt('page', 1,10),
+            $request->query->getInt('page', 1, $search->getLimit()),
             $search->getLimit()
         );
 
@@ -314,7 +314,7 @@ class SalespersonController extends AbstractController
 
         $pageSalespersons = $paginator->paginate(
             $querySalespersons,
-            $request->query->getInt('page', 1,10),
+            $request->query->getInt('page', 1, $search->getLimit()),
             $search->getLimit()
         );
 

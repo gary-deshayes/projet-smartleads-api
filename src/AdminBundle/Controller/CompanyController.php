@@ -26,6 +26,9 @@ class CompanyController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
 
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
@@ -35,12 +38,13 @@ class CompanyController extends AbstractController
         
         $pageCompanies = $paginator->paginate(
             $queryCompanies,
-            $request->query->getInt('page', 1,10)
+            $request->query->getInt('page', 1, $search->getLimit()),
+            $search->getLimit()
         );
 
         $nbCompanies = $this->getDoctrine()
         ->getRepository(Company::class)
-        ->getCountAllCompanies();
+        ->getCountAllCompanies($search);
 
         return $this->render('company/index.html.twig', [
             'companies' => $pageCompanies,

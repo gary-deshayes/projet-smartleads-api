@@ -39,14 +39,18 @@ class CompanyRepository extends ServiceEntityRepository
     /**
      * @return Company[] Returns an array of Contacts objects
      */
-    public function getCountAllCompanies()
+    public function getCountAllCompanies($search)
     {
         $query = $this->createQueryBuilder('company')
             ->select('count(company.code)')
-            ->orderBy('company.name', 'ASC')
-            ->getQuery();
+            ->orderBy('company.name', 'ASC');
             
-        return $query->getSingleScalarResult();
+            if($search->getSearch()) {
+                $query->andWhere('company.name LIKE :search ');
+    
+                $query->setParameter(":search", "%" . $search->getSearch() . "%");
+            }
+        return $query->getQuery()->getSingleScalarResult();
     }
 
    
