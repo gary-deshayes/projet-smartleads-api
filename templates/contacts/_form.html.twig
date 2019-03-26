@@ -1,19 +1,31 @@
 {{ form_start(form) }}
-<div class="d-flex">
-    <div class="col-lg-2">
+<div class="row">
+    <div class="col-lg-2 flex-column-center">
         {% if vich_uploader_asset(contact, 'imageFile') is null %}
-            <img alt src="">
-                {% else %}
-                <img src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
-                {% endif %}
-                {{ form_widget(form.imageFile) }}
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+        {% else %}
+            <img src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+        {% endif %}
+
+            <div class="div-photo">
+                <label for="contacts_imageFile"><i
+                        class="fas fa-sync"></i>PHOTO</label>
+                <i class="fas fa-times suppression-img" alt="Suppression de l'image"></i>
             </div>
-            <div class="col-lg-10">
+            {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}}) }}
+
+
+            {{ form_widget(form.imageFile) }}
+            </div>
+            <div class="col-lg-10 form-style">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                            {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-9"}}) }}
+                            </div>
+                            
                             {{ form_errors(form.code) }}
                         </div>
                     </div>
@@ -27,10 +39,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.gender, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                            {{ form_widget(form.gender, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.gender, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -41,10 +55,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.firstName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                            {{ form_widget(form.firstName, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.firstName, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                            </div>
                             {{ form_errors(form.firstName) }}
                         </div>
                     </div>
@@ -57,10 +73,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.lastName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                            {{ form_widget(form.lastName, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.lastName, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                            </div>
                             {{ form_errors(form.lastName) }}
                         </div>
                     </div>
@@ -72,7 +90,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.birthDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.birthDate, { "id":"datepicker", "attr" : { "class" : "form-control col-lg-8"}}) }}
@@ -87,7 +105,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.profession, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.profession, { "attr" : { "class" : "form-control col-lg-8"}}) }}
@@ -102,7 +120,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.mobilePhone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.mobilePhone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
@@ -118,7 +136,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.linkedin, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                             {{ form_widget(form.linkedin, { "attr" : { "class" : "form-control col-lg-8"}}) }}
@@ -143,7 +161,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.optInNewsletter, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
                             {{ form_widget(form.optInNewsletter, { "attr" : { "class" : "col-lg-6"}}) }}
