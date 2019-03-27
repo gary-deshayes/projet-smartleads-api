@@ -136,4 +136,19 @@ class ContactsController extends AbstractController
 
         return $this->redirectToRoute('contacts_index');
     }
+
+    /**
+     * @Route("/change_statut/{code}", name="contacts_change_statut", methods={"GET","POST"})
+     */
+    public function changeStatutContact(Request $request, Contacts $contact){
+        dump($request);
+        // $contact->setStatus()
+        $data = array(
+            "retour" => "TOTO"
+        );
+        
+        // $response = new Response(json_encode($data, 200));
+        // $response->headers->set('Content-Type', 'application/json');
+        return new JsonResponse(array('name' => $data));
+    }
 }
