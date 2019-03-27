@@ -108,7 +108,7 @@
                         <div class="row">
                             {{ form_label(form.birthDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                                                 }}
-                            {{ form_widget(form.birthDate, { "id":"datepicker", "attr" : { "class" : "form-control col-lg-8"}})
+                            {{ form_widget(form.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control col-lg-8"}})
                                                 }}
                             {{ form_errors(form.birthDate) }}
                         </div>
@@ -117,10 +117,10 @@
                         <div class="row">
                             {{ form_label(form.arrivalDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                                                 }}
-                            {{ form_widget(form.arrivalDate, { "id":"datepicker", "attr" : { "class" : "form-control col-lg-4"}})
+                            {{ form_widget(form.arrivalDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
                                                 }}
                             {{ form_errors(form.arrivalDate) }}
-                            {{ form_widget(form.departureDate, { "id":"datepicker", "attr" : { "class" : "form-control col-lg-4"}})
+                            {{ form_widget(form.departureDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
                                                 }}
                             {{ form_errors(form.departureDate) }}
                         </div>
@@ -223,7 +223,6 @@
                         </div>
                     </div>
                 </div>
-                {{ form_row(form.status) }}
             </div>
         </div>
         {% if app.request.attributes.get("_route") == "contacts_edit" %}

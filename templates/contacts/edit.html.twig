@@ -6,31 +6,38 @@
     <div class="window">
         <div class="form-informations">
             <p class="infos-entity">{{ contact.getCivilite() ~ " " ~ contact.firstName ~ " " ~ (contact.lastName | upper )}}</p>
-            <p>,{{ contact.workName }}, {{ contact.getAge() }} ans</p>
+            <p>,{{ contact.workName }},
+                {{ contact.getAge() }}
+                ans</p>
             <div class="inline-status-date">
                 <p>Dernière mise à jour le
                     {{ contact.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
-                    <input class="custom-control-input" id="statut-contact" type="checkbox">
-                        <label class="custom-control-label" for="statut-contact"></label>
+                    {% if contact.status == 1 %}
+                        <input checked class="custom-control-input" id="statut-contact" type="checkbox">
+                            <label class="custom-control-label" for="statut-contact"></label>
+                        {% else %}
+                            <input class="custom-control-input" id="statut-contact" type="checkbox">
+                                <label class="custom-control-label" for="statut-contact"></label>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
+                        {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+                    </div>
+                    <div aria-labelledby="contact-notes" class="tab-pane fade" id="notes" role="tabpanel">
+                        <h1>Notes</h1>
                     </div>
                 </div>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
-                </li>
-                <li class="nav-item">
-                    <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
-                    {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-                </div>
-                <div aria-labelledby="contact-notes" class="tab-pane fade" id="notes" role="tabpanel">
-                    <h1>Notes</h1>
-                </div>
-            </div>
-        </div>
-    {% endblock %}
+        {% endblock %}

@@ -4,14 +4,15 @@ namespace App\AdminBundle\Controller;
 
 use Faker;
 use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Form\ContactsType;
+use App\AdminBundle\EntitySearch\Search;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AdminBundle\EntitySearch\Search;
-use App\AdminBundle\Form\SearchType;
 
 /**
  * @Route("/contacts")
@@ -25,10 +26,10 @@ class ContactsController extends AbstractController
      * @Route("/", name="contacts_index", methods={"GET"})
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
-    {   
+    {
         $search = new Search();
 
-        if($search->getLimit() == null) {
+        if ($search->getLimit() == null) {
             $search->setLimit(10);
         }
 
@@ -38,7 +39,7 @@ class ContactsController extends AbstractController
         $repositoryContacts = $this->getDoctrine()
             ->getRepository(Contacts::class);
         //Affichage des contacts du commercial
-        if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
+        if ($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")) {
             $queryContacts = $repositoryContacts->getContactsCommercial($search, $this->getUser()->getCode());
             $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountContactsCommercial($this->getUser()->getCode());
         } else {
@@ -51,7 +52,7 @@ class ContactsController extends AbstractController
             $search->getLimit()
         );
 
-        
+
 
         return $this->render('contacts/index.html.twig', [
             'contacts' => $pageContacts,
@@ -71,11 +72,10 @@ class ContactsController extends AbstractController
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if($contact->getCode() == null){
-                do{
+            if ($contact->getCode() == null) {
+                do {
                     $code = $this->faker->regexify("[A-Z]{10}");
-                    
-                }while($repoContact->findOneBy(array("code" => $code)) != null);
+                } while ($repoContact->findOneBy(array("code" => $code)) != null);
                 $contact->setCode($code);
             }
             $contact->setCreatedAt(new \DateTime());
@@ -83,7 +83,7 @@ class ContactsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contact);
             $entityManager->flush();
-            
+
             return $this->redirectToRoute('contacts_index');
         }
         return $this->render('contacts/new.html.twig', [
@@ -112,7 +112,7 @@ class ContactsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
-            
+
             return $this->redirectToRoute('contacts_index', [
                 'code' => $contact->getCode(),
             ]);
@@ -140,15 +140,17 @@ class ContactsController extends AbstractController
     /**
      * @Route("/change_statut/{code}", name="contacts_change_statut", methods={"GET","POST"})
      */
-    public function changeStatutContact(Request $request, Contacts $contact){
-        dump($request);
-        // $contact->setStatus()
+    public function changeStatutContact(Request $request, Contacts $contact)
+    {
+        $statut = (bool)$request->request->get("statut");
+        $contact->setStatus($statut);
+        $this->getDoctrine()->getManager()->flush();
         $data = array(
-            "retour" => "TOTO"
+            "retour" => true
         );
-        
+
         // $response = new Response(json_encode($data, 200));
         // $response->headers->set('Content-Type', 'application/json');
-        return new JsonResponse(array('name' => $data));
+        return new JsonResponse($data);
     }
 }

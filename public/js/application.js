@@ -14,7 +14,7 @@ $(document).ready(function () {
     });
 });
 $(function () {
-    $("#datepicker").datepicker({
+    $(".datepicker").datepicker({
         dateFormat: "dd-mm-yy",
         changeMonth: true,
         changeYear: true,
@@ -53,8 +53,9 @@ function changeStatutContact(value){
         statut: value
     };
     var url = "/admin/contacts/change_statut/" + $("#contacts_code").val();
-    $.post( url, "test",function( data ) {
-        console.log("ajax");
-        console.log(data);
+    $.post( url, data,function( data ) {
+        if(data.retour == true) {
+            console.log("okk");
+        }
       });
 }
