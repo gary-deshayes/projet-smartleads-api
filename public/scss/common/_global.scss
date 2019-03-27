@@ -249,3 +249,35 @@ input#search-search:focus {
 .flex-column-center {
     @include flex-column-center();
 }
+
+
+
+.form-informations {
+    
+    * {
+        display: inline;
+    }
+
+    .infos-entity {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    .inline-status-date {
+
+        display: inline;
+    
+    
+        .custom-control-label::before {
+            height: 1rem;
+            
+        }
+        
+        .custom-control-input:checked~.custom-control-label::before {
+            color: #fff;
+            border-color: #00ff00;
+            background-color: #00ff00;
+        }
+    }
+
+}

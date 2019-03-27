@@ -45,13 +45,13 @@ class ContactsType extends AbstractType
             ->add('firstName', TextType::class, [
                 "label" => "Prénom"
             ])
-            ->add('status', ChoiceType::class, [
-                'choices'  => [
-                    'Actif' => 1,
-                    'Inactif' => 0
-                ],
-                'label' => "Statut"
-            ])
+            // ->add('status', ChoiceType::class, [
+            //     'choices'  => [
+            //         'Actif' => 1,
+            //         'Inactif' => 0
+            //     ],
+            //     'label' => "Statut"
+            // ])
             ->add('profession', EntityType::class, [
                 'label' => "Métier",
                 'class' => Profession::class,
@@ -99,18 +99,23 @@ class ContactsType extends AbstractType
                 'html5' => false
             ])
             ->add('arrivalDate', DateType::class, [
-                "label" => "Date de naissance",
+                
+                'by_reference' => true,
+                "label" => "Début/fin du poste",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                'required' => false
             ])
             ->add('departureDate', DateType::class, [
-                "label" => "Date de naissance",
+                
+                'by_reference' => true,
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                'required' => false
             ])
             ->add('mobilePhone', TelType::class, [
                 "label" => "Tél. mobile",
@@ -149,11 +154,11 @@ class ContactsType extends AbstractType
                 "required" => false
             ])
             ->add('optInNewsletter', CheckboxType::class, [
-                "label" => "Recevoir les newsletter",
+                "label" => "Newsletters",
                 "required" => false
             ])
             ->add('optInOffresCommercial', CheckboxType::class, [
-                "label" => "Recevoir les offres commercial",
+                "label" => "Offres/promos",
                 "required" => false
             ])
             
