@@ -10,7 +10,8 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(500, "Contacts", function ($count) {
+
+        $this->createMany(100, "Contacts", function ($count) {
             $contacts = new Contacts();
             $contacts->setCode($this->faker->regexify('[A-Z]{10}'));
             $contacts->setProfession($this->getRandomReference("Profession"));
@@ -27,7 +28,6 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setEmailPrechecked($this->faker->boolean());
             $contacts->setEmailChecked($this->faker->boolean());
             $contacts->setLinkedin($this->faker->url);
-            $contacts->setPicture($this->faker->imageUrl($width = 640, $height = 480));
             $contacts->setOperationSource($this->faker->word);
             $contacts->setComment($this->faker->text($maxNbChars = 50));
             $contacts->setOptInNewsletter($this->faker->boolean());

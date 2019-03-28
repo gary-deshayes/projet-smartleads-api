@@ -10,7 +10,7 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(10, "Company", function($count){
+        $this->createMany(100, "Company", function($count){
             $company = new Company();
             $company->setCode($this->faker->regexify('[A-Z]{10}'));
             $company->setIdActivityArea($this->getRandomReference("ActivityArea"));
@@ -18,11 +18,10 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setIdSalesperson($this->getRandomReference("Salesperson"));
             $company->setIdLegalStatus($this->getRandomReference("LegalStatus"));
             $company->setIdNumberEmployees($this->getRandomReference("NumberEmployees"));
-            $company->setName($this->faker->name);
+            $company->setName($this->faker->company);
             $company->setCreatedAt(new \DateTime());
             $company->setUpdatedAt(new \DateTime());
-            $company->setStatus($this->faker->boolean());
-            $company->setLogo($this->faker->imageUrl($width = 48, $height = 48));
+            $company->setStatus($this->faker->randomElement($array = array('Client', 'Prospect', 'Piste')));
             $company->setComment($this->faker->text($maxNbChars = 50));
             $company->setCountry($this->faker->country);
             $company->setAddress($this->faker->address);

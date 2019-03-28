@@ -61,11 +61,29 @@ class ContactsController extends AbstractController
     }
 
     /**
+     * Total contact actif
+     * @Route("/totalActif", name="total_contacts_actifs", methods={"GET"})
+     */
+    public function getContactsActifs(){
+        $repo = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
+        $query = $repo->findBy(['status' => '1']);
+
+        $data = array(
+            "nombre" => count($query)
+        );
+        
+        $response= new Response(json_encode($data, 200));
+
+    }
+
+    /**
      * Récupération des contacts
      * @Route("/get/{id}", name="api_contacts_get", methods={"GET"})
      */
-    public function getter()
-    {
+
+    public function getter(){
+
+
     }
     /**
      * Création d'un contact

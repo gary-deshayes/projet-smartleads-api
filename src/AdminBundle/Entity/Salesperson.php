@@ -2,16 +2,22 @@
 
 namespace App\AdminBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Salesperson
  *
  * @ORM\Table(name="salesperson", indexes={@ORM\Index(name="id_leader", columns={"id_leader"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\SalespersonRepository")
+ * @Vich\Uploadable
  */
 class Salesperson implements UserInterface
 {
@@ -19,6 +25,8 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
      * @ORM\Id
      */
     private $code;
@@ -27,6 +35,14 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le genre doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le genre ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $gender;
 
@@ -34,6 +50,14 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le prénom doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le prénom ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $firstName;
 
@@ -41,6 +65,14 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $lastName;
 
@@ -48,33 +80,57 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="profile", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(
+     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le profile doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le profile ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $profile;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
 
     /**
+     * @var \DateTime
+     * @Assert\DateTime
+     * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
+     */
+    private $arrivalDate;
+
+    /**
+     * @var \DateTime
+     * @Assert\DateTime
+     * @ORM\Column(name="departure_date", type="datetime", nullable=true)
+     */
+    private $departureDate;
+
+
+    /**
      * @var bool|null
      *
      * @ORM\Column(name="status", type="boolean", nullable=true)
+     * @Assert\Type("boolean")
      */
     private $status;
 
     /**
      * @var \DateTime|null
-     *
+     * @Assert\DateTime
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      */
     private $birthDate;
@@ -83,6 +139,12 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="work_name", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le poste doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le poste ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $workName;
 
@@ -90,13 +152,30 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     * )
      */
     private $mobilePhone;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="phone", type="string", length=10, nullable=true)
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     * )
      */
     private $phone;
 
@@ -104,6 +183,13 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide.",
+     * )
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $email;
 
@@ -111,15 +197,82 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'url linkedin doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'url linkedin ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
-    private $linkedin;
+
+        private $linkedin;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'url facebook doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'url facebook ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $facebook;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'url twitter doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'url twitter ne doit pas dépasser {{ limit }} caractères."
+     * )
+     */
+    private $twitter;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="salespersons_image", fileNameProperty="picture")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *     minMessage = "L'image doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "L'image ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $picture;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="comment", type="text", length=0, nullable=true)
+     */
+    private $comment;
+
+    /**
+     * @var \Region
+     *
+     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_region", referencedColumnName="id")
+     * })
+     */
+    private $region;
 
     /**
      * @var \Salesperson
@@ -141,6 +294,7 @@ class Salesperson implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * 
      */
     private $password;
 
@@ -149,6 +303,7 @@ class Salesperson implements UserInterface
      * @OneToMany(targetEntity="Contacts", mappedBy="code")
      */
     private $contacts;
+
 
     public function __construct() {
         $this->contacts = new ArrayCollection();
@@ -327,6 +482,30 @@ class Salesperson implements UserInterface
         return $this;
     }
 
+    public function getDepartureDate(): ?\DateTimeInterface
+    {
+        return $this->departureDate;
+    }
+
+    public function setDepartureDate(\DateTimeInterface $departureDate): self
+    {
+        $this->departureDate = $departureDate;
+
+        return $this;
+    }
+
+    public function getArrivalDate(): ?\DateTimeInterface
+    {
+        return $this->arrivalDate;
+    }
+
+    public function setArrivalDate(\DateTimeInterface $arrivalDate): self
+    {
+        $this->arrivalDate = $arrivalDate;
+
+        return $this;
+    }
+
     public function getStatus(): ?bool
     {
         return $this->status;
@@ -347,6 +526,18 @@ class Salesperson implements UserInterface
     public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getComment(): ? string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(? string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
@@ -411,6 +602,30 @@ class Salesperson implements UserInterface
         return $this;
     }
 
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -438,6 +653,94 @@ class Salesperson implements UserInterface
     public function __toString()
     {
         return $this->lastName . " " . $this->firstName;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getRolesFormat(){
+        $role = "";
+        switch($this->roles[0]){
+            case 'ROLE_COMMERCIAL':
+                $role = "Commercial";
+            break;
+            case 'ROLE_RESPONSABLE':
+                $role = "Responsable commercial";
+            break;
+            case 'ROLE_DIRECTEUR':
+                $role = "Directeur commercial";
+            break;
+        }
+        return $role;
+    }
+
+    public function getIdLeader(): ?self
+    {
+        return $this->idLeader;
+    }
+
+    public function setIdLeader(?self $idLeader): self
+    {
+        $this->idLeader = $idLeader;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contacts[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contacts $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setCode($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contacts $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getCode() === $this) {
+                $contact->setCode(null);
+            }
+        }
+
+        return $this;
     }
 
 

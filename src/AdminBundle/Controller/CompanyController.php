@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\EntitySearch\Search;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 /**
  * @Route("/company")
@@ -19,14 +23,33 @@ class CompanyController extends AbstractController
     /**
      * @Route("/", name="company_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $companies = $this->getDoctrine()
-            ->getRepository(Company::class)
-            ->findAll();
+        $search = new Search();
+        if($search->getLimit() == null) {
+            $search->setLimit(10);
+        }
+
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+        $queryCompanies = $this->getDoctrine()
+                ->getRepository(Company::class)
+                ->getCompanies($search);
+        
+        $pageCompanies = $paginator->paginate(
+            $queryCompanies,
+            $request->query->getInt('page', 1, $search->getLimit()),
+            $search->getLimit()
+        );
+
+        $nbCompanies = $this->getDoctrine()
+        ->getRepository(Company::class)
+        ->getCountAllCompanies($search);
 
         return $this->render('company/index.html.twig', [
-            'companies' => $companies,
+            'companies' => $pageCompanies,
+            'nbCompanies' => $nbCompanies,
+            'formsearch' => $form->createView()
         ]);
     }
 

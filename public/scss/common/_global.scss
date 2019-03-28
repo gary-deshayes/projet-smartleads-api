@@ -1,7 +1,283 @@
+@import 'variables';
+@import 'mixins';
+
+html {
+    font-family: Roboto,sans-serif;
+}
+
 h1 {
-    font-size: 34px;
+    font-size: 40px;
+    color: #707070
+}
+
+p {
+    font-size: 12px;
 }
 
 i {
+    color: #D9D9D9;
     font-size: 24px;
+}
+
+.content {
+    padding: 22px 35px;
+    background-color: #FAFAFA;
+}
+
+.window {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 6px;
+    -moz-box-shadow: 0px 0px 8px 0px #cfcfcf;
+    -webkit-box-shadow: 0px 0px 8px 0px #cfcfcf;
+    -o-box-shadow: 0px 0px 8px 0px #cfcfcf;
+    box-shadow: 0px 0px 8px 0px #cfcfcf;
+
+    &-description {
+        font-size: 18px;
+    }
+}
+
+input {
+    background-color: transparent !important;
+    font-size: 13px !important;
+
+    &:focus {
+        border: none;
+    }
+}
+
+.primary-btn {
+    border-color: $primary-color;
+    background-color: $primary-color !important;
+    letter-spacing: 1px;
+    border-radius: 4px;
+
+    &:focus {
+        background-color: desaturate($primary-color, 10) !important;
+        color: #fff;
+    }
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.row {
+    margin-right: 0;
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.text-muted {
+    font-weight: 400;
+    color: #CECECE !important;
+}
+
+.titleSearch {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inline-search {
+    display: flex !important;
+    align-items: center;
+}
+
+.text-description {
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+}
+
+/* Ajout de Gary à voir si c'est bon pour les inté*/
+//table row clickable
+.clickable-row:hover {
+    background:  #f2f2f2;
+    cursor: pointer;
+}
+
+.btn-radius-red {
+    background-color: $primary-color;
+    border-radius: 0.25rem;
+
+    &:hover {
+        color: #fff;
+        background-color: desaturate($primary-color, 30);
+    }
+}
+
+.container-content {
+    border-radius: 0.25rem;
+    background-color: #FFFFFF;
+    margin-top: 20px;
+    box-shadow: 0 0 15px 0px #eeeeee;
+}
+
+.red-primary {
+    color: $primary-color;
+    font-size: 25px;
+    margin-left: 15px;
+}
+
+.table thead th {
+    border-bottom: 2px solid #eeeeee;
+    color: #8a8a8a
+}
+
+.table td {
+    border-top: 2px solid #eeeeee;
+    border-bottom: 2px solid #eeeeee;
+    font-weight: 500;
+    color: #999999;
+    vertical-align: middle;
+}
+
+.logo-table {
+    width: 30px;
+    padding: 0px 0px 0px 0px !important;
+}
+
+.check-user {
+    width: 55px;
+}
+
+.custom-control-label::before {
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.custom-control-label::after {
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #CF1740;
+    background-color: #CF1740;
+}
+
+.btn-retour-radius {
+    background-color: $retourBtn;
+    border-radius: 0.25rem;
+}
+
+.panel-Boutons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.panel-left {
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form-control-lg {
+    max-width: 75px;
+    color: #a7a7a7;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.search-input {
+    border:none;
+    font-size: 20px !important;
+    width: 125px;
+    color: rgb(116, 116, 116);
+
+    &:focus {
+        border-color: red !important;
+    }
+}
+
+input#search-search:focus {
+    border-color: red !important;
+}
+
+.display-none {
+    display: none;
+}
+
+::placeholder {
+    color: rgb(150, 150, 150);
+}
+
+:focus::placeholder{
+    color: rgb(206, 206, 206);
+    border-bottom: 3px solid rgb(207, 207, 207);
+}
+
+::placeholder:focus {
+    color: rgb(212, 212, 212);
+}
+
+.inline-search {
+    display: inline-block;
+    padding-right: 20px;
+}
+
+#compteur {
+    display: flex;
+    align-items: flex-end;
+}
+
+.btn-search {
+    border: none;
+    background: transparent;
+}
+
+.flex-column-center {
+    @include flex-column-center();
+}
+
+
+
+.form-informations {
+    
+    * {
+        display: inline;
+    }
+
+    .infos-entity {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    .inline-status-date {
+
+        display: inline;
+    
+    
+        .custom-control-label::before {
+            height: 1rem;
+            
+        }
+        
+        .custom-control-input:checked~.custom-control-label::before {
+            color: #fff;
+            border-color: #00ff00;
+            background-color: #00ff00;
+        }
+    }
+
 }

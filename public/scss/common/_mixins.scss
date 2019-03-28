@@ -1,0 +1,14 @@
+@mixin li-active {
+    border-left: 3px solid #CF1740;
+    background-color: #f9f9f9;
+}
+
+@mixin no-shadow {
+    box-shadow: none;
+}
+
+@mixin flex-column-center {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

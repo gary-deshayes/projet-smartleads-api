@@ -3,14 +3,15 @@
 namespace App\AdminBundle\Controller;
 
 use Faker;
-use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Entity\Settings;
-use App\AdminBundle\Entity\Profession;
+use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Form\ContactsType;
+use App\AdminBundle\EntitySearch\Search;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -24,27 +25,39 @@ class ContactsController extends AbstractController
     /**
      * @Route("/", name="contacts_index", methods={"GET"})
      */
-    public function index(): Response
-    {   
-        $repositoryContacts = $this->getDoctrine()->getRepository(Contacts::class);
-        //Affichage des contacts du commercial
-        if($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")){
-            $contacts = $repositoryContacts->findBy(
-                array("salesperson" => $this->getUser()),
-                array("lastName" => "ASC")
-            );
-        } else {
-            $contacts = $this->getDoctrine()
-            ->getRepository(Contacts::class)
-            ->findBy(array(), array('lastName' => 'ASC'));
+    public function index(PaginatorInterface $paginator, Request $request): Response
+    {
+        $search = new Search();
+
+        if ($search->getLimit() == null) {
+            $search->setLimit(10);
         }
-        $settings = $this->getDoctrine()
-            ->getRepository(Settings::class)
-            ->findAll();
+
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form->handleRequest($request);
+        $repositoryContacts = $this->getDoctrine()
+            ->getRepository(Contacts::class);
+        //Affichage des contacts du commercial
+        if ($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")) {
+            $queryContacts = $repositoryContacts->getContactsCommercial($search, $this->getUser()->getCode());
+            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountContactsCommercial($this->getUser()->getCode());
+        } else {
+            $queryContacts = $repositoryContacts->getAllContacts($search);
+            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountAllContacts();
+        }
+        $pageContacts = $paginator->paginate(
+            $queryContacts,
+            $request->query->getInt('page', 1, $search->getLimit()),
+            $search->getLimit()
+        );
+
+
 
         return $this->render('contacts/index.html.twig', [
-            'contacts' => $contacts,
-            'settings' => $settings
+            'contacts' => $pageContacts,
+            'nbContactsCommercial' => $nbContactsCommercial,
+            'formsearch' => $form->createView()
         ]);
     }
 
@@ -58,22 +71,13 @@ class ContactsController extends AbstractController
         $contact = new Contacts();
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
-        $data = $request->request->get("contacts");
         if ($form->isSubmitted() && $form->isValid()) {
-            if($contact->getCode() == null){
-                do{
+            if ($contact->getCode() == null) {
+                do {
                     $code = $this->faker->regexify("[A-Z]{10}");
-                    
-                }while($repoContact->findOneBy(array("code" => $code)) != null);
+                } while ($repoContact->findOneBy(array("code" => $code)) != null);
                 $contact->setCode($code);
             }
-            // 23 caractere unique
-            // $nomImage = uniqid('', true) . ".jpg";
-
-            // $file = $form['picture']->getData();
-            // $file->move("img/", $nomImage);
-            // $contact->setPicture($nomImage);
-            
             $contact->setCreatedAt(new \DateTime());
             $contact->setUpdatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
@@ -105,7 +109,6 @@ class ContactsController extends AbstractController
     {
         $form = $this->createForm(ContactsType::class, $contact);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $contact->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
@@ -114,7 +117,6 @@ class ContactsController extends AbstractController
                 'code' => $contact->getCode(),
             ]);
         }
-
         return $this->render('contacts/edit.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
@@ -133,5 +135,22 @@ class ContactsController extends AbstractController
         }
 
         return $this->redirectToRoute('contacts_index');
+    }
+
+    /**
+     * @Route("/change_statut/{code}", name="contacts_change_statut", methods={"GET","POST"})
+     */
+    public function changeStatutContact(Request $request, Contacts $contact)
+    {
+        $statut = (bool)$request->request->get("statut");
+        $contact->setStatus($statut);
+        $this->getDoctrine()->getManager()->flush();
+        $data = array(
+            "retour" => true
+        );
+
+        // $response = new Response(json_encode($data, 200));
+        // $response->headers->set('Content-Type', 'application/json');
+        return new JsonResponse($data);
     }
 }

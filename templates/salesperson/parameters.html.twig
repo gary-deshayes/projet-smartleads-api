@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes paramètres{% endblock %}
+
+{% block body %}
+
+<h1>Mes paramètres</h1>
+
+<div class="window">
+
+    {{ form_start(parameters) }}
+
+    <div class="d-flex">
+        <div class="col-lg-2">
+            {% if vich_uploader_asset(salesperson, 'imageFile') is null %}
+
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+            {% else %}
+            <img src="{{ vich_uploader_asset(salesperson, 'imageFile') | imagine_filter('miniature100x100') }}"
+                class="rounded-circle">
+            {% endif %}
+            <div class="div-photo">
+                <label for="salesperson_update_his_data_imageFile"><i
+                        class="fas fa-sync"></i>PHOTO</label>
+                <i class="fas fa-times suppression-img" alt="Suppression de l'image"></i>
+            </div>
+
+            {{ form_widget(parameters.imageFile, { "attr" : { "class" : "display-none"}}) }}
+        </div>
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        {{ form_label(parameters.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                        }}
+                        {{ form_widget(parameters.email, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                        {{ form_errors(parameters.email) }}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        {{ form_label(parameters.mobilePhone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                        }}
+                        {{ form_widget(parameters.mobilePhone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                        {{ form_errors(parameters.mobilePhone) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        {{ form_label(parameters.linkedin, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                        }}
+                        {{ form_widget(parameters.linkedin, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                        {{ form_errors(parameters.linkedin) }}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        {{ form_label(parameters.facebook, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                        }}
+                        {{ form_widget(parameters.facebook, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                        {{ form_errors(parameters.facebook) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        {{ form_label(parameters.twitter, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                        }}
+                        {{ form_widget(parameters.twitter, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                        {{ form_errors(parameters.twitter) }}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        {{ form_label(parameters.password, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                        }}
+                        {{ form_widget(parameters.password, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                        {{ form_errors(parameters.password) }}
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-radius-red">
+                {{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+    {{ form_end(parameters) }}
+
+    <a href="{{ path('salesperson_index') }}">back to list</a>
+
+    {{ include('salesperson/_delete_form.html.twig') }}
+
+</div>
+{% endblock %}

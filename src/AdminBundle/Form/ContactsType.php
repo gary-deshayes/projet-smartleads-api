@@ -45,13 +45,13 @@ class ContactsType extends AbstractType
             ->add('firstName', TextType::class, [
                 "label" => "Prénom"
             ])
-            ->add('status', ChoiceType::class, [
-                'choices'  => [
-                    'Actif' => 1,
-                    'Inactif' => 0
-                ],
-                'label' => "Statut"
-            ])
+            // ->add('status', ChoiceType::class, [
+            //     'choices'  => [
+            //         'Actif' => 1,
+            //         'Inactif' => 0
+            //     ],
+            //     'label' => "Statut"
+            // ])
             ->add('profession', EntityType::class, [
                 'label' => "Métier",
                 'class' => Profession::class,
@@ -61,7 +61,7 @@ class ContactsType extends AbstractType
                 },
                 "required" => false
             ])
-            ->add('Company', EntityType::class, [
+            ->add('company', EntityType::class, [
                 'class' => Company::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
@@ -85,15 +85,37 @@ class ContactsType extends AbstractType
             ->add('decisionMaking', ChoiceType::class, [
                 'label' => "Niveau de décision",
                 'choices' => [
-                    "Responsable technique" => "Responsable technique",
-                    "Cadre" => "Cadre",
-                    "Cadre supérieur" => "Cadre supérieur"
+                    "Associé" => "Associé",
+                    "Salarié" => "Salarié",
+                    "Chef de service" => "Chef de service",
+                    "Dirigeant" => "Dirigeant"
                 ]
             ])
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",
                 'format' => 'dd-MM-yyyy',
-                "years" => range(date('Y'), date('Y') - 70)
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false
+            ])
+            ->add('arrivalDate', DateType::class, [
+                
+                'by_reference' => true,
+                "label" => "Début/fin du poste",
+                'format' => 'dd-MM-yyyy',
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false,
+                'required' => false
+            ])
+            ->add('departureDate', DateType::class, [
+                
+                'by_reference' => true,
+                'format' => 'dd-MM-yyyy',
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false,
+                'required' => false
             ])
             ->add('mobilePhone', TelType::class, [
                 "label" => "Tél. mobile",
@@ -101,6 +123,10 @@ class ContactsType extends AbstractType
             ])
             ->add('phone',TelType::class, [
                 "label" => "Tél. Fixe",
+                "required" => false
+            ])
+            ->add('standardPhone',TelType::class, [
+                "label" => "Tél. Standard",
                 "required" => false
             ])
             ->add('email', EmailType::class, [
@@ -119,8 +145,7 @@ class ContactsType extends AbstractType
                 "label" => "Profil Twitter",
                 "required" => false
             ])
-            ->add('picture', FileType::class, [
-                "label" => "Photo",
+            ->add('imageFile', FileType::class, [
                 "required" => false,
                 'data_class' => null
             ])
@@ -129,11 +154,11 @@ class ContactsType extends AbstractType
                 "required" => false
             ])
             ->add('optInNewsletter', CheckboxType::class, [
-                "label" => "Recevoir les newsletter",
+                "label" => "Newsletters",
                 "required" => false
             ])
             ->add('optInOffresCommercial', CheckboxType::class, [
-                "label" => "Recevoir les offres commercial",
+                "label" => "Offres/promos",
                 "required" => false
             ])
             

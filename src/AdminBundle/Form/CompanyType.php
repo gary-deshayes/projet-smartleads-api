@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
@@ -28,36 +29,49 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('code', TextType::class, [
+                "label" => "Code entreprise",
+                "required" => false
+            ])
             ->add('name', TextType::class, [
-                "label" => "Nom :"
+                "label" => "Nom"
             ])
             ->add('status', ChoiceType::class, [
                 'choices'  => [
-                    'Client' => "Client",
-                    'Piste' => "Piste",
-                    "Prospect" => "Prospect"
+
+                    'Piste' => 'Piste',
+                    'Prospect' => 'Prospect',
+                    'Client' => 'Client'
                 ],
-                'label' => "Statut :"
+                'label' => "Statut"
             ])
-            ->add('logo', FileType::class, [
-                "label" => "Logo :",
+            ->add('imageFile', FileType::class, [
                 "required" => false,
                 'data_class' => null
             ])
             ->add('comment', TextType::class, [
-                "label" => "Commentaire : ",
+                "label" => "Remarques",
                 "required" => false
             ])
-            ->add('country', TextType::class, [
-                "label" => "Pays : ",
-                "required" => false
-            ])
+            // ->add('country', TextType::class, [
+            //     "label" => "Pays",
+            //     "required" => false
+            // ])
             ->add('address', TextType::class, [
-                "label" => "Adresse : ",
+                "label" => "Adresse",
                 "required" => false
             ])
             ->add('additionalAddress', TextType::class, [
-                "label" => "Complément d'adresse : ",
+                "label" => "Complément ",
+                "required" => false
+            ])
+            // ->add('decisionLevel', TextType::class, [
+            //     "label" => "Potentiel",
+            //     "required" => false
+            // ])
+
+            ->add('email', EmailType::class, [
+                "label" => "Email",
                 "required" => false
             ])
             ->add('postalCode', TextType::class, [
@@ -65,62 +79,64 @@ class CompanyType extends AbstractType
                 "required" => false
             ])
             ->add('town', TextType::class, [
-                "label" => "Ville : ",
+                "label" => "Ville",
                 "required" => false
             ])
             ->add('phone', TelType::class, [
-                "label" => "Téléphone :",
-                "required" => false
+                "label" => "Téléphone",
+                "required" => false,
+                "help" => "Format 0612345678"
             ])
-            ->add('fax', NumberType::class, [
-                "label" => "Fax :",
-                "required" => false
+            ->add('fax', TelType::class, [
+                "label" => "Fax",
+                "required" => false,
+                "help" => "Format 0612345678"
             ])
             ->add('website', UrlType::class, [
-                "label" => "Site web :",
+                "label" => "Site web",
                 "required" => false
             ])
-            ->add('createdAtCompany', DateType::class, [
-                "label" => "Date de création :",
-                'format' => 'dd-MM-yyyy',
-                "years" => range(date('Y'), date('Y') - 70)
-            ])
+            // ->add('createdAtCompany', DateType::class, [
+            //     "label" => "Date de création",
+            //     'format' => 'dd-MM-yyyy',
+            //     "years" => range(date('Y'), date('Y') - 70)
+            // ])
             ->add('siret', TextType::class, [
-                "label" => "N°SIRET : ",
+                "label" => "N°SIRET",
                 "required" => false
             ])
             ->add('nafCode', TextType::class, [
-                "label" => "Code NAF : ",
+                "label" => "Activité (NAF)",
                 "required" => false
             ])
-            ->add('source', TextType::class, [
-                "label" => "Source : ",
-                "required" => false
-            ])
-            ->add('idActivityArea', EntityType::class, [
-                'class' => ActivityArea::class,
-                "label" => "Aire d'activité",
-                'choice_label' => "libelle",
-                'required' => false
-            ])
-            ->add('idCompanyCategory', EntityType::class, [
-                'class' => CompanyCategory::class,
-                "label" => "Catégorie de l'entreprise",
-                'choice_label' => "libelle",
-                'required' => false
-            ])
+            // ->add('source', TextType::class, [
+            //     "label" => "Source",
+            //     "required" => false
+            // ])
+            // ->add('idActivityArea', EntityType::class, [
+            //     'class' => ActivityArea::class,
+            //     "label" => "Aire d'activité",
+            //     'choice_label' => "libelle",
+            //     'required' => false
+            // ])
+            // ->add('idCompanyCategory', EntityType::class, [
+            //     'class' => CompanyCategory::class,
+            //     "label" => "Catégorie de l'entreprise",
+            //     'choice_label' => "libelle",
+            //     'required' => false
+            // ])
             ->add('idSalesperson', EntityType::class, [
                 'class' => Salesperson::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.lastName', 'ASC');
                 },
-                "label" => "Commercial responsable de l'entreprise",
+                "label" => "Compte suivi par",
                 'required' => false
             ])
             ->add('idLegalStatus', EntityType::class, [
                 'class' => LegalStatus::class,
-                "label" => "Statut légal",
+                "label" => "Statut juridique",
                 'choice_label' => "libelle",
                 'required' => false
             ])
@@ -131,13 +147,13 @@ class CompanyType extends AbstractType
                     return $er->createQueryBuilder('n')
                         ->orderBy('n.libelle', 'ASC');
                 },
-                "label" => "Nombre d'employés",
+                "label" => "Effectifs",
                 'choice_label' => "libelle",
                 'required' => false
             ])
             ->add('idTurnovers', EntityType::class, [
                 'class' => Turnovers::class,
-                "label" => "Chiffre d'affaire",
+                "label" => "Chiffre d'affaires (M€)",
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.libelle', 'ASC');

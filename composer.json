@@ -8,6 +8,8 @@
         "beberlei/DoctrineExtensions": "^1.2",
         "doctrine/annotations": "^1.6",
         "fzaninotto/faker": "^1.8",
+        "knplabs/knp-paginator-bundle": "^3.0",
+        "liip/imagine-bundle": "^2.1",
         "nelmio/api-doc-bundle": "^3.3",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "4.1.*",
@@ -21,7 +23,8 @@
         "symfony/security-guard": "4.1.*",
         "symfony/serializer": "4.1.*",
         "symfony/validator": "4.1.*",
-        "symfony/yaml": "4.1.*"
+        "symfony/yaml": "4.1.*",
+        "vich/uploader-bundle": "^1.9"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.1",

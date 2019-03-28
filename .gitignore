@@ -3,7 +3,10 @@
 /.env.local
 /.env.*.local
 /public/bundles/
-/public/img/
+/public/images/contacts/
+/public/images/salespersons/
+/public/images/companies/
+/src/Migrations/
 /var/
 /vendor/
 /src/Migrations/
@@ -14,3 +17,7 @@
 ###< symfony/web-server-bundle ###
 
 /public/.sass-cache
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
