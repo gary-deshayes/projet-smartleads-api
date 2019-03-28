@@ -9,6 +9,7 @@
 /src/Migrations/
 /var/
 /vendor/
+/src/Migrations/
 ###< symfony/framework-bundle ###
 
 ###> symfony/web-server-bundle ###

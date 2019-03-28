@@ -9,7 +9,7 @@ class OperationsFixtures extends BaseFixture
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(10, "Operation", function($count){
+        $this->createMany(2, "Operation", function($count){
             $operation = new Operations();
             $operation->setName($this->faker->word . "-" . $count);
             $operation->setUrl($this->faker->url);
