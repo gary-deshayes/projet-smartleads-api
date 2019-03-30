@@ -34,7 +34,10 @@ i {
     box-shadow: 0px 0px 8px 0px #cfcfcf;
 
     &-description {
+        font-weight: bold;
         font-size: 18px;
+        color: #888888;
+        margin-bottom: 20px;
     }
 }
 
@@ -60,6 +63,16 @@ input {
 
     &:hover {
         color: #fff;
+    }
+}
+
+.btn {
+    padding: .64rem 2.14rem;
+
+    &-second {
+        border: 2px $primary-color solid;
+        color: $primary-color;
+        border-radius: 4px;      
     }
 }
 

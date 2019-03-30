@@ -15,12 +15,14 @@
         </li>
     </ul>
 
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="identity" role="tabpanel" aria-labelledby="identity-tab">
-            {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    <div class="bottom-button">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="identity" role="tabpanel" aria-labelledby="identity-tab">
+                {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
         </div>
-    </div>
 
-    <a class="btn btn-basic" href="{{ path('contacts_index') }}">Retour</a>
+        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Annuler</a>
+    </div>
 </div>
 {% endblock %}

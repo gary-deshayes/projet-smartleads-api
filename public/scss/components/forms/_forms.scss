@@ -21,8 +21,14 @@
                     height: 40px;
                 }
 
-                input:not([type=checkbox]) {
-                    height: 40px;
+                .mini-field {
+                    max-width: 170px;
+                }
+
+                input {
+                    &:not([type=checkbox]) {
+                        height: 40px;
+                    }
                 }
 
                 .required-field {
