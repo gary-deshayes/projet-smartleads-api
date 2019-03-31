@@ -261,6 +261,22 @@ input#search-search:focus {
   background-color: #00ff00;
 }
 
+.btn-outline-red {
+  background-color: transparent;
+  color: #CF1740;
+  border: 2px solid #CF1740;
+}
+
+.btn-end-form-upd {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-end-form-add {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
