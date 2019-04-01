@@ -86,16 +86,18 @@ class OperationsController extends AbstractController
 
         $contacts = $this->getDoctrine()
             ->getRepository(Contacts::class)
-            ->findAll();
+            ->findBy(array(), array('lastName' => 'ASC'));
 
         $defaultData = ['message' => 'Form sans entité'];
         $formAddContacts = $this->createFormBuilder($defaultData)
             ->add('contacts', EntityType::class, [
                 'class' => Contacts::class,
                 'choices' => $contacts,
-                "multiple" => true
+                "multiple" => true,
+                "expanded" => true
             ])
             ->getForm();
+            dump($formAddContacts->createView());
 
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);

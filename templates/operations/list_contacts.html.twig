@@ -1,6 +1,12 @@
 {{ form_start(formAddContacts) }}
 <div class="row">
-    {{ form_row(formAddContacts.contacts)}}
+
+<div class="scrollbar scrollbar-primary">
+<div style="overflow-y: scroll; height:300px; width:300px;">
+
+  {{ form_widget(formAddContacts.contacts)}}</div>
+  
+</div>
 </div>
 <div class="btn-end-form-upd">
     <div>
