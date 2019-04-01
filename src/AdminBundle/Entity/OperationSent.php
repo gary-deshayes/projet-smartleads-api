@@ -38,7 +38,7 @@ class OperationSent
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Operations")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_operation", referencedColumnName="name")
+     *   @ORM\JoinColumn(name="id_operation", referencedColumnName="code")
      * })
      */
     private $idOperation;
@@ -54,6 +54,25 @@ class OperationSent
      * })
      */
     private $idContacts;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="uniqIdContact", type="string", length=255, nullable=false)
+     */
+    private $uniqIdContact;
+
+    public function getUniqIdContact(): ?string
+    {
+        return $this->uniqIdContact;
+    }
+
+    public function setUniqIdContact(string $uniqIdContact): ?self
+    {
+        $this->uniqIdContact = $uniqIdContact;
+
+        return $this;
+    }
 
     public function getSentAt(): ?\DateTimeInterface
     {

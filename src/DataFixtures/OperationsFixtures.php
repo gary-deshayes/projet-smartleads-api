@@ -4,21 +4,35 @@ namespace App\DataFixtures;
 
 use App\AdminBundle\Entity\Operations;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class OperationsFixtures extends BaseFixture
+class OperationsFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
         $this->createMany(2, "Operation", function($count){
             $operation = new Operations();
-            $operation->setName($this->faker->word . "-" . $count);
-            $operation->setUrl($this->faker->url);
-            $operation->setTypeOperation($this->faker->randomElement(array('Commerciale', 'Informations', 'Prospection')));
-            $operation->setVisualHeadband($this->faker->imageUrl($width = 640, $height = 120));
-            $operation->setVisuelLateral($this->faker->imageUrl($width = 120, $height = 680));
+            $operation->setCode($this->faker->regexify('[A-Z]{10}'));
+            $operation->setName($this->faker->word);
+            $operation->setAuthor($this->getRandomReference("Salesperson"));
+            $operation->setMailObject("Concours Smartleads");
+            $operation->setTemplate("base.html.twig");
+            $operation->setCreatedAt(new \DateTime());
+            $operation->setUpdatedAt(new \DateTime());
+            $operation->setRevival($this->faker->numberBetween($min = 1, $max = 5));
+            $operation->setSendingDate($this->faker->dateTimeBetween($startDate = '-1 weeks', $endDate = 'now', $timezone = null));
+            $operation->setClosingDate($this->faker->dateTimeBetween($startDate = '-2 weeks', $endDate = '-1 weeks', $timezone = null));
+            
             return $operation;
         });
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            SalespersonFixtures::class
+        ];
     }
 }
