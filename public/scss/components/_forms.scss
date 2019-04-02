@@ -90,3 +90,59 @@
         }
     }
 }
+
+.form-informations {
+    display: flex;
+    justify-content: space-between;
+
+    * {
+        display: inline;
+    }
+
+    .infos-entity {
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 18px;
+        }
+    }
+
+    .inline-status-date {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .infos {
+            font-size: 13px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    
+        .custom-control {
+            display: flex;
+            align-items: center;
+            margin-top: -25px;
+        }
+
+        .custom-control-label {
+            margin-left: 5px;
+
+            &::before {
+                height: 1rem;
+            }
+        }
+
+        .custom-control-input:checked~.custom-control-label::before {
+            color: #fff;
+            border-color: #00B900;
+            background-color: #00B900;
+        }
+    }
+}

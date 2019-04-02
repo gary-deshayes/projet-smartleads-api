@@ -242,9 +242,7 @@
                         {% endif %} #}
         {% if app.request.attributes.get("_route") == "contacts_new" %}
             <div class="btn-end-form-add">
-                <button class="btn btn-radius-red btn-outline-red">
-                    <a href="{{path('contacts_index')}}">Annuler</a>
-                </button>
+                <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Annuler</a>
                 <button class="btn btn-radius-red">
                     {{ button_label|default('Save') }}</button>
             </div>

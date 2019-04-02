@@ -5,11 +5,13 @@
 {% block body %}
     <div class="window">
         <div class="form-informations">
-            <p class="infos-entity">{{ contact.getCivilite() ~ " " ~ contact.firstName ~ " " ~ (contact.lastName | upper )}}</p>
-            <p>,{{ contact.workName }},
-                {{ contact.getAge() }}
-                ans</p>
+            <div class="infos-entity">
+                <p class="title">{{ contact.getCivilite() ~ " " ~ contact.firstName ~ " " ~ (contact.lastName | upper )}}</p>
+                <p class="description">, {{ contact.workName }}, {{ contact.getAge() }} ans</p>
+            </div>
+            
             <div class="inline-status-date">
+            <p class="infos">A jour</p>
                 <p>Dernière mise à jour le
                     {{ contact.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
@@ -40,4 +42,5 @@
                     </div>
                 </div>
             </div>
+        </div>
         {% endblock %}

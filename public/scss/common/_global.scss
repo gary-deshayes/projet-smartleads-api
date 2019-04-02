@@ -6,7 +6,7 @@ html {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 36px;
     color: #707070
 }
 
@@ -47,6 +47,7 @@ input {
 
     &:focus {
         border: none;
+        outline: none;
     }
 }
 
@@ -66,16 +67,6 @@ input {
     }
 }
 
-.btn {
-    padding: .64rem 2.14rem;
-
-    &-second {
-        border: 2px $primary-color solid;
-        color: $primary-color;
-        border-radius: 4px;      
-    }
-}
-
 .center {
     margin: 0 auto;
 }
@@ -91,9 +82,16 @@ input {
     flex-direction: column;
 }
 
-.text-muted {
-    font-weight: 400;
-    color: #CECECE !important;
+.text {
+    &-muted {
+        font-weight: 400;
+        color: #CECECE !important;
+    }
+
+    &-description {
+        color: #b3b3b3;
+        font-size: 12px;      
+    }
 }
 
 .titleSearch {
@@ -106,80 +104,62 @@ input {
     align-items: center;
 }
 
-.text-description {
-    color: #b3b3b3;
-    font-size: 12px;
-}
-
 .input-group-text {
     background-color: transparent;
     border: none;
 }
 
-/* Ajout de Gary à voir si c'est bon pour les inté*/
-//table row clickable
 .clickable-row:hover {
     background:  #fff7f7;
     cursor: pointer;
 }
 
-.btn-radius-red {
-    background-color: $primary-color;
-    border-radius: 0.25rem;
-
-    &:hover {
-        color: #fff;
-        background-color: desaturate($primary-color, 30);
-    }
-}
-
 .container-content {
     border-radius: 0.25rem;
     background-color: #FFFFFF;
-    margin-top: 20px;
+    margin-top: 10px;
     box-shadow: 0 0 15px 0px #eeeeee;
 }
 
 .red-primary {
     color: $primary-color;
-    font-size: 25px;
-    margin-left: 15px;
+    font-size: 20px;
+    margin-left: 10px;
 }
 
-.table thead th {
-    border-bottom: 2px solid #eeeeee;
-    color: #8a8a8a
-}
+.table {
+    thead th {
+        border-bottom: 2px solid #eeeeee;
+        color: #8a8a8a
+    }
 
-.table td {
-    border-top: 2px solid #eeeeee;
-    border-bottom: 2px solid #eeeeee;
-    font-weight: 500;
-    color: #999999;
-    vertical-align: middle;
+    td {
+        border-top: 2px solid #eeeeee;
+        border-bottom: 2px solid #eeeeee;
+        font-weight: 500;
+        color: #999999;
+        vertical-align: middle;
+
+        i {
+            font-size: 18px;
+        }
+    }
 }
 
 .logo-table {
     width: 30px;
-    padding: 0px 0px 0px 0px !important;
+    padding: 0 !important;
 }
 
 .check-user {
     width: 55px;
 }
 
-.custom-control-label::before {
-    height: 1.2rem;
-    width: 1.2rem;
-}
-
-.custom-control-input:focus~.custom-control-label::before{
-    box-shadow: none;
-}
-
-.custom-control-label::after {
-    height: 1.2rem;
-    width: 1.2rem;
+.custom-control-label {
+    &::before,&::after {
+        height: 1.2rem;
+        width: 1.2rem;
+    }
 }
 
 .custom-control-input:checked~.custom-control-label::before {
@@ -188,25 +168,22 @@ input {
     background-color: #CF1740;
 }
 
-.btn-retour-radius {
-    background-color: $retourBtn;
-    border-radius: 0.25rem;
-}
+.panel {
+    &-Boutons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
 
-.panel-Boutons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    padding-left: 20px;
-}
-
-.panel-left {
-    width: 20%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    &-left {
+        width: 20%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;        
+    }
 }
 
 .form-control-lg {
@@ -217,13 +194,13 @@ input {
 }
 
 .search-input {
-    border:none;
-    font-size: 20px !important;
-    width: 125px;
-    color: rgb(116, 116, 116);
+    border: none;
+    font-size: 14px !important;
+    max-width: 80px;
+    color: #C1C1C1;
 
     &:focus {
-        border-color: red !important;
+        border: none;
     }
 }
 
@@ -237,15 +214,14 @@ input#search-search:focus {
 
 ::placeholder {
     color: rgb(150, 150, 150);
+
+    &:focus {
+        color: rgb(212, 212, 212);
+    }
 }
 
 :focus::placeholder{
     color: rgb(206, 206, 206);
-    border-bottom: 3px solid rgb(207, 207, 207);
-}
-
-::placeholder:focus {
-    color: rgb(212, 212, 212);
 }
 
 .inline-search {
@@ -258,14 +234,10 @@ input#search-search:focus {
     align-items: flex-end;
 }
 
-.btn-search {
-    border: none;
-    background: transparent;
-}
-
 .flex-column-center {
     @include flex-column-center();
 }
+<<<<<<< HEAD
 
 
 
@@ -373,3 +345,5 @@ input#search-search:focus {
     }
 }
 
+=======
+>>>>>>> 36a4fbc8dd7e4b1b90d7a10d009f73fb44561385
