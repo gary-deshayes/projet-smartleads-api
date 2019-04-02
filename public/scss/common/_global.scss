@@ -314,3 +314,62 @@ input#search-search:focus {
     display: flex;
     justify-content: flex-end;
 }
+
+//Menu du compte
+.info-compte{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    p{
+        font-size: 15px;
+        margin-bottom: 0px;
+    }
+}
+
+.dropdown-menu{
+    height: 200px;
+    width: 200px;
+}
+
+.dropdown-item{
+    
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    background-color : #f8f8f8;
+    font-size: 13px !important;
+    display: flex !important;
+    align-items: center;
+
+
+    &:hover{
+        background-color : #ebebeb;
+    }
+
+    i {
+        color: #929292;
+    }
+}
+
+.menu-click{
+
+    i {
+        margin-right: 10px;
+    }
+
+    a:first-child {
+        margin-top: 20px;
+        border-bottom: none;
+    }
+}
+
+.top-menuDown{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .logo-dropDown{
+
+
+    }
+}
+
