@@ -13,6 +13,12 @@ $(document).ready(function () {
         $('#sidebar').toggleClass('active');
     });
 });
+// $(document).ready(function () {
+//     $('#mail').on('click', function () {
+//         alert('Email envoyé');
+//     });
+// });
+
 $(function () {
     $(".datepicker").datepicker({
         dateFormat: "dd-mm-yy",
