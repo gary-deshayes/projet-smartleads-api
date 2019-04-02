@@ -1,9 +1,8 @@
-@charset "UTF-8";
 html {
   font-family: Roboto,sans-serif; }
 
 h1 {
-  font-size: 40px;
+  font-size: 36px;
   color: #707070; }
 
 p {
@@ -35,7 +34,8 @@ input {
   background-color: transparent !important;
   font-size: 13px !important; }
   input:focus {
-    border: none; }
+    border: none;
+    outline: none; }
 
 .primary-btn {
   border-color: #CF1740;
@@ -47,13 +47,6 @@ input {
     color: #fff; }
   .primary-btn:hover {
     color: #fff; }
-
-.btn {
-  padding: .64rem 2.14rem; }
-  .btn-second {
-    border: 2px #CF1740 solid;
-    color: #CF1740;
-    border-radius: 4px; }
 
 .center {
   margin: 0 auto; }
@@ -69,6 +62,9 @@ input {
 .text-muted {
   font-weight: 400;
   color: #CECECE !important; }
+.text-description {
+  color: #b3b3b3;
+  font-size: 12px; }
 
 .titleSearch {
   display: flex;
@@ -78,41 +74,28 @@ input {
   display: flex !important;
   align-items: center; }
 
-.text-description {
-  color: #b3b3b3;
-  font-size: 12px; }
-
 .input-group-text {
   background-color: transparent;
   border: none; }
 
-/* Ajout de Gary ├á voir si c'est bon pour les int├®*/
 .clickable-row:hover {
   background: #fff7f7;
   cursor: pointer; }
 
-.btn-radius-red {
-  background-color: #CF1740;
-  border-radius: 0.25rem; }
-  .btn-radius-red:hover {
-    color: #fff;
-    background-color: #ad3a53; }
-
 .container-content {
   border-radius: 0.25rem;
   background-color: #FFFFFF;
-  margin-top: 20px;
+  margin-top: 10px;
   box-shadow: 0 0 15px 0px #eeeeee; }
 
 .red-primary {
   color: #CF1740;
-  font-size: 25px;
-  margin-left: 15px; }
+  font-size: 20px;
+  margin-left: 10px; }
 
 .table thead th {
   border-bottom: 2px solid #eeeeee;
   color: #8a8a8a; }
-
 .table td {
   border-top: 2px solid #eeeeee;
   border-bottom: 2px solid #eeeeee;
@@ -122,19 +105,12 @@ input {
 
 .logo-table {
   width: 30px;
-  padding: 0px 0px 0px 0px !important; }
+  padding: 0 !important; }
 
 .check-user {
   width: 55px; }
 
-.custom-control-label::before {
-  height: 1.2rem;
-  width: 1.2rem; }
-
-.custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: none; }
-
-.custom-control-label::after {
+.custom-control-label::before, .custom-control-label::after {
   height: 1.2rem;
   width: 1.2rem; }
 
@@ -143,10 +119,6 @@ input {
   border-color: #CF1740;
   background-color: #CF1740; }
 
-.btn-retour-radius {
-  background-color: #f5f5f5;
-  border-radius: 0.25rem; }
-
 .panel-Boutons {
   display: flex;
   justify-content: space-between;
@@ -154,7 +126,6 @@ input {
   padding-bottom: 20px;
   padding-right: 20px;
   padding-left: 20px; }
-
 .panel-left {
   width: 20%;
   display: flex;
@@ -169,11 +140,11 @@ input {
 
 .search-input {
   border: none;
-  font-size: 20px !important;
-  width: 125px;
-  color: #747474; }
+  font-size: 14px !important;
+  max-width: 80px;
+  color: #C1C1C1; }
   .search-input:focus {
-    border-color: red !important; }
+    border: none; }
 
 input#search-search:focus {
   border-color: red !important; }
@@ -183,13 +154,11 @@ input#search-search:focus {
 
 ::placeholder {
   color: #969696; }
+  ::placeholder:focus {
+    color: #d4d4d4; }
 
 :focus::placeholder {
-  color: #cecece;
-  border-bottom: 3px solid #cfcfcf; }
-
-::placeholder:focus {
-  color: #d4d4d4; }
+  color: #cecece; }
 
 .inline-search {
   display: inline-block;
@@ -198,10 +167,6 @@ input#search-search:focus {
 #compteur {
   display: flex;
   align-items: flex-end; }
-
-.btn-search {
-  border: none;
-  background: transparent; }
 
 .flex-column-center {
   display: flex;
@@ -222,18 +187,37 @@ input#search-search:focus {
     border-color: #00ff00;
     background-color: #00ff00; }
 
-.btn-outline-red {
-  background-color: transparent;
-  color: #CF1740;
-  border: 2px solid #CF1740; }
-
-.btn-end-form-upd {
-  display: flex;
-  justify-content: space-between; }
-
-.btn-end-form-add {
-  display: flex;
-  justify-content: flex-end; }
+.btn {
+  padding: .64rem 2.14rem; }
+  .btn-outline-red {
+    background-color: transparent;
+    color: #CF1740;
+    border: 2px solid #CF1740; }
+  .btn-end-form-upd {
+    display: flex;
+    justify-content: space-between; }
+  .btn-end-form-add {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px; }
+  .btn-second {
+    border: 2px #CF1740 solid;
+    color: #CF1740;
+    border-radius: 4px; }
+  .btn-retour-radius {
+    background-color: #f5f5f5;
+    border-radius: 0.25rem; }
+  .btn-radius-red {
+    background-color: #CF1740;
+    border-radius: 0.25rem; }
+    .btn-radius-red:hover {
+      color: #fff;
+      background-color: #ad3a53; }
+  .btn-search {
+    border: none;
+    background: transparent; }
+    .btn-search i {
+      font-size: 14px; }
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
