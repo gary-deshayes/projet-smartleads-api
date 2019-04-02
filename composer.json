@@ -22,6 +22,7 @@
         "symfony/security-csrf": "4.1.*",
         "symfony/security-guard": "4.1.*",
         "symfony/serializer": "4.1.*",
+        "symfony/swiftmailer-bundle": "^3.2",
         "symfony/validator": "4.1.*",
         "symfony/yaml": "4.1.*",
         "vich/uploader-bundle": "^1.9"
