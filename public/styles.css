@@ -102,6 +102,8 @@ input {
   font-weight: 500;
   color: #999999;
   vertical-align: middle; }
+  .table td i {
+    font-size: 18px; }
 
 .logo-table {
   width: 30px;
@@ -172,20 +174,6 @@ input#search-search:focus {
   display: flex;
   align-items: center;
   flex-direction: column; }
-
-.form-informations * {
-  display: inline; }
-.form-informations .infos-entity {
-  font-weight: bold;
-  font-size: 25px; }
-.form-informations .inline-status-date {
-  display: inline; }
-  .form-informations .inline-status-date .custom-control-label::before {
-    height: 1rem; }
-  .form-informations .inline-status-date .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #00ff00;
-    background-color: #00ff00; }
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -295,7 +283,9 @@ nav#sidebar ul {
     margin-bottom: -2px; }
   .nav-tabs .nav-link {
     border: none;
-    font-weight: 400; }
+    font-weight: 400;
+    color: #999999;
+    font-size: 16px; }
     .nav-tabs .nav-link.active {
       color: #CF1740;
       background-color: transparent;
@@ -362,6 +352,39 @@ nav#sidebar ul {
     .div-photo label:hover {
       background-color: #F5F5F5;
       cursor: pointer; }
+
+.form-informations {
+  display: flex;
+  justify-content: space-between; }
+  .form-informations * {
+    display: inline; }
+  .form-informations .infos-entity .title {
+    font-size: 18px;
+    font-weight: bold; }
+  .form-informations .infos-entity .description {
+    font-size: 18px; }
+  .form-informations .inline-status-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .form-informations .inline-status-date .infos {
+      font-size: 13px;
+      font-weight: bold;
+      margin-right: 10px; }
+    .form-informations .inline-status-date p {
+      margin-bottom: 0; }
+    .form-informations .inline-status-date .custom-control {
+      display: flex;
+      align-items: center;
+      margin-top: -25px; }
+    .form-informations .inline-status-date .custom-control-label {
+      margin-left: 5px; }
+      .form-informations .inline-status-date .custom-control-label::before {
+        height: 1rem; }
+    .form-informations .inline-status-date .custom-control-input:checked ~ .custom-control-label::before {
+      color: #fff;
+      border-color: #00B900;
+      background-color: #00B900; }
 
 .pagination .previous {
   background-color: #F5F5F5;
