@@ -41,13 +41,7 @@
                             {{ form_label(form.gender, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
                             <div class="required-field">
-<<<<<<< HEAD
-                                {{ form_widget(form.gender, { "attr" : { "class" : "form-control col-lg-12 mini-field"}})
-                                                        }}
-=======
-                                {{ form_widget(form.gender, { "attr" : { "class" : "form-control col-lg-12"}})
-                                                                                                                                                                                                                                                                                                                        }}
->>>>>>> 4132e74551388abf1d85ad0533f64c82d275e424
+                                {{ form_widget(form.gender, { "attr" : { "class" : "form-control col-lg-12 mini-field"}}) }}
                             </div>
                         </div>
                     </div>
@@ -111,15 +105,8 @@
                     <div class="col-lg-6">
                         <div class="row">
                             {{ form_label(form.birthDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-<<<<<<< HEAD
                                                 }}
-                            {{ form_widget(form.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control col-lg-8 mini-field"}})
-                                                }}
-=======
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_widget(form.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control col-lg-8"}})
-                                                                                                                                                                                                                                                                                }}
->>>>>>> 4132e74551388abf1d85ad0533f64c82d275e424
+                            {{ form_widget(form.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control col-lg-8 mini-field"}}) }}
                             {{ form_errors(form.birthDate) }}
                         </div>
                     </div>
@@ -251,17 +238,8 @@
             </div>
         {% endif %}
         {# {% if app.request.attributes.get("_route") == "contacts_edit" %}
-<<<<<<< HEAD
                             {{ include('contacts/_delete_form.html.twig') }}
                         {% endif %} #}
-        {% if app.request.attributes.get("_route") == "contacts_edit" %}
-            <button class="btn btn-radius-red">Demande de mise à jour</button>
-        {% endif %}
-        <button class="btn btn-radius-red">
-            {{ button_label|default('Save') }}</button>
-=======
-                                                                                            {{ include('contacts/_delete_form.html.twig') }}
-                                                                                        {% endif %} #}
         {% if app.request.attributes.get("_route") == "contacts_new" %}
             <div class="btn-end-form-add">
                 <button class="btn btn-radius-red btn-outline-red">
@@ -271,5 +249,4 @@
                     {{ button_label|default('Save') }}</button>
             </div>
         {% endif %}
->>>>>>> 4132e74551388abf1d85ad0533f64c82d275e424
         {{ form_end(form) }}
