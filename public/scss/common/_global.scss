@@ -119,7 +119,7 @@ input {
 /* Ajout de Gary à voir si c'est bon pour les inté*/
 //table row clickable
 .clickable-row:hover {
-    background:  #f2f2f2;
+    background:  #fff7f7;
     cursor: pointer;
 }
 
@@ -171,6 +171,10 @@ input {
 .custom-control-label::before {
     height: 1.2rem;
     width: 1.2rem;
+}
+
+.custom-control-input:focus~.custom-control-label::before{
+    box-shadow: none;
 }
 
 .custom-control-label::after {
