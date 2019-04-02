@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+
     "content-hash": "c7afc9446823ad07e196e056af354ea8",
     "packages": [
         {
@@ -40,6 +41,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
+
                 "Artistic-1.0"
             ],
             "description": "String transliterator",

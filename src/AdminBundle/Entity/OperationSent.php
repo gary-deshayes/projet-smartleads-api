@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OperationSent
  *
- * @ORM\Table(name="operation_sent", indexes={@ORM\Index(name="id_contacts", columns={"id_contacts"}), @ORM\Index(name="id_operation_", columns={"id_operation_"}), @ORM\Index(name="IDX_95B4773850B241AB", columns={"id_salesperson"})})
+ * @ORM\Table(name="operation_sent", indexes={@ORM\Index(name="id_contacts", columns={"id_contacts"}), @ORM\Index(name="id_operation", columns={"id_operation"}), @ORM\Index(name="IDX_95B4773850B241AB", columns={"id_salesperson"})})
  * @ORM\Entity
  */
 class OperationSent
@@ -38,7 +38,7 @@ class OperationSent
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Operations")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_operation_", referencedColumnName="name")
+     *   @ORM\JoinColumn(name="id_operation", referencedColumnName="name")
      * })
      */
     private $idOperation;

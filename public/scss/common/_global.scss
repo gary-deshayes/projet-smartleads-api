@@ -294,3 +294,19 @@ input#search-search:focus {
     }
 
 }
+
+.btn-outline-red {
+    background-color: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+}
+
+.btn-end-form-upd {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-end-form-add {
+    display: flex;
+    justify-content: flex-end;
+}

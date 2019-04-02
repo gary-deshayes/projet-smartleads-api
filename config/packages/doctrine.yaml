@@ -27,3 +27,8 @@ doctrine:
                 dir: '%kernel.project_dir%/src/AdminBundle/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        dql:
+            datetime_functions:
+                test_datetime: App\DQL\DatetimeFunction
+            string_functions:
+                DATE: DoctrineExtensions\Query\Mysql\Date
