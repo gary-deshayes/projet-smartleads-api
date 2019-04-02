@@ -39,15 +39,15 @@
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item {% if app.request.attributes.get('_route') starts with 'salesperson' %}li-active{% endif %}" >
+                        <li class="nav-item {% if app.request.attributes.get('_route')  == 'salesperson_index' %}li-active{% endif %}" >
                             <a class="nav-link" href="{{ path('salesperson_index') }}">
-                            
+                            <i class="fas fa-handshake"></i>
                                 <span>Commerciaux</span>
                             </a>
                         </li>
                     {% endif %}
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if app.request.attributes.get('_route') == 'salesperson_list_responsable' %}li-active{% endif %}">
                             <a class="nav-link" href="{{ path('salesperson_list_responsable') }}">
                                 <i class="fas fa-user-tie"></i>
                                 <span>Responsables d'équipes</span>
