@@ -187,38 +187,6 @@ input#search-search:focus {
     border-color: #00ff00;
     background-color: #00ff00; }
 
-.btn {
-  padding: .64rem 2.14rem; }
-  .btn-outline-red {
-    background-color: transparent;
-    color: #CF1740;
-    border: 2px solid #CF1740; }
-  .btn-end-form-upd {
-    display: flex;
-    justify-content: space-between; }
-  .btn-end-form-add {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 40px; }
-  .btn-second {
-    border: 2px #CF1740 solid;
-    color: #CF1740;
-    border-radius: 4px; }
-  .btn-retour-radius {
-    background-color: #f5f5f5;
-    border-radius: 0.25rem; }
-  .btn-radius-red {
-    background-color: #CF1740;
-    border-radius: 0.25rem; }
-    .btn-radius-red:hover {
-      color: #fff;
-      background-color: #ad3a53; }
-  .btn-search {
-    border: none;
-    background: transparent; }
-    .btn-search i {
-      font-size: 14px; }
-
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -497,6 +465,54 @@ nav#sidebar ul {
     font-size: 25px; }
 .pagination a {
   padding: 7px 17px; }
+
+.btn {
+  padding: .64rem 2.14rem; }
+  .btn-outline-red {
+    background-color: transparent;
+    color: #CF1740;
+    border: 2px solid #CF1740; }
+  .btn-end-form-upd {
+    display: flex;
+    justify-content: space-between; }
+  .btn-end-form-add {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px; }
+  .btn-second {
+    border: 2px #CF1740 solid;
+    color: #CF1740;
+    border-radius: 4px; }
+  .btn-retour-radius {
+    background-color: #f5f5f5;
+    border-radius: 0.25rem; }
+  .btn-radius-red {
+    background-color: #CF1740;
+    border-radius: 0.25rem; }
+    .btn-radius-red:hover {
+      color: #fff;
+      background-color: #ad3a53; }
+  .btn-search {
+    border: none;
+    background: transparent; }
+    .btn-search i {
+      font-size: 14px; }
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  height: 22px;
+  width: 32px;
+  border-radius: 11px;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+  .badge-number {
+    background-color: #CF1740; }
+  .badge-zero {
+    color: #fff;
+    background-color: #D9D9D9; }
 
 .background-img {
   background-image: url("../img/wallpaper.png");
