@@ -113,7 +113,7 @@
                                     <div class="top-menuDown">
                                         <div class="logo-dropDown">
                                             {% if vich_uploader_asset(app.user, 'imageFile') is null %}
-                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-user fa-2x"></i>
                                                 {% else %}
                                                 <img class="rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('profile_menu') }}">
                                             {% endif %}
