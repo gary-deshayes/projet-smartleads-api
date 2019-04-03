@@ -2,19 +2,19 @@
 
 namespace App\AdminBundle\Controller;
 
-use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Form\SearchType;
-use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\EntitySearch\Search;
-use App\AdminBundle\Form\OperationsType;
+use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\Entity\OperationSent;
+use App\AdminBundle\Form\OperationsType;
+use App\AdminBundle\Form\SearchType;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/operations")
@@ -101,7 +101,7 @@ class OperationsController extends AbstractController
                 "expanded" => true,
             ])
             ->add("operation", HiddenType::class, [
-                'data' => $operation->getCode()
+                'data' => $operation->getCode(),
             ])
             ->getForm();
 
@@ -110,29 +110,45 @@ class OperationsController extends AbstractController
         if ($formAddContacts->isSubmitted()) {
             //Operation envoyée
             $operation = $this->getDoctrine()
-            ->getRepository(Operations::class)
-            ->findOneBy(array("code" => $request->get("form")["operation"]));
+                ->getRepository(Operations::class)
+                ->findOneBy(array("code" => $request->get("form")["operation"]));
             $author = $operation->getAuthor();
             $em = $this->getDoctrine()->getManager();
             dump($request->get("form")["contacts"]);
             //Récuperation des contacts ciblés
             $contactsCible = $this->getDoctrine()
-            ->getRepository(Contacts::class)
-            ->getContactsInArray($request->get("form")["contacts"]);
+                ->getRepository(Contacts::class)
+                ->getContactsInArray($request->get("form")["contacts"]);
             dump($contactsCible);
 
-            foreach($contactsCible as $contact){
+            foreach ($contactsCible as $contact) {
+                $uniqid = \uniqid();
                 $operationSent = new OperationSent();
                 $operationSent->setOperation($operation);
                 $operationSent->setSalesperson($author);
                 $operationSent->setContacts($contact);
-                $operationSent->setUniqIdContact(\uniqid());
+                $operationSent->setUniqIdContact($uniqid);
                 $operationSent->setSentAt(new \DateTime());
                 $em->persist($operationSent);
+
+                $message = (new \Swift_Message('Invitation jeux concours'))
+                    ->setFrom('smartleads.supp@outlook.com')
+                    ->setTo('deshayesgary@hotmail.fr')
+                    ->setBody(
+                        $this->renderView(
+                            'operations/mail_view.html.twig',
+                            [
+                                "name"=> $contact->__toString(),
+                                "link" => $_SERVER["SERVER_NAME"] . "/operation/" . $operation->getName() . "/" . $uniqid
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
             }
             $em->flush();
             die();
-            
+
         }
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
