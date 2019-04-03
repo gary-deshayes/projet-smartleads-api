@@ -5,19 +5,20 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Bienvenue dans notre jeu concours
-        {{ contact.lastName ~ " " ~ contact.firstName }}</h1>
+    <h1>Bonjour,
+        {{ contact.lastName ~ " " ~ contact.firstName }}!</h1>
+    <h2>Participez au jeu concours '{{operation.name}}' dans l'espoir de gagner un Bitcoin !</h2>
     <div class="form-style">
         {{ form_start(formContact) }}
         <div class="row">
-            <div class="col-lg-10 form-style">
+            <div class="col-lg-6 form-style">
                 <div class="window">
                     <div class="row">
 
 
                         {{ form_label(formContact.workName)}}
 
-                        {{ form_widget(formContact.workName)}}
+                        {{ form_widget(formContact.workName, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
                         {{ form_errors(formContact.workName) }}
 
@@ -26,45 +27,45 @@
 
                         {{ form_label(formContact.birthDate)}}
 
-                        {{ form_widget(formContact.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control"}})
-                                                                                                                                                                                                                                                                                                                                                                                                }}
+                        {{ form_widget(formContact.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control col-lg-6"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
                         {{ form_errors(formContact.birthDate) }}
 
 
-                        <div class="col-lg-12">
-                            {{ form_label(formContact.arrivalDate, null,  { "label_attr" : { "class" :"col-lg-4"}})}}
+                    </div>
 
-                            {{ form_widget(formContact.arrivalDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                    }}
-                            {{ form_errors(formContact.arrivalDate) }}
-                            {{ form_widget(formContact.departureDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                    }}
-                            {{ form_errors(formContact.departureDate) }}
-                        </div>
+                    <div class="row">
+                        {{ form_label(formContact.arrivalDate, null,  { "label_attr" : { "class" :""}})}}
 
-
+                        {{ form_widget(formContact.arrivalDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-5"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+                        {{ form_errors(formContact.arrivalDate) }}
+                        {{ form_widget(formContact.departureDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-5"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+                        {{ form_errors(formContact.departureDate) }}
                     </div>
                     <div class="row">
 
                         {{ form_label(formContact.mobilePhone)}}
 
-                        {{ form_widget(formContact.mobilePhone)}}
+                        {{ form_widget(formContact.mobilePhone, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
                         {{ form_errors(formContact.mobilePhone) }}
 
                     </div>
+
                     <div class="row">
 
                         {{ form_label(formContact.linkedin)}}
 
-                        {{ form_widget(formContact.linkedin)}}
+                        {{ form_widget(formContact.linkedin, { "attr" : { "class" : "form-control col-lg-4"}})}}
 
                         {{ form_errors(formContact.linkedin) }}
 
 
                         {{ form_label(formContact.phone)}}
 
-                        {{ form_widget(formContact.phone)}}
+                        {{ form_widget(formContact.phone, { "attr" : { "class" : "form-control col-lg-4"}})}}
 
                         {{ form_errors(formContact.phone) }}
 
@@ -73,14 +74,14 @@
 
                         {{ form_label(formContact.facebook)}}
 
-                        {{ form_widget(formContact.facebook)}}
+                        {{ form_widget(formContact.facebook, { "attr" : { "class" : "form-control col-lg-4"}})}}
 
                         {{ form_errors(formContact.facebook) }}
 
 
                         {{ form_label(formContact.standardPhone)}}
 
-                        {{ form_widget(formContact.standardPhone)}}
+                        {{ form_widget(formContact.standardPhone, { "attr" : { "class" : "form-control col-lg-4"}})}}
 
                         {{ form_errors(formContact.standardPhone) }}
 
@@ -89,20 +90,25 @@
 
                         {{ form_label(formContact.twitter)}}
 
-                        {{ form_widget(formContact.twitter)}}
+                        {{ form_widget(formContact.twitter, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
                         {{ form_errors(formContact.twitter) }}
 
                     </div>
-                    <div>
-                        {{ form_widget(formContact.optInNewsletter)}}
+                    <div class="custom-control custom-checkbox">
+                        <div>
+                            {{ form_widget(formContact.optInNewsletter, { "attr" : { "class" : "custom-control-input col-lg-6"}})}}
 
-                        {{ form_label(formContact.optInNewsletter)}}
+                            {{ form_label(formContact.optInNewsletter, null , { "label_attr" : { "class" : "custom-control-label col-lg-6"}})}}
+                        </div>
 
-                        {{ form_widget(formContact.optInOffresCommercial)}}
+                        <div>
+                            {{ form_widget(formContact.optInOffresCommercial, { "attr" : { "class" : "custom-control-input col-lg-6"}})}}
 
-                        {{ form_label(formContact.optInOffresCommercial)}}
+                            {{ form_label(formContact.optInOffresCommercial, null , { "label_attr" : { "class" : "custom-control-label col-lg-6"}})}}
+                        </div>
                     </div>
+                    <input class="btn btn-primary" type="submit" value="Envoyer" />
                 </div>
             </div>
         </div>

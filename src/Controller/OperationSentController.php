@@ -14,41 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class OperationSentController extends AbstractController
 {
-    /**
-     * @Route("/", name="operation_sent_index", methods={"GET"})
-     */
-    public function index(): Response
-    {
-        $operationSents = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->findAll();
-
-        return $this->render('operation_sent/index.html.twig', [
-            'operation_sents' => $operationSents,
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="operation_sent_new", methods={"GET","POST"})
-     */
-    function new (Request $request): Response {
-        $operationSent = new OperationSent();
-        $form = $this->createForm(OperationSentType::class, $operationSent);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($operationSent);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('operation_sent_index');
-        }
-
-        return $this->render('operation_sent/new.html.twig', [
-            'operation_sent' => $operationSent,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{idSalesperson}/edit", name="operation_sent_edit", methods={"GET","POST"})
@@ -98,6 +63,7 @@ class OperationSentController extends AbstractController
         $idContact = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->getContactOperationSent($request->get("uniqid"));
+
         $contact = $this->getDoctrine()
             ->getRepository(Contacts::class)->findOneBy(array("code" => $idContact[0]["operationSent_id_contacts"]));
         if ($contact != null) {
@@ -110,11 +76,13 @@ class OperationSentController extends AbstractController
 
                 die("Merci de la mise à jour");
             }
-            return $this->render("template_operations/operation_commerciale.html.twig", [
-                "contact" => $contact,
-                "operation" => $operation,
-                "formContact" => $form->createView()
-            ]
+            return $this->render(
+                "template_operations/operation_commerciale.html.twig",
+                [
+                    "contact" => $contact,
+                    "operation" => $operation,
+                    "formContact" => $form->createView()
+                ]
 
             );
         }
