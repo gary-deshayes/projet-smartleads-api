@@ -61,7 +61,8 @@ class OperationsController extends AbstractController
     /**
      * @Route("/new", name="operations_new", methods={"GET","POST"})
      */
-    function new (Request $request): Response {
+    function new(Request $request): Response
+    {
         $operation = new Operations();
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
@@ -85,11 +86,22 @@ class OperationsController extends AbstractController
      */
     public function edit(Request $request, Operations $operation, \Swift_Mailer $mailer): Response
     {
+        //On ne récupere que les id des contacts qui ont déjà reçu l'opération
+        $idContacts = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->getCodeContactsOperation($operation->getCode());
 
-        $contacts = $this->getDoctrine()
-            ->getRepository(Contacts::class)
-            ->findBy(array(), array('lastName' => 'ASC'));
-
+        //Contacts à selectionné
+        if ($idContacts == null) {
+            $contacts = $this->getDoctrine()
+                ->getRepository(Contacts::class)
+                ->findBy(array(), array('lastName' => 'ASC'));
+        } else {
+            $contacts = $this->getDoctrine()
+                ->getRepository(Contacts::class)
+                ->getContactsOperationNotSend($idContacts);
+        }
+        
         $defaultData = ['message' => 'Form sans entité'];
 
         // Formulaire des contacts qui recevront l'opération
@@ -107,20 +119,21 @@ class OperationsController extends AbstractController
 
         $formAddContacts->handleRequest($request);
 
+        //Envoi des mails et procédure d'opérations
         if ($formAddContacts->isSubmitted()) {
+
             //Operation envoyée
             $operation = $this->getDoctrine()
                 ->getRepository(Operations::class)
                 ->findOneBy(array("code" => $request->get("form")["operation"]));
             $author = $operation->getAuthor();
             $em = $this->getDoctrine()->getManager();
-            dump($request->get("form")["contacts"]);
+
             //Récuperation des contacts ciblés
             $contactsCible = $this->getDoctrine()
                 ->getRepository(Contacts::class)
                 ->getContactsInArray($request->get("form")["contacts"]);
-            dump($contactsCible);
-
+            //Pour chaque contacts on insère son envoi dans la base et lui envoi un mail
             foreach ($contactsCible as $contact) {
                 $uniqid = \uniqid();
                 $operationSent = new OperationSent();
@@ -131,15 +144,15 @@ class OperationsController extends AbstractController
                 $operationSent->setSentAt(new \DateTime());
                 $em->persist($operationSent);
 
-                $message = (new \Swift_Message('Invitation jeux concours'))
+                $message = (new \Swift_Message($operation->getMailObject()))
                     ->setFrom('smartleads.supp@outlook.com')
-                    
+
                     ->setTo($contact->getEmail())
                     ->setBody(
                         $this->renderView(
                             'operations/mail_view.html.twig',
                             [
-                                "name"=> $contact->__toString(),
+                                "name" => $contact->__toString(),
                                 "link" => $_SERVER["HTTP_ORIGIN"] . "/operation/" . $operation->getName() . "/" . $uniqid
                             ]
                         ),
@@ -148,8 +161,10 @@ class OperationsController extends AbstractController
                 $mailer->send($message);
             }
             $em->flush();
-
+            return $this->redirectToRoute('operations_index');
         }
+
+        //Formulaire d'édition de l'opération
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

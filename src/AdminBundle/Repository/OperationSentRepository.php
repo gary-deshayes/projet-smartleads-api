@@ -24,4 +24,15 @@ class OperationSentRepository extends ServiceEntityRepository
             ->getScalarResult();
     }
 
+    /**
+     * Récupère les id des contacts qui ont recu une opération
+     */
+    public function getCodeContactsOperation($operation)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("IDENTITY(operationSent.contacts)")
+            ->where("operationSent.operation = :operation")
+            ->setParameter(":operation", $operation)
+            ->getQuery()->getResult();
+    }
 }

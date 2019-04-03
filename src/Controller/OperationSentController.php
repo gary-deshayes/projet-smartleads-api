@@ -63,6 +63,7 @@ class OperationSentController extends AbstractController
         $idContact = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->getContactOperationSent($request->get("uniqid"));
+
         $contact = $this->getDoctrine()
             ->getRepository(Contacts::class)->findOneBy(array("code" => $idContact[0]["operationSent_id_contacts"]));
         if ($contact != null) {
@@ -75,11 +76,13 @@ class OperationSentController extends AbstractController
 
                 die("Merci de la mise à jour");
             }
-            return $this->render("template_operations/operation_commerciale.html.twig", [
-                "contact" => $contact,
-                "operation" => $operation,
-                "formContact" => $form->createView()
-            ]
+            return $this->render(
+                "template_operations/operation_commerciale.html.twig",
+                [
+                    "contact" => $contact,
+                    "operation" => $operation,
+                    "formContact" => $form->createView()
+                ]
 
             );
         }
