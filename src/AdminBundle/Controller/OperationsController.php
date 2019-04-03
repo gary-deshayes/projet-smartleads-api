@@ -83,7 +83,7 @@ class OperationsController extends AbstractController
     /**
      * @Route("/{code}/edit", name="operations_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Operations $operation): Response
+    public function edit(Request $request, Operations $operation, \Swift_Mailer $mailer): Response
     {
 
         $contacts = $this->getDoctrine()
@@ -133,21 +133,21 @@ class OperationsController extends AbstractController
 
                 $message = (new \Swift_Message('Invitation jeux concours'))
                     ->setFrom('smartleads.supp@outlook.com')
-                    ->setTo('deshayesgary@hotmail.fr')
+                    
+                    ->setTo($contact->getEmail())
                     ->setBody(
                         $this->renderView(
                             'operations/mail_view.html.twig',
                             [
                                 "name"=> $contact->__toString(),
-                                "link" => $_SERVER["SERVER_NAME"] . "/operation/" . $operation->getName() . "/" . $uniqid
+                                "link" => $_SERVER["HTTP_ORIGIN"] . "/operation/" . $operation->getName() . "/" . $uniqid
                             ]
                         ),
                         'text/html'
                     );
-                $this->get('mailer')->send($message);
+                $mailer->send($message);
             }
             $em->flush();
-            die();
 
         }
         $form = $this->createForm(OperationsType::class, $operation);
