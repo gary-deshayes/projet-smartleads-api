@@ -304,9 +304,45 @@ class Salesperson implements UserInterface
      */
     private $contacts;
 
+    /**
+     * Liste des opérations du commercial
+     * @OneToMany(targetEntity="Operations", mappedBy="code")
+     */
+    private $operations;
+
 
     public function __construct() {
         $this->contacts = new ArrayCollection();
+        $this->operations = new ArrayCollection();
+    }
+
+    
+    /**
+     * @return Collection|Operations[]
+     */
+    public function getOperations()
+    {
+        return $this->operations;
+    }
+
+    public function addOperation(Operations $operation): self
+    {
+        if (!$this->operations->contains($operation)) {
+            $this->operations[] = $operation;
+            $operations->addIdCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperation(Operations $operation): self
+    {
+        if ($this->operation->contains($operation)) {
+            $this->operation->removeElement($operation);
+            $operation->removeIdCompany($this);
+        }
+
+        return $this;
     }
 
     /**

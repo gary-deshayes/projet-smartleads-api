@@ -277,6 +277,10 @@ input#search-search:focus {
   justify-content: flex-end;
 }
 
+.div-contacts-cible {
+  margin-left: 30px;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

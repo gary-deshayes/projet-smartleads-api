@@ -16,6 +16,7 @@ class OperationsSentFixtures extends BaseFixture implements DependentFixtureInte
             $operationSent->setIdOperation($this->getRandomReference("Operation"));
             $operationSent->setIdSalesperson($this->getRandomReference("Salesperson"));
             $operationSent->setSentAt(new \DateTime());
+            $operationSent->setUniqIdContact(\uniqid());
             return $operationSent;
         });
 

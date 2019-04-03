@@ -85,4 +85,13 @@ class ContactsRepository extends ServiceEntityRepository
             
         return $query->getSingleScalarResult();
     }
+
+    public function getContactsInArray($array){
+        $query = $this->createQueryBuilder('contacts')
+            ->orderBy('contacts.lastName', 'ASC')
+            ->where("contacts.code in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
 }

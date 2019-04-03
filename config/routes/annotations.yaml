@@ -8,7 +8,6 @@ api_controllers:
     type: annotation
     prefix: "/api"
 
-
 app_controllers:
     resource: ../../src/Controller/
     type: annotation
