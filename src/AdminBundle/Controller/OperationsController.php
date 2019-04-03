@@ -7,11 +7,13 @@ use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Form\OperationsType;
+use App\AdminBundle\Entity\OperationSent;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -89,19 +91,51 @@ class OperationsController extends AbstractController
             ->findBy(array(), array('lastName' => 'ASC'));
 
         $defaultData = ['message' => 'Form sans entité'];
+
+        // Formulaire des contacts qui recevront l'opération
         $formAddContacts = $this->createFormBuilder($defaultData)
             ->add('contacts', EntityType::class, [
                 'class' => Contacts::class,
                 'choices' => $contacts,
                 "multiple" => true,
-                "expanded" => true
+                "expanded" => true,
+            ])
+            ->add("operation", HiddenType::class, [
+                'data' => $operation->getCode()
             ])
             ->getForm();
-            dump($formAddContacts->createView());
 
+        $formAddContacts->handleRequest($request);
+
+        if ($formAddContacts->isSubmitted()) {
+            //Operation envoyée
+            $operation = $this->getDoctrine()
+            ->getRepository(Operations::class)
+            ->findOneBy(array("code" => $request->get("form")["operation"]));
+            $author = $operation->getAuthor();
+            $em = $this->getDoctrine()->getManager();
+            dump($request->get("form")["contacts"]);
+            //Récuperation des contacts ciblés
+            $contactsCible = $this->getDoctrine()
+            ->getRepository(Contacts::class)
+            ->getContactsInArray($request->get("form")["contacts"]);
+            dump($contactsCible);
+
+            foreach($contactsCible as $contact){
+                $operationSent = new OperationSent();
+                $operationSent->setOperation($operation);
+                $operationSent->setSalesperson($author);
+                $operationSent->setContacts($contact);
+                $operationSent->setUniqIdContact(\uniqid());
+                $operationSent->setSentAt(new \DateTime());
+                $em->persist($operationSent);
+            }
+            $em->flush();
+            die();
+            
+        }
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -114,7 +148,7 @@ class OperationsController extends AbstractController
             'operation' => $operation,
             'form' => $form->createView(),
             'contacts' => $contacts,
-            'formAddContacts' => $formAddContacts->createView()
+            'formAddContacts' => $formAddContacts->createView(),
         ]);
     }
 

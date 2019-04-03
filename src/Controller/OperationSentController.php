@@ -1,17 +1,17 @@
 <?php
 
-namespace App\AdminBundle\Controller;
+namespace App\Controller;
 
+use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\Entity\OperationSent;
 use App\AdminBundle\Form\OperationSentType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\AdminBundle\Form\ContactsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @Route("/operationsent")
- */
 class OperationSentController extends AbstractController
 {
     /**
@@ -31,8 +31,7 @@ class OperationSentController extends AbstractController
     /**
      * @Route("/new", name="operation_sent_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    function new (Request $request): Response {
         $operationSent = new OperationSent();
         $form = $this->createForm(OperationSentType::class, $operationSent);
         $form->handleRequest($request);
@@ -48,16 +47,6 @@ class OperationSentController extends AbstractController
         return $this->render('operation_sent/new.html.twig', [
             'operation_sent' => $operationSent,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{idSalesperson}", name="operation_sent_show", methods={"GET"})
-     */
-    public function show(OperationSent $operationSent): Response
-    {
-        return $this->render('operation_sent/show.html.twig', [
-            'operation_sent' => $operationSent,
         ]);
     }
 
@@ -88,12 +77,47 @@ class OperationSentController extends AbstractController
      */
     public function delete(Request $request, OperationSent $operationSent): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$operationSent->getIdSalesperson(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $operationSent->getIdSalesperson(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($operationSent);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('operation_sent_index');
+    }
+
+    /**
+     * @Route("/operation/{name}/{uniqid}", name="operation_send_display", methods={"GET","POST"})
+     */
+    public function display(Request $request)
+    {
+        $operation = $this->getDoctrine()
+            ->getRepository(Operations::class)
+            ->findOneBy(array("name" => $request->get("name")));
+
+        $idContact = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->getContactOperationSent($request->get("uniqid"));
+        $contact = $this->getDoctrine()
+            ->getRepository(Contacts::class)->findOneBy(array("code" => $idContact[0]["operationSent_id_contacts"]));
+        if ($contact != null) {
+
+            $form = $this->createForm(ContactsOperationType::class, $contact);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $contact->setUpdatedAt(new \DateTime());
+                $this->getDoctrine()->getManager()->flush();
+
+                die("Merci de la mise à jour");
+            }
+            return $this->render("template_operations/operation_commerciale.html.twig", [
+                "contact" => $contact,
+                "operation" => $operation,
+                "formContact" => $form->createView()
+            ]
+
+            );
+        }
+        die("toto");
     }
 }

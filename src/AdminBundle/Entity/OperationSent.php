@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="operation_sent", indexes={@ORM\Index(name="id_contacts", columns={"id_contacts"}), @ORM\Index(name="id_operation", columns={"id_operation"}), @ORM\Index(name="IDX_95B4773850B241AB", columns={"id_salesperson"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\OperationSentRepository")
  */
 class OperationSent
 {
@@ -29,7 +30,7 @@ class OperationSent
      *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code")
      * })
      */
-    private $idSalesperson;
+    private $salesperson;
 
     /**
      * @var \Operations
@@ -41,7 +42,7 @@ class OperationSent
      *   @ORM\JoinColumn(name="id_operation", referencedColumnName="code")
      * })
      */
-    private $idOperation;
+    private $operation;
 
     /**
      * @var \Contacts
@@ -53,7 +54,7 @@ class OperationSent
      *   @ORM\JoinColumn(name="id_contacts", referencedColumnName="code")
      * })
      */
-    private $idContacts;
+    private $contacts;
 
     /**
      * @var string
@@ -86,38 +87,38 @@ class OperationSent
         return $this;
     }
 
-    public function getIdSalesperson(): ?Salesperson
+    public function getSalesperson(): ?Salesperson
     {
-        return $this->idSalesperson;
+        return $this->salesperson;
     }
 
-    public function setIdSalesperson(?Salesperson $idSalesperson): self
+    public function setSalesperson(?Salesperson $salesperson): self
     {
-        $this->idSalesperson = $idSalesperson;
+        $this->salesperson = $salesperson;
 
         return $this;
     }
 
-    public function getIdOperation(): ?Operations
+    public function getOperation(): ?Operations
     {
-        return $this->idOperation;
+        return $this->operation;
     }
 
-    public function setIdOperation(?Operations $idOperation): self
+    public function setOperation(?Operations $operation): self
     {
-        $this->idOperation = $idOperation;
+        $this->operation = $operation;
 
         return $this;
     }
 
-    public function getIdContacts(): ?Contacts
+    public function getContacts(): ?Contacts
     {
-        return $this->idContacts;
+        return $this->contacts;
     }
 
-    public function setIdContacts(?Contacts $idContacts): self
+    public function setContacts(?Contacts $contacts): self
     {
-        $this->idContacts = $idContacts;
+        $this->contacts = $contacts;
 
         return $this;
     }

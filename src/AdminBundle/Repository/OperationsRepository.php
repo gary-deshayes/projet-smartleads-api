@@ -32,7 +32,7 @@ class OperationsRepository extends ServiceEntityRepository
             $query->andWhere('operations.name LIKE :search');
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-      
+
         return $query->getQuery();
     }
 
@@ -44,14 +44,23 @@ class OperationsRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('operations')
             ->select('count(operations.code)')
             ->orderBy('operations.name', 'ASC');
-            
-            if($search->getSearch()) {
-                $query->andWhere('operations.name LIKE :search ');
-    
-                $query->setParameter(":search", "%" . $search->getSearch() . "%");
-            }
+
+        if ($search->getSearch()) {
+            $query->andWhere('operations.name LIKE :search ');
+
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
         return $query->getQuery()->getSingleScalarResult();
     }
 
-   
+    public function getContactOperationSent($uniqid)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("operationSent.contacts")
+            ->where("operationSent.uniqIdContact = :uniqIdContact")
+            ->setParameter(":uniqIdContact", $uniqid)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

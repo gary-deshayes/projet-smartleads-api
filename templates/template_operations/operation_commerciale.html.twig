@@ -1,0 +1,111 @@
+{% extends 'base_operation.html.twig' %}
+
+{% block title %}Grand jeu -
+    {{operation.name}}
+{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue dans notre jeu concours
+        {{ contact.lastName ~ " " ~ contact.firstName }}</h1>
+    <div class="form-style">
+        {{ form_start(formContact) }}
+        <div class="row">
+            <div class="col-lg-10 form-style">
+                <div class="window">
+                    <div class="row">
+
+
+                        {{ form_label(formContact.workName)}}
+
+                        {{ form_widget(formContact.workName)}}
+
+                        {{ form_errors(formContact.workName) }}
+
+                    </div>
+                    <div class="row">
+
+                        {{ form_label(formContact.birthDate)}}
+
+                        {{ form_widget(formContact.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control"}})
+                                                                                                                                                                                                                                                                                                                                                                                                }}
+                        {{ form_errors(formContact.birthDate) }}
+
+
+                        <div class="col-lg-12">
+                            {{ form_label(formContact.arrivalDate, null,  { "label_attr" : { "class" :"col-lg-4"}})}}
+
+                            {{ form_widget(formContact.arrivalDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                            {{ form_errors(formContact.arrivalDate) }}
+                            {{ form_widget(formContact.departureDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                            {{ form_errors(formContact.departureDate) }}
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+
+                        {{ form_label(formContact.mobilePhone)}}
+
+                        {{ form_widget(formContact.mobilePhone)}}
+
+                        {{ form_errors(formContact.mobilePhone) }}
+
+                    </div>
+                    <div class="row">
+
+                        {{ form_label(formContact.linkedin)}}
+
+                        {{ form_widget(formContact.linkedin)}}
+
+                        {{ form_errors(formContact.linkedin) }}
+
+
+                        {{ form_label(formContact.phone)}}
+
+                        {{ form_widget(formContact.phone)}}
+
+                        {{ form_errors(formContact.phone) }}
+
+                    </div>
+                    <div class="row">
+
+                        {{ form_label(formContact.facebook)}}
+
+                        {{ form_widget(formContact.facebook)}}
+
+                        {{ form_errors(formContact.facebook) }}
+
+
+                        {{ form_label(formContact.standardPhone)}}
+
+                        {{ form_widget(formContact.standardPhone)}}
+
+                        {{ form_errors(formContact.standardPhone) }}
+
+                    </div>
+                    <div class="row">
+
+                        {{ form_label(formContact.twitter)}}
+
+                        {{ form_widget(formContact.twitter)}}
+
+                        {{ form_errors(formContact.twitter) }}
+
+                    </div>
+                    <div>
+                        {{ form_widget(formContact.optInNewsletter)}}
+
+                        {{ form_label(formContact.optInNewsletter)}}
+
+                        {{ form_widget(formContact.optInOffresCommercial)}}
+
+                        {{ form_label(formContact.optInOffresCommercial)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(formContact) }}
+    </div>
+{% endblock %}
