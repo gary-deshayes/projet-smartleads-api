@@ -64,50 +64,49 @@ class OperationSentController extends AbstractController
         $operationSent = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->findOneBy(array("uniqIdContact" => $request->get("uniqid")));
+        //Si l'opération existe
+        if ($operation != null) {
 
-        //Si déjà mis à jour on redirige vers une template déjà participé
-        if ($operationSent->getState() != 3) {
-            $contact = $operationSent->getContacts();
-            if ($contact != null) {
-                //On mets à vu le concours
-                $operationSent->setState(2);
-                $this->getDoctrine()->getManager()->persist($operationSent);
-                $this->getDoctrine()->getManager()->flush();
+            //Si l'opération n'est pas finie
+            if ($operation->getClosingDate() >= new \DateTime()) {
 
-                $form = $this->createForm(ContactsOperationType::class, $contact);
-                $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $contact->setUpdatedAt(new \DateTime());
-                    //On mets à mis à jour le concours
-                    $operationSent->setState(3);
-                    $this->getDoctrine()->getManager()->persist($operationSent);
-                    $this->getDoctrine()->getManager()->flush();
-                    return $this->render(
-                        "template_operations/thanks.html.twig",
-                        [
-                            "operation" => $operation,
-                        ]
+                //Si déjà mis à jour on redirige vers une template déjà participé
+                if ($operationSent->getState() != 3) {
 
-                    );
+                    $contact = $operationSent->getContacts();
+                    if ($contact != null) {
+                        //On mets à vu le concours
+                        $operationSent->setState(2);
+                        $this->getDoctrine()->getManager()->persist($operationSent);
+                        $this->getDoctrine()->getManager()->flush();
+
+                        $form = $this->createForm(ContactsOperationType::class, $contact);
+                        $form->handleRequest($request);
+                        if ($form->isSubmitted() && $form->isValid()) {
+                            $contact->setUpdatedAt(new \DateTime());
+                            //On mets à mis à jour le concours
+                            $operationSent->setState(3);
+                            $this->getDoctrine()->getManager()->persist($operationSent);
+                            $this->getDoctrine()->getManager()->flush();
+                            return $this->render("template_operations/thanks.html.twig",["operation" => $operation]);
+                        }
+                        return $this->render(
+                            "template_operations/operation_commerciale.html.twig",
+                            ["contact" => $contact,
+                                "operation" => $operation,
+                                "formContact" => $form->createView()]
+                        );
+                    }
+                } else {
+                    return $this->render("template_operations/already_sent.html.twig",["operation" => $operation,]);
                 }
-                return $this->render(
-                    "template_operations/operation_commerciale.html.twig",
-                    [
-                        "contact" => $contact,
-                        "operation" => $operation,
-                        "formContact" => $form->createView(),
-                    ]
-
-                );
+            } else {
+                //Redirect opération finie
+            return $this->render("template_operations/operation_finished.html.twig");
             }
         } else {
-            return $this->render(
-                "template_operations/already_sent.html.twig",
-                [
-                    "operation" => $operation,
-                ]
-
-            );
+            //Redirect pas d'opération
+            return $this->render("template_operations/operation_not_found.html.twig");
         }
     }
 }

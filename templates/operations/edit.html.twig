@@ -29,12 +29,16 @@
             <li class="nav-item">
                 <a aria-controls="parametrage" aria-selected="false" class="nav-link" data-toggle="tab" href="#parametrage" id="parametrage-tab" role="tab">Paramétrage</a>
             </li>
+            {% if (operation.getSendingDate != null and operation.getClosingDate != null) %}
             <li class="nav-item">
                 <a aria-controls="contacts_cible" aria-selected="false" class="nav-link" data-toggle="tab" href="#contacts_cible" id="contacts_cible-tab" role="tab">Contacts ciblés</a>
             </li>
+            {% endif %}
+            {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
             <li class="nav-item">
                 <a aria-controls="resultats" aria-selected="false" class="nav-link" data-toggle="tab" href="#resultats" id="resultats-tab" role="tab">Résultats</a>
             </li>
+            {% endif %}
         </ul>
         <div class="tab-content" id="myTabContent">
             <div aria-labelledby="informations-tab" class="tab-pane fade show active" id="informations" role="tabpanel">
@@ -43,9 +47,12 @@
             <div aria-labelledby="parametrage-tab" class="tab-pane fade" id="parametrage" role="tabpanel">
                 <h1>Paramétrage</h1>
             </div>
+            {% if (operation.getSendingDate != null and operation.getClosingDate != null) %}
             <div aria-labelledby="contacts_cible-tab" class="tab-pane fade" id="contacts_cible" role="tabpanel">
                 {{ include('operations/list_contacts.html.twig', {'button_label': 'Envoyer'}) }}
             </div>
+            {% endif %}
+            {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
             <div aria-labelledby="resultats-tab" class="tab-pane fade" id="resultats" role="tabpanel">
                 <h1>Résultats</h1>
                 <div>
@@ -69,6 +76,7 @@
 
                 </div>
             </div>
+            {% endif %}
         </div>
 
 

@@ -6,8 +6,8 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Operations
@@ -89,16 +89,16 @@ class Operations
     private $logo;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      * @Assert\DateTime
-     * @ORM\Column(name="sending_date", type="datetime", nullable=false)
+     * @ORM\Column(name="sending_date", type="datetime", nullable=true)
      */
     private $sending_date;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      * @Assert\DateTime
-     * @ORM\Column(name="closing_date", type="datetime", nullable=false)
+     * @ORM\Column(name="closing_date", type="datetime", nullable=true)
      */
     private $closing_date;
 
@@ -227,7 +227,7 @@ class Operations
         return $this->sending_date;
     }
 
-    public function setSendingDate(\DateTimeInterface $sending_date): self
+    public function setSendingDate(? \DateTimeInterface $sending_date): self
     {
         $this->sending_date = $sending_date;
 
@@ -239,7 +239,7 @@ class Operations
         return $this->closing_date;
     }
 
-    public function setClosingDate(\DateTimeInterface $closing_date): self
+    public function setClosingDate(? \DateTimeInterface $closing_date): self
     {
         $this->closing_date = $closing_date;
 
@@ -302,5 +302,17 @@ class Operations
         return $this->name;
     }
 
+    /**
+     * @Assert\Callback
+     * Si la date de début est plus grande que la date de fin 
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getSendingDate() > $this->getClosingDate()) {
+            $context->buildViolation('La date de début doit être inférieur à la date de fin')
+                ->atPath('sending_date')
+                ->addViolation();
+        }
+    }
 
 }

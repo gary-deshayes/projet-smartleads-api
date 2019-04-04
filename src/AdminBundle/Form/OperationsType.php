@@ -52,14 +52,16 @@ class OperationsType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                "required" => false
             ])
             ->add('closing_date', DateType::class, [
                 "label" => "Date de clôture",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                "required" => false
             ])
             ->add('imageFile', FileType::class, [
                 "required" => false,
