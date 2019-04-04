@@ -2,15 +2,14 @@
 
 namespace App\Controller;
 
-use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\Entity\OperationSent;
+use App\AdminBundle\Form\ContactsOperationType;
 use App\AdminBundle\Form\OperationSentType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\AdminBundle\Form\ContactsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class OperationSentController extends AbstractController
 {
@@ -56,36 +55,59 @@ class OperationSentController extends AbstractController
      */
     public function display(Request $request)
     {
+        //Opération concernée
         $operation = $this->getDoctrine()
             ->getRepository(Operations::class)
             ->findOneBy(array("name" => $request->get("name")));
 
-        $idContact = $this->getDoctrine()
+        //Ligne qui lit l'opération au contact etc
+        $operationSent = $this->getDoctrine()
             ->getRepository(OperationSent::class)
-            ->getContactOperationSent($request->get("uniqid"));
+            ->findOneBy(array("uniqIdContact" => $request->get("uniqid")));
 
-        $contact = $this->getDoctrine()
-            ->getRepository(Contacts::class)->findOneBy(array("code" => $idContact[0]["operationSent_id_contacts"]));
-        if ($contact != null) {
-
-            $form = $this->createForm(ContactsOperationType::class, $contact);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $contact->setUpdatedAt(new \DateTime());
+        //Si déjà mis à jour on redirige vers une template déjà participé
+        if ($operationSent->getState() != 3) {
+            $contact = $operationSent->getContacts();
+            if ($contact != null) {
+                //On mets à vu le concours
+                $operationSent->setState(2);
+                $this->getDoctrine()->getManager()->persist($operationSent);
                 $this->getDoctrine()->getManager()->flush();
 
-                die("Merci de la mise à jour");
+                $form = $this->createForm(ContactsOperationType::class, $contact);
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $contact->setUpdatedAt(new \DateTime());
+                    //On mets à mis à jour le concours
+                    $operationSent->setState(3);
+                    $this->getDoctrine()->getManager()->persist($operationSent);
+                    $this->getDoctrine()->getManager()->flush();
+                    return $this->render(
+                        "template_operations/thanks.html.twig",
+                        [
+                            "operation" => $operation,
+                        ]
+
+                    );
+                }
+                return $this->render(
+                    "template_operations/operation_commerciale.html.twig",
+                    [
+                        "contact" => $contact,
+                        "operation" => $operation,
+                        "formContact" => $form->createView(),
+                    ]
+
+                );
             }
+        } else {
             return $this->render(
-                "template_operations/operation_commerciale.html.twig",
+                "template_operations/already_sent.html.twig",
                 [
-                    "contact" => $contact,
                     "operation" => $operation,
-                    "formContact" => $form->createView()
                 ]
 
             );
         }
-        die("toto");
     }
 }

@@ -35,4 +35,47 @@ class OperationSentRepository extends ServiceEntityRepository
             ->setParameter(":operation", $operation)
             ->getQuery()->getResult();
     }
+
+    public function getNbNonOuvert($operation)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("COUNT(operationSent.operation) as nombre")
+            ->where("operationSent.state = 1")
+            ->andWhere("operationSent.operation = :operation")
+            ->setParameter(":operation", $operation)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function getNbLu($operation)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("COUNT(operationSent.operation) as nombre")
+            ->where("operationSent.state = 2")
+            ->andWhere("operationSent.operation = :operation")
+            ->setParameter(":operation", $operation)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function getNbMAJ($operation)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("COUNT(operationSent.operation) as nombre")
+            ->where("operationSent.state = 3")
+            ->andWhere("operationSent.operation = :operation")
+            ->setParameter(":operation", $operation)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function getNbContactsOperation($operation)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("COUNT(operationSent.operation) as nombre")
+            ->where("operationSent.operation = :operation")
+            ->setParameter(":operation", $operation)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }
