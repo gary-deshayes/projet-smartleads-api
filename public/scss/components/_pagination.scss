@@ -1,48 +1,36 @@
 .pagination {
     .previous {
         background-color: #F5F5F5;
-        border-radius: 6px;
-        height: 50px;
-        width: 50px;
-        margin-right: 5px;
+        @include btn-pagination();
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
         font-family: Roboto,Medium;
 
         a {
             color: #999999;
-            font-weight: 300;
-            font-size: 30px;
+            font-weight: bold;
+            font-size: 20px;
         }
     }
     .current {
         background-color: #CECECE;
-        border-radius: 6px;
-        height: 50px;
-        width: 50px;
-        margin-right: 5px;
+        @include btn-pagination();
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
         font-family: Roboto,Medium;
     }
     .page {
         background-color: white;
         border: 3px solid #F5F5F5;
         color: red !important;
-        border-radius: 6px;
-        height: 50px;
-        width: 50px;
-        margin-right: 5px;
+        @include btn-pagination();
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
 
         a {
             color: #B3B3B3;
@@ -53,36 +41,28 @@
 
     .next {
         background-color: #F5F5F5;
-        border-radius: 6px;
-        height: 50px;
-        width: 50px;
-        margin-right: 5px;
+        @include btn-pagination();
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
         font-family: Roboto,Medium;
         
         a {
             color: #999999;
-            font-weight: 300;
-            font-size: 30px;
+            font-weight: bold;
+            font-size: 20px;
         }
     }
 
     .first {
         display: none !important;
         background-color: #F5F5F5;
-        border-radius: 6px;
-        height: 50px;
-        width: 50px;
-        margin-right: 5px;
+        @include btn-pagination();
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
         font-family: Roboto,Medium;
         
         a {
@@ -95,15 +75,11 @@
     .last {
         display: none !important;
         background-color: #F5F5F5;
-        border-radius: 6px;
-        height: 50px;
-        width: 50px;
-        margin-right: 5px;
+        @include btn-pagination();
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
         font-family: Roboto,Medium;
         
         a {

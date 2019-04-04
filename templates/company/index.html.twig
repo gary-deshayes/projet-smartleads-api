@@ -69,10 +69,10 @@
                                         </td>
                                         <td>
                                             {% if company.getNombreContacts > 0 %}
-                                                <span class="badge badge-pill badge-danger">{{ company.getNombreContacts }}</span>
+                                                <span class="badge badge-pill badge-number">{{ company.getNombreContacts }}</span>
                                             </td>
                                         {% else %}
-                                            <span class="badge badge-pill badge-light">{{ company.getNombreContacts }}</span>
+                                            <span class="badge badge-pill badge-zero">{{ company.getNombreContacts }}</span>
                                         {% endif %}
                                         <td>
                                             <i class="fas fa-at" title="{{ company.email }}"></i>

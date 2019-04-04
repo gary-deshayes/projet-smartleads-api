@@ -1,4 +1,4 @@
-@import '../../common/mixins';
+@import '../common/mixins';
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -34,7 +34,7 @@ nav#sidebar {
         margin-top: 5px;
 
         .nav-item {
-            border-bottom: 2px #f9f9f9 solid;
+            border-bottom: 2px #f7f7f7 solid;
             display: flex;
             align-items: center;
 

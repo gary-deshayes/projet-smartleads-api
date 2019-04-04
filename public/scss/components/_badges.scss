@@ -1,0 +1,20 @@
+.badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    height: 22px;
+    width: 32px;
+    border-radius: 11px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+    &-number {
+        background-color: #CF1740;
+    }
+
+    &-zero {
+        color: #fff;
+        background-color: #D9D9D9;
+    }
+}
