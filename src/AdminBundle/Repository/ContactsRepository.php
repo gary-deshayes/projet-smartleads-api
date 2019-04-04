@@ -85,4 +85,22 @@ class ContactsRepository extends ServiceEntityRepository
             
         return $query->getSingleScalarResult();
     }
+
+    public function getContactsInArray($array){
+        $query = $this->createQueryBuilder('contacts')
+            ->orderBy('contacts.lastName', 'ASC')
+            ->where("contacts.code in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsOperationNotSend($array){
+        $query = $this->createQueryBuilder('contacts')
+            ->orderBy('contacts.lastName', 'ASC')
+            ->where("contacts.code not in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
 }

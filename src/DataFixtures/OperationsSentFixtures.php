@@ -12,10 +12,11 @@ class OperationsSentFixtures extends BaseFixture implements DependentFixtureInte
     {
         $this->createMany(1, "OperationSent", function($count){
             $operationSent = new OperationSent();
-            $operationSent->setIdContacts($this->getRandomReference("Contacts"));
-            $operationSent->setIdOperation($this->getRandomReference("Operation"));
-            $operationSent->setIdSalesperson($this->getRandomReference("Salesperson"));
+            $operationSent->setContacts($this->getRandomReference("Contacts"));
+            $operationSent->setOperation($this->getRandomReference("Operation"));
+            $operationSent->setSalesperson($this->getRandomReference("Salesperson"));
             $operationSent->setSentAt(new \DateTime());
+            $operationSent->setUniqIdContact(\uniqid());
             return $operationSent;
         });
 

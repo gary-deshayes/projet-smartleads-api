@@ -1,13 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Operations{% endblock %}
+{% block title %}Modification opération :
+    {{ operation.name }}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Operations</h1>
 
-    {{ include('operations/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="window">
+        <div class="form-informations">
+            <p class="infos-entity">{{ operation.name}}</p>
+            <div class="inline-status-date">
+                <p>Dernière mise à jour le
+                    {{ operation.updatedAt | date("d/m/Y")}}</p>
+                {# <div class="custom-control custom-switch">
+                                                                    {% if contact.status == 1 %}
+                                                                        <input checked class="custom-control-input" id="statut-contact" type="checkbox">
+                                                                            <label class="custom-control-label" for="statut-contact"></label>
+                                                                        {% else %}
+                                                                            <input class="custom-control-input" id="statut-contact" type="checkbox">
+                                                                                <label class="custom-control-label" for="statut-contact"></label>
+                                                                            {# {% endif %} #}
+            </div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#informations" id="informations-tab" role="tab">Informations</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="parametrage" aria-selected="false" class="nav-link" data-toggle="tab" href="#parametrage" id="parametrage-tab" role="tab">Paramétrage</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="contacts_cible" aria-selected="false" class="nav-link" data-toggle="tab" href="#contacts_cible" id="contacts_cible-tab" role="tab">Contacts ciblés</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="resultats" aria-selected="false" class="nav-link" data-toggle="tab" href="#resultats" id="resultats-tab" role="tab">Résultats</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div aria-labelledby="informations-tab" class="tab-pane fade show active" id="informations" role="tabpanel">
+                {{ include('operations/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            <div aria-labelledby="parametrage-tab" class="tab-pane fade" id="parametrage" role="tabpanel">
+                <h1>Paramétrage</h1>
+            </div>
+            <div aria-labelledby="contacts_cible-tab" class="tab-pane fade" id="contacts_cible" role="tabpanel">
+                {{ include('operations/list_contacts.html.twig', {'button_label': 'Envoyer'}) }}
+            </div>
+            <div aria-labelledby="resultats-tab" class="tab-pane fade" id="resultats" role="tabpanel">
+                <h1>Résultats</h1>
+                <div>
+                    <p>Nombre de personne ayant reçu l'opération <strong class="red-primary">{{nbRecu}}</strong>
+                    </p>
 
-    <a href="{{ path('operations_index') }}">back to list</a>
+                </div>
+                <div>
+                    <p>Nombre de personne ayant ouvert l'opération <strong class="red-primary">{{nbOuvert}}</strong>
+                    </p>
 
-    {{ include('operations/_delete_form.html.twig') }}
+                </div>
+                <div>
+                    <p>Nombre de personne ayant mis à jour leurs informations <strong class="red-primary">{{nbMaj}}</strong>
+                    </p>
+
+                </div>
+                <div>
+                    <p>Nombre de personne n'ayant pas ouvert l'opération <strong class="red-primary">{{nbNonOuvert}}</strong>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 {% endblock %}

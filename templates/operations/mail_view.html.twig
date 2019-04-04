@@ -1,0 +1,11 @@
+{# templates/emails/registration.html.twig #}
+<h3>Jeux concours</h3>
+
+Bonjour {{ name }},
+
+Nous vous invitons à participer à notre jeu concours.
+
+Voici le lien : <a href="{{link}}">lien vers jeu concours</a>
+
+{# Makes an absolute URL to the /images/logo.png file #}
+<img src="{{ absolute_url(asset('img/logo-login.png')) }}">

@@ -1,37 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Operations index{% endblock %}
+{% block title %}Opérations
+{% endblock %}
 
 {% block body %}
-    <h1>Operations index</h1>
+    <h1></h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Lien</th>
-                <th>Type</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for operation in operations %}
-            <tr>
-                <td>{{ operation.name }}</td>
-                <td>{{ operation.url }}</td>
-                <td>{{ operation.typeoperation }}</td>
-                <td>
-                    <a href="{{ path('operations_show', {'name': operation.name}) }}">Afficher</a>
-                    <a href="{{ path('operations_edit', {'name': operation.name}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="titleSearch">
+        <div>
+            <h1 class="inline-search">Opérations<strong class="red-primary">({{nbOperations}})</strong></h1>
+        </div>
+        {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
+        {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
+        <button class="btn-search">
+            <i aria-hidden="true" class="fas fa-search"></i>
+        </button>
+    </div>
+
+    <div class="container-content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" id="check-all" type="checkbox" value="all">
+                            <label class="custom-control-label" for="check-all"></label>
+                        </div>
+                    </th>
+                    <th>Nom de l'opération</th>
+                    <th>Date de création</th>
+                    <th>Entreprises ciblées</th>
+                    <th>Contacts ciblés</th>
+                    <th>Auteur</th>
+                    <th>Statut</th>
+                    <th>Mise à jour</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for operation in operations %}
+                    <tr class="clickable-row" data-href="{{ path('operations_edit', {'code': operation.code}) }}">
+                        <td class="check-user">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check-{{ operation.code }}" value="{{ operation.code }}">
+                                <label class="custom-control-label" for="check-{{ operation.code }}"></label>
+                            </div>
+                        </td>
+                        <td>{{ operation.name }}</td>
+                        <td>{{ operation.created_at | date("d/m/Y") }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ operation.author }}</td>
+                        <td>
+                            {% if operation.state == "Brouillon" %}
+                                <span class="badge badge-pill badge-warning">{{ operation.state }}</span>
+                            {% endif %}
+                            {% if operation.state == "En cours" %}
+                                <span class="badge badge-pill badge-success">{{ operation.state }}</span>
+                            {% endif %}
+                            {% if operation.state == "Terminée" %}
+                                <span class="badge badge-pill badge-light">{{ operation.state }}</span>
+                            {% endif %}
+                        </td>
+                        <td></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="panel-Boutons">
+            <div class="panel-left">
+                {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
+                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                <i class="fas fa-download fa-lg" title="Télécharger"></i>
+                <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+            </div>
+            {{ knp_pagination_render(operations) }}
+            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+        </div>
+    </div>
 
     <a href="{{ path('operations_new') }}">Créer une opération</a>
 {% endblock %}

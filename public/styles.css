@@ -250,6 +250,10 @@ input#search-search:focus {
   box-shadow: 0px 0px 6px 3px #f1f1f1;
   border: 1px solid #e6e6e6; }
 
+.div-contacts-cible {
+  margin-left: 30px;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

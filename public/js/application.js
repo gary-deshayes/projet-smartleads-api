@@ -3,16 +3,25 @@
 
 //Permet de rendre les lignes des tables clickable
 $(document).ready(function ($) {
+    //Ligne table clickable
     $(".clickable-row").on("click", "td:gt(0)", function () {
         window.location = $(this).parent().data("href");
     });
-});
-//Side nav bar
-$(document).ready(function () {
+
+    //sidenav
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
     });
+
+    $(".div-contacts-cible input").addClass("col-lg-1");
+    $(".div-contacts-cible label").addClass("col-lg-11");
 });
+// $(document).ready(function () {
+//     $('#mail').on('click', function () {
+//         alert('Email envoyé');
+//     });
+// });
+
 $(function () {
     $(".datepicker").datepicker({
         dateFormat: "dd-mm-yy",
@@ -59,3 +68,4 @@ function changeStatutContact(value){
         }
       });
 }
+
