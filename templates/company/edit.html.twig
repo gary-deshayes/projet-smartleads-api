@@ -1,13 +1,58 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Edit Company{% endblock %}
-
-{% block body %}
-    <h1>Edit Company</h1>
-
-    {{ include('company/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('company_index') }}">back to list</a>
-
-    {{ include('company/_delete_form.html.twig') }}
+{% block title %}Modification entreprise :
+    {{( company.name | upper )}}
 {% endblock %}
+{% block body %}
+    <div class="window">
+        <div class="form-informations">
+            <div class="infos-entity">
+                <p class="title">{{( company.name | upper )}}</p>
+                <p class="description">, {{ company.nafCode }} ({{ company.town }} {{ company.postalCode }})</p>
+            </div>
+            
+            <div class="inline-status-date">
+            <p class="infos">A jour</p>
+                <p>Dernière mise à jour le
+                    {{ company.updatedAt | date("d/m/Y")}}</p>
+                <div class="custom-control custom-switch">
+                    {% if company.status == 1 %}
+                        <input checked class="custom-control-input" id="statut-company" type="checkbox">
+                            <label class="custom-control-label" for="statut-company"></label>
+                        {% else %}
+                            <input class="custom-control-input" id="statut-company" type="checkbox">
+                                <label class="custom-control-label" for="statut-company"></label>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="contacts" aria-selected="false" class="nav-link" data-toggle="tab" href="#contacts" id="company-contacts" role="tab">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="company-notes" role="tab">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="history" aria-selected="false" class="nav-link" data-toggle="tab" href="#history" id="company-history" role="tab">Historique</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
+                        {{ include('company/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+                    </div>
+                    <div aria-labelledby="company-contacts" class="tab-pane fade" id="contacts" role="tabpanel">
+                        <p>Contacts</p>
+                    </div>
+                    <div aria-labelledby="company-notes" class="tab-pane fade" id="notes" role="tabpanel">
+                        <p>Notes</p>
+                    </div>
+                    <div aria-labelledby="company-history" class="tab-pane fade" id="history" role="tabpanel">
+                        <p>Historique</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}

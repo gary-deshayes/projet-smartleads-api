@@ -100,6 +100,9 @@
     }
 
     .infos-entity {
+        color: #888888;
+        margin-bottom: 10px;
+
         .title {
             font-size: 18px;
             font-weight: bold;
@@ -107,6 +110,7 @@
 
         .description {
             font-size: 18px;
+            font-weight: 300;
         }
     }
 
@@ -114,6 +118,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        color: #888888;
 
         .infos {
             font-size: 13px;

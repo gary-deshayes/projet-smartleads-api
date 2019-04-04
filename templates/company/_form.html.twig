@@ -8,12 +8,12 @@
                 {% endif %}
                 {{ form_widget(form.imageFile) }}
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-10 form-style">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.idSalesperson, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.idSalesperson, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.idSalesperson, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.idSalesperson, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                             {{ form_errors(form.idSalesperson) }}
                         </div>
                     </div>
@@ -26,10 +26,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                            {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -40,10 +42,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.name, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.name, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.name, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.name, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            </div>
                             {{ form_errors(form.name) }}
                         </div>
                     </div>
@@ -56,10 +60,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.status, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.status, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.status, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.status, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            </div>
                             {{ form_errors(form.status) }}
                         </div>
                     </div>
@@ -71,10 +77,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.nafCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.nafCode, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.nafCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            <div class="required-field">
+                                {{ form_widget(form.nafCode, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            </div>
                             {{ form_errors(form.nafCode) }}
                         </div>
                     </div>
@@ -86,10 +94,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.idLegalStatus, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.idLegalStatus, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.idLegalStatus, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.idLegalStatus, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -102,10 +110,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.siret, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.siret, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.siret, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.siret, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                             {{ form_errors(form.siret) }}
                         </div>
                     </div>
@@ -119,10 +127,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.idNumberEmployees, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.idNumberEmployees, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.idNumberEmployees, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.idNumberEmployees, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                             {{ form_errors(form.idNumberEmployees) }}
                         </div>
                     </div>
@@ -136,10 +144,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.idTurnovers, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.idTurnovers, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.idTurnovers, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.idTurnovers, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                             {{ form_errors(form.idTurnovers) }}
                         </div>
                         {# operation <div class="row">
@@ -150,17 +158,37 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.comment, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
-                            {{ form_widget(form.comment, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_label(form.comment, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.comment, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                         </div>
                     </div>
                 </div>
-                {{ form_row(form.status) }}
-                <button class="btn btn-radius-red">Supprimer</button>
-                <button class="btn btn-radius-red">Demande de mise à jour</button>
+            </div>
+        </div>
+        {% if app.request.attributes.get("_route") == "company_edit" %}
+            <div class="btn-end-form-upd">
+                <div>
+                    <button class="btn btn-retour-radius btn-light">
+                        <a href="{{path('company_index')}}">Retour</a>
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
+                    <button class="btn btn-radius-red btn-outline-red">Demande de mise à jour</button>
+                    <button class="btn btn-radius-red">
+                        {{ button_label|default('Save') }}</button>
+                </div>
+            </div>
+        {% endif %}
+        {# {% if app.request.attributes.get("_route") == "company_edit" %}
+                            {{ include('company/_delete_form.html.twig') }}
+                        {% endif %} #}
+        {% if app.request.attributes.get("_route") == "company_new" %}
+            <div class="btn-end-form-add">
+                <a class="btn btn-basic btn-second" href="{{ path('company_index') }}">Annuler</a>
                 <button class="btn btn-radius-red">
                     {{ button_label|default('Save') }}</button>
             </div>
-        </div>
+        {% endif %}
         {{ form_end(form) }}
         
