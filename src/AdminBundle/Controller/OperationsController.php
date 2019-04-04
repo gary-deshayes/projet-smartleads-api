@@ -99,10 +99,12 @@ class OperationsController extends AbstractController
         $nbNonOuvert  = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->getNbNonOuvert($operation->getCode());
+
         //On récupère le nombre de personne qui ont mis à jour leurs infos
         $nbMaj = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->getNbMAJ($operation->getCode());
+            
         //On ne récupere que les id des contacts qui ont déjà reçu l'opération
         $idContacts = $this->getDoctrine()
             ->getRepository(OperationSent::class)

@@ -32,6 +32,14 @@ $(function () {
         buttonText: "<i class='fa fa-calendar'></i>"
     });
 
+    $(".datepicker-operation").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        buttonText: "<i class='fa fa-calendar'></i>"
+    });
+
 
     $("#anim").on("change", function () {
         $("#datepicker").datepicker("option", "showAnim", $(this).val());

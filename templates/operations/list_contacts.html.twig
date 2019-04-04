@@ -1,17 +1,28 @@
-{{ form_start(formAddContacts) }}
-<div class="row">
+{% if  "now" | date("Y-m-d") >= operation.getSendingDate | date("Y-m-d") and "now" | date("Y-m-d") <= operation.getClosingDate | date("Y-m-d") %}
 
-    <div class="scrollbar scrollbar-primary">
-        <div class="div-contacts-cible" style="overflow-y: scroll; height:300px; width:300px;">
-            {{ form_widget(formAddContacts.operation)}}
-            {{ form_widget(formAddContacts.contacts)}}</div>
+    {{ form_start(formAddContacts) }}
+    <div class="row">
 
+        <div class="scrollbar scrollbar-primary">
+            <div class="div-contacts-cible" style="overflow-y: scroll; height:300px; width:300px;">
+                {{ form_widget(formAddContacts.operation)}}
+                {{ form_widget(formAddContacts.contacts)}}</div>
+
+        </div>
     </div>
-</div>
-<div class="btn-end-form-add">
-    <div>
-        <button class="btn btn-radius-red">
-            {{ button_label|default('Send') }}</button>
+    <div class="btn-end-form-add">
+        <div>
+            <button class="btn btn-radius-red">
+                {{ button_label|default('Send') }}</button>
+        </div>
     </div>
-</div>
-{{ form_end(formAddContacts) }}
+    {{ form_end(formAddContacts) }}
+{% else %}
+    <div class="row">
+        {% if  "now" | date("Y-m-d") < operation.getSendingDate | date("Y-m-d") %}
+            <p>L'opération n'a pas encore commencée, patientez le jour de début pour envoyer les emails</p>
+        {% elseif "now" | date("Y-m-d") > operation.getClosingDate | date("Y-m-d") %}
+            <p>L'opération est finie, vous ne pouvez plus en envoyer</p>
+        {% endif %}
+    </div>
+{% endif %}
