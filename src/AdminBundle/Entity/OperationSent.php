@@ -57,6 +57,16 @@ class OperationSent
     private $contacts;
 
     /**
+     * @var int
+     * 1 = envoyé
+     * 2 = ouvert
+     * 3 = mis à jour
+     * 
+     * @ORM\Column(name="state", type="integer", length=11, nullable=false)
+     */
+    private $state;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="uniqIdContact", type="string", length=255, nullable=false)
@@ -124,4 +134,28 @@ class OperationSent
     }
 
 
+
+    /**
+     * Get the value of state
+     *
+     * @return  int
+     */ 
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set the value of state
+     *
+     * @param  int  $state
+     *
+     * @return  self
+     */ 
+    public function setState(int $state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
 }

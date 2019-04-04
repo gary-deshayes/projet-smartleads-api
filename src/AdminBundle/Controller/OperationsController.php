@@ -61,8 +61,7 @@ class OperationsController extends AbstractController
     /**
      * @Route("/new", name="operations_new", methods={"GET","POST"})
      */
-    function new(Request $request): Response
-    {
+    function new (Request $request): Response {
         $operation = new Operations();
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
@@ -86,6 +85,24 @@ class OperationsController extends AbstractController
      */
     public function edit(Request $request, Operations $operation, \Swift_Mailer $mailer): Response
     {
+        //On récupère le nombre de contacts qui ont reçu l'opération
+        $nbContactOperation = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->getNbContactsOperation($operation->getCode());
+
+        //On récupère le nombre de personne qui ont vu l'opération
+        $nbLuOperation = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->getNbLu($operation->getCode());
+
+        //On récupère le nombre de personne qui non pas ouvert l'opération
+        $nbNonOuvert  = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->getNbNonOuvert($operation->getCode());
+        //On récupère le nombre de personne qui ont mis à jour leurs infos
+        $nbMaj = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->getNbMAJ($operation->getCode());
         //On ne récupere que les id des contacts qui ont déjà reçu l'opération
         $idContacts = $this->getDoctrine()
             ->getRepository(OperationSent::class)
@@ -101,7 +118,7 @@ class OperationsController extends AbstractController
                 ->getRepository(Contacts::class)
                 ->getContactsOperationNotSend($idContacts);
         }
-        
+
         $defaultData = ['message' => 'Form sans entité'];
 
         // Formulaire des contacts qui recevront l'opération
@@ -142,6 +159,7 @@ class OperationsController extends AbstractController
                 $operationSent->setContacts($contact);
                 $operationSent->setUniqIdContact($uniqid);
                 $operationSent->setSentAt(new \DateTime());
+                $operationSent->setState(1);
                 $em->persist($operationSent);
 
                 $message = (new \Swift_Message($operation->getMailObject()))
@@ -153,7 +171,7 @@ class OperationsController extends AbstractController
                             'operations/mail_view.html.twig',
                             [
                                 "name" => $contact->__toString(),
-                                "link" => $_SERVER["HTTP_ORIGIN"] . "/operation/" . $operation->getName() . "/" . $uniqid
+                                "link" => $_SERVER["HTTP_ORIGIN"] . "/operation/" . $operation->getName() . "/" . $uniqid,
                             ]
                         ),
                         'text/html'
@@ -180,6 +198,10 @@ class OperationsController extends AbstractController
             'form' => $form->createView(),
             'contacts' => $contacts,
             'formAddContacts' => $formAddContacts->createView(),
+            'nbRecu' => $nbContactOperation["nombre"],
+            'nbOuvert' => $nbLuOperation["nombre"],
+            'nbMaj' => $nbMaj["nombre"],
+            'nbNonOuvert' => $nbNonOuvert["nombre"]
         ]);
     }
 
