@@ -47,7 +47,6 @@ class RegionFixtures extends BaseFixture
         $this->t_regions['Provence-Alpes-Côte-d\'Azur'] = '04,05,06,13,83,84'; 
         $this->t_regions['Rhône-Alpes'] = '01,07,26,38,42,69,73,74'; 
         $this->t_regions['DOM'] = '971,972,973,974'; 
-        dump($this->t_regions);
         $this->keys = array_keys($this->t_regions);
         $this->values = array_values($this->t_regions);
     }
