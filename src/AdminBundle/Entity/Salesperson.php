@@ -299,6 +299,12 @@ class Salesperson implements UserInterface
     private $password;
 
     /**
+     * @var string|null
+     * @ORM\Column(type="string")
+     */
+    private $tokenResetPassword;
+
+    /**
      * Un commercial a plusieurs contacts
      * @OneToMany(targetEntity="Contacts", mappedBy="code")
      */
@@ -413,6 +419,21 @@ class Salesperson implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getTokenResetPassword(): string
+    {
+        return (string) $this->tokenResetPassword;
+    }
+
+    public function setTokenResetPassword(string $tokenResetPassword): self
+    {
+        $this->tokenResetPassword = $tokenResetPassword;
 
         return $this;
     }

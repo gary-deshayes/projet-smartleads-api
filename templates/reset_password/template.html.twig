@@ -1,0 +1,14 @@
+<h1>Bonjour {{ firstName }} {{ name }} </h1>
+
+<p>Vous recevez ce message parce qu'une réinitialisation du mot de passe de votre compte utilisateur a
+été demandée sur l'application Smartleads</p>
+
+<h2>ATTENTION</h2>
+<p>Si vous n'avez pas demandé une réinitialisation du mot de passe, IGNOREZ et EFFACEZ ce courriel
+immédiatement. Continuez uniquement si vous souhaitez que votre mot de passe soit réinitialisé !</p>
+
+<p>Cliquez simplement sur le lien et choisissez un nouveau mot de passe :<p>
+<a href="{{ path('reset_password_token', {'token': token}) }}">Réinitialisation du mot de passe</a>
+
+<p>Cordialement,</br>
+L'équipe de Smartleads</p>

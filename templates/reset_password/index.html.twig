@@ -1,12 +1,4 @@
-{# templates/emails/registration.html.twig #}
-<h3>Mot de passe oublié?</h3>
-
-Bonjour      ,
-
-{# example, assuming you have a route named "login" #}
-Pour modifier votre mot de passe : <a href="{{ path('app_login') }}">cliquez ici</a>.
-
-Merci !
-
-{# Makes an absolute URL to the /images/logo.png file #}
-<img src="{{ absolute_url(asset('img/logo-login.png')) }}">
+{{ form_start(form) }}
+{{ form_label(form.email) }}
+{{ form_widget(form.email) }}
+{{ form_end(form) }}
