@@ -29,7 +29,8 @@
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                 <button type="submit" class="btn primary-btn">Connexion</button>
-                <a class="text-description" id="mail" href=" {{ path('send_mail') }}">Mot de passe oublié ?</a>
+                <a class="text-description" id="mail" href=" {{ path('reset_password') }}">Mot de passe oublié ?</a>
+                
             </form>
             <div class="bottom-connect">
                 <p class="text-muted">Smartleads © tous droits réservés  |  <a class="text-description" href="#">Contactez le support technique</a></p>

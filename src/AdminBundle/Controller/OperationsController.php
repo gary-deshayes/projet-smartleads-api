@@ -127,7 +127,7 @@ class OperationsController extends AbstractController
         $formAddContacts = $this->createFormBuilder($defaultData)
             ->add('contacts', EntityType::class, [
                 'class' => Contacts::class,
-                'choices' => $contacts,
+                // 'choices' => $contacts,
                 "multiple" => true,
                 "expanded" => true,
             ])
