@@ -14,12 +14,27 @@ class ContactsController extends AbstractController
 {
 
     /**
-     * Récupère le nombre de contacts pour chaque jour des 8 derniers jours passés
-     * @Route("/getlastweeknewcontacts", name="api_contacts_getlastweeknewcontacts", methods={"GET"})
+     * Récupère le nombre de contacts pour chaque jour de la période demandé
+     * @Route("/getNumberNewContactsPerDay/{since}", name="api_contacts_getnumbernewcontactsperday", methods={"GET"})
      */
-    public function lastWeekNewContactsPerDay()
+    public function getNumberNewContactsPerDay($since)
     {
-        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->lastWeekNewContactsPerDay();
+        $period = "";
+        switch($since){
+            case "day":
+                $period = "-1 days";
+            break;
+            case "week":
+                $period = "-1 week";
+            break;
+            case "month":
+                $period = "-1 month";
+            break;
+            case "year":
+                $period = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->getNumberNewContactsPerDay($period);
         $result = $query->execute();
         $data = array();
         if (count($result) > 0) {
@@ -42,7 +57,7 @@ class ContactsController extends AbstractController
         } else {
             $dataJson = [
                 "message" => "Aucune données pour cette plage horaires",
-                "retour" => "2"
+                "retour" => "-1"
             ];
             $response = new Response(json_encode($dataJson), 200);
             $response->headers->set('Content-Type', 'application/json');
@@ -91,9 +106,9 @@ class ContactsController extends AbstractController
     
     /**
      * Création d'un contact
-     * @Route("/lastContactsSince/{since}", name="api_contacts_lastContactsSince", methods={"GET"})
+     * @Route("/getNumberNewContactsSince/{since}", name="api_contacts_getNumberNewContactsSince", methods={"GET"})
      */
-    public function lastContactsSince($since){
+    public function getNumberNewContactsSince($since){
         $dateSince = "";
         switch($since){
             case "day":
@@ -109,34 +124,61 @@ class ContactsController extends AbstractController
                 $dateSince = "-1 year";
             break;
         }
-        dump($since);
-        $query = $this->getDoctrine()->getRepository('AdminBundle:Contacts')->lastContactsSince($dateSince);
-        dump($query->getResult());
+        $query = $this->getDoctrine()->getRepository('AdminBundle:Contacts')->getNumberNewContactsSince($dateSince);
         $response = new Response(json_encode($dateSince), 200);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 
     /**
-     * Création d'un contact
-     * @Route("/post", name="api_contacts_post", methods={"POST"})
+     * Récupère le nombre de contacts pour chaque jour de la période demandé
+     * @Route("/getNumberContactsUpdatedPerDay/{since}", name="api_contacts_getnumbernewcontactsupdatedperday", methods={"GET"})
      */
-    public function post()
+    public function getNumberContactsUpdatedPerDay($since)
     {
+        $period = "";
+        switch($since){
+            case "day":
+                $period = "-1 days";
+            break;
+            case "week":
+                $period = "-1 week";
+            break;
+            case "month":
+                $period = "-1 month";
+            break;
+            case "year":
+                $period = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->getNumberContactsUpdatedPerDay($period);
+        $result = $query->execute();
+        $data = array();
+        if (count($result) > 0) {
+            
+            foreach ($result as $res) {
+                $res_data = array(
+                    "date" => $res["updatedAt"],
+                    "nombre" => $res["nb"],
 
-    }
-    /**
-     * Edition d'un contact
-     * @Route("/edit/{id}", name="api_contacts_edit", methods={"PUT"})
-     */
-    public function edit()
-    {
-    }
-    /**
-     * Suppression d'un contact
-     * @Route("/delete/{id}", name="api_contacts_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
+                );
+                array_push($data, $res_data);
+            }
+            $dataJson = [
+                "data" => $data,
+                "retour" => "1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+
+        } else {
+            $dataJson = [
+                "message" => "Aucune données pour cette plage horaires",
+                "retour" => "-1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        }
+        return $response;
     }
 }

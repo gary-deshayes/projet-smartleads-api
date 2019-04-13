@@ -53,5 +53,56 @@ class CompanyRepository extends ServiceEntityRepository
         return $query->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts crée ce jour là
+     */
+    public function getNumberNewCompanies($since){
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("company")
+            ->select("COUNT(company.createdAt) as nb, DATE(company.createdAt) as createdAt")
+            ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
+            ->groupby("createdAt")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
+    }
+
+    /**
+     * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
+     * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
+     */
+    public function getNumberNewCompaniesSince($since){
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("company")
+            ->select("COUNT(company.createdAt) as nb")
+            ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
+     * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
+     */
+    public function getNumberCompaniesBetween($begin, $end){
+        date_default_timezone_set('Europe/Paris');
+        $begin = date("Y-m-d 00:00", strtotime($begin));
+        $end = date("Y-m-d 00:00", strtotime($end));
+        $query = $this->createQueryBuilder("company")
+            ->select("COUNT(company.createdAt) as nb")
+            ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
+            ->setParameter('date_debut', $begin)
+            ->setParameter('date_fin', $end)
+            ->getQuery();
+        return $query->getSingleScalarResult();
+    }
+
    
 }
