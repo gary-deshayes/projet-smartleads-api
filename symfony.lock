@@ -189,6 +189,9 @@
             "ref": "f3a28efb32f20b8740fd763651cabd780bce43da"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.2"
+    },
     "symfony/debug": {
         "version": "v4.1.8"
     },
@@ -361,6 +364,9 @@
     },
     "symfony/var-dumper": {
         "version": "v4.1.8"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.5"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

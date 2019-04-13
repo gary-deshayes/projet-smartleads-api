@@ -19,40 +19,102 @@ class OperationsController extends AbstractController
      * Récupération des opérations
      * @Route("/getrelease", name="api_operations_getrelease", methods={"GET"})
      */
-    public function operation_release(){
+    public function operation_release()
+    {
         $repoOpeSent = $this->getDoctrine()->getRepository("AdminBundle:OperationSent");
         $query = $repoOpeSent->createQueryBuilder('operation')
-                    ->select("COUNT(DISTINCT operation.idOperation) as nombre")->getQuery();
-        
+            ->select("COUNT(DISTINCT operation.idOperation) as nombre")->getQuery();
+
         $data = array("nombre" => $query->getResult()[0]["nombre"]);
         $response = new Response(json_encode($data), 200);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 
+
+
     /**
-     * Récupération des opérations
-     * @Route("/get/{id}", name="api_operations_get", methods={"GET"})
+     * Récuperations des opérations actives pendant la durée
+     * @Route("/operationsActives/{between}", name="api_operations_operationsActivesBetween", methods={"GET"})
      */
-    public function getter(){
+    public function operationsActives($between)
+    {
+        $dateBetween = "";
+        switch ($between) {
+            case "day":
+                $dateBetween = "-1 days";
+                break;
+            case "week":
+                $dateBetween = "-1 week";
+                break;
+            case "month":
+                $dateBetween = "-1 month";
+                break;
+            case "year":
+                $dateBetween = "-1 year";
+                break;
+        }
+        $query = $this->getDoctrine()->getRepository('AdminBundle:Operations')->getNbOperationsActives($dateBetween);
+        $data = array(
+            "nombre" => $query[0]["nb"]
+        );
+        $dataJson = [
+            "data" => $data,
+            "retour" => 1
+        ];
+        $response = new Response(json_encode($dataJson), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
+
     /**
-     * Création d'une opération
-     * @Route("/post", name="api_operations_post", methods={"POST"})
+     * Récupère le nombre de nouvelles opérations pour chaque jour de la période
+     * @Route("/getNumberOperationsPerDay/{since}", name="api_operations_getnumbernewoperationsperday", methods={"GET"})
      */
-    public function post(){
-        
-    }
-    /**
-     * Edition d'une opération
-     * @Route("/edit/{id}", name="api_operations_edit", methods={"PUT"})
-     */
-    public function edit(){
-    }
-    /**
-     * Suppression d'une opération
-     * @Route("/delete/{id}", name="api_operations_delete", methods={"DELETE"})
-     */
-    public function delete(){
+    public function getNumberOperationsPerDay($since)
+    {
+        $period = "";
+        switch ($since) {
+            case "day":
+                $period = "-1 days";
+                break;
+            case "week":
+                $period = "-1 week";
+                break;
+            case "month":
+                $period = "-1 month";
+                break;
+            case "year":
+                $period = "-1 year";
+                break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Operations")->getNumberOperationsPerDay($period);
+        $result = $query->execute();
+        $data = array();
+        if (count($result) > 0) {
+
+            foreach ($result as $res) {
+                $res_data = array(
+                    "date" => $res["created_at"],
+                    "nombre" => $res["nb"],
+
+                );
+                array_push($data, $res_data);
+            }
+            $dataJson = [
+                "data" => $data,
+                "retour" => "1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        } else {
+            $dataJson = [
+                "message" => "Aucune données pour cette plage horaires",
+                "retour" => "-1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        }
+        return $response;
     }
 }

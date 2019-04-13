@@ -80,7 +80,6 @@ class ContactsRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('contacts')
             ->select('count(contacts.code)')
-            ->orderBy('contacts.lastName', 'ASC')
             ->getQuery();
             
         return $query->getSingleScalarResult();
@@ -102,5 +101,56 @@ class ContactsRepository extends ServiceEntityRepository
             ->setParameter(":array", $array)
             ->getQuery();
         return $query->getResult();
+    }
+
+    /**
+     * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts crée ce jour là
+     */
+    public function getNumberNewContactsPerDay($since){
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("contacts")
+            ->select("COUNT(contacts.createdAt) as nb, DATE(contacts.createdAt) as createdAt")
+            ->where("DATE(contacts.createdAt) BETWEEN :date_debut AND :date_fin")
+            ->groupby("createdAt")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
+    }
+
+    /**
+     * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts mis à jour ce jour là
+     */
+    public function getNumberContactsUpdatedPerDay($since){
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("contacts")
+            ->select("COUNT(contacts.updatedAt) as nb, DATE(contacts.updatedAt) as updatedAt")
+            ->where("DATE(contacts.updatedAt) BETWEEN :date_debut AND :date_fin")
+            ->groupby("updatedAt")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
+    }
+
+    /**
+     * Récupère le nombre de nouveaux contacts depuis la variable envoyée
+     * @param $since Permet de savoir depuis quand on cherche les nouveaux contacts
+     */
+    public function getNumberNewContactsSince($since){
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("contacts")
+            ->select("COUNT(contacts.createdAt) as nb")
+            ->where("DATE(contacts.createdAt) BETWEEN :date_debut AND :date_fin")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
     }
 }

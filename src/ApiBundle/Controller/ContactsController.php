@@ -14,22 +14,27 @@ class ContactsController extends AbstractController
 {
 
     /**
-     * Récupère le nombre de contacts pour chaque jour des 8 derniers jours passés
-     * @Route("/getlastweeknewcontacts", name="api_contacts_getlastweeknewcontacts", methods={"GET"})
+     * Récupère le nombre de contacts pour chaque jour de la période demandé
+     * @Route("/getNumberNewContactsPerDay/{since}", name="api_contacts_getnumbernewcontactsperday", methods={"GET"})
      */
-    public function lastWeekNewContacts()
+    public function getNumberNewContactsPerDay($since)
     {
-        $contactsRepository = $this->getDoctrine()->getRepository("AdminBundle:Contacts");
-        date_default_timezone_set('Europe/Paris');
-        $dateNow = date("Y-m-d H:i");
-        $dateBefore = date("Y-m-d 00:00", strtotime('-8 days'));
-        $query = $contactsRepository->createQueryBuilder("contacts")
-            ->select("COUNT(contacts.createdAt) as nb, DATE(contacts.createdAt) as createdAt")
-            ->where("DATE(contacts.createdAt) BETWEEN :date_debut AND :date_fin")
-            ->groupby("createdAt")
-            ->setParameter('date_debut', $dateBefore)
-            ->setParameter('date_fin', $dateNow)
-            ->getQuery();
+        $period = "";
+        switch($since){
+            case "day":
+                $period = "-1 days";
+            break;
+            case "week":
+                $period = "-1 week";
+            break;
+            case "month":
+                $period = "-1 month";
+            break;
+            case "year":
+                $period = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->getNumberNewContactsPerDay($period);
         $result = $query->execute();
         $data = array();
         if (count($result) > 0) {
@@ -52,7 +57,7 @@ class ContactsController extends AbstractController
         } else {
             $dataJson = [
                 "message" => "Aucune données pour cette plage horaires",
-                "retour" => "2"
+                "retour" => "-1"
             ];
             $response = new Response(json_encode($dataJson), 200);
             $response->headers->set('Content-Type', 'application/json');
@@ -77,34 +82,103 @@ class ContactsController extends AbstractController
     }
 
     /**
-     * Récupération des contacts
-     * @Route("/get/{id}", name="api_contacts_get", methods={"GET"})
+     * Récupération du nombre total de contacts
+     * @Route("/getCountAll", name="api_contacts_getCountAll", methods={"GET"})
      */
 
-    public function getter(){
+    public function getCountAll(){
+        $repo = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
+        $query = $repo->findAll();
 
+        $data = array(
+            "nombre" => count($query)
+        );
+        
+        $dataJson = [
+            "data" => $data,
+            "retour" => "1"
+        ];
+        $response = new Response(json_encode($dataJson), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
 
     }
+    
     /**
      * Création d'un contact
-     * @Route("/post", name="api_contacts_post", methods={"POST"})
+     * @Route("/getNumberNewContactsSince/{since}", name="api_contacts_getNumberNewContactsSince", methods={"GET"})
      */
-    public function post()
-    {
+    public function getNumberNewContactsSince($since){
+        $dateSince = "";
+        switch($since){
+            case "day":
+                $dateSince = "-1 days";
+            break;
+            case "week":
+                $dateSince = "-1 week";
+            break;
+            case "month":
+                $dateSince = "-1 month";
+            break;
+            case "year":
+                $dateSince = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository('AdminBundle:Contacts')->getNumberNewContactsSince($dateSince);
+        $response = new Response(json_encode($dateSince), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 
-    }
     /**
-     * Edition d'un contact
-     * @Route("/edit/{id}", name="api_contacts_edit", methods={"PUT"})
+     * Récupère le nombre de contacts pour chaque jour de la période demandé
+     * @Route("/getNumberContactsUpdatedPerDay/{since}", name="api_contacts_getnumbernewcontactsupdatedperday", methods={"GET"})
      */
-    public function edit()
+    public function getNumberContactsUpdatedPerDay($since)
     {
-    }
-    /**
-     * Suppression d'un contact
-     * @Route("/delete/{id}", name="api_contacts_delete", methods={"DELETE"})
-     */
-    public function delete()
-    {
+        $period = "";
+        switch($since){
+            case "day":
+                $period = "-1 days";
+            break;
+            case "week":
+                $period = "-1 week";
+            break;
+            case "month":
+                $period = "-1 month";
+            break;
+            case "year":
+                $period = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->getNumberContactsUpdatedPerDay($period);
+        $result = $query->execute();
+        $data = array();
+        if (count($result) > 0) {
+            
+            foreach ($result as $res) {
+                $res_data = array(
+                    "date" => $res["updatedAt"],
+                    "nombre" => $res["nb"],
+
+                );
+                array_push($data, $res_data);
+            }
+            $dataJson = [
+                "data" => $data,
+                "retour" => "1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+
+        } else {
+            $dataJson = [
+                "message" => "Aucune données pour cette plage horaires",
+                "retour" => "-1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        }
+        return $response;
     }
 }
