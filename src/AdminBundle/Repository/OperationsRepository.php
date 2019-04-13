@@ -63,4 +63,21 @@ class OperationsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Retourne le nombre d'opérations actives pendant une période
+     */
+    // public function getNbOperationsActives($between){
+    //     date_default_timezone_set('Europe/Paris');
+    //     $dateEnd = date("Y-m-d 00:00", strtotime($between));
+    //     $query = $this->createQueryBuilder("operation")
+    //         ->select("COUNT(operation.closing_date) as nb")
+    //         ->where("DATE(operation.sending_date) >= :sending_date")
+    //         ->andWhere("DATE(operation.closing_date) <= :closing_date")
+    //         ->setParameter('sending_date', $dateEnd )
+    //         ->setParameter('closing_date', date("Y-m-d H:i"))
+    //         ->getQuery();
+    //         dump($query);
+    //     return $query->getResult();
+    // }
+
 }

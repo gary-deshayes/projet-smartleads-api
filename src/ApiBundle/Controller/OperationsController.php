@@ -30,6 +30,35 @@ class OperationsController extends AbstractController
         return $response;
     }
 
+
+
+    /**
+     * Récuperations des opérations actives pendant la durée
+     * @Route("/operationsActives/{between}", name="api_operations_operationsActivesBetween", methods={"GET"})
+     */
+    public function lastContactsSince($between){
+        $dateBetween = "";
+        switch($between){
+            case "day":
+                $dateBetween = "-1 days";
+            break;
+            case "week":
+                $dateBetween = "-1 week";
+            break;
+            case "month":
+                $dateBetween = "-1 month";
+            break;
+            case "year":
+                $dateBetween = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository('AdminBundle:Operations')->getNbOperationsActives($dateBetween);
+        dump($query);
+        $response = new Response(json_encode($dateBetween), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
     /**
      * Récupération des opérations
      * @Route("/get/{id}", name="api_operations_get", methods={"GET"})
