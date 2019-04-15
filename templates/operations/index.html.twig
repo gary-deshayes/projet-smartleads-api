@@ -51,14 +51,12 @@
                         <td></td>
                         <td>{{ operation.author }}</td>
                         <td>
-                            {% if operation.state == "Brouillon" %}
-                                <span class="badge badge-pill badge-warning">{{ operation.state }}</span>
-                            {% endif %}
-                            {% if operation.state == "En cours" %}
-                                <span class="badge badge-pill badge-success">{{ operation.state }}</span>
-                            {% endif %}
-                            {% if operation.state == "Terminée" %}
-                                <span class="badge badge-pill badge-light">{{ operation.state }}</span>
+                            {% if operation.sendingDate == NULL and operation.closingDate == NULL %}
+                                <span class="badge badge-pill badge-warning">Brouillon</span>
+                            {% elseif operation.sendingDate < date() and operation.closingDate > date() %}
+                                <span class="badge badge-pill badge-success">En cours</span>
+                            {% elseif operation.closingDate < date() %}
+                                <span class="badge badge-pill badge-light">Terminée</span>
                             {% endif %}
                         </td>
                         <td></td>

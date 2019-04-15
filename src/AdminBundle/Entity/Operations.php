@@ -65,11 +65,6 @@ class Operations
     private $comment;
 
     /**
-     * @ORM\Column(name="state", type="text", length=255, nullable=false)
-     */
-    private $state;
-
-    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="operation_logo", fileNameProperty="logo")
@@ -146,18 +141,6 @@ class Operations
     public function setCode($code): ?self
     {
          $this->code = $code;
-
-         return $this;
-    }
-
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState($state): ?self
-    {
-         $this->state = $state;
 
          return $this;
     }

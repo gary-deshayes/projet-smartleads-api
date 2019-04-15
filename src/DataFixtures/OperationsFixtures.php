@@ -23,8 +23,6 @@ class OperationsFixtures extends BaseFixture implements DependentFixtureInterfac
             $operation->setSendingDate($this->faker->dateTimeBetween($startDate = '-1 weeks', $endDate = 'now', $timezone = null));
             $operation->setClosingDate($this->faker->dateTimeBetween($startDate = '-2 weeks', $endDate = '-1 weeks', $timezone = null));
             
-            $operation->setState($this->faker->randomElement($array = array('Brouillon', 'En cours', 'Terminée')));
-            
             return $operation;
         });
 
