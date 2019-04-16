@@ -290,7 +290,7 @@ class Company
     /**
      * @var string|null
      *
-     * @ORM\Column(name="decision_level", type="string", length=1, nullable=true, options={"fixed"=true})
+     * @ORM\Column(name="decision_level", type="integer", nullable=true, options={"fixed"=true})
      */
     private $decisionLevel;
 
@@ -724,7 +724,7 @@ class Company
         return $this->name;
     }
 
-    public function getDecisionLevel(): ?NumberEmployees
+    public function getDecisionLevel(): ?int
     {
         return $this->decisionLevel;
     }

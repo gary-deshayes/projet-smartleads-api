@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Company
+{% block title %}Modification de l'entreprise
+    {{ company.name }}
 {% endblock %}
 
 {% block body %}
@@ -33,10 +34,25 @@
             <li class="nav-item">
                 <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
             </li>
+            {% if company.decisionLevel == NULL %}
+                <input id="decision_level" type="hidden" value="0" />
+            {% else %}
+                <input id="decision_level" type="hidden" value=" {{ company.decisionLevel }}" />
+            {% endif %}
             <p>Potentiel</p>
             <div class="my-rating"></div>
+
+            {% if company.status == "Client" %}
+                <span class="badge badge-pill badge-success">{{ company.status }}</span>
+            {% endif %}
+            {% if company.status == "Prospect" %}
+                <span class="badge badge-pill badge-warning">{{ company.status }}</span>
+            {% endif %}
+            {% if company.status == "Piste" %}
+                <span class="badge badge-pill badge-light">{{ company.status }}</span>
+            {% endif %}
         </ul>
-        
+
         <div class="tab-content" id="myTabContent">
             <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
                 {{ include('company/_form.html.twig', {'button_label': 'Enregistrer'}) }}

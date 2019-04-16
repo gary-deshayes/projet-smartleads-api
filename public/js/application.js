@@ -16,16 +16,25 @@ $(document).ready(function ($) {
     $(".div-contacts-cible input").addClass("col-lg-1");
     $(".div-contacts-cible label").addClass("col-lg-11");
     $(".my-rating").starRating({
-        initialRating: 4,
+        initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',
         strokeWidth: 10,
         starSize: 25,
         disableAfterRate: false,
-        callback: function(currentRating, $el){
-          console.log('rated ' + currentRating);
-          console.log('DOM element ', $el);
+        callback: function (currentRating, $el) {
+            console.log('rated ' + currentRating * 2);
+            console.log('DOM element ', $el);
+            var data = {
+                decision_level: currentRating * 2
+            };
+            var url = "/admin/company/change_decision/" + $("#company_code").val();
+            $.post(url, data, function (data) {
+                if (data.retour == true) {
+                    console.log("okk");
+                }
+            });
         }
-      });
+    });
 
 });
 // $(document).ready(function () {
@@ -72,20 +81,20 @@ $("[id^='statut']").on("change", function () {
         value = 0;
     }
 
-    if(entity == "contact"){
+    if (entity == "contact") {
         changeStatutContact(value)
     }
 })
 
-function changeStatutContact(value){
+function changeStatutContact(value) {
     var data = {
         statut: value
     };
     var url = "/admin/contacts/change_statut/" + $("#contacts_code").val();
-    $.post( url, data,function( data ) {
-        if(data.retour == true) {
+    $.post(url, data, function (data) {
+        if (data.retour == true) {
             console.log("okk");
         }
-      });
+    });
 }
 
