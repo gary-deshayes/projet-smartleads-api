@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\AdminBundle\Entity\Salesperson;
 use App\Form\EmailResetType;
+use App\Form\ResetType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -33,15 +34,18 @@ class ResetPasswordController extends AbstractController
                 ->setTo('lucas.vignijr@gmail.com')
                 ->setBody(
                 $this->renderView(
-                'reset_password/template.html.twig', array('token' => $token, 'name' => $salesperson->getLastName(), 'firstName' => $salesperson->getFirstName())
-                // 'token' => $token)
-                
+                'reset_password/template.html.twig', 
+                    [
+                        "name" => $salesperson->getLastName(),
+                        "firstName" => $salesperson->getFirstName(),
+                        "link" => "/resetPassword/" . $salesperson->getLastName() . "/" . $token,
+                    ]
                 ),
             'text/html'
             );
                 $this->get('mailer')->send($message);
                 return $this->render('reset_password/template.html.twig', array(
-                    'token' => $token,
+                    "link" => "/resetPassword/" . $salesperson->getLastName() . "/" . $token,
                     'name' => $salesperson->getLastName(),
                     'firstName' => $salesperson->getFirstName(),
                     'salesperson' => $salesperson
@@ -55,23 +59,22 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
-     * @Route("/resetPasswordToken/{token}", name="reset_password_token", methods={"GET"})
+     * @Route("/resetPassword/{name}/{token}", name="reset_password_token", methods={"GET","POST"})
      */
-    public function resetPasswordToken(Request $request, Salesperson $salesperson)
+    public function resetPasswordToken(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {   
-        // $token = $request->request->get('token');
-        $salesperson = $request->request->get('salesperson');
-        $token = $salesperson->getTokenResetPassword();
-        dump($token);
+        $token = $request->get("token");
+       
         if ($token !== null) {
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(Salesperson::class)->findOneByTokenResetPassword($token);
             if ($user !== null) {
-                $form = $this->createForm(ResetType::class, $user);
+                $form = $this->createForm(ResetType::class);
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $plainPassword = $form->getData(['password']);
+                    $plainPassword = $form->getData()['password'];
+                    dump($plainPassword);
                     $encoded = $encoder->encodePassword($user, $plainPassword);
                     $user->setPassword($encoded);
                     $entityManager->persist($user);
