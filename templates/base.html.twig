@@ -12,6 +12,7 @@
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/css/mdb.min.css" rel="stylesheet">
         <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset("star-rating-svg.css") }}">
         <link rel="stylesheet" href="{{ asset("styles.css") }}">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         {% block stylesheets %}{% endblock %}
@@ -152,6 +153,8 @@
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <!-- Application Javascript -->
             <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
+            <!-- Application Javascript -->
+            <script type="text/javascript" src="{{ asset("js/jquery.star-rating-svg.js") }}"></script>
             
 
         {% endblock %}

@@ -111,6 +111,7 @@ class ContactsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $contact->setUpdatedAt(new \DateTime());
+            $contact->setUser_last_update($this->getUser());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('contacts_index', [
@@ -144,6 +145,7 @@ class ContactsController extends AbstractController
     {
         $statut = (bool)$request->request->get("statut");
         $contact->setStatus($statut);
+        $contact->setUser_last_update($this->getUser());
         $this->getDoctrine()->getManager()->flush();
         $data = array(
             "retour" => true

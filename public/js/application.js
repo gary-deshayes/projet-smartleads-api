@@ -15,6 +15,18 @@ $(document).ready(function ($) {
 
     $(".div-contacts-cible input").addClass("col-lg-1");
     $(".div-contacts-cible label").addClass("col-lg-11");
+    $(".my-rating").starRating({
+        initialRating: 4,
+        strokeColor: '#894A00',
+        strokeWidth: 10,
+        starSize: 25,
+        disableAfterRate: false,
+        callback: function(currentRating, $el){
+          console.log('rated ' + currentRating);
+          console.log('DOM element ', $el);
+        }
+      });
+
 });
 // $(document).ready(function () {
 //     $('#mail').on('click', function () {

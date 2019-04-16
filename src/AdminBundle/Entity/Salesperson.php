@@ -316,6 +316,16 @@ class Salesperson implements UserInterface
      */
     private $operations;
 
+    /**
+     * @var \Salesperson
+     *
+     * @ORM\ManyToOne(targetEntity="Salesperson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_last_update", referencedColumnName="code")
+     * })
+     */
+    private $user_last_update;
+
 
     public function __construct() {
         $this->contacts = new ArrayCollection();
@@ -801,4 +811,28 @@ class Salesperson implements UserInterface
     }
 
 
+
+    /**
+     * Get the value of user_last_update
+     *
+     * @return  \Salesperson
+     */ 
+    public function getUser_last_update()
+    {
+        return $this->user_last_update;
+    }
+
+    /**
+     * Set the value of user_last_update
+     *
+     * @param  \Salesperson  $user_last_update
+     *
+     * @return  self
+     */ 
+    public function setUser_last_update(Salesperson $user_last_update)
+    {
+        $this->user_last_update = $user_last_update;
+
+        return $this;
+    }
 }

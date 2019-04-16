@@ -104,6 +104,7 @@ class CompanyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $company->setUser_last_update($this->getUser());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('company_index', [

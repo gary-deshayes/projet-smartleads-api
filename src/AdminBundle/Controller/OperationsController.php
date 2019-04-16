@@ -188,6 +188,7 @@ class OperationsController extends AbstractController
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $operation->setUser_last_update($this->getUser());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('operations_index', [
