@@ -29,9 +29,12 @@
             <li class="nav-item">
                 <a aria-controls="parametrage" aria-selected="false" class="nav-link" data-toggle="tab" href="#parametrage" id="parametrage-tab" role="tab">Paramétrage</a>
             </li>
+            <li class="nav-item">
+                <a aria-controls="formulaire" aria-selected="false" class="nav-link" data-toggle="tab" href="#formulaire" id="formulaire-tab" role="tab">Formulaire</a>
+            </li>
             {% if (operation.getSendingDate != null and operation.getClosingDate != null) %}
             <li class="nav-item">
-                <a aria-controls="contacts_cible" aria-selected="false" class="nav-link" data-toggle="tab" href="#contacts_cible" id="contacts_cible-tab" role="tab">Contacts ciblés</a>
+                <a aria-controls="contacts_cible" aria-selected="false" class="nav-link" data-toggle="tab" href="#contacts_cible" id="contacts_cible-tab" role="tab">Ciblage</a>
             </li>
             {% endif %}
             {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
@@ -46,6 +49,9 @@
             </div>
             <div aria-labelledby="parametrage-tab" class="tab-pane fade" id="parametrage" role="tabpanel">
                 <h1>Paramétrage</h1>
+            </div>
+            <div aria-labelledby="formulaire-tab" class="tab-pane fade" id="formulaire" role="tabpanel">
+                {{ include('operations/_gestion_formulaire.html.twig', {'button_label': 'Enregistrer'}) }}
             </div>
             {% if (operation.getSendingDate != null and operation.getClosingDate != null) %}
             <div aria-labelledby="contacts_cible-tab" class="tab-pane fade" id="contacts_cible" role="tabpanel">
