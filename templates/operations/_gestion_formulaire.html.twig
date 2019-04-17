@@ -1,46 +1,25 @@
-{{ form_start(form) }}
+{{ form_start(formulaireOperation) }}
 <div class="row">
-    <div class="col-lg-6 form-style">
+    <div class="col-lg-6 form-style gestion_formulaire">
+        <legend>Contact client</legend>
         <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
-            <div class="col-lg-6">
-                
-            </div>
+                <p>Genre</p>
+                {{ form_widget(formulaireOperation.contacts_gender)}}
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
-            <div class="col-lg-6">
-                
-            </div>
+                <p>Prénom</p>
+                {{ form_widget(formulaireOperation.contacts_firstname)}}</div>
+        <div class="row">
+                <p>Nom</p>
+                {{ form_widget(formulaireOperation.contacts_lastname)}}</div>
+        <div class="row">
+                <p>Date de naissance</p>
+                {{ form_widget(formulaireOperation.contacts_birthdate)}}</div>
+        <div class="row">
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                
-            </div>
         </div>
 
     </div>
@@ -58,4 +37,4 @@
             {{ button_label|default('Save') }}</button>
     </div>
 </div>
-{{ form_end(form) }}
+{{ form_end(formulaireOperation) }}

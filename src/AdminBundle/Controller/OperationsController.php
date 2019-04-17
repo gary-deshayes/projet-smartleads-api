@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\AdminBundle\Form\FormulaireOperationType;
 
 /**
  * @Route("/operations")
@@ -85,6 +86,22 @@ class OperationsController extends AbstractController
      */
     public function edit(Request $request, Operations $operation, \Swift_Mailer $mailer): Response
     {
+        //On crée le formulaire pour FormulaireOpération
+
+        $formFormulaireOperation = $this->createForm(FormulaireOperationType::class);
+        dump($formFormulaireOperation);
+        $formFormulaireOperation->handleRequest($request);
+        if ($formFormulaireOperation->isSubmitted() && $formFormulaireOperation->isValid()) {
+            // $operation->setUser_last_update($this->getUser());
+            // $this->getDoctrine()->getManager()->flush();
+
+            // return $this->redirectToRoute('operations_index', [
+            //     'code' => $operation->getCode(),
+            // ]);
+                dump($request);
+            die("ici");
+        }
+
         //On récupère le nombre de contacts qui ont reçu l'opération
         $nbContactOperation = $this->getDoctrine()
             ->getRepository(OperationSent::class)
@@ -204,7 +221,8 @@ class OperationsController extends AbstractController
             'nbRecu' => $nbContactOperation["nombre"],
             'nbOuvert' => $nbLuOperation["nombre"],
             'nbMaj' => $nbMaj["nombre"],
-            'nbNonOuvert' => $nbNonOuvert["nombre"]
+            'nbNonOuvert' => $nbNonOuvert["nombre"],
+            "formulaireOperation" => $formFormulaireOperation->createView()
         ]);
     }
 

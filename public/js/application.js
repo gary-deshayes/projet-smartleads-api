@@ -15,6 +15,13 @@ $(document).ready(function ($) {
 
     $(".div-contacts-cible input").addClass("col-lg-1");
     $(".div-contacts-cible label").addClass("col-lg-11");
+
+    $(".gestion_formulaire input").addClass("custom-control-input");
+    $(".gestion_formulaire label").addClass("custom-control-label");
+
+    $(".gestion_formulaire > .row > div").addClass("col-lg-8");
+    $(".gestion_formulaire > .row > p").addClass("col-lg-4");
+
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',

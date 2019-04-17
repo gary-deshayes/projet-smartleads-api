@@ -470,7 +470,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_twitter
      */ 
-    public function getContacts_twitter()
+    public function getContactsTwitter()
     {
         return $this->contacts_twitter;
     }
@@ -480,7 +480,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_twitter($contacts_twitter)
+    public function setContactsTwitter($contacts_twitter)
     {
         $this->contacts_twitter = $contacts_twitter;
 
@@ -490,7 +490,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_linkedin
      */ 
-    public function getContacts_linkedin()
+    public function getContactsLinkedin()
     {
         return $this->contacts_linkedin;
     }
@@ -500,7 +500,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_linkedin($contacts_linkedin)
+    public function setContactsLinkedin($contacts_linkedin)
     {
         $this->contacts_linkedin = $contacts_linkedin;
 
@@ -510,7 +510,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_mobile_phone
      */ 
-    public function getContacts_mobile_phone()
+    public function getContactsMobile_phone()
     {
         return $this->contacts_mobile_phone;
     }
@@ -520,7 +520,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_mobile_phone($contacts_mobile_phone)
+    public function setContactsMobile_phone($contacts_mobile_phone)
     {
         $this->contacts_mobile_phone = $contacts_mobile_phone;
 
@@ -530,7 +530,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_phone
      */ 
-    public function getContacts_phone()
+    public function getContactsPhone()
     {
         return $this->contacts_phone;
     }
@@ -540,7 +540,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_phone($contacts_phone)
+    public function setContactsPhone($contacts_phone)
     {
         $this->contacts_phone = $contacts_phone;
 
@@ -550,7 +550,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_mail_pro
      */ 
-    public function getContacts_mail_pro()
+    public function getContactsMail_pro()
     {
         return $this->contacts_mail_pro;
     }
@@ -560,7 +560,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_mail_pro($contacts_mail_pro)
+    public function setContactsMail_pro($contacts_mail_pro)
     {
         $this->contacts_mail_pro = $contacts_mail_pro;
 
@@ -570,7 +570,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_birthdate
      */ 
-    public function getContacts_birthdate()
+    public function getContactsBirthdate()
     {
         return $this->contacts_birthdate;
     }
@@ -580,7 +580,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_birthdate($contacts_birthdate)
+    public function setContactsBirthdate($contacts_birthdate)
     {
         $this->contacts_birthdate = $contacts_birthdate;
 
@@ -590,7 +590,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_lastname
      */ 
-    public function getContacts_lastname()
+    public function getContactsLastname()
     {
         return $this->contacts_lastname;
     }
@@ -600,7 +600,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_lastname($contacts_lastname)
+    public function setContactsLastname($contacts_lastname)
     {
         $this->contacts_lastname = $contacts_lastname;
 
@@ -610,7 +610,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_firstname
      */ 
-    public function getContacts_firstname()
+    public function getContactsFirstname()
     {
         return $this->contacts_firstname;
     }
@@ -620,7 +620,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_firstname($contacts_firstname)
+    public function setContactsFirstname($contacts_firstname)
     {
         $this->contacts_firstname = $contacts_firstname;
 
@@ -630,7 +630,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_gender
      */ 
-    public function getContacts_gender()
+    public function getContactsGender()
     {
         return $this->contacts_gender;
     }
@@ -640,7 +640,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_gender($contacts_gender)
+    public function setContactsGender($contacts_gender)
     {
         $this->contacts_gender = $contacts_gender;
 
