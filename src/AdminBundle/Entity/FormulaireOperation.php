@@ -3,6 +3,8 @@
 namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\FormulaireOperationRepository")
@@ -15,6 +17,12 @@ class FormulaireOperation
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @OneToOne(targetEntity="Operations", mappedBy="formulaire_operation")
+     * * @JoinColumn(name="operation", referencedColumnName="code")
+     */
+    protected $operation;
 
     /**
      * @ORM\Column(type="integer")
@@ -150,7 +158,7 @@ class FormulaireOperation
     /**
      * Get the value of company_mail
      */ 
-    public function getCompany_mail()
+    public function getCompanyMail()
     {
         return $this->company_mail;
     }
@@ -160,7 +168,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_mail($company_mail)
+    public function setCompanyMail($company_mail)
     {
         $this->company_mail = $company_mail;
 
@@ -170,7 +178,7 @@ class FormulaireOperation
     /**
      * Get the value of company_website
      */ 
-    public function getCompany_website()
+    public function getCompanyWebsite()
     {
         return $this->company_website;
     }
@@ -180,7 +188,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_website($company_website)
+    public function setCompanyWebsite($company_website)
     {
         $this->company_website = $company_website;
 
@@ -190,7 +198,7 @@ class FormulaireOperation
     /**
      * Get the value of company_fax
      */ 
-    public function getCompany_fax()
+    public function getCompanyFax()
     {
         return $this->company_fax;
     }
@@ -200,7 +208,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_fax($company_fax)
+    public function setCompanyFax($company_fax)
     {
         $this->company_fax = $company_fax;
 
@@ -210,7 +218,7 @@ class FormulaireOperation
     /**
      * Get the value of company_standard_phone
      */ 
-    public function getCompany_standard_phone()
+    public function getCompanyStandardPhone()
     {
         return $this->company_standard_phone;
     }
@@ -220,7 +228,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_standard_phone($company_standard_phone)
+    public function setCompanyStandardPhone($company_standard_phone)
     {
         $this->company_standard_phone = $company_standard_phone;
 
@@ -230,7 +238,7 @@ class FormulaireOperation
     /**
      * Get the value of company_country
      */ 
-    public function getCompany_country()
+    public function getCompanyCountry()
     {
         return $this->company_country;
     }
@@ -240,7 +248,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_country($company_country)
+    public function setCompanyCountry($company_country)
     {
         $this->company_country = $company_country;
 
@@ -250,7 +258,7 @@ class FormulaireOperation
     /**
      * Get the value of company_postal_code
      */ 
-    public function getCompany_postal_code()
+    public function getCompanyPostalCode()
     {
         return $this->company_postal_code;
     }
@@ -260,7 +268,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_postal_code($company_postal_code)
+    public function setCompanyPostalCode($company_postal_code)
     {
         $this->company_postal_code = $company_postal_code;
 
@@ -270,7 +278,7 @@ class FormulaireOperation
     /**
      * Get the value of company_address
      */ 
-    public function getCompany_address()
+    public function getCompanyAddress()
     {
         return $this->company_address;
     }
@@ -280,7 +288,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_address($company_address)
+    public function setCompanyAddress($company_address)
     {
         $this->company_address = $company_address;
 
@@ -290,7 +298,7 @@ class FormulaireOperation
     /**
      * Get the value of company_turnovers
      */ 
-    public function getCompany_turnovers()
+    public function getCompanyTurnovers()
     {
         return $this->company_turnovers;
     }
@@ -300,7 +308,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_turnovers($company_turnovers)
+    public function setCompanyTurnovers($company_turnovers)
     {
         $this->company_turnovers = $company_turnovers;
 
@@ -310,7 +318,7 @@ class FormulaireOperation
     /**
      * Get the value of company_number_employees
      */ 
-    public function getCompany_number_employees()
+    public function getCompanyNumberEmployees()
     {
         return $this->company_number_employees;
     }
@@ -320,7 +328,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_number_employees($company_number_employees)
+    public function setCompanyNumberEmployees($company_number_employees)
     {
         $this->company_number_employees = $company_number_employees;
 
@@ -330,7 +338,7 @@ class FormulaireOperation
     /**
      * Get the value of company_siret
      */ 
-    public function getCompany_siret()
+    public function getCompanySiret()
     {
         return $this->company_siret;
     }
@@ -340,7 +348,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_siret($company_siret)
+    public function setCompanySiret($company_siret)
     {
         $this->company_siret = $company_siret;
 
@@ -350,7 +358,7 @@ class FormulaireOperation
     /**
      * Get the value of company_legal_status
      */ 
-    public function getCompany_legal_status()
+    public function getCompanyLegalStatus()
     {
         return $this->company_legal_status;
     }
@@ -360,7 +368,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_legal_status($company_legal_status)
+    public function setCompanyLegalStatus($company_legal_status)
     {
         $this->company_legal_status = $company_legal_status;
 
@@ -370,7 +378,7 @@ class FormulaireOperation
     /**
      * Get the value of company_naf
      */ 
-    public function getCompany_naf()
+    public function getCompanyNaf()
     {
         return $this->company_naf;
     }
@@ -380,7 +388,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_naf($company_naf)
+    public function setCompanyNaf($company_naf)
     {
         $this->company_naf = $company_naf;
 
@@ -390,7 +398,7 @@ class FormulaireOperation
     /**
      * Get the value of company_name
      */ 
-    public function getCompany_name()
+    public function getCompanyName()
     {
         return $this->company_name;
     }
@@ -400,7 +408,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setCompany_name($company_name)
+    public function setCompanyName($company_name)
     {
         $this->company_name = $company_name;
 
@@ -410,7 +418,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_workname
      */ 
-    public function getContacts_workname()
+    public function getContactsWorkname()
     {
         return $this->contacts_workname;
     }
@@ -420,7 +428,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_workname($contacts_workname)
+    public function setContactsWorkname($contacts_workname)
     {
         $this->contacts_workname = $contacts_workname;
 
@@ -430,7 +438,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_profession
      */ 
-    public function getContacts_profession()
+    public function getContactsProfession()
     {
         return $this->contacts_profession;
     }
@@ -440,7 +448,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_profession($contacts_profession)
+    public function setContactsProfession($contacts_profession)
     {
         $this->contacts_profession = $contacts_profession;
 
@@ -450,7 +458,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_facebook
      */ 
-    public function getContacts_facebook()
+    public function getContactsFacebook()
     {
         return $this->contacts_facebook;
     }
@@ -460,7 +468,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContacts_facebook($contacts_facebook)
+    public function setContactsFacebook($contacts_facebook)
     {
         $this->contacts_facebook = $contacts_facebook;
 
@@ -510,7 +518,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_mobile_phone
      */ 
-    public function getContactsMobile_phone()
+    public function getContactsMobilePhone()
     {
         return $this->contacts_mobile_phone;
     }
@@ -520,7 +528,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContactsMobile_phone($contacts_mobile_phone)
+    public function setContactsMobilePhone($contacts_mobile_phone)
     {
         $this->contacts_mobile_phone = $contacts_mobile_phone;
 
@@ -550,7 +558,7 @@ class FormulaireOperation
     /**
      * Get the value of contacts_mail_pro
      */ 
-    public function getContactsMail_pro()
+    public function getContactsMailPro()
     {
         return $this->contacts_mail_pro;
     }
@@ -560,7 +568,7 @@ class FormulaireOperation
      *
      * @return  self
      */ 
-    public function setContactsMail_pro($contacts_mail_pro)
+    public function setContactsMailPro($contacts_mail_pro)
     {
         $this->contacts_mail_pro = $contacts_mail_pro;
 
@@ -643,6 +651,26 @@ class FormulaireOperation
     public function setContactsGender($contacts_gender)
     {
         $this->contacts_gender = $contacts_gender;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of operation
+     */ 
+    public function getOperation()
+    {
+        return $this->operation;
+    }
+
+    /**
+     * Set the value of operation
+     *
+     * @return  self
+     */ 
+    public function setOperation(Operations $operation)
+    {
+        $this->operation = $operation;
 
         return $this;
     }

@@ -22,6 +22,35 @@ $(document).ready(function ($) {
     $(".gestion_formulaire > .row > div").addClass("col-lg-8");
     $(".gestion_formulaire > .row > p").addClass("col-lg-4");
 
+    $(".gestion-formulaire-checkbox-div > div").addClass("custom-control custom-checkbox");
+
+    //Permet de rendre dynamique la selection des checkbox dans le formulaire d'opérations
+    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function(){
+        if($(this).is(":checked")) {
+            switch($(this).val()){
+                case "2":
+                    $(this).parent().prev().children("input").prop("checked", true);
+                break;
+                case "3":
+                    $(this).parent().prev().children("input").prop("checked", true);
+                    $(this).parent().prev().prev().children("input").prop("checked", true);
+                break;
+            }
+        }
+        if(!$(this).is(":checked")) {
+            switch($(this).val()){
+                case "2":
+                    $(this).parent().prev().children("input").prop("checked", false);
+                break;
+                case "3":
+                    $(this).parent().prev().children("input").prop("checked", false);
+                    $(this).parent().prev().prev().children("input").prop("checked", false);
+                break;
+            }
+        }
+        
+    })
+
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',

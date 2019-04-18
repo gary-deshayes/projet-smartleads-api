@@ -4,8 +4,10 @@ namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Entity\FormulaireOperation;
 use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\Entity\OperationSent;
+use App\AdminBundle\Form\FormulaireOperationType;
 use App\AdminBundle\Form\OperationsType;
 use App\AdminBundle\Form\SearchType;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,7 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\AdminBundle\Form\FormulaireOperationType;
 
 /**
  * @Route("/operations")
@@ -86,19 +87,162 @@ class OperationsController extends AbstractController
      */
     public function edit(Request $request, Operations $operation, \Swift_Mailer $mailer): Response
     {
-        //On crée le formulaire pour FormulaireOpération
 
+        //On crée le formulaire pour FormulaireOpération
+        if ($operation->getFormulaire_operation() != null) {
+
+            $formulaire_operation = $this->getDoctrine()
+                ->getRepository(FormulaireOperation::class)
+                ->findOneBy(array("id" => $operation->getFormulaire_operation()->getId()));
+
+        } else {
+            $formulaire_operation = new FormulaireOperation();
+        }
         $formFormulaireOperation = $this->createForm(FormulaireOperationType::class);
         dump($formFormulaireOperation);
         $formFormulaireOperation->handleRequest($request);
-        if ($formFormulaireOperation->isSubmitted() && $formFormulaireOperation->isValid()) {
-            // $operation->setUser_last_update($this->getUser());
-            // $this->getDoctrine()->getManager()->flush();
 
-            // return $this->redirectToRoute('operations_index', [
+        //Permet de gérer les valeurs du formulaire de l'opération
+        if ($formFormulaireOperation->isSubmitted() && $formFormulaireOperation->isValid()) {
+            $formulaire_operation->setOperation($operation);
+            $operation->setFormulaire_operation($formulaire_operation);
+
+            $tableauCheckbox = $request->get("formulaire_operation");
+            if (array_key_exists("contacts_gender", $tableauCheckbox)) {
+                $formulaire_operation->setContactsGender(count($tableauCheckbox["contacts_gender"]));
+            } else {
+                $formulaire_operation->setContactsGender(0);
+            }
+            if (array_key_exists("contacts_firstname", $tableauCheckbox)) {
+                $formulaire_operation->setContactsFirstname(count($tableauCheckbox["contacts_firstname"]));
+            } else {
+                $formulaire_operation->setContactsFirstname(0);
+            }
+            if (array_key_exists("contacts_lastname", $tableauCheckbox)) {
+                $formulaire_operation->setContactsLastname(count($tableauCheckbox["contacts_lastname"]));
+            } else {
+                $formulaire_operation->setContactsLastname(0);
+            }
+            if (array_key_exists("contacts_birthdate", $tableauCheckbox)) {
+                $formulaire_operation->setContactsBirthdate(count($tableauCheckbox["contacts_birthdate"]));
+            } else {
+                $formulaire_operation->setContactsBirthdate(0);
+            }
+            if (array_key_exists("contacts_mail_pro", $tableauCheckbox)) {
+                $formulaire_operation->setContactsMailPro(count($tableauCheckbox["contacts_mail_pro"]));
+            } else {
+                $formulaire_operation->setContactsMailPro(0);
+            }
+            if (array_key_exists("contacts_mobile_phone", $tableauCheckbox)) {
+                $formulaire_operation->setContactsMobilePhone(count($tableauCheckbox["contacts_mobile_phone"]));
+            } else {
+                $formulaire_operation->setContactsMobilePhone(0);
+            }
+            if (array_key_exists("contacts_phone", $tableauCheckbox)) {
+                $formulaire_operation->setContactsPhone(count($tableauCheckbox["contacts_phone"]));
+            } else {
+                $formulaire_operation->setContactsPhone(0);
+            }
+            if (array_key_exists("contacts_linkedin", $tableauCheckbox)) {
+                $formulaire_operation->setContactsLinkedin(count($tableauCheckbox["contacts_linkedin"]));
+            } else {
+                $formulaire_operation->setContactsLinkedin(0);
+            }
+            if (array_key_exists("contacts_twitter", $tableauCheckbox)) {
+                $formulaire_operation->setContactsTwitter(count($tableauCheckbox["contacts_twitter"]));
+            } else {
+                $formulaire_operation->setContactsTwitter(0);
+            }
+            if (array_key_exists("contacts_facebook", $tableauCheckbox)) {
+                $formulaire_operation->setContactsFacebook(count($tableauCheckbox["contacts_facebook"]));
+            } else {
+                $formulaire_operation->setContactsFacebook(0);
+            }
+            if (array_key_exists("contacts_profession", $tableauCheckbox)) {
+                $formulaire_operation->setContactsProfession(count($tableauCheckbox["contacts_profession"]));
+            } else {
+                $formulaire_operation->setContactsProfession(0);
+            }
+            if (array_key_exists("contacts_workname", $tableauCheckbox)) {
+                $formulaire_operation->setContactsWorkname(count($tableauCheckbox["contacts_workname"]));
+            } else {
+                $formulaire_operation->setContactsWorkname(0);
+            }
+            if (array_key_exists("company_name", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyName(count($tableauCheckbox["company_name"]));
+            } else {
+                $formulaire_operation->setCompanyName(0);
+            }
+            if (array_key_exists("company_naf", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyNaf(count($tableauCheckbox["company_naf"]));
+            } else {
+                $formulaire_operation->setCompanyNaf(0);
+            }
+            if (array_key_exists("company_legal_status", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyLegalStatus(count($tableauCheckbox["company_legal_status"]));
+            } else {
+                $formulaire_operation->setCompanyLegalStatus(0);
+            }
+            if (array_key_exists("company_siret", $tableauCheckbox)) {
+                $formulaire_operation->setCompanySiret(count($tableauCheckbox["company_siret"]));
+            } else {
+                $formulaire_operation->setCompanySiret(0);
+            }
+            if (array_key_exists("company_number_employees", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyNumberEmployees(count($tableauCheckbox["company_number_employees"]));
+            } else {
+                $formulaire_operation->setCompanyNumberEmployees(0);
+            }
+            if (array_key_exists("company_turnovers", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyTurnovers(count($tableauCheckbox["company_turnovers"]));
+            } else {
+                $formulaire_operation->setCompanyTurnovers(0);
+            }
+            if (array_key_exists("company_address", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyAddress(count($tableauCheckbox["company_address"]));
+            } else {
+                $formulaire_operation->setCompanyAddress(0);
+            }
+            if (array_key_exists("company_postal_code", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyPostalCode(count($tableauCheckbox["company_postal_code"]));
+            } else {
+                $formulaire_operation->setCompanyPostalCode(0);
+            }
+            if (array_key_exists("company_country", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyCountry(count($tableauCheckbox["company_country"]));
+            } else {
+                $formulaire_operation->setCompanyCountry(0);
+            }
+            if (array_key_exists("company_standard_phone", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyStandardPhone(count($tableauCheckbox["company_standard_phone"]));
+            } else {
+                $formulaire_operation->setCompanyStandardPhone(0);
+            }
+            if (array_key_exists("company_fax", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyFax(count($tableauCheckbox["company_fax"]));
+            } else {
+                $formulaire_operation->setCompanyFax(0);
+            }
+            if (array_key_exists("company_website", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyWebsite(count($tableauCheckbox["company_website"]));
+            } else {
+                $formulaire_operation->setCompanyWebsite(0);
+            }
+            if (array_key_exists("company_mail", $tableauCheckbox)) {
+                $formulaire_operation->setCompanyMail(count($tableauCheckbox["company_mail"]));
+            } else {
+                $formulaire_operation->setCompanyMail(0);
+            }
+            $this->getDoctrine()->getManager()->persist($formulaire_operation);
+            $this->getDoctrine()->getManager()->flush();
+
+            dump($formulaire_operation);
+            dump($request);
+
+            // return $this->redirectToRoute('operations_edit', [
             //     'code' => $operation->getCode(),
             // ]);
-                dump($request);
+
             die("ici");
         }
 
@@ -113,7 +257,7 @@ class OperationsController extends AbstractController
             ->getNbLu($operation->getCode());
 
         //On récupère le nombre de personne qui non pas ouvert l'opération
-        $nbNonOuvert  = $this->getDoctrine()
+        $nbNonOuvert = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->getNbNonOuvert($operation->getCode());
 
@@ -121,7 +265,7 @@ class OperationsController extends AbstractController
         $nbMaj = $this->getDoctrine()
             ->getRepository(OperationSent::class)
             ->getNbMAJ($operation->getCode());
-            
+
         //On ne récupere que les id des contacts qui ont déjà reçu l'opération
         $idContacts = $this->getDoctrine()
             ->getRepository(OperationSent::class)
@@ -212,7 +356,7 @@ class OperationsController extends AbstractController
                 'code' => $operation->getCode(),
             ]);
         }
-
+dump($formulaire_operation);
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
@@ -222,7 +366,8 @@ class OperationsController extends AbstractController
             'nbOuvert' => $nbLuOperation["nombre"],
             'nbMaj' => $nbMaj["nombre"],
             'nbNonOuvert' => $nbNonOuvert["nombre"],
-            "formulaireOperation" => $formFormulaireOperation->createView()
+            "formulaireOperation" => $formFormulaireOperation->createView(),
+            "formulaire_operation" => $formulaire_operation
         ]);
     }
 
