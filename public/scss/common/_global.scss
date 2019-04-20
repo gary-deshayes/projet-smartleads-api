@@ -359,3 +359,25 @@ input#search-search:focus {
 .div-contacts-cible {
     margin-left: 30px;
 }
+
+
+.gestion_formulaire {
+
+    .row{
+
+        .custom-control{
+            display: inline-flex;
+            justify-content: flex-end;
+        }
+
+        label {
+            padding-right: 60px;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    }
+}

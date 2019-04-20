@@ -4,6 +4,9 @@ namespace App\AdminBundle\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+use App\AdminBundle\Entity\Salesperson;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -120,6 +123,22 @@ class Operations
      * })
      */
     private $author;
+
+    /**
+     * @var \Salesperson
+     *
+     * @ORM\ManyToOne(targetEntity="Salesperson")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_last_update", referencedColumnName="code")
+     * })
+     */
+    private $user_last_update;
+
+    /**
+     * @OneToOne(targetEntity="FormulaireOperation")
+     * @JoinColumn(name="form_data", referencedColumnName="id")
+     */
+    protected $formulaire_operation;
 
     public function getName(): ?string
     {
@@ -298,4 +317,48 @@ class Operations
         }
     }
 
+
+    /**
+     * Get the value of user_last_update
+     *
+     * @return  \Salesperson
+     */ 
+    public function getUser_last_update()
+    {
+        return $this->user_last_update;
+    }
+
+    /**
+     * Set the value of user_last_update
+     *
+     * @param  \Salesperson  $user_last_update
+     *
+     * @return  self
+     */ 
+    public function setUser_last_update(Salesperson $user_last_update)
+    {
+        $this->user_last_update = $user_last_update;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of formulaire_operation
+     */ 
+    public function getFormulaire_operation()
+    {
+        return $this->formulaire_operation;
+    }
+
+    /**
+     * Set the value of formulaire_operation
+     *
+     * @return  self
+     */ 
+    public function setFormulaire_operation(FormulaireOperation $formulaire_operation)
+    {
+        $this->formulaire_operation = $formulaire_operation;
+
+        return $this;
+    }
 }

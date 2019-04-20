@@ -3,16 +3,18 @@
 namespace App\AdminBundle\Controller;
 
 use Faker;
+use Faker\Factory;
 use App\AdminBundle\Entity\Company;
+use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Form\CompanyType;
 use App\AdminBundle\Entity\Salesperson;
+use App\AdminBundle\EntitySearch\Search;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\AdminBundle\Form\SearchType;
-use App\AdminBundle\EntitySearch\Search;
-use Knp\Component\Pager\PaginatorInterface;
 
 
 /**
@@ -104,6 +106,7 @@ class CompanyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $company->setUser_last_update($this->getUser());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('company_index', [
@@ -129,5 +132,24 @@ class CompanyController extends AbstractController
         }
 
         return $this->redirectToRoute('company_index');
+    }
+
+    /**
+     * @Route("/change_decision/{code}", name="company_change_decision", methods={"POST"})
+     */
+    public function changeDecision(Request $request, Company $company)
+    {
+        dump($request);
+        $decision = (int)$request->request->get("decision_level");
+        $company->setDecisionLevel($decision);
+        $company->setUser_last_update($this->getUser());
+        $this->getDoctrine()->getManager()->flush();
+        $data = array(
+            "retour" => true
+        );
+
+        // $response = new Response(json_encode($data, 200));
+        // $response->headers->set('Content-Type', 'application/json');
+        return new JsonResponse($data);
     }
 }

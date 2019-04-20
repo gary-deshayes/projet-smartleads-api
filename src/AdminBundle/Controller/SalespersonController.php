@@ -129,6 +129,7 @@ class SalespersonController extends AbstractController
                 $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
             }
             $salesperson->setUpdatedAt(new \DateTime());
+            $salesperson->setUser_last_update($this->getUser());
 
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('salesperson_index', [

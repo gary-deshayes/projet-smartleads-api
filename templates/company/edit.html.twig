@@ -1,13 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Company{% endblock %}
+{% block title %}Modification de l'entreprise
+    {{ company.name }}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Company</h1>
+    <h1>Entreprises</h1>
+    <div class="window">
+        <div class="form-informations">
+            <div class="infos-entity">
+                <p class="title">{{ company.name | upper ~ ", " ~ company.postalCode}}</p>
+            </div>
 
-    {{ include('company/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="inline-status-date">
+                <p class="infos">A jour</p>
+                <p>Dernière mise à jour le
+                    {{ company.updatedAt | date("d/m/Y")}}</p>
+                <div class="custom-control custom-switch">
+                    {% if company.status == 1 %}
+                        <input checked class="custom-control-input" id="statut-contact" type="checkbox">
+                        <label class="custom-control-label" for="statut-contact"></label>
+                    {% else %}
+                        <input class="custom-control-input" id="statut-contact" type="checkbox">
+                        <label class="custom-control-label" for="statut-contact"></label>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
+            </li>
+            {% if company.decisionLevel == NULL %}
+                <input id="decision_level" type="hidden" value="0" />
+            {% else %}
+                <input id="decision_level" type="hidden" value=" {{ company.decisionLevel }}" />
+            {% endif %}
+            <p>Potentiel</p>
+            <div class="my-rating"></div>
 
-    <a href="{{ path('company_index') }}">back to list</a>
+            {% if company.status == "Client" %}
+                <span class="badge badge-pill badge-success">{{ company.status }}</span>
+            {% endif %}
+            {% if company.status == "Prospect" %}
+                <span class="badge badge-pill badge-warning">{{ company.status }}</span>
+            {% endif %}
+            {% if company.status == "Piste" %}
+                <span class="badge badge-pill badge-light">{{ company.status }}</span>
+            {% endif %}
+        </ul>
 
-    {{ include('company/_delete_form.html.twig') }}
-{% endblock %}
+        <div class="tab-content" id="myTabContent">
+            <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
+                {{ include('company/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            <div aria-labelledby="contact-notes" class="tab-pane fade" id="notes" role="tabpanel">
+                <h1>Notes</h1>
+            </div>
+        </div>
+    </div>
+</div>{% endblock %}
