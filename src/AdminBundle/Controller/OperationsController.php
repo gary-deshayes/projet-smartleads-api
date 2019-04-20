@@ -99,7 +99,6 @@ class OperationsController extends AbstractController
             $formulaire_operation = new FormulaireOperation();
         }
         $formFormulaireOperation = $this->createForm(FormulaireOperationType::class);
-        dump($formFormulaireOperation);
         $formFormulaireOperation->handleRequest($request);
 
         //Permet de gérer les valeurs du formulaire de l'opération
@@ -236,14 +235,11 @@ class OperationsController extends AbstractController
             $this->getDoctrine()->getManager()->persist($formulaire_operation);
             $this->getDoctrine()->getManager()->flush();
 
-            dump($formulaire_operation);
-            dump($request);
 
-            // return $this->redirectToRoute('operations_edit', [
-            //     'code' => $operation->getCode(),
-            // ]);
+            return $this->redirectToRoute('operations_edit', [
+                'code' => $operation->getCode(),
+            ]);
 
-            die("ici");
         }
 
         //On récupère le nombre de contacts qui ont reçu l'opération
@@ -356,7 +352,7 @@ class OperationsController extends AbstractController
                 'code' => $operation->getCode(),
             ]);
         }
-dump($formulaire_operation);
+        
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),

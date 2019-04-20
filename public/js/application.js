@@ -21,6 +21,7 @@ $(document).ready(function ($) {
 
     $(".gestion_formulaire > .row > div").addClass("col-lg-8");
     $(".gestion_formulaire > .row > p").addClass("col-lg-4");
+    $(".hidden-form").parent().hide();
 
     $(".gestion-formulaire-checkbox-div > div").addClass("custom-control custom-checkbox");
 
@@ -40,11 +41,11 @@ $(document).ready(function ($) {
         if(!$(this).is(":checked")) {
             switch($(this).val()){
                 case "2":
-                    $(this).parent().prev().children("input").prop("checked", false);
+                    $(this).parent().next().children("input").prop("checked", false);
                 break;
-                case "3":
-                    $(this).parent().prev().children("input").prop("checked", false);
-                    $(this).parent().prev().prev().children("input").prop("checked", false);
+                case "1":
+                    $(this).parent().next().children("input").prop("checked", false);
+                    $(this).parent().next().next().children("input").prop("checked", false);
                 break;
             }
         }
