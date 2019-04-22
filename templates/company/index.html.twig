@@ -58,13 +58,13 @@
                                             {{ company.idSalesperson.firstName ~ " " ~ company.idSalesperson.lastName }}</td>
                                         <td>
                                             {% if company.status == "Client" %}
-                                                <span class="badge badge-pill badge-success">{{ company.status }}</span>
+                                                <span class="badge badge-pill badge-client">{{ company.status }}</span>
                                             {% endif %}
                                             {% if company.status == "Prospect" %}
-                                                <span class="badge badge-pill badge-warning">{{ company.status }}</span>
+                                                <span class="badge badge-pill badge-prospect">{{ company.status }}</span>
                                             {% endif %}
                                             {% if company.status == "Piste" %}
-                                                <span class="badge badge-pill badge-light">{{ company.status }}</span>
+                                                <span class="badge badge-pill badge-piste">{{ company.status }}</span>
                                             {% endif %}
                                         </td>
                                         <td>
