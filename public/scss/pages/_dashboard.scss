@@ -1,0 +1,41 @@
+.dashboard-class {
+    .window-block {
+        box-shadow: 0px 1px 5px 0px #b3b3b3;
+
+        table {
+            thead {
+                th {
+                    color: #B3B3B3;
+                }
+
+                .top-tr {
+                    th {
+                        font-weight: bold;
+                    }
+                }
+
+                tr:not(:first-child) {
+                    border-top: 2px solid #eeeeee;
+                }
+            }
+            img {
+                max-width: 30px;
+            }
+    
+            i {
+                margin: 0 10px;
+            }
+    
+            .fa-arrow-up {
+                color: #2CCC71;
+            }
+    
+            .bulle {
+                color: #fff;
+                background-color: #FFA200;
+                border-radius: 11px;
+                padding: 3px 10px;
+            }
+        }
+    }
+}
