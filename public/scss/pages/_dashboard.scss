@@ -39,3 +39,45 @@
         }
     }
 }
+
+.statistiques{
+    height: 300px;
+    width: 720px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box{
+    height: 150px;
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+}
+
+#libelle{
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(143, 143, 143);
+}
+
+.effectif{
+    font-size: 35px;
+    font-weight: 500;
+    color: rgb(109, 109, 109);
+}
+
+.taux{
+    font-size: 14px;
+    color: rgb(1, 167, 23);
+    font-weight: 500;
+}
+
+.partSup{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
