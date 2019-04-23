@@ -796,7 +796,7 @@ class Contacts
         }
         if($nbJours12<=0)
         {
-            $result = 'obselète';
+            $result = 'obsolète';
         }
         return $nbJours3 . '+' . $nbJours12;
         // return $result;
