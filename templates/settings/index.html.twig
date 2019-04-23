@@ -1,43 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Settings index{% endblock %}
+{% block title %}Settings index
+{% endblock %}
 
 {% block body %}
-    <h1>Settings index</h1>
+    <h1>Paramètres de l'application</h1>
+    <div class="window">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#app" id="app-tab" role="tab">Application</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
+            </li>
+        </ul>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Logo</th>
-                <th>Numéro</th>
-                <th>Fax</th>
-                <th>Email</th>
-                <th>Email de l'Admin</th>
-                <th>Email de contact</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for setting in settings %}
-            <tr>
-                <td>{{ setting.applicationName }}</td>
-                <td>{{ setting.applicationLogo }}</td>
-                <td>{{ setting.phone }}</td>
-                <td>{{ setting.fax }}</td>
-                <td>{{ setting.email }}</td>
-                <td>{{ setting.emailAdmin }}</td>
-                <td>{{ setting.emailContact }}</td>
-                <td>
-                    <a href="{{ path('settings_show', {'id': setting.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="tab-content" id="myTabContent">
+            <div aria-labelledby="app-tab" class="tab-pane fade show active" id="app" role="tabpanel">
+                {{ include('settings/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            <div aria-labelledby="contact-notes" class="tab-pane fade" id="notes" role="tabpanel">
+                <h1>Notes</h1>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

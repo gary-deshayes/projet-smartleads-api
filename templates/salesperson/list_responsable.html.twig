@@ -16,6 +16,13 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" id="check-all" type="checkbox" value="all">
+                            <label class="custom-control-label" for="check-all"></label>
+                        </div>
+                    </th>
+                    <th></th>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Genre</th>
@@ -32,6 +39,19 @@
             <tbody>
                 {% for leader in leaders %}
                     <tr class="clickable-row" data-href="{{ path('list_team_one_responsable', {'code': leader.code}) }}">
+                        <td class="check-user">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check-{{ leader.code }}" value="{{ leader.code }}">
+                                <label class="custom-control-label" for="check-{{ leader.code }}"></label>
+                            </div>
+                        </td>
+                        <td class="logo-table">
+                            {% if vich_uploader_asset(leader, 'imageFile') is null %}
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
+                            {% else %}
+                                <img class="rounded-circle" src="{{ vich_uploader_asset(leader, 'imageFile') | imagine_filter('miniature') }}" alt>
+                            {% endif %}
+                        </td>
                         <td>{{ leader.firstName }}</td>
                         <td>{{ leader.lastName }}</td>
                         <td>{{ leader.gender }}</td>
@@ -63,12 +83,12 @@
         </table>
         <div class="panel-Boutons">
             <div class="panel-left">
-            {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
+                {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
                 <i class="fas fa-trash fa-lg" title="Supprimer"></i>
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>
             </div>
-                {{ knp_pagination_render(leaders) }}
+            {{ knp_pagination_render(leaders) }}
             <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
         </div>
     </div>

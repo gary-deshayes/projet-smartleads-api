@@ -59,12 +59,11 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
-     * @Route("/resetPassword/{name}/{token}", name="reset_password_token", methods={"GET","POST"})
+     * @Route("/resetPasswordToken/{token}", name="reset_password_token", methods={"GET","POST"})
      */
-    public function resetPasswordToken(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPasswordToken(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {   
-        $token = $request->get("token");
-       
+        $token = $request->get('token');
         if ($token !== null) {
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(Salesperson::class)->findOneByTokenResetPassword($token);
@@ -73,10 +72,10 @@ class ResetPasswordController extends AbstractController
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $plainPassword = $form->getData()['password'];
-                    dump($plainPassword);
-                    $encoded = $encoder->encodePassword($user, $plainPassword);
+                    $plainPassword = $form->getData(['password']);
+                    $encoded = $passwordEncoder->encodePassword($user, $plainPassword["password"]);
                     $user->setPassword($encoded);
+                    $user->setTokenResetPassword("");
                     $entityManager->persist($user);
                     $entityManager->flush();
 

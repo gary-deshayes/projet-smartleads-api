@@ -134,4 +134,3 @@ function changeStatutContact(value) {
         }
     });
 }
-
