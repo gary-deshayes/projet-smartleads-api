@@ -718,7 +718,7 @@ class Contacts
 
     public function getAge()
     {
-        return $this->birthDate->diff(new \DateTime)->at('%y');
+        return $this->birthDate->diff(new \DateTime)->format("%Y");
     }
 
     public function getCivilite()
