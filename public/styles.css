@@ -503,6 +503,10 @@ nav#sidebar ul .nav-item i {
 }
 .form-style .row .col-lg-6 .row select {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+  font-size: 13px;
+>>>>>>> Stashed changes
 =======
   font-size: 13px;
 >>>>>>> Stashed changes
@@ -778,6 +782,11 @@ nav#sidebar ul .nav-item i {
 .badge-number {
   background-color: #CF1740;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+  height: 22px;
+  width: 32px;
+>>>>>>> Stashed changes
 =======
   height: 22px;
   width: 32px;
@@ -787,7 +796,10 @@ nav#sidebar ul .nav-item i {
   color: #fff;
   background-color: #D9D9D9;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
   height: 22px;
   width: 32px;
 }
@@ -805,6 +817,9 @@ nav#sidebar ul .nav-item i {
   background-color: #6fb4c9;
   height: 24px;
   width: 80px;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
@@ -833,6 +848,7 @@ nav#sidebar ul .nav-item i {
 }
 .form-connect form .div-input {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   display: flex;
   align-items: center;
   width: 100%;
@@ -851,6 +867,8 @@ nav#sidebar ul .nav-item i {
 .form-connect form a.text-description {
   margin-top: 10px;
 =======
+=======
+>>>>>>> Stashed changes
   display: flex;
   align-items: center;
   width: 100%;
@@ -938,6 +956,9 @@ nav#sidebar ul .nav-item i {
   display: flex;
   justify-content: space-around;
   align-items: center;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
