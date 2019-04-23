@@ -15,6 +15,9 @@ i {
 .content {
   padding: 22px 35px;
   background-color: #FAFAFA; }
+  .content-dashboard {
+    padding: 22px 35px;
+    background-color: #fff; }
 
 .window {
   background-color: #fff;

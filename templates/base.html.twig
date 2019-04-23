@@ -18,8 +18,7 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div
-            class="wrapper">
+        <div class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
@@ -134,7 +133,7 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="content">
+                <div class="content{% if app.request.attributes.get('_route') starts with 'dashboard' %}-dashboard{% endif %}">
                     {% block body %}{% endblock %}
                 </div>
             </div>
