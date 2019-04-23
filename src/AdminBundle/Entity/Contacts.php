@@ -767,6 +767,6 @@ class Contacts
      */
     public function getStatutMaj(){
         
-        return $this->getUpdatedAt;
+        return $this->updatedAt;
     }
 }
