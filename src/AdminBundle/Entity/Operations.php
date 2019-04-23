@@ -39,19 +39,7 @@ class Operations
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="template", type="string", length=255, nullable=false)
-     */
-    private $template;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mail_object", type="string", length=255, nullable=false)
-     */
-    private $mail_object;
+    
 
     /**
      * @var int
@@ -140,6 +128,24 @@ class Operations
      */
     protected $formulaire_operation;
 
+    /**
+     * @var notification
+     * @ORM\Column(name="opt_information", type="boolean", nullable=false, options={"default": false})
+     */
+    protected $opt_information;
+
+    /**
+     * @var notification
+     * @ORM\Column(name="opt_sales_offer", type="boolean", nullable=false, options={"default": false})
+     */
+    protected $opt_sales_offer;
+
+    /**
+     * @OneToOne(targetEntity="SettingsOperation")
+     * @JoinColumn(name="settings", referencedColumnName="operation_code")
+     */
+    private $settings;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -163,31 +169,7 @@ class Operations
 
          return $this;
     }
-
-    public function getTemplate(): ?string
-    {
-        return $this->template;
-    }
-
-    public function setTemplate($template): ?self
-    {
-         $this->template = $template;
-
-         return $this;
-    }
-
-    public function getMailObject(): ?string
-    {
-        return $this->mail_object;
-    }
-
-    public function setMailObject(string $mail_object): ?self
-    {
-         $this->mail_object = $mail_object;
-
-         return $this;
-    }
-
+    
     public function getRevival(): ?int
     {
         return $this->revival;
@@ -358,6 +340,74 @@ class Operations
     public function setFormulaire_operation(FormulaireOperation $formulaire_operation)
     {
         $this->formulaire_operation = $formulaire_operation;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of opt_information
+     *
+     * @return  notification
+     */ 
+    public function getOptInformation()
+    {
+        return $this->opt_information;
+    }
+
+    /**
+     * Set the value of opt_information
+     *
+     * @param  notification  $opt_information
+     *
+     * @return  self
+     */ 
+    public function setOptInformation(notification $opt_information)
+    {
+        $this->opt_information = $opt_information;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of opt_sales_offer
+     *
+     * @return  notification
+     */ 
+    public function getOptSalesOffer()
+    {
+        return $this->opt_sales_offer;
+    }
+
+    /**
+     * Set the value of opt_sales_offer
+     *
+     * @param  notification  $opt_sales_offer
+     *
+     * @return  self
+     */ 
+    public function setOptSalesOffer(notification $opt_sales_offer)
+    {
+        $this->opt_sales_offer = $opt_sales_offer;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of settings
+     */ 
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    /**
+     * Set the value of settings
+     *
+     * @return  self
+     */ 
+    public function setSettings($settings)
+    {
+        $this->settings = $settings;
 
         return $this;
     }

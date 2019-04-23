@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class OperationsType extends AbstractType
@@ -26,14 +27,6 @@ class OperationsType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 "label" => "Nom de l'opération",
-                "required" => false
-            ])
-            ->add('template', TextType::class, [
-                "label" => "Template",
-                "required" => false
-            ])
-            ->add('mail_object', TextType::class, [
-                "label" => "Objet du mail",
                 "required" => false
             ])
             ->add('revival', ChoiceType::class, [
@@ -63,10 +56,10 @@ class OperationsType extends AbstractType
                 'html5' => false,
                 "required" => false
             ])
-            ->add('imageFile', FileType::class, [
-                "required" => false,
-                'data_class' => null
-            ])
+            // ->add('imageFile', FileType::class, [
+            //     "required" => false,
+            //     'data_class' => null
+            // ])
             ->add('comment', TextareaType::class, [
                 "label" => "Remarques",
                 "required" => false
@@ -79,6 +72,16 @@ class OperationsType extends AbstractType
                 },
                 "label" => "Auteur",
                 'required' => false
+            ])
+            ->add('opt_information', CheckboxType::class, [
+                'label'    => 'Information',
+                'required' => false,
+                'attr' => ['class' => 'hidden-form']
+            ])
+            ->add('opt_sales_offer', CheckboxType::class, [
+                'label'    => 'Offre commerciale',
+                'required' => false,
+                'attr' => ['class' => 'hidden-form']
             ])
         ;
     }
