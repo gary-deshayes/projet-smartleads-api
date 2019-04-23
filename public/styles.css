@@ -20,6 +20,10 @@ i {
   padding: 22px 35px;
   background-color: #FAFAFA;
 }
+.content-dashboard {
+  padding: 22px 35px;
+  background-color: #fff;
+}
 
 .window {
   background-color: #fff;
@@ -519,6 +523,7 @@ nav#sidebar ul .nav-item i {
   margin-bottom: 0;
 }
 .form-style .row .col-lg-6 .row select {
+  font-size: 13px;
   height: 40px;
 }
 .form-style .row .col-lg-6 .row .mini-field {
@@ -537,6 +542,16 @@ nav#sidebar ul .nav-item i {
 }
 .form-style .row .col-lg-6 .row .required-field select {
   margin-left: 10px;
+}
+.form-style .form-check {
+  display: flex;
+  justify-content: flex-end;
+}
+.form-style .form-check input {
+  margin-right: 5px;
+}
+.form-style .form-check .form-optin {
+  margin-right: 30px;
 }
 
 .div-photo {

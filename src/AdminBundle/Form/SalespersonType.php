@@ -62,17 +62,28 @@ class SalespersonType extends AbstractType
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",
                 'format' => 'dd-MM-yyyy',
-                "years" => range(date('Y'), date('Y') - 70)
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false
             ])
             ->add('arrivalDate', DateType::class, [
-                "label" => "Date d'arrivée",
+                
+                'by_reference' => true,
+                "label" => "Début/fin du poste",
                 'format' => 'dd-MM-yyyy',
-                "years" => range(date('Y'), date('Y') - 70)
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false,
+                'required' => false
             ])
             ->add('departureDate', DateType::class, [
-                "label" => "Date de départ",
+                
+                'by_reference' => true,
                 'format' => 'dd-MM-yyyy',
-                "years" => range(date('Y'), date('Y') - 70)
+                "years" => range(date('Y'), date('Y') - 70),
+                'widget' => 'single_text',
+                'html5' => false,
+                'required' => false
             ])
             ->add('workname', TextType::class, [
                 "label" => "Fonction/poste"

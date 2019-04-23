@@ -46,15 +46,13 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="row">
-                            {{ form_widget(form.optInNewsletter, { "attr" : { "class" : "col-lg-2 offset-lg-3"}})
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_label(form.optInNewsletter, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-2"}})
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_widget(form.optInOffresCommercial, { "attr" : { "class" :  "col-lg-2"}})
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_label(form.optInOffresCommercial, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-2"}})
-                                                                                                                                                                                                                                                                                }}
+                        <div class="row form-check">
+                            <div class="form-optin">
+                                {{ form_widget(form.optInNewsletter)}}
+                                {{ form_label(form.optInNewsletter, null,  { "label_attr" : { "class" : "grey-text"}})}}
+                            </div>
+                                {{ form_widget(form.optInOffresCommercial)}}
+                                {{ form_label(form.optInOffresCommercial, null,  { "label_attr" : { "class" : "grey-text"}})}}
                         </div>
                     </div>
                 </div>

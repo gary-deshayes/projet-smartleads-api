@@ -18,8 +18,7 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div
-            class="wrapper">
+        <div class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
@@ -41,7 +40,7 @@
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item {% if app.request.attributes.get('_route')  == 'salesperson_index' %}li-active{% endif %}" >
+                        <li class="nav-item {% if (app.request.attributes.get('_route')  == 'salesperson_index' or app.request.attributes.get('_route')  == 'salesperson_new' or app.request.attributes.get('_route')  == 'salesperson_edit')%}li-active{% endif %}" >
                             <a class="nav-link" href="{{ path('salesperson_index') }}">
                             <i class="fas fa-handshake"></i>
                                 <span>Commerciaux</span>
@@ -134,7 +133,7 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="content">
+                <div class="content{% if app.request.attributes.get('_route') starts with 'dashboard' %}-dashboard{% endif %}">
                     {% block body %}{% endblock %}
                 </div>
             </div>
