@@ -73,12 +73,20 @@ $(document).ready(function ($) {
         }
     });
 
+    //Permet de mettre un background aux lignes selectionées
+    $(".checkbox-dynamic :checkbox").on("click", function(){
+        if($(this).is(":checked")){
+            $(this).parent().parent().parent().addClass("selected-line");
+        } else {
+            $(this).parent().parent().parent().removeClass("selected-line");
+        }
+    })
+    //Check tout les checkbox
+    $(".checkbox-dynamic-all :checkbox").on("click", function(){
+        $(".checkbox-dynamic :checkbox").click();
+    })
+
 });
-// $(document).ready(function () {
-//     $('#mail').on('click', function () {
-//         alert('Email envoyé');
-//     });
-// });
 
 $(function () {
     $(".datepicker").datepicker({

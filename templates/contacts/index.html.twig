@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th>
-                    <div class="custom-control custom-checkbox">
+                    <div class="custom-control custom-checkbox checkbox-dynamic-all">
                         <input type="checkbox" class="custom-control-input" id="check-all" value="all">
                         <label class="custom-control-label" for="check-all"></label>
                     </div>
@@ -38,7 +38,7 @@
                     <th>téléphone</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="checkbox-dynamic">
                 {% for contact in contacts %}
                     <tr class="clickable-row" data-href="{{ path('contacts_edit', {'code': contact.code}) }}">
                     <td class="check-user">

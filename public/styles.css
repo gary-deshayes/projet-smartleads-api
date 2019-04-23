@@ -330,6 +330,14 @@ input#search-search:focus {
   font-weight: bold;
 }
 
+.selected-line {
+  background-color: #f2f2f2;
+}
+
+.badge-corrector {
+  width: 70px !important;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

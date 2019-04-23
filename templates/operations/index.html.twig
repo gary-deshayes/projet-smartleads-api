@@ -22,7 +22,7 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox  checkbox-dynamic-all">
                             <input class="custom-control-input" id="check-all" type="checkbox" value="all">
                             <label class="custom-control-label" for="check-all"></label>
                         </div>
@@ -40,7 +40,7 @@
                 {% for operation in operations %}
                     <tr class="clickable-row" data-href="{{ path('operations_edit', {'code': operation.code}) }}">
                         <td class="check-user">
-                            <div class="custom-control custom-checkbox">
+                            <div class="custom-control custom-checkbox  checkbox-dynamic">
                                 <input type="checkbox" class="custom-control-input" id="check-{{ operation.code }}" value="{{ operation.code }}">
                                 <label class="custom-control-label" for="check-{{ operation.code }}"></label>
                             </div>
@@ -52,11 +52,11 @@
                         <td>{{ operation.author }}</td>
                         <td>
                             {% if operation.sendingDate == NULL and operation.closingDate == NULL %}
-                                <span class="badge badge-pill badge-warning">Brouillon</span>
+                                <span class="badge badge-pill badge-warning badge-corrector">Brouillon</span>
                             {% elseif operation.sendingDate < date() and operation.closingDate > date() %}
-                                <span class="badge badge-pill badge-success">En cours</span>
+                                <span class="badge badge-pill badge-success badge-corrector">En cours</span>
                             {% elseif operation.closingDate < date() %}
-                                <span class="badge badge-pill badge-light">Terminée</span>
+                                <span class="badge badge-pill badge-light badge-corrector">Terminée</span>
                             {% endif %}
                         </td>
                         <td></td>
@@ -76,7 +76,7 @@
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>
             </div>
             {{ knp_pagination_render(operations) }}
-            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+            <a class="btn btn-radius-red" href="{{ path('operations_new') }}">Ajouter</a>
         </div>
     </div>
 
