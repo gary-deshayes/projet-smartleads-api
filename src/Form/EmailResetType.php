@@ -14,10 +14,12 @@ class EmailResetType extends AbstractType
     {
         $builder
         ->add('email', EmailType::class, [
-            "label" => "E-mail",
             "required" => true
         ])
-            ->add('submit', SubmitType::class)
+            // ->add('submit', SubmitType::class, [
+            //     "label" => "Valider",
+
+            // ])
         ;
     }
 

@@ -718,7 +718,7 @@ class Contacts
 
     public function getAge()
     {
-        return $this->birthDate->diff(new \DateTime)->format('%y');
+        return $this->birthDate->diff(new \DateTime)->at('%y');
     }
 
     public function getCivilite()
@@ -757,5 +757,16 @@ class Contacts
         $this->user_last_update = $user_last_update;
 
         return $this;
+    }
+
+    /**
+     * NOTE : Met le status du contact (à jour, à vérifier, obseléte) en fonction de la date d'update 
+     * 
+     * 
+     * 
+     */
+    public function getStatutMaj(){
+        
+        return $this->getUpdatedAt;
     }
 }
