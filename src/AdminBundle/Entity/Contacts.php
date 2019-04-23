@@ -767,6 +767,38 @@ class Contacts
      */
     public function getStatutMaj(){
         
-        return $this->updatedAt;
+        $dateUpdate = $this->updatedAt->format('d/m/Y');
+        $dateUpdate = str_replace("/","-",$dateUpdate);
+        $dateUpdate = strtotime($dateUpdate);
+
+        $threeMounthAgo = date('d/m/Y', strtotime('-3 month'));
+        $threeMounthAgo = str_replace("/","-",$threeMounthAgo);
+        $threeMounthAgo = strtotime($threeMounthAgo);
+
+        $oneYearAgo = date('d/m/Y', strtotime('-12 month'));
+        $oneYearAgo = str_replace("/","-",$oneYearAgo);
+        $oneYearAgo = strtotime($oneYearAgo);
+        
+        $nbJoursTimestamp3 = $dateUpdate - $threeMounthAgo;
+        $nbJours3 = $nbJoursTimestamp3/86400;
+
+        $nbJoursTimestamp12 = $dateUpdate - $oneYearAgo;
+        $nbJours12 = $nbJoursTimestamp12/86400;
+
+
+        if($nbJours3<-60 && $nbJours12>0)
+        {
+            $result = 'à vérifier';
+        }
+        if($nbJours3>-60)
+        {
+            $result = 'à jour';
+        }
+        if($nbJours12<=0)
+        {
+            $result = 'obselète';
+        }
+        return $nbJours3 . '+' . $nbJours12;
+        // return $result;
     }
 }
