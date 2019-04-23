@@ -48,6 +48,18 @@
             }
         }
     }
+    .form-check {
+        display: flex;
+        justify-content: flex-end;
+
+        input {
+            margin-right: 5px;
+        }
+
+        .form-optin {
+            margin-right: 30px;
+        }
+    }
 }
 
 .div-photo {

@@ -412,6 +412,13 @@ nav#sidebar ul {
         margin-left: 10px; }
       .form-style .row .col-lg-6 .row .required-field select {
         margin-left: 10px; }
+.form-style .form-check {
+  display: flex;
+  justify-content: flex-end; }
+  .form-style .form-check input {
+    margin-right: 5px; }
+  .form-style .form-check .form-optin {
+    margin-right: 30px; }
 
 .div-photo {
   display: flex;
