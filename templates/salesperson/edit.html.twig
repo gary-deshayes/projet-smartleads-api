@@ -1,13 +1,47 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Edit Salesperson{% endblock %}
-
-{% block body %}
-    <h1>Edit Salesperson</h1>
-
-    {{ include('salesperson/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-
-    <a href="{{ path('salesperson_index') }}">back to list</a>
-
-    {{ include('salesperson/_delete_form.html.twig') }}
+{% block title %}Modification du commercial :
+    {{ salesperson.firstName ~ " " ~ (salesperson.lastName | upper ) }}
 {% endblock %}
+{% block body %}
+    <h1>Commercial</h1>
+    <div class="window">
+        <div class="form-informations">
+            <div class="infos-entity">
+                <p class="title">{{  salesperson.firstName ~ " " ~ (salesperson.lastName | upper )}}</p>
+                <p class="description">, {{ salesperson.workName }}</p>
+            </div>
+
+            <div class="inline-status-date">
+            <p class="infos">A jour</p>
+                <p>Dernière mise à jour le
+                    {{ salesperson.updatedAt | date("d/m/Y")}}</p>
+                <div class="custom-control custom-switch">
+                    {% if salesperson.status == 1 %}
+                        <input checked class="custom-control-input" id="statut-salesperson" type="checkbox">
+                            <label class="custom-control-label" for="statut-salesperson"></label>
+                        {% else %}
+                            <input class="custom-control-input" id="statut-salesperson" type="checkbox">
+                                <label class="custom-control-label" for="statut-salesperson"></label>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="salesperson-notes" role="tab">Notes</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
+                        {{ include('salesperson/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+                    </div>
+                    <div aria-labelledby="salesperson-notes" class="tab-pane fade" id="notes" role="tabpanel">
+                        <h1>Notes</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
