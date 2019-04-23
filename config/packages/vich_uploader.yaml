@@ -19,3 +19,8 @@ vich_uploader:
             uri_prefix: /images/operations
             upload_destination: '%kernel.project_dir%/public/images/operations'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+        settings_logo:
+            uri_prefix: /images/settings
+            upload_destination: '%kernel.project_dir%/public/images/settings'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

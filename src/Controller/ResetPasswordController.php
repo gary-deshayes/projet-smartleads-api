@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\AdminBundle\Entity\Salesperson;
 use App\Form\EmailResetType;
+use App\Form\ResetType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -55,25 +56,23 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
-     * @Route("/resetPasswordToken/{token}", name="reset_password_token", methods={"GET"})
+     * @Route("/resetPasswordToken/{token}", name="reset_password_token", methods={"GET","POST"})
      */
-    public function resetPasswordToken(Request $request, Salesperson $salesperson)
+    public function resetPasswordToken(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {   
-        // $token = $request->request->get('token');
-        $salesperson = $request->request->get('salesperson');
-        $token = $salesperson->getTokenResetPassword();
-        dump($token);
+        $token = $request->get('token');
         if ($token !== null) {
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(Salesperson::class)->findOneByTokenResetPassword($token);
             if ($user !== null) {
-                $form = $this->createForm(ResetType::class, $user);
+                $form = $this->createForm(ResetType::class);
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
                     $plainPassword = $form->getData(['password']);
-                    $encoded = $encoder->encodePassword($user, $plainPassword);
+                    $encoded = $passwordEncoder->encodePassword($user, $plainPassword["password"]);
                     $user->setPassword($encoded);
+                    $user->setTokenResetPassword("");
                     $entityManager->persist($user);
                     $entityManager->flush();
 

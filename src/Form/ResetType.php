@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\AdminBundle\Entity\Salesperson;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ResetType extends AbstractType
 {
@@ -23,8 +23,5 @@ class ResetType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Salesperson::class
-        ]);
     }
 }

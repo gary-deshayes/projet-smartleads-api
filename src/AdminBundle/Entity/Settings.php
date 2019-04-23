@@ -2,16 +2,19 @@
 
 namespace App\AdminBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Settings
  *
  * @ORM\Table(name="settings")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\SettingsRepository")
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Settings
 {
@@ -36,6 +39,17 @@ class Settings
      * )
      */
     private $applicationName;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="settings_logo", fileNameProperty="application_logo")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @var string|null
@@ -150,6 +164,13 @@ class Settings
      */
     private $emailContact;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -263,5 +284,44 @@ class Settings
         return $this;
     }
 
+    public function getImageFile(): ? File
+    {
+        return $this->imageFile;
+    }
 
+    public function setImageFile(? File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+
+    /**
+     * Get the value of updatedAt
+     *
+     * @return  \DateTime
+     */ 
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     *
+     * @param  \DateTime  $updatedAt
+     *
+     * @return  self
+     */ 
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
 }
