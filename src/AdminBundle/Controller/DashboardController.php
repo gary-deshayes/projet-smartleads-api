@@ -18,7 +18,6 @@ class DashboardController extends AbstractController
         // $data["operationsActives"] = $repositoryOperations->getNbOperationsActives();
 
         
-        dump($data);
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             "data" => $data

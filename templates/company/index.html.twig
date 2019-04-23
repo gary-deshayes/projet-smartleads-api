@@ -17,85 +17,85 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox  checkbox-dynamic-all">
                             <input class="custom-control-input" id="check-all" type="checkbox" value="all">
-                                <label class="custom-control-label" for="check-all"></label>
-                            </div>
-                        </th>
-                        <th></th>
-                        <th>Nom</th>
-                        <th>Code postal</th>
-                        <th>Ville</th>
-                        <th>Responsable de compte</th>
-                        <th>Statut</th>
-                        <th>Contacts</th>
-                        <th>...</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for company in companies %}
-                        <tr class="clickable-row" data-href="{{ path('company_edit', {'code': company.code}) }}">
-                            <td class="check-user">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="check-{{ company.code }}" value="{{ company.code }}">
-                                        <label class="custom-control-label" for="check-{{ company.code }}"></label>
-                                    </div>
-                                </td>
-                                <td class="logo-table">
-                                    {% if vich_uploader_asset(company, 'imageFile') is null %}
-                                        <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
-                                        {% else %}
-                                            <img class="rounded-circle" src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature') }}" alt>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {{ company.name }}</td>
-                                        <td>
-                                            {{ company.postalCode }}</td>
-                                        <td>
-                                            {{ company.town }}</td>
-                                        <td>
-                                            {{ company.idSalesperson.firstName ~ " " ~ company.idSalesperson.lastName }}</td>
-                                        <td>
-                                            {% if company.status == "Client" %}
-                                                <span class="badge badge-pill badge-success">{{ company.status }}</span>
-                                            {% endif %}
-                                            {% if company.status == "Prospect" %}
-                                                <span class="badge badge-pill badge-warning">{{ company.status }}</span>
-                                            {% endif %}
-                                            {% if company.status == "Piste" %}
-                                                <span class="badge badge-pill badge-light">{{ company.status }}</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if company.getNombreContacts > 0 %}
-                                                <span class="badge badge-pill badge-number">{{ company.getNombreContacts }}</span>
-                                            </td>
-                                        {% else %}
-                                            <span class="badge badge-pill badge-zero">{{ company.getNombreContacts }}</span>
-                                        {% endif %}
-                                        <td>
-                                            <i class="fas fa-at" title="{{ company.email }}"></i>
-                                            <i title="{{ company.phone }}" class="fas fa-phone"></i>
-                                        </td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                        <td colspan="20">Aucune entreprise enregistrée</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        <div class="panel-Boutons">
-                            <div class="panel-left">
-                            {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
-                                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
-                                <i class="fas fa-download fa-lg" title="Télécharger"></i>
-                                <i class="fas fa-user-plus fa-lg" title="Importer"></i>
-                            </div>
-                            {{ knp_pagination_render(companies) }}
-                            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+                            <label class="custom-control-label" for="check-all"></label>
                         </div>
-                    </div>
-                    {{ form_end(formsearch) }}
-                {% endblock %}
+                    </th>
+                    <th></th>
+                    <th>Nom</th>
+                    <th>Code postal</th>
+                    <th>Ville</th>
+                    <th>Responsable de compte</th>
+                    <th>Statut</th>
+                    <th>Contacts</th>
+                    <th>...</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in companies %}
+                    <tr class="clickable-row" data-href="{{ path('company_edit', {'code': company.code}) }}">
+                        <td class="check-user">
+                            <div class="custom-control custom-checkbox  checkbox-dynamic">
+                                <input type="checkbox" class="custom-control-input" id="check-{{ company.code }}" value="{{ company.code }}">
+                                <label class="custom-control-label" for="check-{{ company.code }}"></label>
+                            </div>
+                        </td>
+                        <td class="logo-table">
+                            {% if vich_uploader_asset(company, 'imageFile') is null %}
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
+                            {% else %}
+                                <img class="rounded-circle" src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature') }}" alt>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ company.name }}</td>
+                        <td>
+                            {{ company.postalCode }}</td>
+                        <td>
+                            {{ company.town }}</td>
+                        <td>
+                            {{ company.idSalesperson.firstName ~ " " ~ company.idSalesperson.lastName }}</td>
+                        <td>
+                            {% if company.status == "Client" %}
+                                <span class="badge badge-pill badge-success badge-corrector">{{ company.status }}</span>
+                            {% endif %}
+                            {% if company.status == "Prospect" %}
+                                <span class="badge badge-pill badge-warning badge-corrector">{{ company.status }}</span>
+                            {% endif %}
+                            {% if company.status == "Piste" %}
+                                <span class="badge badge-pill badge-light badge-corrector">{{ company.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if company.getNombreContacts > 0 %}
+                                <span class="badge badge-pill badge-number">{{ company.getNombreContacts }}</span>
+                            </td>
+                        {% else %}
+                            <span class="badge badge-pill badge-zero">{{ company.getNombreContacts }}</span>
+                        {% endif %}
+                        <td>
+                            <i class="fas fa-at" title="{{ company.email }}"></i>
+                            <i title="{{ company.phone }}" class="fas fa-phone"></i>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="20">Aucune entreprise enregistrée</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="panel-Boutons">
+            <div class="panel-left">
+                {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
+                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                <i class="fas fa-download fa-lg" title="Télécharger"></i>
+                <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+            </div>
+            {{ knp_pagination_render(companies) }}
+            <a class="btn btn-radius-red" href="{{ path('company_new') }}">Ajouter</a>
+        </div>
+    </div>
+    {{ form_end(formsearch) }}
+{% endblock %}

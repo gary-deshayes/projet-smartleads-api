@@ -17,7 +17,7 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox  checkbox-dynamic-all">
                             <input class="custom-control-input" id="check-all" type="checkbox" value="all">
                             <label class="custom-control-label" for="check-all"></label>
                         </div>
@@ -40,7 +40,7 @@
                 {% for leader in leaders %}
                     <tr class="clickable-row" data-href="{{ path('list_team_one_responsable', {'code': leader.code}) }}">
                         <td class="check-user">
-                            <div class="custom-control custom-checkbox">
+                            <div class="custom-control custom-checkbox  checkbox-dynamic">
                                 <input type="checkbox" class="custom-control-input" id="check-{{ leader.code }}" value="{{ leader.code }}">
                                 <label class="custom-control-label" for="check-{{ leader.code }}"></label>
                             </div>

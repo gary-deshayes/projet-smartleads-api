@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/png" href="https://image.noelshack.com/fichiers/2019/14/2/1554226175-monfavicon.png"/> 
+        <link href="https://image.noelshack.com/fichiers/2019/14/2/1554226175-monfavicon.png" rel="icon" type="image/png"/>
         <meta charset="UTF-8">
         <title>
-            {% block title %}Accueil{% endblock %}
+            {% block title %}Accueil
+            {% endblock %}
         </title>
         <!-- Bootstrap core CSS -->
         <link
@@ -14,7 +15,7 @@
         <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset("star-rating-svg.css") }}">
         <link rel="stylesheet" href="{{ asset("styles.css") }}">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -23,8 +24,12 @@
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <img class="img-primary" src="{{ asset("img/logo-login.png") }}">
-                    <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
+                    <a href="{{ path('dashboard') }}">
+                        <img class="img-primary img" src="{{ asset("img/logo-login.png") }}">
+                    </a>
+                    <a href="{{ path('dashboard') }}">
+                        <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
+                    </a>
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
                 <ul class="navbar-nav mr-auto nav-active">
@@ -41,9 +46,9 @@
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item {% if app.request.attributes.get('_route')  == 'salesperson_index' %}li-active{% endif %}" >
+                        <li class="nav-item {% if app.request.attributes.get('_route')  == 'salesperson_index' %}li-active{% endif %}">
                             <a class="nav-link" href="{{ path('salesperson_index') }}">
-                            <i class="fas fa-handshake"></i>
+                                <i class="fas fa-handshake"></i>
                                 <span>Commerciaux</span>
                             </a>
                         </li>
@@ -58,15 +63,15 @@
                     {% endif %}
                     {% if is_granted("ROLE_RESPONSABLE") %}
                         <li class="nav-item">
-                        <a class="nav-link" href="{{ path('salesperson_team') }}">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Équipe commerciale</span>
-                        </a>
+                            <a class="nav-link" href="{{ path('salesperson_team') }}">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Équipe commerciale</span>
+                            </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'company' %}li-active{% endif %}">         
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'company' %}li-active{% endif %}">
                         <a class="nav-link" href="{{ path('company_index') }}">
-                        <i class="fas fa-building"></i>
+                            <i class="fas fa-building"></i>
                             <span>Entreprises</span>
                         </a>
                     </li>
@@ -77,12 +82,12 @@
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'settings' %}li-active{% endif %}">
-                        <a class="nav-link" href="{{ path('settings_index') }}">
-                            <i class="fas fa-cog"></i>
-                            <span>Paramètres</span>
-                        </a>
-                    </li>
+                        <li class="nav-item {% if app.request.attributes.get('_route') starts with 'settings' %}li-active{% endif %}">
+                            <a class="nav-link" href="{{ path('settings_index') }}">
+                                <i class="fas fa-cog"></i>
+                                <span>Paramètres</span>
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
             </nav>
@@ -106,28 +111,31 @@
                                 <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" id="navbarDropdownMenuLink-4">
                                     {% if vich_uploader_asset(app.user, 'imageFile') is null %}
                                         <i class="fas fa-user"></i>
-                                        {% else %}
+                                    {% else %}
                                         <img class="rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('profile_menu') }}">
                                     {% endif %}
-                                    
+
                                 </a>
                                 <div aria-labelledby="navbarDropdownMenuLink-4" class="dropdown-menu dropdown-menu-right dropdown-info" id="menu-compte">
                                     <div class="top-menuDown">
                                         <div class="logo-dropDown">
                                             {% if vich_uploader_asset(app.user, 'imageFile') is null %}
                                                 <i class="fas fa-user fa-2x"></i>
-                                                {% else %}
+                                            {% else %}
                                                 <img class="rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('profile_menu') }}">
                                             {% endif %}
                                         </div>
                                         <div class="info-compte">
-                                            <p >{{ app.user.lastName ~ " " ~ app.user.firstName }}</p>
-                                            <p >{{  app.user.getRolesFormat() }}</p>
-                                        </div>  
-                                    </div>    
+                                            <p>{{ app.user.lastName ~ " " ~ app.user.firstName }}</p>
+                                            <p>{{  app.user.getRolesFormat() }}</p>
+                                        </div>
+                                    </div>
                                     <div class="menu-click">
-                                        <a class="dropdown-item waves-effect waves-light" id="tqt" href="{{ path('user_parameters', {'code': app.user.code}) }}"> <i class="fas fa-cog fa-lg"></i> Mon Compte</a>
-                                        <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}"> <i class="fas fa-sign-out-alt fa-lg"></i>Déconnexion</a>
+                                        <a class="dropdown-item waves-effect waves-light" id="tqt" href="{{ path('user_parameters', {'code': app.user.code}) }}">
+                                            <i class="fas fa-cog fa-lg"></i>
+                                            Mon Compte</a>
+                                        <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}">
+                                            <i class="fas fa-sign-out-alt fa-lg"></i>Déconnexion</a>
                                     </div>
                                 </div>
                             </li>
@@ -155,7 +163,7 @@
             <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
             <!-- Application Javascript -->
             <script type="text/javascript" src="{{ asset("js/jquery.star-rating-svg.js") }}"></script>
-            
+
 
         {% endblock %}
     </body>

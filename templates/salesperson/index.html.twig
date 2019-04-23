@@ -17,7 +17,7 @@
             <thead>
                 <tr>
                     <th>
-                <div class="custom-control custom-checkbox">
+                <div class="custom-control custom-checkbox checkbox-dynamic-all">
                     <input type="checkbox" class="custom-control-input" id="check-all" value="all">
                     <label class="custom-control-label" for="check-all"></label>
                 </div>
@@ -40,7 +40,7 @@
                 {% for salesperson in salespeople %}
                     <tr class="clickable-row" data-href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">
                         <td class="check-user">
-                            <div class="custom-control custom-checkbox">
+                            <div class="custom-control custom-checkbox  checkbox-dynamic">
                                 <input type="checkbox" class="custom-control-input" id="check-{{ salesperson.code }}" value="{{ salesperson.code }}">
                                 <label class="custom-control-label" for="check-{{ salesperson.code }}"></label>
                             </div>
