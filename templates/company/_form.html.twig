@@ -87,9 +87,20 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="row">
-                    {{ form_label(form.nafCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.nafCode, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                    {{ form_errors(form.nafCode) }}
+                    <div class="col-lg-4">
+                        <div class="row">
+                            {{ form_label(form.idNumberEmployees, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-6"}}) }}
+                            {{ form_widget(form.idNumberEmployees, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                            {{ form_errors(form.idNumberEmployees) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            {{ form_label(form.website, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.website, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.website) }}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">

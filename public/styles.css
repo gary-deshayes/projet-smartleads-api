@@ -20,6 +20,10 @@ i {
   padding: 22px 35px;
   background-color: #FAFAFA;
 }
+.content-dashboard {
+  padding: 22px 35px;
+  background-color: #fff;
+}
 
 .window {
   background-color: #fff;
@@ -35,6 +39,23 @@ i {
   font-size: 18px;
   color: #888888;
   margin-bottom: 20px;
+}
+
+.btn-retour-radius {
+  background-color: #F5F5F5 !important;
+  box-shadow: 0px 0px 0px 0px #656565;
+  padding: 12px 17px 12px 17px !important;
+}
+.btn-retour-radius:hover {
+  box-shadow: 0px 0px 7px 0px #c5c5c5;
+  background-color: #f0f0f0 !important;
+}
+.btn-retour-radius a {
+  color: #999999;
+}
+.btn-retour-radius i {
+  margin-right: 10px;
+  color: #999999;
 }
 
 input {
@@ -510,6 +531,7 @@ nav#sidebar ul .nav-item i {
   margin-bottom: 0;
 }
 .form-style .row .col-lg-6 .row select {
+  font-size: 13px;
   height: 40px;
 }
 .form-style .row .col-lg-6 .row .mini-field {
@@ -528,6 +550,16 @@ nav#sidebar ul .nav-item i {
 }
 .form-style .row .col-lg-6 .row .required-field select {
   margin-left: 10px;
+}
+.form-style .form-check {
+  display: flex;
+  justify-content: flex-end;
+}
+.form-style .form-check input {
+  margin-right: 5px;
+}
+.form-style .form-check .form-optin {
+  margin-right: 30px;
 }
 
 .div-photo {
@@ -773,18 +805,35 @@ nav#sidebar ul .nav-item i {
   justify-content: center;
   align-items: center;
   font-size: 13px;
-  height: 22px;
-  width: 32px;
   border-radius: 11px;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 .badge-number {
   background-color: #CF1740;
+  height: 22px;
+  width: 32px;
 }
 .badge-zero {
   color: #fff;
   background-color: #D9D9D9;
+  height: 22px;
+  width: 32px;
+}
+.badge-client {
+  background-color: #00b900;
+  height: 24px;
+  width: 80px;
+}
+.badge-prospect {
+  background-color: #ffa200;
+  height: 24px;
+  width: 80px;
+}
+.badge-piste {
+  background-color: #6fb4c9;
+  height: 24px;
+  width: 80px;
 }
 
 .background-img {
@@ -828,6 +877,77 @@ nav#sidebar ul .nav-item i {
 }
 .form-connect form a.text-description {
   margin-top: 10px;
+}
+
+.dashboard-class .window-block {
+  box-shadow: 0px 1px 5px 0px #b3b3b3;
+}
+.dashboard-class .window-block table thead th {
+  color: #B3B3B3;
+}
+.dashboard-class .window-block table thead .top-tr th {
+  font-weight: bold;
+}
+.dashboard-class .window-block table thead tr:not(:first-child) {
+  border-top: 2px solid #eeeeee;
+}
+.dashboard-class .window-block table img {
+  max-width: 30px;
+}
+.dashboard-class .window-block table i {
+  margin: 0 10px;
+}
+.dashboard-class .window-block table .fa-arrow-up {
+  color: #2CCC71;
+}
+.dashboard-class .window-block table .bulle {
+  color: #fff;
+  background-color: #FFA200;
+  border-radius: 11px;
+  padding: 3px 10px;
+}
+
+.statistiques {
+  height: 300px;
+  width: 720px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  height: 150px;
+  width: 150px;
+  margin-top: 10px;
+  margin-right: 30px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 0px 0px 5px 0px #dedede !important;
+}
+
+#libelle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8f8f8f;
+}
+
+.effectif {
+  font-size: 35px;
+  font-weight: 500;
+  color: #6d6d6d;
+}
+
+.taux {
+  font-size: 14px;
+  color: #01a717;
+  font-weight: 500;
+}
+
+.partSup {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

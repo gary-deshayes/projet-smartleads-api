@@ -1,0 +1,84 @@
+.dashboard-class {
+    .window-block {
+        box-shadow: 0px 1px 5px 0px #b3b3b3;
+
+        table {
+            thead {
+                th {
+                    color: #B3B3B3;
+                }
+
+                .top-tr {
+                    th {
+                        font-weight: bold;
+                    }
+                }
+
+                tr:not(:first-child) {
+                    border-top: 2px solid #eeeeee;
+                }
+            }
+            img {
+                max-width: 30px;
+            }
+    
+            i {
+                margin: 0 10px;
+            }
+    
+            .fa-arrow-up {
+                color: #2CCC71;
+            }
+    
+            .bulle {
+                color: #fff;
+                background-color: #FFA200;
+                border-radius: 11px;
+                padding: 3px 10px;
+            }
+        }
+    }
+}
+
+.statistiques{
+    height: 300px;
+    width: 720px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box{
+    height: 150px;
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0px 0px 5px 0px #dedede !important;
+}
+
+#libelle{
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(143, 143, 143);
+}
+
+.effectif{
+    font-size: 35px;
+    font-weight: 500;
+    color: rgb(109, 109, 109);
+}
+
+.taux{
+    font-size: 14px;
+    color: rgb(1, 167, 23);
+    font-weight: 500;
+}
+
+.partSup{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

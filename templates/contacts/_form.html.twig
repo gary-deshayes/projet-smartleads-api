@@ -46,15 +46,13 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="row">
-                            {{ form_widget(form.optInNewsletter, { "attr" : { "class" : "col-lg-2 offset-lg-3"}})
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_label(form.optInNewsletter, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-2"}})
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_widget(form.optInOffresCommercial, { "attr" : { "class" :  "col-lg-2"}})
-                                                                                                                                                                                                                                                                                }}
-                            {{ form_label(form.optInOffresCommercial, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-2"}})
-                                                                                                                                                                                                                                                                                }}
+                        <div class="row form-check">
+                            <div class="form-optin">
+                                {{ form_widget(form.optInNewsletter)}}
+                                {{ form_label(form.optInNewsletter, null,  { "label_attr" : { "class" : "grey-text"}})}}
+                            </div>
+                                {{ form_widget(form.optInOffresCommercial)}}
+                                {{ form_label(form.optInOffresCommercial, null,  { "label_attr" : { "class" : "grey-text"}})}}
                         </div>
                     </div>
                 </div>
@@ -226,7 +224,7 @@
             <div class="btn-end-form-upd">
                 <div>
                     <button class="btn btn-retour-radius btn-light">
-                        <a href="{{path('contacts_index')}}">Retour</a>
+                        <a href="{{path('contacts_index')}}"> <i class="fas fa-arrow-left fa-lg"></i>Retour</a>
                     </button>
                 </div>
                 <div>
