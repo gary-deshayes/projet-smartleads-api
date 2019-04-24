@@ -3,10 +3,13 @@
 namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 use App\AdminBundle\Entity\Salesperson;
+use App\AdminBundle\Entity\DecisionMaking;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -97,18 +100,10 @@ class Contacts
     private $status;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="decision_making", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(
-     *      message = "Cette valeur ne doit pas être vide."
-     * )
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255
-     * )
+     * @OneToOne(targetEntity="DecisionMaking")
+     * @JoinColumn(name="decision_making", referencedColumnName="id")
      */
-    private $decisionMaking;
+    protected $decision_making;
 
     /**
      * @var \DateTime|null
@@ -475,17 +470,7 @@ class Contacts
         return $this;
     }
 
-    public function getDecisionMaking(): ? string
-    {
-        return $this->decisionMaking;
-    }
-
-    public function setDecisionMaking(? string $decisionMaking): self
-    {
-        $this->decisionMaking = $decisionMaking;
-
-        return $this;
-    }
+    
 
     public function getBirthDate(): ? \DateTimeInterface
     {
@@ -800,5 +785,25 @@ class Contacts
         }
         return $nbJours3 . '+' . $nbJours12;
         // return $result;
+    }
+
+    /**
+     * Get the value of decision_making
+     */ 
+    public function getDecision_making()
+    {
+        return $this->decision_making;
+    }
+
+    /**
+     * Set the value of decision_making
+     *
+     * @return  self
+     */ 
+    public function setDecision_making(DecisionMaking $decision_making)
+    {
+        $this->decision_making = $decision_making;
+
+        return $this;
     }
 }

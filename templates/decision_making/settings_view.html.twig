@@ -1,0 +1,17 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Pouvoir décisionnel</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for decision in decisions %}
+            <tr>
+                <td>{{decision.libelle}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>

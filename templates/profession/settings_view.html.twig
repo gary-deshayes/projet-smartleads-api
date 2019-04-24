@@ -1,0 +1,17 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Métiers</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for profession in professions %}
+            <tr>
+            <td>{{ profession.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
