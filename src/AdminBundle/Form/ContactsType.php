@@ -7,6 +7,7 @@ use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Entity\Salesperson;
 use Symfony\Component\Form\AbstractType;
+use App\AdminBundle\Entity\DecisionMaking;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Proxies\__CG__\App\AdminBundle\Entity\Profession;
@@ -82,14 +83,14 @@ class ContactsType extends AbstractType
                 "label" => "Responsable",
                 'required' => false
             ])
-            ->add('decisionMaking', ChoiceType::class, [
-                'label' => "Niveau de décision",
-                'choices' => [
-                    "Associé" => "Associé",
-                    "Salarié" => "Salarié",
-                    "Chef de service" => "Chef de service",
-                    "Dirigeant" => "Dirigeant"
-                ]
+            ->add('decisionMaking', EntityType::class, [
+                'class' => DecisionMaking::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('decision')
+                        ->orderBy('decision.libelle', 'ASC');
+                },
+                "label" => "Pouvoir décisionnel",
+                'required' => false
             ])
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",

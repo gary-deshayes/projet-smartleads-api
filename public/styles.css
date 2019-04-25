@@ -359,6 +359,10 @@ input#search-search:focus {
   width: 70px !important;
 }
 
+.settings-row {
+  cursor: pointer;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

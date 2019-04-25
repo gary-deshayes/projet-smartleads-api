@@ -52,6 +52,7 @@ $(document).ready(function ($) {
 
     })
 
+    //Permet de gérer le niveau des entreprises avec les étoiles
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',
@@ -86,6 +87,7 @@ $(document).ready(function ($) {
         $(".checkbox-dynamic :checkbox").click();
     })
 
+    //Permet de gérer l'affichage des sous catégories dans paramètres
     if($("#settings-contacts").val() == 1 ){
         $("#partProfession").show();
         $("#partDecisionMaking").hide();
@@ -103,6 +105,24 @@ $(document).ready(function ($) {
             $("#partDecisionMaking").show();
         }
     });
+
+    $('#editModalProfession').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#profession_id').val(id)
+        modal.find('#profession_libelle').val(libelle)
+      })
+
+      $('#editModalDecision').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#decision_making_id').val(id)
+        modal.find('#decision_making_libelle').val(libelle)
+      })
 
 
 });

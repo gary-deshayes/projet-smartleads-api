@@ -790,7 +790,7 @@ class Contacts
     /**
      * Get the value of decision_making
      */ 
-    public function getDecision_making()
+    public function getDecisionMaking()
     {
         return $this->decision_making;
     }
@@ -800,7 +800,7 @@ class Contacts
      *
      * @return  self
      */ 
-    public function setDecision_making(DecisionMaking $decision_making)
+    public function setDecisionMaking(DecisionMaking $decision_making)
     {
         $this->decision_making = $decision_making;
 
