@@ -2,17 +2,19 @@
 
 namespace App\AdminBundle\Controller;
 
-use App\AdminBundle\Entity\DecisionMaking;
 use App\AdminBundle\Entity\Settings;
-use App\AdminBundle\Form\DecisionMakingType;
-use App\AdminBundle\Form\ProfessionType;
 use App\AdminBundle\Form\SettingsType;
-use Proxies\__CG__\App\AdminBundle\Entity\Profession;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AdminBundle\Form\ProfessionType;
+use App\AdminBundle\Entity\CompanyStatus;
+use App\AdminBundle\Entity\DecisionMaking;
+use App\AdminBundle\Form\CompanyStatusType;
+use App\AdminBundle\Form\DecisionMakingType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Proxies\__CG__\App\AdminBundle\Entity\Profession;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/settings")
@@ -85,16 +87,45 @@ class SettingsController extends AbstractController
         $formDecisionEdit = $this->createForm(DecisionMakingType::class);
 
         $decisions = $this->getDoctrine()->getRepository(DecisionMaking::class)->findAll();
+        
+        //Gère les ajouts et modifications des pouvoirs décisionnel
+        if ($request->get('company_status') != null) {
+            $arrayStatus = $request->get('company_status');
+            if (isset($arrayStatus["id"])) {
+                $statusEdit = $this->getDoctrine()
+                    ->getRepository(CompanyStatus::class)
+                    ->findOneBy(array("id" => $arrayStatus["id"]));
+                $statusEdit->setLibelle($arrayStatus["libelle"]);
+            } else {
+                $newStatus = new CompanyStatus();
+                $newStatus->setLibelle($arrayStatus["libelle"]);
+                $entityManager = $this->getDoctrine()->getManager()->persist($newStatus);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('settings_index');
+        }
+        //Récupère la partie pouvoir décisionnel
+        $state = new CompanyStatus();
+        $formStatusAdd = $this->createForm(CompanyStatusType::class, $state);
+        $formStatusEdit = $this->createForm(CompanyStatusType::class);
+        $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findAll();
 
         return $this->render('settings/index.html.twig', [
             'settings' => $settings,
-            'professions' => $professions,
             'form' => $form->createView(),
+
+            'professions' => $professions,
             'formProfessionAdd' => $formProfessionAdd->createView(),
             'formProfessionEdit' => $formProfessionEdit->createView(),
+
             'decisions' => $decisions,
             'formDecisionAdd' => $formDecisionAdd->createView(),
             'formDecisionEdit' => $formDecisionEdit->createView(),
+
+            'companyStatus' => $companyStatus,
+            'formStatusAdd' => $formStatusAdd->createView(),
+            'formStatusEdit' => $formStatusEdit->createView(),
         ]);
     }
 
