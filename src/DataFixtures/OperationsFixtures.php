@@ -15,8 +15,6 @@ class OperationsFixtures extends BaseFixture implements DependentFixtureInterfac
             $operation->setCode($this->faker->regexify('[A-Z]{10}'));
             $operation->setName($this->faker->word);
             $operation->setAuthor($this->getRandomReference("Salesperson"));
-            $operation->setMailObject("Concours Smartleads");
-            $operation->setTemplate("base.html.twig");
             $operation->setCreated_At(new \DateTime());
             $operation->setUpdatedAt(new \DateTime());
             $operation->setRevival($this->faker->numberBetween($min = 1, $max = 5));
