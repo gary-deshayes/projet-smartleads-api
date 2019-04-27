@@ -95,6 +95,10 @@ input:focus {
   flex-direction: column;
 }
 
+#mdp-all {
+  margin-top: -6%;
+}
+
 .text-muted {
   font-weight: 400;
   color: #CECECE !important;
@@ -361,6 +365,40 @@ input#search-search:focus {
 
 .settings-row {
   cursor: pointer;
+}
+
+#oublie-mdp {
+  color: #e44a6c;
+  size: 10px;
+  font-weight: bold;
+  margin-top: 16%;
+  margin-bottom: 0%;
+}
+
+.text-mdp {
+  color: #a0a0a0;
+  font-weight: 400;
+  font-size: 11px;
+  text-align: center;
+}
+
+#email_reset_email {
+  width: 235px;
+}
+
+.waves-light#valide-mdp {
+  margin-top: 12% !important;
+  margin: 0px;
+}
+
+.annule-mdp {
+  font-size: 13px;
+  width: 100%;
+  text-align: center;
+}
+.annule-mdp a {
+  color: #a8a8a8;
+  font-weight: 400;
 }
 
 /* ---------------------------------------------------

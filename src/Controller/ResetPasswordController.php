@@ -31,7 +31,7 @@ class ResetPasswordController extends AbstractController
 
                 $message = (new \Swift_Message('Mot de passe oublié ?'))
                 ->setFrom('smartleads.supp@outlook.com')
-                ->setTo('lucas.vignijr@gmail.com')
+                ->setTo('maxime.duroyonJR@gmail.com')
                 ->setBody(
                 $this->renderView(
                 'reset_password/template.html.twig', 
