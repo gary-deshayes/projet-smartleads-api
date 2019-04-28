@@ -13,7 +13,6 @@ class TurnoversType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('idCompany')
         ;
     }
 

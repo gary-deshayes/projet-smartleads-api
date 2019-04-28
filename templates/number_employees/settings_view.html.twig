@@ -1,0 +1,72 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Effectifs</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nbEmployee in numberEmployees %}
+            <tr class="settings-row">
+                <td data-toggle="modal" data-target="#editModalNumberEmployees" data-id="{{ nbEmployee.id }}" data-libelle="{{ nbEmployee.libelle }}">{{ nbEmployee.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary" data-target="#addModalNumberEmployees" data-toggle="modal" type="button">Ajouter</button>
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModalNumberEmployees" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter un effectif</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formNumberEmployeesAdd) }}
+                <div class="row">
+                    {{ form_label(formNumberEmployeesAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formNumberEmployeesAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formNumberEmployeesAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" id="editModalNumberEmployees" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editer un effectif</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formNumberEmployeesEdit) }}
+                <input id="number_employees_id" name="number_employees[id]" type="hidden" value=""/>
+                <div class="row">
+                    {{ form_label(formNumberEmployeesEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formNumberEmployeesEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formNumberEmployeesEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

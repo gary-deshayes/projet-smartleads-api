@@ -35,7 +35,7 @@
                     {{ include('decision_making/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
             </div>
-            <div aria-labelledby="settings_entreprises-tab" class="tab-pane fade show active" id="panel_entreprises" role="tabpanel">
+            <div aria-labelledby="settings-entreprises-tab" class="tab-pane fade show" id="panel_entreprises" role="tabpanel">
                 <h1>Entreprises</h1>
                 <select class="form-control col-lg-3" id="settings-entreprises">
                     <option value="1">Statuts</option>
@@ -49,6 +49,15 @@
                 </div>
                 <div id="partActivityArea">
                     {{ include('activity_area/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partLegalStatus">
+                    {{ include('legal_status/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partNumberEmployees">
+                    {{ include('number_employees/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partTurnovers">
+                    {{ include('turnovers/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
             </div>
         </div>

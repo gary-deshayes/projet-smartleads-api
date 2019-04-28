@@ -87,8 +87,10 @@ $(document).ready(function ($) {
         $(".checkbox-dynamic :checkbox").click();
     })
 
+    /*Partie Settings*/
+
     //Permet de gérer l'affichage des sous catégories dans paramètres
-    if($("#settings-contacts").val() == 1 ){
+    if ($("#settings-contacts").val() == 1) {
         $("#partProfession").show();
         $("#partDecisionMaking").hide();
     } else {
@@ -96,8 +98,8 @@ $(document).ready(function ($) {
         $("#partDecisionMaking").show();
     }
 
-    $("#settings-contacts").on("change", function(){
-        if($("#settings-contacts").val() == 1 ){
+    $("#settings-contacts").on("change", function () {
+        if ($("#settings-contacts").val() == 1) {
             $("#partProfession").show();
             $("#partDecisionMaking").hide();
         } else {
@@ -113,39 +115,91 @@ $(document).ready(function ($) {
         var modal = $(this)
         modal.find('#profession_id').val(id)
         modal.find('#profession_libelle').val(libelle)
-      })
+    })
 
-      $('#editModalDecision').on('show.bs.modal', function (event) {
+    $('#editModalDecision').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var id = button.data('id');
         var libelle = button.data('libelle');
         var modal = $(this)
         modal.find('#decision_making_id').val(id)
         modal.find('#decision_making_libelle').val(libelle)
-      })
+    })
 
-      //Permet de gérer l'affichage des sous catégories dans paramètres
-    if($("#settings-contacts").val() == 1 ){
+    //Permet de gérer l'affichage des sous catégories dans paramètres
+    if ($("#settings-entreprises").val() == 1) {
         $("#partStatuts").show();
         $("#partActivityArea").hide();
-    } else {
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 2) {
         $("#partStatuts").hide();
         $("#partActivityArea").show();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 3) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").show();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 4) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").show();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 5) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").show();
     }
 
     //Partie settings entreprise
-    $("#settings-entreprises").on("change", function(){
-        if($("#settings-entreprises").val() == 1 ){
-            $("#partStatuts").show();
-            $("#partActivityArea").hide();
-        } else {
-            $("#partStatuts").hide();
-            $("#partActivityArea").show();
+    $("#settings-entreprises").on("change", function () {
+        switch ($("#settings-entreprises").val()) {
+            case "1":
+                $("#partStatuts").show();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                break;
+            case "2":
+                $("#partStatuts").hide();
+                $("#partActivityArea").show();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                break;
+            case "3":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").show();
+                $("#partNumberEmployees").hide();
+                break;
+            case "4":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").show();
+                break;
+            case "5":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").show();
+                break;
+
+
         }
     });
 
     $('#editModalStatus').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
+        var button = $(event.relatedTarget)
         var id = button.data('id');
         var libelle = button.data('libelle');
         var modal = $(this)
@@ -154,12 +208,39 @@ $(document).ready(function ($) {
     })
 
     $('#editModalActivity').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
+        var button = $(event.relatedTarget)
         var id = button.data('id');
         var libelle = button.data('libelle');
         var modal = $(this)
         modal.find('#activity_area_id').val(id)
         modal.find('#activity_area_libelle').val(libelle)
+    })
+
+    $('#editModalLegalStatus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#legal_status_id').val(id)
+        modal.find('#legal_status_libelle').val(libelle)
+    })
+
+    $('#editModalNumberEmployees').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#number_employees_id').val(id)
+        modal.find('#number_employees_libelle').val(libelle)
+    })
+
+    $('#editModalTurnovers').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#turnovers_id').val(id)
+        modal.find('#turnovers_libelle').val(libelle)
     })
 
 });
