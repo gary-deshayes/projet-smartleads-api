@@ -7,12 +7,14 @@ use App\AdminBundle\Form\SettingsType;
 use App\AdminBundle\Form\ProfessionType;
 use App\AdminBundle\Entity\CompanyStatus;
 use App\AdminBundle\Entity\DecisionMaking;
+use App\AdminBundle\Form\ActivityAreaType;
 use App\AdminBundle\Form\CompanyStatusType;
 use App\AdminBundle\Form\DecisionMakingType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Proxies\__CG__\App\AdminBundle\Entity\Profession;
+use Proxies\__CG__\App\AdminBundle\Entity\ActivityArea;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -111,6 +113,29 @@ class SettingsController extends AbstractController
         $formStatusEdit = $this->createForm(CompanyStatusType::class);
         $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findAll();
 
+        //Gère les ajouts et modifications des secteurs d'activités (Code naf)
+        if ($request->get('activity_area') != null) {
+            $arrayStatus = $request->get('activity_area');
+            if (isset($arrayStatus["id"])) {
+                $activityEdit = $this->getDoctrine()
+                    ->getRepository(ActivityArea::class)
+                    ->findOneBy(array("id" => $arrayStatus["id"]));
+                $activityEdit->setLibelle($arrayStatus["libelle"]);
+            } else {
+                $newActivity = new ActivityArea();
+                $newActivity->setLibelle($arrayStatus["libelle"]);
+                $entityManager = $this->getDoctrine()->getManager()->persist($newActivity);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('settings_index');
+        }
+        //Récupère la partie pouvoir décisionnel
+        $activityArea = new ActivityArea();
+        $formActivityAdd = $this->createForm(ActivityAreaType::class, $activityArea);
+        $formActivityEdit = $this->createForm(ActivityAreaType::class);
+        $activityAreas = $this->getDoctrine()->getRepository(ActivityArea::class)->findAll();
+
         return $this->render('settings/index.html.twig', [
             'settings' => $settings,
             'form' => $form->createView(),
@@ -126,6 +151,10 @@ class SettingsController extends AbstractController
             'companyStatus' => $companyStatus,
             'formStatusAdd' => $formStatusAdd->createView(),
             'formStatusEdit' => $formStatusEdit->createView(),
+
+            'activityAreas' => $activityAreas,
+            'formActivityAdd' => $formActivityAdd->createView(),
+            'formActivityEdit' => $formActivityEdit->createView(),
         ]);
     }
 
