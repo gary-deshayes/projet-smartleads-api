@@ -124,6 +124,43 @@ $(document).ready(function ($) {
         modal.find('#decision_making_libelle').val(libelle)
       })
 
+      //Permet de gérer l'affichage des sous catégories dans paramètres
+    if($("#settings-contacts").val() == 1 ){
+        $("#partStatuts").show();
+        $("#partActivityArea").hide();
+    } else {
+        $("#partStatuts").hide();
+        $("#partActivityArea").show();
+    }
+
+    //Partie settings entreprise
+    $("#settings-entreprises").on("change", function(){
+        if($("#settings-entreprises").val() == 1 ){
+            $("#partStatuts").show();
+            $("#partActivityArea").hide();
+        } else {
+            $("#partStatuts").hide();
+            $("#partActivityArea").show();
+        }
+    });
+
+    $('#editModalStatus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#company_status_id').val(id)
+        modal.find('#company_status_libelle').val(libelle)
+    })
+
+    $('#editModalActivity').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#activity_area_id').val(id)
+        modal.find('#activity_area_libelle').val(libelle)
+    })
 
 });
 
