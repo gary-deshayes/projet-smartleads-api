@@ -361,4 +361,22 @@ class SalespersonController extends AbstractController
 
 
     }
+
+    /**
+     * @Route("/change_statut/{code}", name="salesperson_change_statut", methods={"GET","POST"})
+     */
+    public function changeStatutSalesperson(Request $request, Salesperson $salesperson)
+    {
+        $statut = (bool)$request->request->get("statut");
+        $salesperson->setStatus($statut);
+        $salesperson->setUser_last_update($this->getUser());
+        $this->getDoctrine()->getManager()->flush();
+        $data = array(
+            "retour" => true
+        );
+
+        // $response = new Response(json_encode($data, 200));
+        // $response->headers->set('Content-Type', 'application/json');
+        return new JsonResponse($data);
+    }
 }

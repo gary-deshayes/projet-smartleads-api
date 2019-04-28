@@ -115,10 +115,12 @@ $(function () {
 $("#search_limit").on("change", function () {
     $("#form_search").submit();
 })
+
 //Changement des statut switchs
 $("[id^='statut']").on("change", function () {
     console.log($(this));
     var entity = $(this).attr("id").split("statut-")[1];
+    console.log(entity);
     var value;
     if ($(this).is(":checked")) {
         value = 1;
@@ -129,6 +131,9 @@ $("[id^='statut']").on("change", function () {
     if (entity == "contact") {
         changeStatutContact(value)
     }
+    if (entity == "salesperson") {
+        changeStatutSalesperson(value)
+    }
 })
 
 function changeStatutContact(value) {
@@ -136,6 +141,18 @@ function changeStatutContact(value) {
         statut: value
     };
     var url = "/admin/contacts/change_statut/" + $("#contacts_code").val();
+    console.log(url);
+    $.post(url, data, function (data) {
+        if (data.retour == true) {
+        }
+    });
+}
+
+function changeStatutSalesperson(value) {
+    var data = {
+        statut: value
+    };
+    var url = "/admin/salesperson/change_statut/" + $("#salesperson_code").val();
     $.post(url, data, function (data) {
         if (data.retour == true) {
             console.log("okk");
