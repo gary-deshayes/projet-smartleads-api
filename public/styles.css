@@ -719,25 +719,6 @@ nav#sidebar ul {
       padding: 5px 12px;
       border-radius: 15px;
       color: #fff; }
-.dashboard-class .window-block {
-  box-shadow: 0px 1px 5px 0px #b3b3b3; }
-  .dashboard-class .window-block table thead th {
-    color: #B3B3B3; }
-  .dashboard-class .window-block table thead .top-tr th {
-    font-weight: bold; }
-  .dashboard-class .window-block table thead tr:not(:first-child) {
-    border-top: 2px solid #eeeeee; }
-  .dashboard-class .window-block table img {
-    max-width: 30px; }
-  .dashboard-class .window-block table i {
-    margin: 0 10px; }
-  .dashboard-class .window-block table .fa-arrow-up {
-    color: #2CCC71; }
-  .dashboard-class .window-block table .bulle {
-    color: #fff;
-    background-color: #FFA200;
-    border-radius: 11px;
-    padding: 3px 10px; }
 .dashboard-class .nav-pills .nav-item {
   border: 2px #EBEBEB solid;
   margin-right: -2px; }
@@ -752,23 +733,40 @@ nav#sidebar ul {
     .dashboard-class .nav-pills .nav-item .nav-link.active {
       background-color: transparent;
       color: #999999; }
-
-.statistiques {
+.dashboard-class .dash-window-block {
+  box-shadow: 0px 1px 5px 0px #b3b3b3; }
+  .dashboard-class .dash-window-block table thead th {
+    color: #B3B3B3; }
+  .dashboard-class .dash-window-block table thead .top-tr th {
+    font-weight: bold; }
+  .dashboard-class .dash-window-block table thead tr:not(:first-child) {
+    border-top: 2px solid #eeeeee; }
+  .dashboard-class .dash-window-block table img {
+    max-width: 30px; }
+  .dashboard-class .dash-window-block table i {
+    margin: 0 10px; }
+  .dashboard-class .dash-window-block table .fa-arrow-up {
+    color: #2CCC71; }
+  .dashboard-class .dash-window-block table .bulle {
+    color: #fff;
+    background-color: #FFA200;
+    border-radius: 11px;
+    padding: 3px 10px; }
+.dashboard-class .dash-statistiques {
   height: 300px;
   width: 720px;
   display: flex;
   flex-wrap: wrap; }
-
-.box {
-  height: 150px;
-  width: 150px;
-  margin-top: 10px;
-  margin-right: 30px;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  text-align: center;
-  box-shadow: 0px 0px 5px 0px #dedede !important; }
+  .dashboard-class .dash-statistiques .box {
+    height: 150px;
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0px 0px 5px 0px #dedede !important; }
 
 #libelle {
   font-size: 13px;
