@@ -263,6 +263,7 @@ function changeStatutContact(value) {
 var options = {
     chart: {
         type: 'donut',
+        height: 300
     },
     dataLabels: {
         enabled: false,
@@ -270,9 +271,9 @@ var options = {
     labels: ['Ouvert', 'Non ouvert', 'Délivré', 'Ajout/Mise à jour des données'],
     plotOptions: {
         pie: {
-            size: 100,
+            size: 80,
             donut: {
-                size: '85%',
+                size: '80%'
             },
         }
       },
@@ -282,7 +283,12 @@ var options = {
         showForNullSeries: true,
         showForZeroSeries: true,
         position: 'bottom',
-        offsetY: 50,
+        horizontalAlign: 'left', 
+        offsetY: 30,
+        itemMargin: {
+            horizontal: 0,
+            vertical: 20
+        },
     },
     series: [44, 55, 41, 100],
     responsive: [{

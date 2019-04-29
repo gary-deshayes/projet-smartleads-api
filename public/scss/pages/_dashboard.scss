@@ -47,6 +47,23 @@
 
     // Component of dashboard
     .dash {
+        &-top {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+
+            h4 {
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: bold;
+                color: #888888;
+            }
+
+            i {
+                font-size: 14px;
+            }
+        }
+
         &-window-block {
             box-shadow: 0px 1px 5px 0px #b3b3b3;
     
@@ -107,6 +124,9 @@
         }
 
         &-perf-operation {
+            #chart {
+                margin-top: -30px;
+            }
         }
     }
 }
