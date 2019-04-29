@@ -76,8 +76,7 @@ input {
   flex-direction: column; }
 
 #mdp-all {
-  margin-top: -6%;
-}
+  margin-top: -6%; }
 
 .text-muted {
   font-weight: 400;
@@ -296,34 +295,28 @@ input#search-search:focus {
   size: 10px;
   font-weight: bold;
   margin-top: 16%;
-  margin-bottom: 0%;
-}
+  margin-bottom: 0%; }
 
 .text-mdp {
   color: #a0a0a0;
   font-weight: 400;
   font-size: 11px;
-  text-align: center;
-}
+  text-align: center; }
 
 #email_reset_email {
-  width: 235px;
-}
+  width: 235px; }
 
 .waves-light#valide-mdp {
   margin-top: 12% !important;
-  margin: 0px;
-}
+  margin: 0px; }
 
 .annule-mdp {
   font-size: 13px;
   width: 100%;
-  text-align: center;
-}
-.annule-mdp a {
-  color: #a8a8a8;
-  font-weight: 400;
-}
+  text-align: center; }
+  .annule-mdp a {
+    color: #a8a8a8;
+    font-weight: 400; }
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -771,6 +764,17 @@ nav#sidebar ul {
     .dashboard-class .nav-pills .nav-item .nav-link.active {
       background-color: transparent;
       color: #999999; }
+.dashboard-class .dash-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px; }
+  .dashboard-class .dash-top h4 {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #888888; }
+  .dashboard-class .dash-top i {
+    font-size: 14px; }
 .dashboard-class .dash-window-block {
   box-shadow: 0px 1px 5px 0px #b3b3b3; }
   .dashboard-class .dash-window-block table thead th {
@@ -791,39 +795,51 @@ nav#sidebar ul {
     border-radius: 11px;
     padding: 3px 10px; }
 .dashboard-class .dash-statistiques {
-  height: 300px;
-  width: 720px;
   display: flex;
   flex-wrap: wrap; }
   .dashboard-class .dash-statistiques .box {
     height: 150px;
     width: 150px;
-    margin-top: 10px;
-    margin-right: 30px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-right: 4%;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     text-align: center;
     box-shadow: 0px 0px 5px 0px #dedede !important; }
-
-#libelle {
-  font-size: 13px;
-  font-weight: 500;
-  color: #8f8f8f; }
-
-.effectif {
-  font-size: 35px;
-  font-weight: 500;
-  color: #6d6d6d; }
-
-.taux {
-  font-size: 14px;
-  color: #01a717;
-  font-weight: 500; }
-
-.partSup {
-  display: flex;
-  justify-content: space-around;
-  align-items: center; }
+    .dashboard-class .dash-statistiques .box-first {
+      font-weight: 500; }
+    .dashboard-class .dash-statistiques .box .partSup {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 10px; }
+      .dashboard-class .dash-statistiques .box .partSup i {
+        font-size: 18px; }
+      .dashboard-class .dash-statistiques .box .partSup .taux {
+        font-size: 14px;
+        color: #01a717;
+        font-weight: 500; }
+    .dashboard-class .dash-statistiques .box .partSup-second {
+      display: flex;
+      justify-content: space-around;
+      color: #999999;
+      font-size: 13px; }
+      .dashboard-class .dash-statistiques .box .partSup-second span.withadd {
+        margin-left: 40px; }
+      .dashboard-class .dash-statistiques .box .partSup-second i {
+        font-size: 17px; }
+    .dashboard-class .dash-statistiques .box #libelle {
+      font-size: 13px;
+      color: #8f8f8f; }
+    .dashboard-class .dash-statistiques .box .effectif {
+      font-size: 35px;
+      color: #6d6d6d; }
+.dashboard-class .dash-perf-operation #chart {
+  margin-top: -30px; }
+  .dashboard-class .dash-perf-operation #chart .apexcharts-legend-text {
+    margin-left: 10px;
+    font-weight: bold; }
 
 /*# sourceMappingURL=styles.css.map */

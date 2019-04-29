@@ -47,6 +47,23 @@
 
     // Component of dashboard
     .dash {
+        &-top {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+
+            h4 {
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: bold;
+                color: #888888;
+            }
+
+            i {
+                font-size: 14px;
+            }
+        }
+
         &-window-block {
             box-shadow: 0px 1px 5px 0px #b3b3b3;
     
@@ -88,46 +105,78 @@
         }
 
         &-statistiques {
-            height: 300px;
-            width: 720px;
             display: flex;
             flex-wrap: wrap;
     
             .box {
                 height: 150px;
                 width: 150px;
-                margin-top: 10px;
-                margin-right: 30px;
+                margin-top: 1%;
+                margin-bottom: 1%;
+                margin-right: 4%;
                 display: flex;
                 justify-content: space-around;
                 flex-direction: column;
                 text-align: center;
                 box-shadow: 0px 0px 5px 0px #dedede !important;
+
+                &-first {
+                    font-weight: 500;
+                }
+
+                .partSup {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 0 10px;
+
+                    i {
+                        font-size: 18px;
+                    }
+
+                    .taux {
+                        font-size: 14px;
+                        color: rgb(1, 167, 23);
+                        font-weight: 500;
+                    }
+                }
+
+                .partSup-second {
+                    display: flex;
+                    justify-content: space-around;
+                    color: #999999;
+                    font-size: 13px;
+
+                    span.withadd {
+                        margin-left: 40px;
+                    }
+
+                    i {
+                        font-size: 17px;
+                    }
+                }
+
+                #libelle {
+                    font-size: 13px;
+                    color: rgb(143, 143, 143);
+                }
+                
+                .effectif {
+                    font-size: 35px;
+                    color: rgb(109, 109, 109);
+                }
+            }
+        }
+
+        &-perf-operation {
+            #chart {
+                margin-top: -30px;
+
+                .apexcharts-legend-text {
+                    margin-left: 10px;
+                    font-weight: bold;
+                }
             }
         }
     }
-}
-
-#libelle {
-    font-size: 13px;
-    font-weight: 500;
-    color: rgb(143, 143, 143);
-}
-
-.effectif {
-    font-size: 35px;
-    font-weight: 500;
-    color: rgb(109, 109, 109);
-}
-
-.taux {
-    font-size: 14px;
-    color: rgb(1, 167, 23);
-    font-weight: 500;
-}
-
-.partSup {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
