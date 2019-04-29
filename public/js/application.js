@@ -167,24 +167,28 @@ $(document).ready(function ($) {
                 $("#partActivityArea").hide();
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
                 break;
             case "2":
                 $("#partStatuts").hide();
                 $("#partActivityArea").show();
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
                 break;
             case "3":
                 $("#partStatuts").hide();
                 $("#partActivityArea").hide();
                 $("#partLegalStatus").show();
                 $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
                 break;
             case "4":
                 $("#partStatuts").hide();
                 $("#partActivityArea").hide();
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").show();
+                $("#partTurnovers").hide();
                 break;
             case "5":
                 $("#partStatuts").hide();
@@ -316,6 +320,37 @@ function changeStatutSalesperson(value) {
         }
     });
 }
+
+
+$("#profession_delete").on("click", function (e) {
+    e.preventDefault();
+    $('#editModalProfession').modal("hide");
+
+    $.ajax({
+        url: '/admin/profession/' + $("#profession_id").val(),
+        type: 'DELETE',
+        success: function (result) {
+            if (result == 1) {
+                $("#td-settings-profession-" + $("#profession_id").val()).remove();
+            }
+        }
+    });
+});
+
+$("#decision_making_delete").on("click", function (e) {
+    e.preventDefault();
+    $('#editModalDecision').modal("hide");
+
+    $.ajax({
+        url: '/admin/decisionMaking/' + $("#decision_making_id").val(),
+        type: 'DELETE',
+        success: function (result) {
+            if (result == 1) {
+                $("#td-settings-decision-" + $("#decision_making_id").val()).remove();
+            }
+        }
+    });
+})
 
 // google.charts.load('current', { 'packages': ['corechart'] });
 // google.charts.setOnLoadCallback(drawChart);

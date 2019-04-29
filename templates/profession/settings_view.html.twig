@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         {% for profession in professions %}
-            <tr class="settings-row">
+            <tr class="settings-row" id="td-settings-profession-{{ profession.id }}">
                 <td data-toggle="modal" data-target="#editModalProfession" data-id="{{ profession.id }}" data-libelle="{{ profession.libelle }}">{{ profession.libelle }}</td>
             </tr>
         {% endfor %}
@@ -64,6 +64,7 @@
                     {{ form_widget(formProfessionEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
                 </div>
                 <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" id="profession_delete">supprimer</button>
                     <button class="btn btn-radius-red" type="submit">Valider</button>
                 </div>
                 {{ form_end(formProfessionEdit) }}

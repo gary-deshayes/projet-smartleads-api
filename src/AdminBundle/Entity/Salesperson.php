@@ -267,12 +267,12 @@ class Salesperson implements UserInterface
     /**
      * @var \Region
      *
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="AffectedArea")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_region", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_zone", referencedColumnName="id")
      * })
      */
-    private $region;
+    private $zone;
 
     /**
      * @var \Salesperson
@@ -739,14 +739,14 @@ class Salesperson implements UserInterface
         }
     }
 
-    public function getRegion(): ?Region
+    public function getZone()
     {
-        return $this->region;
+        return $this->zone;
     }
 
-    public function setRegion(?Region $region): self
+    public function setZone($zone)
     {
-        $this->region = $region;
+        $this->zone = $zone;
 
         return $this;
     }

@@ -5,10 +5,10 @@
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(formSettings.mail_object, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
                     <div class="required-field">
                         {{ form_widget(formSettings.mail_object, { "attr" : { "class" : "form-control col-lg-12"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
                     </div>
                     {{ form_errors(formSettings.mail_object) }}
                 </div>
@@ -21,35 +21,35 @@
                     <div class="col-lg-8">
                         <div class="window">
                             {% if vich_uploader_asset(settings_operation, 'mail_image') is null %}
-                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('img_operations') }}">
                             {% else %}
-                                <img src="{{ vich_uploader_asset(settings_operation, 'mail_image') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+                                <img src="{{ vich_uploader_asset(settings_operation, 'mail_image') | imagine_filter('img_operations') }}" >
                             {% endif %}
                         </div>
                         <div class="div-photo">
-                            <label for="settings_operation_mail_visual">
+                            <label for="settings_operation_mail_image">
                                 <i class="fas fa-sync"></i>Parcourir</label>
                             <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
                         </div>
                     </div>
 
-                    {{ form_widget(formSettings.mail_visual, { "attr" : { "class" : "display-none"}})}}
-                    {{ form_widget(formSettings.mail_visual) }}
+                    {{ form_widget(formSettings.mail_image, { "attr" : { "class" : "display-none"}})}}
+                    {{ form_widget(formSettings.mail_image) }}
                 </div>
                 <div class="row">
                     {{ form_label(formSettings.text_mail, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
                     <div class="required-field">
                         {{ form_widget(formSettings.text_mail, { "attr" : { "class" : "form-control col-lg-12"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
                     </div>
                 </div>
                 <div class="row">
                     {{ form_label(formSettings.libelle_button_mail, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
 
                     {{ form_widget(formSettings.libelle_button_mail, { "attr" : { "class" : "form-control col-lg-8"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
 
                 </div>
             </div>
@@ -70,20 +70,20 @@
                     <div class="col-lg-8">
                         <div class="window">
                             {% if vich_uploader_asset(settings_operation, 'page_image') is null %}
-                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('img_operations') }}">
                             {% else %}
-                                <img src="{{ vich_uploader_asset(settings_operation, 'page_image') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+                                <img src="{{ vich_uploader_asset(settings_operation, 'page_image') | imagine_filter('img_operations') }}">
                             {% endif %}
                         </div>
                         <div class="div-photo">
-                            <label for="settings_operation_mail_visual">
+                            <label for="settings_operation_page_image">
                                 <i class="fas fa-sync"></i>Parcourir</label>
                             <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
                         </div>
                     </div>
 
-                    {{ form_widget(formSettings.page_visual, { "attr" : { "class" : "display-none"}})}}
-                    {{ form_widget(formSettings.page_visual) }}
+                    {{ form_widget(formSettings.page_image, { "attr" : { "class" : "display-none"}})}}
+                    {{ form_widget(formSettings.page_image) }}
                 </div>
                 <div class="row">
                     {{ form_label(formSettings.introduction_title, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
@@ -99,10 +99,10 @@
                 </div>
                 <div class="row">
                     {{ form_label(formSettings.libelle_button_page, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
 
                     {{ form_widget(formSettings.libelle_button_page, { "attr" : { "class" : "form-control col-lg-8"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
 
                 </div>
                 <div class="row">
@@ -133,4 +133,6 @@
                     {{ button_label|default('Save') }}</button>
             </div>
         </div>
-        {{ form_end(formSettings) }}
+    </div>
+</div>
+{{ form_end(formSettings) }}

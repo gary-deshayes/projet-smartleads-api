@@ -101,7 +101,7 @@ class Contacts
 
     /**
      * @OneToOne(targetEntity="DecisionMaking")
-     * @JoinColumn(name="decision_making", referencedColumnName="id")
+     * @JoinColumn(name="decision_making", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $decision_making;
 
@@ -301,7 +301,7 @@ class Contacts
      *
      * @ORM\ManyToOne(targetEntity="Profession")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_profession", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_profession", referencedColumnName="id", onDelete="SET NULL")
      * })
      */
     private $idProfession;

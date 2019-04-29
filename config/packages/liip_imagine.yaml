@@ -18,6 +18,11 @@ liip_imagine:
                 thumbnail:
                     size:   [36, 36]
                     mode:   outbound
+        img_operations:
+            quality: 100
+            filters:
+                thumbnail:
+                    size:   [160, 50]
             
     
     
