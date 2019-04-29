@@ -274,7 +274,7 @@ var options = {
             size: 80,
             donut: {
                 size: '80%'
-            },
+            }
         }
       },
       legend: {
@@ -288,6 +288,9 @@ var options = {
         itemMargin: {
             horizontal: 0,
             vertical: 20
+        },
+        labels: {
+            colors: ['#B3B3B3']
         },
     },
     series: [44, 55, 41, 100],

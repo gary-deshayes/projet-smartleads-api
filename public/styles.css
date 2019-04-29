@@ -800,33 +800,46 @@ nav#sidebar ul {
   .dashboard-class .dash-statistiques .box {
     height: 150px;
     width: 150px;
-    margin: 1% 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-right: 4%;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     text-align: center;
     box-shadow: 0px 0px 5px 0px #dedede !important; }
+    .dashboard-class .dash-statistiques .box-first {
+      font-weight: 500; }
+    .dashboard-class .dash-statistiques .box .partSup {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 10px; }
+      .dashboard-class .dash-statistiques .box .partSup i {
+        font-size: 18px; }
+      .dashboard-class .dash-statistiques .box .partSup .taux {
+        font-size: 14px;
+        color: #01a717;
+        font-weight: 500; }
+    .dashboard-class .dash-statistiques .box .partSup-second {
+      display: flex;
+      justify-content: space-around;
+      color: #999999;
+      font-size: 13px; }
+      .dashboard-class .dash-statistiques .box .partSup-second span.withadd {
+        margin-left: 40px; }
+      .dashboard-class .dash-statistiques .box .partSup-second i {
+        font-size: 17px; }
+    .dashboard-class .dash-statistiques .box #libelle {
+      font-size: 13px;
+      color: #8f8f8f; }
+    .dashboard-class .dash-statistiques .box .effectif {
+      font-size: 35px;
+      color: #6d6d6d; }
 .dashboard-class .dash-perf-operation #chart {
   margin-top: -30px; }
-
-#libelle {
-  font-size: 13px;
-  font-weight: 500;
-  color: #8f8f8f; }
-
-.effectif {
-  font-size: 35px;
-  font-weight: 500;
-  color: #6d6d6d; }
-
-.taux {
-  font-size: 14px;
-  color: #01a717;
-  font-weight: 500; }
-
-.partSup {
-  display: flex;
-  justify-content: space-around;
-  align-items: center; }
+  .dashboard-class .dash-perf-operation #chart .apexcharts-legend-text {
+    margin-left: 10px;
+    font-weight: bold; }
 
 /*# sourceMappingURL=styles.css.map */

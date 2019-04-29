@@ -28,16 +28,170 @@
         </div>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-today" role="tabpanel" aria-labelledby="pills-today-tab">
-                {{ include('dashboard/tabs/_today.html.twig') }}
+                <div class="row">
+                    <div class="col-8">
+                        <div class="dash-statistiques">
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-user-friends fa-lg"></i>
+                                    <span class ="taux">+12%</span>
+                                </div>
+                                <span class="effectif">32</span>
+                                <span id ="libelle">Nouveaux contacts</span>
+                            </div>
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-user-friends fa-lg"></i>
+                                    <span class="taux">+5%</span>
+                                </div>
+                                <span class="effectif">18</span>
+                                <span id="libelle">Nouvelles entreprises</span>
+                            </div>
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-user-friends fa-lg"></i>
+                                    <span class="taux">+11%</span>
+                                </div>
+                                <span class="effectif">25</span>
+                                <span id ="libelle">Nouveaux emails</span>
+                            </div>
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-star"></i>
+                                    <span class ="taux">+12%</span>
+                                </div>
+                                <span class="effectif">9</span>
+                                <span id="libelle">Opérations actives</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span class="withadd">TOTAL</span>
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                                <span class="effectif">4583</span>
+                                <span id="libelle">Contacts actifs</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span class="withadd">TOTAL</span>
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                                <span class="effectif">1879</span>
+                                <span id="libelle">Entreprises actives</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span>TOTAL</span>
+                                </div>
+                                <span class="effectif">2687</span>
+                                <span id="libelle">Emails</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span class="withadd">TOTAL</span>
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                                <span class="effectif">274</span>
+                                <span id="libelle">Opérations réalisées</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="dash-window-block">
+                            <div class="dash-perf-operation">
+                                <div class="dash-top">
+                                    <h4>Performances des opérations</h4>
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <div class="dash-window-block">
+                            <div class="dash-quality-crm">
+                                <div class="dash-top">
+                                    <h4>Suivi des indicateurs de performance</h4>
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6">
+                        <div class="dash-window-block">
+                            <table class="table">
+                                <thead>
+                                    <tr class="top-tr">
+                                        <th scope="col">Top commerciaux</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Score</th>
+                                        <th scope="col">Gagnés</th>
+                                        <th scope="col">Mis à jour</th>
+                                        <th scope="col">Perdus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i> Vincent DUMONT</td>
+                                        <td><span class="bulle">26</span></td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i> Vincent DUMONT</td>
+                                        <td><span class="bulle">26</span></td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i> Vincent DUMONT</td>
+                                        <td><span class="bulle">26</span></td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i> Vincent DUMONT</td>
+                                        <td><span class="bulle">26</span></td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i> Vincent DUMONT</td>
+                                        <td><span class="bulle">26</span></td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i> Vincent DUMONT</td>
+                                        <td><span class="bulle">26</span></td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="pills-week" role="tabpanel" aria-labelledby="pills-week-tab">
-                {{ include('dashboard/tabs/_week.html.twig') }}
+                WEEK CONTENT
             </div>
             <div class="tab-pane fade" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
-                {{ include('dashboard/tabs/_month.html.twig') }}
+                MONTH CONTENT
             </div>
             <div class="tab-pane fade" id="pills-year" role="tabpanel" aria-labelledby="pills-year-tab">
-                {{ include('dashboard/tabs/_year.html.twig') }}
+                YEAR CONTENT
             </div>
         </div>
     </div>
