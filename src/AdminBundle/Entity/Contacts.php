@@ -783,8 +783,7 @@ class Contacts
         {
             $result = 'obsolète';
         }
-        return $nbJours3 . '+' . $nbJours12;
-        // return $result;
+        return $result;
     }
 
     /**

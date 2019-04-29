@@ -23,6 +23,7 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $salesperson = $entityManager->getRepository(Salesperson::class)->findOneByEmail($form->getData()['email']);
+            dump($salesperson);
             if ($salesperson !== null) {
                 $token = uniqid();
                 $salesperson->setTokenResetPassword($token);

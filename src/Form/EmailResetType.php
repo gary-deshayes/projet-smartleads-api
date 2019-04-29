@@ -15,12 +15,8 @@ class EmailResetType extends AbstractType
         $builder
         ->add('email', EmailType::class, [
             "required" => true
-        ])
-            // ->add('submit', SubmitType::class, [
-            //     "label" => "Valider",
+        ]);
 
-            //  ])
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
