@@ -219,47 +219,7 @@ function changeStatutContact(value) {
     });
 }
 
-// google.charts.load('current', { 'packages': ['corechart'] });
-// google.charts.setOnLoadCallback(drawChart);
-
-// function drawChart() {
-
-//     var data = google.visualization.arrayToDataTable([
-//         ['Task', 'Hours per Day'],
-//         ['Ouvert', 46],
-//         ['Non délivré', 14],
-//         ['Non ouvert', 20],
-//         ['Ajout/mise à jour des données', 20]
-//     ]);
-
-//     var options = {
-//         title: 'Performance des opérations',
-//         pieHole: 0.5,
-//     };
-
-//     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-//     chart.draw(data, options);
-// }
-
-// //doughnut
-// var ctxD = document.getElementById("doughnutChart").getContext('2d');
-// var myLineChart = new Chart(ctxD, {
-//     type: 'doughnut',
-//     data: {
-//         labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-
-//         datasets: [{
-//             data: [300, 50, 100, 40, 120],
-//             backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-//             hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-//         }]
-//     },
-//     options: {
-//         responsive: true
-//     }
-// });
-
+// Donut Component Dashboard
 var options = {
     chart: {
         type: 'donut',
@@ -314,5 +274,44 @@ var chart = new ApexCharts(
 
 chart.render();
 
+// Chart Component Dashboard
+var options = {
+    chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    series: [{
+      name: "Desktops",
+      data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+    }],
+    title: {
+      text: 'Product Trends by Month',
+      align: 'left'
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5
+      },
+    },
+    xaxis: {
+      categories: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Aou', 'Sep'],
+    }
+  }
 
+  var chart = new ApexCharts(
+    document.querySelector("#line-chart"),
+    options
+  );
+
+  chart.render();
 
