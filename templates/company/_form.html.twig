@@ -61,9 +61,8 @@
             </div>
             <div class="col-lg-6">
                 <div class="row">
-                    {{ form_label(form.additionalAddress, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.additionalAddress, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                    {{ form_errors(form.additionalAddress) }}
+                    {{ form_label(form.postalCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.postalCode, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                 </div>
             </div>
         </div>
@@ -79,13 +78,27 @@
             </div>
             <div class="col-lg-6">
                 <div class="row">
-                    {{ form_label(form.postalCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.postalCode, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_label(form.town, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.town, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.nafCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.nafCode, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.nafCode) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.additionalAddress, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.additionalAddress, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.additionalAddress) }}
+                </div>
+            </div>
+            {# <div class="col-lg-6">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="row">
@@ -102,13 +115,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="row">
-                    {{ form_label(form.town, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.town, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                </div>
-            </div>
+            </div> #}
         </div>
         <div class="row">
             <div class="col-lg-6">
@@ -121,7 +128,6 @@
                 <div class="row">
                     {{ form_label(form.phone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                     {{ form_widget(form.phone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                    {{ form_help(form.phone)}}
                     {{ form_errors(form.phone) }}
                 </div>
             </div>
@@ -139,7 +145,6 @@
                     {{ form_label(form.fax, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                     {{ form_widget(form.fax, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.fax) }}
-                    {{ form_help(form.fax)}}
                 </div>
             </div>
         </div>
@@ -154,7 +159,7 @@
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.website, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.website, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_widget(form.website, { "attr" : { "class" : "form-control col-lg-8"}, 'label' : '<i class="fas fa-print"></i>'}) }}
                     {{ form_errors(form.website) }}
 
                 </div>
@@ -168,10 +173,10 @@
                     {{ form_errors(form.idTurnovers) }}
                 </div>
                 {# operation <div class="row">
-                                                                                                                {{ form_label(form.facebook, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                                                                                                                {{ form_widget(form.facebook, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                                                                                                                {{ form_errors(form.facebook) }}
-                                                                                                            </div> #}
+                    {{ form_label(form.facebook, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.facebook, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.facebook) }}
+                </div> #}
             </div>
             <div class="col-lg-6">
                 <div class="row">
