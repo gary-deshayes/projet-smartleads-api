@@ -265,18 +265,26 @@ var options = {
         type: 'donut',
     },
     dataLabels: {
-        enabled: true
+        enabled: false,
     },
+    labels: ['Ouvert', 'Non ouvert', 'Délivré', 'Ajout/Mise à jour des données'],
     plotOptions: {
         pie: {
             size: 100,
             donut: {
-                size: '85%'
+                size: '85%',
             },
-
         }
       },
-    series: [44, 55, 41, 17, 15],
+      legend: {
+        show: true,
+        showForSingleSeries: false,
+        showForNullSeries: true,
+        showForZeroSeries: true,
+        position: 'bottom',
+        offsetY: 50,
+    },
+    series: [44, 55, 41, 100],
     responsive: [{
         breakpoint: 480,
         options: {
