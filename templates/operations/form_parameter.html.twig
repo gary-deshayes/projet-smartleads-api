@@ -1,0 +1,136 @@
+{{ form_start(formSettings) }}
+<div class="row">
+    <div class="col-lg-12 form-style">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(formSettings.mail_object, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+                    <div class="required-field">
+                        {{ form_widget(formSettings.mail_object, { "attr" : { "class" : "form-control col-lg-12"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                    </div>
+                    {{ form_errors(formSettings.mail_object) }}
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 grey-text font-weight-light">
+                        <label>
+                            Visuel du email
+                        </label>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="window">
+                            {% if vich_uploader_asset(settings_operation, 'mail_image') is null %}
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+                            {% else %}
+                                <img src="{{ vich_uploader_asset(settings_operation, 'mail_image') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+                            {% endif %}
+                        </div>
+                        <div class="div-photo">
+                            <label for="settings_operation_mail_visual">
+                                <i class="fas fa-sync"></i>Parcourir</label>
+                            <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
+                        </div>
+                    </div>
+
+                    {{ form_widget(formSettings.mail_visual, { "attr" : { "class" : "display-none"}})}}
+                    {{ form_widget(formSettings.mail_visual) }}
+                </div>
+                <div class="row">
+                    {{ form_label(formSettings.text_mail, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+                    <div class="required-field">
+                        {{ form_widget(formSettings.text_mail, { "attr" : { "class" : "form-control col-lg-12"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form_label(formSettings.libelle_button_mail, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+
+                    {{ form_widget(formSettings.libelle_button_mail, { "attr" : { "class" : "form-control col-lg-8"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(formSettings.title_page, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
+                    <div class="required-field">
+                        {{ form_widget(formSettings.title_page, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 grey-text font-weight-light">
+                        <label>
+                            Visuel de la page
+                        </label>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="window">
+                            {% if vich_uploader_asset(settings_operation, 'page_image') is null %}
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+                            {% else %}
+                                <img src="{{ vich_uploader_asset(settings_operation, 'page_image') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+                            {% endif %}
+                        </div>
+                        <div class="div-photo">
+                            <label for="settings_operation_mail_visual">
+                                <i class="fas fa-sync"></i>Parcourir</label>
+                            <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
+                        </div>
+                    </div>
+
+                    {{ form_widget(formSettings.page_visual, { "attr" : { "class" : "display-none"}})}}
+                    {{ form_widget(formSettings.page_visual) }}
+                </div>
+                <div class="row">
+                    {{ form_label(formSettings.introduction_title, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
+                    <div class="required-field">
+                        {{ form_widget(formSettings.introduction_title, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form_label(formSettings.introduction_text, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
+                    <div class="required-field">
+                        {{ form_widget(formSettings.introduction_text, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form_label(formSettings.libelle_button_page, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }}
+
+                    {{ form_widget(formSettings.libelle_button_page, { "attr" : { "class" : "form-control col-lg-8"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }}
+
+                </div>
+                <div class="row">
+                    <label class="grey-text font-weight-light col-lg-4 ">Bouton de refus</label>
+                    <div class="custom-control custom-checkbox col-lg-8">
+                        <input class="custom-control-input checkbox-information" id="settings_operations_button_reject" name="settings_operation[button_reject]" type="checkbox">
+                        <label class="custom-control-label" for="settings_operations_button_reject" value=""></label>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6"></div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-end-form-upd">
+            <div>
+                <button class="btn btn-retour-radius btn-light">
+                    <a href="{{path('operations_index')}}">Retour</a>
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
+                <button class="btn btn-radius-red btn-outline-red">Demande de mise à jour</button>
+                <button class="btn btn-radius-red">
+                    {{ button_label|default('Save') }}</button>
+            </div>
+        </div>
+        {{ form_end(formSettings) }}
