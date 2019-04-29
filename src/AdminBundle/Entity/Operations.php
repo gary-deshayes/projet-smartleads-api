@@ -130,13 +130,13 @@ class Operations
 
     /**
      * @var notification
-     * @ORM\Column(name="opt_information", type="boolean", nullable=false, options={"default": false})
+     * @ORM\Column(name="opt_information", type="boolean", nullable=true, options={"default": false})
      */
     protected $opt_information;
 
     /**
      * @var notification
-     * @ORM\Column(name="opt_sales_offer", type="boolean", nullable=false, options={"default": false})
+     * @ORM\Column(name="opt_sales_offer", type="boolean", nullable=true, options={"default": false})
      */
     protected $opt_sales_offer;
 

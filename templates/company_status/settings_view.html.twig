@@ -1,0 +1,72 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Status</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for state in companyStatus %}
+            <tr class="settings-row">
+                <td data-toggle="modal" data-target="#editModalStatus" data-id="{{ state.id }}" data-libelle="{{ state.libelle }}">{{ state.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary" data-target="#addModalStatus" data-toggle="modal" type="button">Ajouter</button>
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModalStatus" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter un statut</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formStatusAdd) }}
+                <div class="row">
+                    {{ form_label(formStatusAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formStatusAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formStatusAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" id="editModalStatus" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editer un statut</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formStatusEdit) }}
+                <input id="company_status_id" name="company_status[id]" type="hidden" value=""/>
+                <div class="row">
+                    {{ form_label(formStatusEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formStatusEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formStatusEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

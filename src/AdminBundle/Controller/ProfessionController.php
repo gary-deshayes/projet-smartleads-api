@@ -14,19 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProfessionController extends AbstractController
 {
-    /**
-     * @Route("/", name="profession_index", methods={"GET"})
-     */
-    public function index(): Response
-    {
-        $professions = $this->getDoctrine()
-            ->getRepository(Profession::class)
-            ->findAll();
-
-        return $this->render('profession/index.html.twig', [
-            'professions' => $professions,
-        ]);
-    }
 
     /**
      * @Route("/new", name="profession_new", methods={"GET","POST"})
@@ -42,22 +29,12 @@ class ProfessionController extends AbstractController
             $entityManager->persist($profession);
             $entityManager->flush();
 
-            return $this->redirectToRoute('profession_index');
+            return $this->redirectToRoute('settings_index');
         }
 
         return $this->render('profession/new.html.twig', [
             'profession' => $profession,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="profession_show", methods={"GET"})
-     */
-    public function show(Profession $profession): Response
-    {
-        return $this->render('profession/show.html.twig', [
-            'profession' => $profession,
         ]);
     }
 

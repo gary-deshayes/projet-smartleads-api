@@ -26,32 +26,33 @@ $(document).ready(function ($) {
     $(".gestion-formulaire-checkbox-div > div").addClass("custom-control custom-checkbox");
 
     //Permet de rendre dynamique la selection des checkbox dans le formulaire d'opérations
-    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function(){
-        if($(this).is(":checked")) {
-            switch($(this).val()){
+    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function () {
+        if ($(this).is(":checked")) {
+            switch ($(this).val()) {
                 case "2":
                     $(this).parent().prev().children("input").prop("checked", true);
-                break;
+                    break;
                 case "3":
                     $(this).parent().prev().children("input").prop("checked", true);
                     $(this).parent().prev().prev().children("input").prop("checked", true);
-                break;
+                    break;
             }
         }
-        if(!$(this).is(":checked")) {
-            switch($(this).val()){
+        if (!$(this).is(":checked")) {
+            switch ($(this).val()) {
                 case "2":
                     $(this).parent().next().children("input").prop("checked", false);
-                break;
+                    break;
                 case "1":
                     $(this).parent().next().children("input").prop("checked", false);
                     $(this).parent().next().next().children("input").prop("checked", false);
-                break;
+                    break;
             }
         }
-        
+
     })
 
+    //Permet de gérer le niveau des entreprises avec les étoiles
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',
@@ -74,16 +75,172 @@ $(document).ready(function ($) {
     });
 
     //Permet de mettre un background aux lignes selectionées
-    $(".checkbox-dynamic :checkbox").on("click", function(){
-        if($(this).is(":checked")){
+    $(".checkbox-dynamic :checkbox").on("click", function () {
+        if ($(this).is(":checked")) {
             $(this).parent().parent().parent().addClass("selected-line");
         } else {
             $(this).parent().parent().parent().removeClass("selected-line");
         }
     })
     //Check tout les checkbox
-    $(".checkbox-dynamic-all :checkbox").on("click", function(){
+    $(".checkbox-dynamic-all :checkbox").on("click", function () {
         $(".checkbox-dynamic :checkbox").click();
+    })
+
+    /*Partie Settings*/
+
+    //Permet de gérer l'affichage des sous catégories dans paramètres
+    if ($("#settings-contacts").val() == 1) {
+        $("#partProfession").show();
+        $("#partDecisionMaking").hide();
+    } else {
+        $("#partProfession").hide();
+        $("#partDecisionMaking").show();
+    }
+
+    $("#settings-contacts").on("change", function () {
+        if ($("#settings-contacts").val() == 1) {
+            $("#partProfession").show();
+            $("#partDecisionMaking").hide();
+        } else {
+            $("#partProfession").hide();
+            $("#partDecisionMaking").show();
+        }
+    });
+
+    $('#editModalProfession').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#profession_id').val(id)
+        modal.find('#profession_libelle').val(libelle)
+    })
+
+    $('#editModalDecision').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#decision_making_id').val(id)
+        modal.find('#decision_making_libelle').val(libelle)
+    })
+
+    //Permet de gérer l'affichage des sous catégories dans paramètres
+    if ($("#settings-entreprises").val() == 1) {
+        $("#partStatuts").show();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 2) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").show();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 3) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").show();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 4) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").show();
+        $("#partTurnovers").hide();
+    } else if ($("#settings-entreprises").val() == 5) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").show();
+    }
+
+    //Partie settings entreprise
+    $("#settings-entreprises").on("change", function () {
+        switch ($("#settings-entreprises").val()) {
+            case "1":
+                $("#partStatuts").show();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                break;
+            case "2":
+                $("#partStatuts").hide();
+                $("#partActivityArea").show();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                break;
+            case "3":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").show();
+                $("#partNumberEmployees").hide();
+                break;
+            case "4":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").show();
+                break;
+            case "5":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").show();
+                break;
+
+
+        }
+    });
+
+    $('#editModalStatus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#company_status_id').val(id)
+        modal.find('#company_status_libelle').val(libelle)
+    })
+
+    $('#editModalActivity').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#activity_area_id').val(id)
+        modal.find('#activity_area_libelle').val(libelle)
+    })
+
+    $('#editModalLegalStatus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#legal_status_id').val(id)
+        modal.find('#legal_status_libelle').val(libelle)
+    })
+
+    $('#editModalNumberEmployees').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#number_employees_id').val(id)
+        modal.find('#number_employees_libelle').val(libelle)
+    })
+
+    $('#editModalTurnovers').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#turnovers_id').val(id)
+        modal.find('#turnovers_libelle').val(libelle)
     })
 
 });
@@ -160,45 +317,47 @@ function changeStatutSalesperson(value) {
     });
 }
 
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+// google.charts.load('current', { 'packages': ['corechart'] });
+// google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
+// function drawChart() {
 
-  var data = google.visualization.arrayToDataTable([
-    ['Task', 'Hours per Day'],
-    ['Ouvert',     46],
-    ['Non délivré',  14],
-    ['Non ouvert', 20],
-    ['Ajout/mise à jour des données', 20]
-  ]);
+//     var data = google.visualization.arrayToDataTable([
+//         ['Task', 'Hours per Day'],
+//         ['Ouvert', 46],
+//         ['Non délivré', 14],
+//         ['Non ouvert', 20],
+//         ['Ajout/mise à jour des données', 20]
+//     ]);
 
-  var options = {
-    title: 'Performance des opérations',
-    pieHole : 0.5,
-  };
+//     var options = {
+//         title: 'Performance des opérations',
+//         pieHole: 0.5,
+//     };
 
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+//     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-  chart.draw(data, options);
-}
+//     chart.draw(data, options);
+// }
 
-  //doughnut
-  var ctxD = document.getElementById("doughnutChart").getContext('2d');
-  var myLineChart = new Chart(ctxD, {
-    type: 'doughnut',
-    data: {
-      labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-      
-      datasets: [{
-        data: [300, 50, 100, 40, 120],
-        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+// //doughnut
+// var ctxD = document.getElementById("doughnutChart").getContext('2d');
+// var myLineChart = new Chart(ctxD, {
+//     type: 'doughnut',
+//     data: {
+//         labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+
+//         datasets: [{
+//             data: [300, 50, 100, 40, 120],
+//             backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+//             hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+//         }]
+//     },
+//     options: {
+//         responsive: true
+//     }
+// });
+
+
 
 

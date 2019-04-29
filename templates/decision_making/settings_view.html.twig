@@ -1,0 +1,72 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Pouvoir décisionnel</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for decision in decisions %}
+            <tr class="settings-row">
+                <td data-toggle="modal" data-target="#editModalDecision" data-id="{{ decision.id }}" data-libelle="{{ decision.libelle }}">{{ decision.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary" data-target="#addModalDecision" data-toggle="modal" type="button">Ajouter</button>
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModalDecision" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter un pouvoir décisionnel</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formDecisionAdd) }}
+                <div class="row">
+                    {{ form_label(formDecisionAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formDecisionAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formDecisionAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" id="editModalDecision" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editer un métier</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formDecisionEdit) }}
+                <input id="decision_making_id" name="decision_making[id]" type="hidden" value=""/>
+                <div class="row">
+                    {{ form_label(formDecisionEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formDecisionEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formDecisionEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

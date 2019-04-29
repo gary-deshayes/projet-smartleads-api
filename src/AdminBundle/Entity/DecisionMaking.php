@@ -5,26 +5,19 @@ namespace App\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Profession
- *
- * @ORM\Table(name="profession")
- * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ProfessionRepository")
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\DecisionMakingRepository")
  */
-class Profession
+class DecisionMaking
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="libelle", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $libelle;
 
@@ -49,6 +42,4 @@ class Profession
     {
         return $this->libelle;
     }
-
-
 }
