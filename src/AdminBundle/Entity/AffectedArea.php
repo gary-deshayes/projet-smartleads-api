@@ -79,4 +79,8 @@ class AffectedArea implements TaggableInterface
     {
         return empty($this->tagsText) ? [] : \array_map('trim', explode(',', $this->tagsText));
     }
+
+    public function getName(){
+        
+    }
 }

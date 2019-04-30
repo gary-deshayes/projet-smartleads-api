@@ -61,4 +61,11 @@ class Department implements TagInterface
     public function __toString(){
         return $this->libelle;
     }
+
+    public function getName(): ?string
+    {
+
+    }
+
+    public function setName(?string $name ) :void {}
 }
