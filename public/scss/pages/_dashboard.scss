@@ -19,7 +19,7 @@
         }
     }
 
-    .nav-pills {
+    .nav-pill {
         .nav-item {
             border: 2px #EBEBEB solid;
             margin-right: -2px;
@@ -180,8 +180,35 @@
         }
 
         &-indicateur-perf {
-            .indicateur-perf {
-                display: flex;
+            .dash-top {
+                border-bottom: 2px #F5F5F5 solid;
+            }
+
+            .menu-indicateur-perf {
+                .nav {
+                    flex-direction: column;
+                    font-size: 13px;
+
+                    li {
+                        border-right: 2px #F5F5F5 solid;
+
+                        &:not(:first-child){
+                            border-top: 2px #F5F5F5 solid;
+                        }
+                        
+                        a {
+                            padding: 20px;
+                            color: #999999;
+                            font-weight: 500;
+                            border-radius: 0;
+    
+                            &.active {
+                                background-color: transparent;
+                                border-left: 3px red solid;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

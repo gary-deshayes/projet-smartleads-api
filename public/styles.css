@@ -750,18 +750,18 @@ nav#sidebar ul {
       padding: 5px 12px;
       border-radius: 15px;
       color: #fff; }
-.dashboard-class .nav-pills .nav-item {
+.dashboard-class .nav-pill .nav-item {
   border: 2px #EBEBEB solid;
   margin-right: -2px; }
-  .dashboard-class .nav-pills .nav-item:first-child {
+  .dashboard-class .nav-pill .nav-item:first-child {
     border-radius: 20px 0 0 20px; }
-  .dashboard-class .nav-pills .nav-item:last-child {
+  .dashboard-class .nav-pill .nav-item:last-child {
     border-radius: 0 20px 20px 0; }
-  .dashboard-class .nav-pills .nav-item .nav-link {
+  .dashboard-class .nav-pill .nav-item .nav-link {
     color: #CECECE;
     font-weight: 500;
     font-size: 12px; }
-    .dashboard-class .nav-pills .nav-item .nav-link.active {
+    .dashboard-class .nav-pill .nav-item .nav-link.active {
       background-color: transparent;
       color: #999999; }
 .dashboard-class .dash-top {
@@ -841,7 +841,22 @@ nav#sidebar ul {
   .dashboard-class .dash-perf-operation #chart .apexcharts-legend-text {
     margin-left: 10px;
     font-weight: bold; }
-.dashboard-class .dash-indicateur-perf .indicateur-perf {
-  display: flex; }
+.dashboard-class .dash-indicateur-perf .dash-top {
+  border-bottom: 2px #F5F5F5 solid; }
+.dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav {
+  flex-direction: column;
+  font-size: 13px; }
+  .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li {
+    border-right: 2px #F5F5F5 solid; }
+    .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li:not(:first-child) {
+      border-top: 2px #F5F5F5 solid; }
+    .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li a {
+      padding: 20px;
+      color: #999999;
+      font-weight: 500;
+      border-radius: 0; }
+      .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li a.active {
+        background-color: transparent;
+        border-left: 3px red solid; }
 
 /*# sourceMappingURL=styles.css.map */
