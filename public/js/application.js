@@ -296,7 +296,7 @@ var options = {
         enabled: true,
     },
     series: [{
-            name: "High - 2013",
+            name: "Opérations",
             data: [28, 29, 33, 36, 32, 32, 33]
         },
         {

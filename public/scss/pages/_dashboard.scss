@@ -107,6 +107,7 @@
         &-statistiques {
             display: flex;
             flex-wrap: wrap;
+            max-width: 800px;
     
             .box {
                 height: 150px;

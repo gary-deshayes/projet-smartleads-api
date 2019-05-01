@@ -796,7 +796,8 @@ nav#sidebar ul {
     padding: 3px 10px; }
 .dashboard-class .dash-statistiques {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  max-width: 800px; }
   .dashboard-class .dash-statistiques .box {
     height: 150px;
     width: 150px;
