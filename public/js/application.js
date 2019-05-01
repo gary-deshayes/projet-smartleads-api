@@ -134,6 +134,9 @@ $("[id^='statut']").on("change", function () {
     if (entity == "salesperson") {
         changeStatutSalesperson(value)
     }
+    if (entity == "company") {
+        changeStatutCompany(value)
+    }
 })
 
 function changeStatutContact(value) {
@@ -155,7 +158,17 @@ function changeStatutSalesperson(value) {
     var url = "/admin/salesperson/change_statut/" + $("#salesperson_code").val();
     $.post(url, data, function (data) {
         if (data.retour == true) {
-            console.log("okk");
+        }
+    });
+}
+
+function changeStatutCompany(value) {
+    var data = {
+        statut: value
+    };
+    var url = "/admin/company/change_statut/" + $("#company_code").val();
+    $.post(url, data, function (data) {
+        if (data.retour == true) {
         }
     });
 }
