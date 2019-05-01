@@ -21,7 +21,6 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setName($this->faker->company);
             $company->setCreatedAt(new \DateTime());
             $company->setUpdatedAt(new \DateTime());
-            $company->setStatus($this->faker->randomElement($array = array('Client', 'Prospect', 'Piste')));
             $company->setComment($this->faker->text($maxNbChars = 50));
             $company->setCountry($this->faker->country);
             $company->setAddress($this->faker->address);

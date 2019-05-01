@@ -1,0 +1,72 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Secteurs d'activités</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for activity in activityAreas %}
+            <tr class="settings-row">
+                <td data-toggle="modal" data-target="#editModalActivity" data-id="{{ activity.id }}" data-libelle="{{ activity.libelle }}">{{ activity.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary" data-target="#addModalActivity" data-toggle="modal" type="button">Ajouter</button>
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModalActivity" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter un secteur d'activités</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formActivityAdd) }}
+                <div class="row">
+                    {{ form_label(formActivityAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formActivityAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formActivityAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" id="editModalActivity" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editer un secteur d'activité</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formActivityEdit) }}
+                <input id="activity_area_id" name="activity_area[id]" type="hidden" value=""/>
+                <div class="row">
+                    {{ form_label(formActivityEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formActivityEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formActivityEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

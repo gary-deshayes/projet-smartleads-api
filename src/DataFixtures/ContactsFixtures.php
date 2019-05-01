@@ -32,7 +32,6 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setComment($this->faker->text($maxNbChars = 50));
             $contacts->setOptInNewsletter($this->faker->boolean());
             $contacts->setOptInOffresCommercial($this->faker->boolean());
-            $contacts->setDecisionMaking($this->faker->randomElement($array = array('Cadre', 'Cadre supérieur', 'PDG')));
 
             $contacts->setCompany($this->getRandomReference("Company"));
             return $contacts;

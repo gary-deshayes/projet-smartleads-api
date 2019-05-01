@@ -33,7 +33,25 @@ class ResetPasswordController extends AbstractController
                 //Appelle send() dans le service dédié à l'envoie de mail
                 $mailer->send($salesperson, $token);
 
+<<<<<<< HEAD
                 //Affichage du template de mail si l'envoie est effectué
+=======
+                $message = (new \Swift_Message('Mot de passe oublié ?'))
+                ->setFrom('smartleads.supp@outlook.com')
+                ->setTo('maxime.duroyonJR@gmail.com')
+                ->setBody(
+                $this->renderView(
+                'reset_password/template.html.twig', 
+                    [
+                        "name" => $salesperson->getLastName(),
+                        "firstName" => $salesperson->getFirstName(),
+                        "link" => "/resetPassword/" . $salesperson->getLastName() . "/" . $token,
+                    ]
+                ),
+            'text/html'
+            );
+                $this->get('mailer')->send($message);
+>>>>>>> finition_l
                 return $this->render('reset_password/template.html.twig', array(
                     "link" => "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
                     'name' => $salesperson->getLastName(),

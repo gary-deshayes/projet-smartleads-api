@@ -108,6 +108,10 @@ input {
     flex-direction: column;
 }
 
+#mdp-all {
+    margin-top: -6%;
+}
+
 .text {
     &-muted {
         font-weight: 400;
@@ -414,4 +418,44 @@ input#search-search:focus {
 
 .badge-corrector {
     width: 70px !important;
+}
+
+.settings-row {
+    cursor: pointer;
+}
+
+#oublie-mdp{
+    color: #e44a6c;
+    size: 10px;
+    font-weight: bold;
+    margin-top: 16%;
+    margin-bottom: 0%;
+}
+
+.text-mdp{
+    color: #a0a0a0;
+    font-weight: 400;
+    font-size: 11px;
+    text-align: center;
+}
+
+#email_reset_email {
+    width: 235px;
+}
+
+.waves-light{
+    &#valide-mdp {
+        margin-top: 12% !important;
+        margin: 0px;
+    }
+}
+.annule-mdp {
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+
+    a {
+        color: rgb(168, 168, 168);
+        font-weight: 400;
+    }
 }

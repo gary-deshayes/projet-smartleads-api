@@ -2,12 +2,14 @@
 
 namespace App\AdminBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Company
@@ -57,18 +59,8 @@ class Company
     private $updatedAt;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(
-     *      message = "Cette valeur ne doit pas être vide."
-     * )
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255,
-     *      minMessage = "Le statut doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le statut ne doit pas dépasser {{ limit }} caractères."
-     * )
+     * @ManyToOne(targetEntity="CompanyStatus")
+     * @JoinColumn(name="id_status", referencedColumnName="id")
      */
     private $status;
 

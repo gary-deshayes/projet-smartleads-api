@@ -146,6 +146,8 @@ function changeStatutContact(value) {
     var url = "/admin/contacts/change_statut/" + $("#contacts_code").val();
     console.log(url);
     $.post(url, data, function (data) {
+        if (data.retour == true) {
+        }
     });
 }
 
@@ -155,6 +157,8 @@ function changeStatutSalesperson(value) {
     };
     var url = "/admin/salesperson/change_statut/" + $("#salesperson_code").val();
     $.post(url, data, function (data) {
+        if (data.retour == true) {
+        }
     });
 }
 
@@ -164,6 +168,8 @@ function changeStatutCompany(value) {
     };
     var url = "/admin/company/change_statut/" + $("#company_code").val();
     $.post(url, data, function (data) {
+        if (data.retour == true) {
+        }
     });
 }
 
