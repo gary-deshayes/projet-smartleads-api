@@ -247,6 +247,21 @@ $(document).ready(function ($) {
         modal.find('#turnovers_libelle').val(libelle)
     })
 
+    $('.select2-tags').select2({
+        width: "300px"
+    });
+
+
+
+    $('#editModalAffectedArea').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#affected_area_id').val(id)
+        modal.find('#affected_area_libelle').val(libelle)
+    })
+
 });
 
 $(function () {

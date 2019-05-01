@@ -3,14 +3,12 @@
 namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use Beelab\TagBundle\Tag\TagInterface;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\DepartmentRepository")
  */
-class Department implements TagInterface
+class Department
 {
     /**
      * @ORM\Id()
@@ -28,6 +26,12 @@ class Department implements TagInterface
      * @ORM\Column(type="string", length=2)
      */
     private $code;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\AdminBundle\Entity\AffectedArea", inversedBy="departments")
+     * @JoinColumn(name="affected_area_id", referencedColumnName="id")
+     */
+    private $affectedArea;
 
     public function getId(): ?int
     {
@@ -62,10 +66,16 @@ class Department implements TagInterface
         return $this->libelle;
     }
 
-    public function getName(): ?string
+    public function getAffectedArea(): ?AffectedArea
     {
-
+        return $this->affectedArea;
     }
 
-    public function setName(?string $name ) :void {}
+    public function setAffectedArea(?AffectedArea $affectedArea): self
+    {
+        $this->affectedArea = $affectedArea;
+
+        return $this;
+    }
+
 }

@@ -16,6 +16,9 @@
             <li class="nav-item">
                 <a aria-controls="entreprises" aria-selected="false" class="nav-link" data-toggle="tab" href="#panel_entreprises" id="settings-entreprises-tab" role="tab">Entreprises</a>
             </li>
+            <li class="nav-item">
+                <a aria-controls="commerciaux" aria-selected="false" class="nav-link" data-toggle="tab" href="#panel_commerciaux" id="settings-commerciaux-tab" role="tab">Equipe commerciale</a>
+            </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
@@ -59,6 +62,17 @@
                 <div id="partTurnovers">
                     {{ include('turnovers/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
+            </div>
+            <div aria-labelledby="settings-commerciaux-tab" class="tab-pane fade show" id="panel_commerciaux" role="tabpanel">
+                <h1>Equipe commerciale</h1>
+                <select class="form-control col-lg-3" id="settings-commerciaux">
+                    <option value="1">Zones</option>
+                    <option value="2">Départements</option>
+                </select>
+                <div id="partAffectedArea">
+                    {{ include('affected_area/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                
             </div>
         </div>
     </div>
