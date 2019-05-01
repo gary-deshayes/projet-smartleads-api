@@ -178,5 +178,11 @@
                 }
             }
         }
+
+        &-indicateur-perf {
+            .indicateur-perf {
+                display: flex;
+            }
+        }
     }
 }

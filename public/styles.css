@@ -841,5 +841,7 @@ nav#sidebar ul {
   .dashboard-class .dash-perf-operation #chart .apexcharts-legend-text {
     margin-left: 10px;
     font-weight: bold; }
+.dashboard-class .dash-indicateur-perf .indicateur-perf {
+  display: flex; }
 
 /*# sourceMappingURL=styles.css.map */

@@ -41,7 +41,7 @@
                             </div>
                             <div class="box box-first">
                                 <div class="partSup">
-                                    <i class="fas fa-user-friends fa-lg"></i>
+                                    <i class="fas fa-building"></i>
                                     <span class="taux">+5%</span>
                                 </div>
                                 <span class="effectif">18</span>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="box box-first">
                                 <div class="partSup">
-                                    <i class="fas fa-user-friends fa-lg"></i>
+                                    <i class="fas fa-envelope"></i>
                                     <span class="taux">+11%</span>
                                 </div>
                                 <span class="effectif">25</span>
@@ -109,12 +109,29 @@
                     </div>
                     <div class="col-12 mt-4">
                         <div class="dash-window-block">
-                            <div class="dash-quality-crm">
+                            <div class="dash-indicateur-perf">
                                 <div class="dash-top">
                                     <h4>Suivi des indicateurs de performance</h4>
                                     <i class="fas fa-ellipsis-h"></i>
                                 </div>
-                                <div id="line-chart"></div>
+                                <div class="indic-perf">
+                                    <div class="menu-indicateur-perf">
+                                        <ul class="nav nav-pills" id="indic-pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="pills-operations-tab" data-toggle="pill" href="#pills-operations" role="tab" aria-controls="pills-today" aria-selected="true">Opérations</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-contacts-new-tab" data-toggle="pill" href="#pills-contacts-new" role="tab" aria-controls="pills-week" aria-selected="false">Nouveaux contacts</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-operations" role="tabpanel" aria-labelledby="pills-operations-tab">
+                                        <div id="line-operation-chart"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-contacts-new" role="tabpanel" aria-labelledby="pills-contacts-new-tab">
+                                        <div id="line-contact-new-chart"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

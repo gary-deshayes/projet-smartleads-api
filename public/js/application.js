@@ -277,41 +277,127 @@ chart.render();
 // Chart Component Dashboard
 var options = {
     chart: {
-      height: 350,
-      type: 'line',
-      zoom: {
-        enabled: false
-      }
+        height: 350,
+        type: 'line',
+        shadow: {
+            enabled: true,
+            color: '#000',
+            top: 18,
+            left: 7,
+            blur: 10,
+            opacity: 1
+        },
+        toolbar: {
+            show: false
+        }
     },
+    colors: ['#77B6EA', '#545454'],
     dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'straight'
+        enabled: true,
     },
     series: [{
-      name: "Desktops",
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-    }],
-    title: {
-      text: 'Product Trends by Month',
-      align: 'left'
-    },
+            name: "High - 2013",
+            data: [28, 29, 33, 36, 32, 32, 33]
+        },
+        {
+            //Pour avoir le point en haut a droite
+            name: "",
+            data: []
+        }
+    ],
     grid: {
-      row: {
-        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-        opacity: 0.5
-      },
+        borderColor: '#e7e7e7',
+        row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+        },
+    },
+    markers: {
+        
+        size: 6
     },
     xaxis: {
-      categories: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Aou', 'Sep'],
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        title: {
+            text: 'Month'
+        }
+    },
+    legend: {
+        position: 'top',
+        horizontalAlign: 'right',
+        floating: true,
+        offsetY: -25,
+        offsetX: -5
     }
-  }
+}
 
-  var chart = new ApexCharts(
-    document.querySelector("#line-chart"),
+var chart = new ApexCharts(
+    document.querySelector("#line-operation-chart"),
     options
-  );
+);
 
-  chart.render();
+chart.render();
+
+var options = {
+    chart: {
+        height: 350,
+        type: 'line',
+        shadow: {
+            enabled: true,
+            color: '#000',
+            top: 18,
+            left: 7,
+            blur: 10,
+            opacity: 1
+        },
+        toolbar: {
+            show: false
+        }
+    },
+    colors: ['#77B6EA', '#545454'],
+    dataLabels: {
+        enabled: true,
+    },
+    series: [{
+            name: "High - 2013",
+            data: [28, 29, 33, 36, 32, 32, 33]
+        },
+        {
+            //Pour avoir le point en haut a droite
+            name: "",
+            data: []
+        }
+    ],
+    grid: {
+        borderColor: '#e7e7e7',
+        row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+        },
+    },
+    markers: {
+        
+        size: 6
+    },
+    xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        title: {
+            text: 'Month'
+        }
+    },
+    legend: {
+        position: 'top',
+        horizontalAlign: 'right',
+        floating: true,
+        offsetY: -25,
+        offsetX: -5
+    }
+}
+
+var chart = new ApexCharts(
+    document.querySelector("#line-contact-new-chart"),
+    options
+);
+
+chart.render();
 
