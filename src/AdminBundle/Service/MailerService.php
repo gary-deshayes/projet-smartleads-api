@@ -23,7 +23,7 @@ class MailerService
         $message = (new \Swift_Message('Mot de passe oublie ?'))
             // ->setFrom(getEnv("MAILER_FROM"))
             ->setFrom('smartleads.supp@outlook.com')
-            ->setTo('lucas.vignijr@gmail.com')
+            ->setTo($salesperson->getEmail())
             ->setBody(
             $this->template->render(
                 "reset_password/template.html.twig",
