@@ -246,7 +246,7 @@ $(document).ready(function ($) {
         modal.find('#turnovers_id').val(id)
         modal.find('#turnovers_libelle').val(libelle)
     })
-
+    console.log($('.select2-tags option:eq(5)').attr('disabled', 'disabled'));
     $('.select2-tags').select2({
         width: "300px"
     });
@@ -254,15 +254,45 @@ $(document).ready(function ($) {
 
 
     $('#editModalAffectedArea').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
+        $(".select2-tags").val(null);
+        var button = $(event.relatedTarget);
         var id = button.data('id');
         var libelle = button.data('libelle');
-        var modal = $(this)
-        modal.find('#affected_area_id').val(id)
-        modal.find('#affected_area_libelle').val(libelle)
+        var modal = $(this);
+        modal.find('#affected_area_id').val(id);
+        modal.find('#affected_area_libelle').val(libelle);
+
+        $.ajax({
+            url: '/admin/affectedarea/getdepartments/' + id,
+            type: 'GET',
+            success: function (result) {
+                console.log(result);
+                if(result.data.length > 0){
+                    $(".select2-tags").val(result.data).trigger("change");
+                }
+            }
+        });
+
+        // data = [
+        //     2, 7, 8
+        // ]
+
+        // $(".select2-tags").val(data).trigger("change");
+        $('.select2-tags option[value="1"]').attr('disabled', 'disabled');
+        $('.select2-tags').select2({
+            width: "300px"
+        });
     })
 
 });
+
+// for (i = 0; i < data.length; i++) {
+//     console.log($('.select2-tags option[value="' + data[i] + '"]').val());
+//     optionData.push($('.select2-tags option[value="' + data[i] + '"]').val())
+// }
+// console.log(optionData);
+// $(".select2-tags").val([optionData
+// ]).trigger("change");
 
 $(function () {
     $(".datepicker").datepicker({

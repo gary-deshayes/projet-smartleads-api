@@ -27,8 +27,7 @@ class AffectedAreaType extends AbstractType
             'class' => Department::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('department')
-                    ->orderBy('department.libelle', 'ASC')
-                    ->where('department.affectedArea is NULL');
+                    ->orderBy('department.libelle', 'ASC');
             },
             "label" => "Départements",
             'required' => false,
