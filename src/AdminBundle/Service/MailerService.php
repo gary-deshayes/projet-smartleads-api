@@ -30,7 +30,7 @@ class MailerService
                 [
                     "name" => $salesperson->getLastName(),
                     "firstName" => $salesperson->getFirstName(),
-                    "link" => "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
+                    "link" => $_SERVER["HTTP_ORIGIN"] .  "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
                 ]
             ),
             "text/html"
