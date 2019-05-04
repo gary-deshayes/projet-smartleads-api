@@ -19,6 +19,7 @@ class DepartmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Department::class);
     }
 
+    /**Retourne les départements d'une zone */
     public function getDepartmentAffectedArea($affectedArea){
         $query = $this->createQueryBuilder('department')
             ->orderBy('department.libelle', 'ASC')
@@ -29,10 +30,25 @@ class DepartmentRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    /**
+     * Retourne les départements dans une zone
+     */
     public function getDepartmentWithAffectedArea(){
         $query = $this->createQueryBuilder('department')
             ->orderBy('department.libelle', 'ASC')
             ->where("department.affectedArea IS NOT NULL");
+
+      
+        return $query->getQuery();
+    }
+
+    /**
+     * Retourne les départements dont l'id est dans le tableau en paramètre
+     */
+    public function getDepartmentInArray($ids){
+        $query = $this->createQueryBuilder('department')
+            ->where("department.id in (:ids)")
+            ->setParameter(":ids", $ids);
 
       
         return $query->getQuery();

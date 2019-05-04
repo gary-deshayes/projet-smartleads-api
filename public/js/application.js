@@ -244,9 +244,25 @@ $(document).ready(function ($) {
         modal.find('#turnovers_id').val(id)
         modal.find('#turnovers_libelle').val(libelle)
     })
+
     $('.select2-tags').select2({
         width: "300px"
     });
+
+    $('#addModalAffectedArea').on('show.bs.modal', function (event) {
+        console.log($(".select2-tags-add"));
+        $(".select2-tags-add").val(null);
+        $('.select2-tags-add').select2({
+            width: "300px"
+        });
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this);
+
+
+        
+    })
 
 
 

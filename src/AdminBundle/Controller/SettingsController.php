@@ -226,8 +226,21 @@ class SettingsController extends AbstractController
                     ->findOneBy(array("id" => $arrayAffectedArea["id"]));
             } else {
                 $newAffectedArea = new AffectedArea();
+                $this->getDoctrine()->getManager()->persist($newAffectedArea);
                 $newAffectedArea->setLibelle($arrayAffectedArea["libelle"]);
-                $entityManager = $this->getDoctrine()->getManager()->persist($newAffectedArea);
+
+
+                if ($arrayAffectedArea["departments"] != null){
+                    $depts = $this->getDoctrine()->getRepository(Department::class)->getDepartmentInArray($arrayAffectedArea["departments"])->getResult();
+                    
+                    foreach($depts as $dept){
+                        $dept->setAffectedArea($newAffectedArea);
+                        $this->getDoctrine()->getManager()->persist($dept);
+                        
+                    }
+                    
+                }
+                
                 $this->getDoctrine()->getManager()->flush();
                 return $this->redirectToRoute('settings_index');
             }
@@ -264,7 +277,7 @@ class SettingsController extends AbstractController
         foreach ($affectedAreas as $area) {
             $area->setAllDepartments($this->getDoctrine()->getRepository(Department::class)->getDepartmentAffectedArea($area->getId())->getResult());
         }
-
+        
         return $this->render('settings/index.html.twig', [
             'settings' => $settings,
             'form' => $form->createView(),
