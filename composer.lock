@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1484814b2b2435c12cc00f83dac549f0",
+    "content-hash": "612dae25500daec6cb02fbc4a43dda37",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -59,6 +59,62 @@
                 "orm"
             ],
             "time": "2019-02-04T15:31:57+00:00"
+        },
+        {
+            "name": "beelab/tag-bundle",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bee-Lab/BeelabTagBundle.git",
+                "reference": "c4c4505b886cbef57b51d01739f9c9f7848a6bed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bee-Lab/BeelabTagBundle/zipball/c4c4505b886cbef57b51d01739f9c9f7848a6bed",
+                "reference": "c4c4505b886cbef57b51d01739f9c9f7848a6bed",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.6",
+                "php": "^7.1",
+                "symfony/config": "^3.4|^4.0",
+                "symfony/dependency-injection": "^3.4|^4.0",
+                "symfony/form": "^3.4|^4.0",
+                "symfony/http-kernel": "^3.4|^4.0",
+                "symfony/routing": "^3.4|^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Beelab\\TagBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Massimiliano Arione",
+                    "email": "massimiliano.arione@bee-lab.net"
+                }
+            ],
+            "description": "Provide tags for Doctrine entities in Symfony",
+            "homepage": "https://github.com/bee-lab/",
+            "keywords": [
+                "symfony",
+                "tag",
+                "tags"
+            ],
+            "time": "2019-01-22T16:02:09+00:00"
         },
         {
             "name": "behat/transliterator",
