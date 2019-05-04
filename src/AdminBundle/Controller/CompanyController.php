@@ -152,4 +152,22 @@ class CompanyController extends AbstractController
         // $response->headers->set('Content-Type', 'application/json');
         return new JsonResponse($data);
     }
+
+    /**
+     * @Route("/change_statut/{code}", name="company_change_statut", methods={"GET","POST"})
+     */
+    public function changeStatutCompany(Request $request, Company $company)
+    {
+        $statut = (bool)$request->request->get("statut");
+        $company->setActif($statut);
+        $company->setUser_last_update($this->getUser());
+        $this->getDoctrine()->getManager()->flush();
+        $data = array(
+            "retour" => true
+        );
+
+        // $response = new Response(json_encode($data, 200));
+        // $response->headers->set('Content-Type', 'application/json');
+        return new JsonResponse($data);
+    }
 }

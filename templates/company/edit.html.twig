@@ -18,11 +18,11 @@
                     {{ company.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
                     {% if company.status == 1 %}
-                        <input checked class="custom-control-input" id="statut-contact" type="checkbox">
-                        <label class="custom-control-label" for="statut-contact"></label>
+                        <input checked class="custom-control-input" id="statut-company" type="checkbox">
+                        <label class="custom-control-label" for="statut-company"></label>
                     {% else %}
-                        <input class="custom-control-input" id="statut-contact" type="checkbox">
-                        <label class="custom-control-label" for="statut-contact"></label>
+                        <input class="custom-control-input" id="statut-company" type="checkbox">
+                        <label class="custom-control-label" for="statut-company"></label>
                     {% endif %}
                 </div>
             </div>

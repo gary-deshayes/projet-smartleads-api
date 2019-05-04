@@ -65,6 +65,13 @@ class Company
     private $status;
 
     /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="actif", type="boolean", nullable=true)
+     */
+    private $actif;
+
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logo")
@@ -461,6 +468,18 @@ class Company
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getActif(): ? bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(? bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }

@@ -26,33 +26,32 @@ $(document).ready(function ($) {
     $(".gestion-formulaire-checkbox-div > div").addClass("custom-control custom-checkbox");
 
     //Permet de rendre dynamique la selection des checkbox dans le formulaire d'opérations
-    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function () {
-        if ($(this).is(":checked")) {
-            switch ($(this).val()) {
+    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function(){
+        if($(this).is(":checked")) {
+            switch($(this).val()){
                 case "2":
                     $(this).parent().prev().children("input").prop("checked", true);
-                    break;
+                break;
                 case "3":
                     $(this).parent().prev().children("input").prop("checked", true);
                     $(this).parent().prev().prev().children("input").prop("checked", true);
-                    break;
+                break;
             }
         }
-        if (!$(this).is(":checked")) {
-            switch ($(this).val()) {
+        if(!$(this).is(":checked")) {
+            switch($(this).val()){
                 case "2":
                     $(this).parent().next().children("input").prop("checked", false);
-                    break;
+                break;
                 case "1":
                     $(this).parent().next().children("input").prop("checked", false);
                     $(this).parent().next().next().children("input").prop("checked", false);
-                    break;
+                break;
             }
         }
-
+        
     })
 
-    //Permet de gérer le niveau des entreprises avec les étoiles
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',
@@ -75,17 +74,18 @@ $(document).ready(function ($) {
     });
 
     //Permet de mettre un background aux lignes selectionées
-    $(".checkbox-dynamic :checkbox").on("click", function () {
-        if ($(this).is(":checked")) {
+    $(".checkbox-dynamic :checkbox").on("click", function(){
+        if($(this).is(":checked")){
             $(this).parent().parent().parent().addClass("selected-line");
         } else {
             $(this).parent().parent().parent().removeClass("selected-line");
         }
     })
     //Check tout les checkbox
-    $(".checkbox-dynamic-all :checkbox").on("click", function () {
+    $(".checkbox-dynamic-all :checkbox").on("click", function(){
         $(".checkbox-dynamic :checkbox").click();
     })
+
 
     /*Partie Settings*/
 
@@ -295,6 +295,9 @@ $("[id^='statut']").on("change", function () {
     if (entity == "salesperson") {
         changeStatutSalesperson(value)
     }
+    if (entity == "company") {
+        changeStatutCompany(value)
+    }
 })
 
 function changeStatutContact(value) {
@@ -316,7 +319,18 @@ function changeStatutSalesperson(value) {
     var url = "/admin/salesperson/change_statut/" + $("#salesperson_code").val();
     $.post(url, data, function (data) {
         if (data.retour == true) {
-            console.log("okk");
+        }
+    });
+}
+
+
+function changeStatutCompany(value) {
+    var data = {
+        statut: value
+    };
+    var url = "/admin/company/change_statut/" + $("#company_code").val();
+    $.post(url, data, function (data) {
+        if (data.retour == true) {
         }
     });
 }
@@ -365,34 +379,45 @@ $("#decision_making_delete").on("click", function (e) {
 //         ['Ajout/mise à jour des données', 20]
 //     ]);
 
-//     var options = {
-//         title: 'Performance des opérations',
-//         pieHole: 0.5,
-//     };
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-//     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+function drawChart() {
 
-//     chart.draw(data, options);
-// }
+  var data = google.visualization.arrayToDataTable([
+    ['Task', 'Hours per Day'],
+    ['Ouvert',     46],
+    ['Non délivré',  14],
+    ['Non ouvert', 20],
+    ['Ajout/mise à jour des données', 20]
+  ]);
 
-// //doughnut
-// var ctxD = document.getElementById("doughnutChart").getContext('2d');
-// var myLineChart = new Chart(ctxD, {
-//     type: 'doughnut',
-//     data: {
-//         labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+  var options = {
+    title: 'Performance des opérations',
+    pieHole : 0.5,
+  };
 
-//         datasets: [{
-//             data: [300, 50, 100, 40, 120],
-//             backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-//             hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-//         }]
-//     },
-//     options: {
-//         responsive: true
-//     }
-// });
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
+  chart.draw(data, options);
+}
 
+  //doughnut
+  var ctxD = document.getElementById("doughnutChart").getContext('2d');
+  var myLineChart = new Chart(ctxD, {
+    type: 'doughnut',
+    data: {
+      labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+      
+      datasets: [{
+        data: [300, 50, 100, 40, 120],
+        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
 
 
