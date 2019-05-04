@@ -28,4 +28,13 @@ class DepartmentRepository extends ServiceEntityRepository
       
         return $query->getQuery();
     }
+
+    public function getDepartmentWithAffectedArea(){
+        $query = $this->createQueryBuilder('department')
+            ->orderBy('department.libelle', 'ASC')
+            ->where("department.affectedArea IS NOT NULL");
+
+      
+        return $query->getQuery();
+    }
 }
