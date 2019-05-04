@@ -1,3 +1,0 @@
-beelab_tag:
-    tag_class: App\AdminBundle\Entity\Department
-    purge: false

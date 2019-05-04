@@ -4,13 +4,16 @@ namespace App\AdminBundle\Controller;
 
 use App\AdminBundle\Entity\Settings;
 use App\AdminBundle\Entity\Turnovers;
+use App\AdminBundle\Entity\Department;
 use App\AdminBundle\Form\SettingsType;
 use App\AdminBundle\Form\TurnoversType;
+use App\AdminBundle\Entity\AffectedArea;
 use App\AdminBundle\Form\ProfessionType;
 use App\AdminBundle\Entity\CompanyStatus;
 use App\AdminBundle\Form\LegalStatusType;
 use App\AdminBundle\Entity\DecisionMaking;
 use App\AdminBundle\Form\ActivityAreaType;
+use App\AdminBundle\Form\AffectedAreaType;
 use App\AdminBundle\Form\CompanyStatusType;
 use App\AdminBundle\Form\DecisionMakingType;
 use App\AdminBundle\Form\NumberEmployeesType;
@@ -95,7 +98,7 @@ class SettingsController extends AbstractController
         $formDecisionEdit = $this->createForm(DecisionMakingType::class);
 
         $decisions = $this->getDoctrine()->getRepository(DecisionMaking::class)->findAll();
-        
+
         //Gère les ajouts et modifications des pouvoirs décisionnel
         if ($request->get('company_status') != null) {
             $arrayStatus = $request->get('company_status');
@@ -212,6 +215,56 @@ class SettingsController extends AbstractController
         $turnovers = $this->getDoctrine()->getRepository(Turnovers::class)->findAll();
 
 
+
+        $affectedAreaEdit = null;
+        //Gère la partie zone affecté des commerciaux
+        if ($request->get('affected_area') != null) {
+            $arrayAffectedArea = $request->get('affected_area');
+            if (isset($arrayAffectedArea["id"]) && $arrayAffectedArea["id"] != "") {
+                $affectedAreaEdit = $this->getDoctrine()
+                    ->getRepository(AffectedArea::class)
+                    ->findOneBy(array("id" => $arrayAffectedArea["id"]));
+            } else {
+                $newAffectedArea = new AffectedArea();
+                $newAffectedArea->setLibelle($arrayAffectedArea["libelle"]);
+                $entityManager = $this->getDoctrine()->getManager()->persist($newAffectedArea);
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('settings_index');
+            }
+        }
+        //Récupère la partie zone affecté des commerciaux
+        $affectedArea = new AffectedArea();
+        $formAffectedAreaAdd = $this->createForm(AffectedAreaType::class, $affectedArea);
+        $formAffectedAreaEdit = $this->createForm(AffectedAreaType::class, $affectedAreaEdit);
+        if ($affectedAreaEdit != null) {
+            $formAffectedAreaEdit->handleRequest($request);
+        }
+        if ($formAffectedAreaEdit->isSubmitted() && $formAffectedAreaEdit->isValid()) {
+            //Récupère les départments lié à la zonne
+            $departmentAffectedArea = $this->getDoctrine()->getRepository(Department::class)->getDepartmentAffectedArea($affectedAreaEdit->getId());
+
+            //Département envoyé par le formulaire
+            $departmentsToAdd = $affectedAreaEdit->getDepartments();
+
+            //On fait une suppression sinon ca marche pas
+            $affectedAreaEdit->removeAllDepartment();
+            foreach ($departmentsToAdd as $depts) {
+                //On lie les départements à la zone 
+                $depts->setAffectedArea($affectedAreaEdit);
+            }
+            //Contient les départements qui ne sont plus envoyé par le formulaire mais toujours présent dans la base
+            $departmentsToRemove = array_diff($departmentAffectedArea->getResult(), $departmentsToAdd->toArray());
+            foreach ($departmentsToRemove as $deptsRm) {
+                $deptsRm->setAffectedArea(null);
+            }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('settings_index');
+        }
+        $affectedAreas = $this->getDoctrine()->getRepository(AffectedArea::class)->findAll();
+        foreach ($affectedAreas as $area) {
+            $area->setAllDepartments($this->getDoctrine()->getRepository(Department::class)->getDepartmentAffectedArea($area->getId())->getResult());
+        }
+
         return $this->render('settings/index.html.twig', [
             'settings' => $settings,
             'form' => $form->createView(),
@@ -243,7 +296,10 @@ class SettingsController extends AbstractController
             'turnovers' => $turnovers,
             'formTurnoversAdd' => $formTurnoversAdd->createView(),
             'formTurnoversEdit' => $formTurnoversEdit->createView(),
+
+            'affectedAreas' => $affectedAreas,
+            'formAffectedAreaAdd' => $formAffectedAreaAdd->createView(),
+            'formAffectedAreaEdit' => $formAffectedAreaEdit->createView(),
         ]);
     }
-
 }

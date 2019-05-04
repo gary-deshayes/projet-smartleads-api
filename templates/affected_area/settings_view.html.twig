@@ -1,0 +1,80 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Zone affectées</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for area in affectedAreas %}
+            <tr class="settings-row">
+                <td data-toggle="modal" data-target="#editModalAffectedArea" data-id="{{ area.id }}" data-libelle="{{ area.libelle }}">{{ area.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary" data-target="#addModalAffectedArea" data-toggle="modal" type="button">Ajouter</button>
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModalAffectedArea" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter une zone</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formAffectedAreaAdd) }}
+                <div class="row">
+                    {{ form_label(formAffectedAreaAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formAffectedAreaAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="row">
+                    {{ form_label(formAffectedAreaAdd.departments,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formAffectedAreaAdd.departments, { "attr" : { "class" : "form-control col-lg-8 select2-tags"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formAffectedAreaAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" id="editModalAffectedArea" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editer une zone</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formAffectedAreaEdit) }}
+                <input id="affected_area_id" name="affected_area[id]" type="hidden" value=""/>
+                <div class="row">
+                    {{ form_label(formAffectedAreaEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formAffectedAreaEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="row">
+                    {{ form_label(formAffectedAreaEdit.departments,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formAffectedAreaEdit.departments, { "attr" : { "class" : "form-control col-lg-8 select2-tags"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formAffectedAreaEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,16 +2,15 @@
 
 namespace App\AdminBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
-use Beelab\TagBundle\Tag\TagInterface;
-use Beelab\TagBundle\Tag\TaggableInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\AffectedAreaRepository")
  */
-class AffectedArea implements TaggableInterface
+class AffectedArea 
 {
     /**
      * @ORM\Id()
@@ -26,14 +25,24 @@ class AffectedArea implements TaggableInterface
     private $libelle;
 
     /**
-     * Une zone a plusieurs départements
-     * @OneToMany(targetEntity="Department", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\AdminBundle\Entity\Department", mappedBy="affectedArea", cascade={"persist"},)
      */
     private $departments;
+
+    public function __construct()
+    {
+        $this->departments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getLibelle(): ?string
@@ -48,35 +57,47 @@ class AffectedArea implements TaggableInterface
         return $this;
     }
 
-    public function __construct()
-    {
-        $this->departments = new ArrayCollection();
-    }
-
-    public function addTag(TagInterface $department): void
-    {
-        if (!$this->departments->contains($department)) {
-            $this->departments->add($department);
-        }
-    }
-
-    public function removeTag(TagInterface $department): void
-    {
-        $this->departments->removeElement($department);
-    }
-
-    public function hasTag(TagInterface $department): bool
-    {
-        return $this->departments->contains($department);
-    }
-
-    public function getTags(): iterable
+    /**
+     * @return Collection|Department[]
+     */
+    public function getDepartments(): Collection
     {
         return $this->departments;
     }
 
-    public function getTagNames(): array
+    public function addDepartment(Department $department): self
     {
-        return empty($this->tagsText) ? [] : \array_map('trim', explode(',', $this->tagsText));
+        dump("je passe la");
+        if (!$this->departments->contains($department)) {
+            $this->departments[] = $department;
+            $department->setAffectedArea($this);
+        }
+
+        return $this;
     }
+
+    public function removeDepartment(Department $department): self
+    {
+        dump("Je remove");
+        if ($this->departments->contains($department)) {
+            dump("ce départment ", $department);
+            $this->departments->removeElement($department);
+            // set the owning side to null (unless already changed)
+            if ($department->getAffectedArea() === $this) {
+                $department->setAffectedArea(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function removeAllDepartment(){
+        $this->departments =  new ArrayCollection();
+    }
+
+    public function setAllDepartments($departments){
+        $this->departments =  $departments;
+    }
+
+
 }

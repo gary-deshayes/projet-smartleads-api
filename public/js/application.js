@@ -59,8 +59,6 @@ $(document).ready(function ($) {
         starSize: 25,
         disableAfterRate: false,
         callback: function (currentRating, $el) {
-            console.log('rated ' + currentRating * 2);
-            console.log('DOM element ', $el);
             var data = {
                 decision_level: currentRating * 2
             };
@@ -246,6 +244,59 @@ $(document).ready(function ($) {
         modal.find('#turnovers_id').val(id)
         modal.find('#turnovers_libelle').val(libelle)
     })
+    $('.select2-tags').select2({
+        width: "300px"
+    });
+
+
+
+    $('#editModalAffectedArea').on('show.bs.modal', function (event) {
+        $(".select2-tags").val(null);
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this);
+        modal.find('#affected_area_id').val(id);
+        modal.find('#affected_area_libelle').val(libelle);
+        //Récupération des départements déjà lié à une zone
+        $.ajax({
+            url: '/admin/affectedarea/getdepartments/' + id,
+            type: 'GET',
+            success: function (result) {
+                if(result.data.length > 0){
+                    result.data.forEach(function(e){
+                        $("#affected_area_departments option[value='" + e + "]'").attr("selected", "selected");
+                    })
+                    $(".select2-tags").val(result.data).trigger("change");
+                    $('.select2-tags').select2({
+                        width: "300px"
+                    });
+                    
+                }
+            }
+        });
+        //FINALEMENT LA DESACTIVATION EMPECHE LES FORMULAIRES D'ETRE ENVOYER
+        // //Récupération des départements déjà lié donc on les mets en disabled
+        // $.ajax({
+        //     url: '/admin/affectedarea/getdepartmentswithaffectedarea/',
+        //     type: 'GET',
+        //     success: function (result) {
+        //         console.log(result);
+        //         if(result.data.length > 0){
+        //             result.data.forEach(function(e){
+        //                 $('.select2-tags option[value="' + e + '"]').attr('disabled', 'disabled');
+        //             });
+        //             $(".select2-tags").trigger("change");
+        //             $('.select2-tags').select2({
+        //                 width: "300px"
+        //             });
+                    
+        //         }
+        //     }
+        // });
+
+        
+    })
 
 });
 
@@ -279,9 +330,7 @@ $("#search_limit").on("change", function () {
 
 //Changement des statut switchs
 $("[id^='statut']").on("change", function () {
-    console.log($(this));
     var entity = $(this).attr("id").split("statut-")[1];
-    console.log(entity);
     var value;
     if ($(this).is(":checked")) {
         value = 1;
@@ -305,7 +354,6 @@ function changeStatutContact(value) {
         statut: value
     };
     var url = "/admin/contacts/change_statut/" + $("#contacts_code").val();
-    console.log(url);
     $.post(url, data, function (data) {
         if (data.retour == true) {
         }
