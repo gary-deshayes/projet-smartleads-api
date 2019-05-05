@@ -265,14 +265,14 @@ class Salesperson implements UserInterface
     private $comment;
 
     /**
-     * @var \Region
+     * @var \AffectedArea
      *
      * @ORM\ManyToOne(targetEntity="AffectedArea")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_zone", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_affectedArea", referencedColumnName="id")
      * })
      */
-    private $zone;
+    private $affectedArea;
 
     /**
      * @var \Salesperson
@@ -554,7 +554,7 @@ class Salesperson implements UserInterface
         return $this->departureDate;
     }
 
-    public function setDepartureDate(\DateTimeInterface $departureDate): self
+    public function setDepartureDate(?\DateTimeInterface $departureDate): self
     {
         $this->departureDate = $departureDate;
 
@@ -566,7 +566,7 @@ class Salesperson implements UserInterface
         return $this->arrivalDate;
     }
 
-    public function setArrivalDate(\DateTimeInterface $arrivalDate): self
+    public function setArrivalDate(?\DateTimeInterface $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 
@@ -739,14 +739,14 @@ class Salesperson implements UserInterface
         }
     }
 
-    public function getZone()
+    public function getAffectedArea()
     {
-        return $this->zone;
+        return $this->affectedArea;
     }
 
-    public function setZone($zone)
+    public function setAffectedArea($affectedArea)
     {
-        $this->zone = $zone;
+        $this->affectedArea = $affectedArea;
 
         return $this;
     }

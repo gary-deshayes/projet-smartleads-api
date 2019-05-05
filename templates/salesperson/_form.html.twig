@@ -70,9 +70,9 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
-                            {{ form_label(form.region, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                            {{ form_widget(form.region, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                            {{ form_errors(form.region) }}
+                            {{ form_label(form.affectedArea, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                            {{ form_widget(form.affectedArea, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                            {{ form_errors(form.affectedArea) }}
                         </div>
                     </div>
                 </div>
@@ -97,10 +97,10 @@
                         <div class="row">
                             {{ form_label(form.arrivalDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
-                            {{ form_widget(form.arrivalDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
+                            {{ form_widget(form.arrivalDate, { "id":"datepickerArrival", "attr" : { "class" : "datepickerArrival form-control col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
                             {{ form_errors(form.arrivalDate) }}
-                            {{ form_widget(form.departureDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
+                            {{ form_widget(form.departureDate, { "id":"datepickerDeparture", "attr" : { "class" : "datepickerDeparture form-control col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
                             {{ form_errors(form.departureDate) }}
                         </div>

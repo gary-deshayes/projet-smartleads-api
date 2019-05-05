@@ -5,11 +5,12 @@ namespace App\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use App\AdminBundle\Entity\ActivityArea;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\AdminBundle\Entity\Turnovers;
 
 /**
  * Company
@@ -60,9 +61,9 @@ class Company
 
     /**
      * @ManyToOne(targetEntity="CompanyStatus")
-     * @JoinColumn(name="id_status", referencedColumnName="id")
+     * @JoinColumn(name="id_companyStatus", referencedColumnName="id")
      */
-    private $status;
+    private $companyStatus;
 
     /**
      * @var bool|null
@@ -245,17 +246,14 @@ class Company
     private $email;
 
     /**
-     * @var string|null
+     * @var \ActivityArea
      *
-     * @ORM\Column(name="naf_code", type="string", length=5, nullable=true)
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 5,
-     *      minMessage = "Le NAF code doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le NAF code ne doit pas dépasser {{ limit }} caractères."
-     * )
+     * @ORM\ManyToOne(targetEntity="ActivityArea")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id")
+     * })
      */
-    private $nafCode;
+    private $activityArea;
 
 
 
@@ -265,16 +263,6 @@ class Company
      * @ORM\Column(name="source", type="string", length=5, nullable=true)
      */
     private $source;
-
-    /**
-     * @var \ActivityArea
-     *
-     * @ORM\ManyToOne(targetEntity="ActivityArea")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id")
-     * })
-     */
-    private $idActivityArea;
 
     /**
      * @var \CompanyCategory
@@ -324,19 +312,14 @@ class Company
     private $idNumberEmployees;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Turnovers
      *
-     * @ORM\ManyToMany(targetEntity="Turnovers", inversedBy="idCompany")
-     * @ORM\JoinTable(name="last_turnovers",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_company", referencedColumnName="code")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id_turnovers", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToOne(targetEntity="Turnovers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_turnovers", referencedColumnName="id")
+     * })
      */
-    private $idTurnovers;
+    private $turnovers;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -360,7 +343,6 @@ class Company
      */
     public function __construct()
     {
-        $this->idTurnovers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -424,14 +406,14 @@ class Company
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getCompanyStatus(): ?CompanyStatus
     {
-        return $this->status;
+        return $this->companyStatus;
     }
 
-    public function setStatus(string $status): self
+    public function setCompanyStatus(?CompanyStatus $companyStatus): self
     {
-        $this->status = $status;
+        $this->companyStatus = $companyStatus;
 
         return $this;
     }
@@ -616,14 +598,14 @@ class Company
         return $this;
     }
 
-    public function getIdActivityArea(): ?ActivityArea
+    public function getActivityArea(): ?ActivityArea
     {
-        return $this->idActivityArea;
+        return $this->activityArea;
     }
 
-    public function setIdActivityArea(?ActivityArea $idActivityArea): self
+    public function setActivityArea(?ActivityArea $activityArea): self
     {
-        $this->idActivityArea = $idActivityArea;
+        $this->activityArea = $activityArea;
 
         return $this;
     }
@@ -677,27 +659,23 @@ class Company
     }
 
     /**
-     * @return Collection|Turnovers[]
+     * @return Turnovers
      */
-    public function getIdTurnovers(): Collection
+    public function getTurnovers(): ?Turnovers
     {
-        return $this->idTurnovers;
+        return $this->turnovers;
     }
 
-    public function addIdTurnover(Turnovers $idTurnover): self
+    /**
+     * Set the value of turnovers
+     *
+     * @param  Turnovers $turnovers
+     *
+     * @return  self
+     */ 
+    public function setTurnovers(?Turnovers $turnovers)
     {
-        if (!$this->idTurnovers->contains($idTurnover)) {
-            $this->idTurnovers[] = $idTurnover;
-        }
-
-        return $this;
-    }
-
-    public function removeIdTurnover(Turnovers $idTurnover): self
-    {
-        if ($this->idTurnovers->contains($idTurnover)) {
-            $this->idTurnovers->removeElement($idTurnover);
-        }
+        $this->turnovers = $turnovers;
 
         return $this;
     }
@@ -792,4 +770,6 @@ class Company
 
         return $this;
     }
+
+    
 }

@@ -17,7 +17,7 @@
                 <p>Dernière mise à jour le
                     {{ company.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
-                    {% if company.status == 1 %}
+                    {% if company.actif == 1 %}
                         <input checked class="custom-control-input" id="statut-company" type="checkbox">
                         <label class="custom-control-label" for="statut-company"></label>
                     {% else %}
@@ -35,21 +35,22 @@
                 <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
             </li>
             {% if company.decisionLevel == NULL %}
-                <input id="decision_level" type="hidden" value="0" />
+                <input id="decision_level" type="hidden" value="0"/>
             {% else %}
-                <input id="decision_level" type="hidden" value=" {{ company.decisionLevel }}" />
+                <input id="decision_level" type="hidden" value=" {{ company.decisionLevel }}"/>
             {% endif %}
             <p>Potentiel</p>
             <div class="my-rating"></div>
-
-            {% if company.status == "Client" %}
-                <span class="badge badge-pill badge-success">{{ company.status }}</span>
-            {% endif %}
-            {% if company.status == "Prospect" %}
-                <span class="badge badge-pill badge-warning">{{ company.status }}</span>
-            {% endif %}
-            {% if company.status == "Piste" %}
-                <span class="badge badge-pill badge-light">{{ company.status }}</span>
+            {% if company.companyStatus != null %}
+                {% if company.companyStatus.libelle == "Client" %}
+                    <span class="badge badge-pill badge-success">{{ company.companyStatus.libelle }}</span>
+                {% endif %}
+                {% if company.companyStatus.libelle == "Prospect" %}
+                    <span class="badge badge-pill badge-warning">{{ company.companyStatus.libelle }}</span>
+                {% endif %}
+                {% if company.companyStatus.libelle == "Piste" %}
+                    <span class="badge badge-pill badge-light">{{ company.companyStatus.libelle }}</span>
+                {% endif %}
             {% endif %}
         </ul>
 

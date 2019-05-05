@@ -51,7 +51,7 @@ $(document).ready(function ($) {
         }
         
     })
-
+    //Permet de noter les entreprises de 0 à 10
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',
@@ -326,6 +326,34 @@ $(function () {
         buttonText: "<i class='fa fa-calendar'></i>"
     });
 
+    //Date arrivée et départ des commerciaux
+    $(".datepickerArrival").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        maxDate: "+0d",
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepickerDeparture").datepicker("option", "minDate", selectedDate);
+        }
+    });
+
+    $(".datepickerDeparture").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+20",
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepickerArrival").datepicker("option", "maxDate", selectedDate);
+        }
+    });
+    //Si la date d'arrivée du commercial est déjà selectionnée, au lancement on restreint la date de départ après la date d'arrivée
+    if($(".datepickerArrival").val() != null){
+        $(".datepickerDeparture").datepicker("option", "minDate", $(".datepickerArrival").val());
+    }
+    
     $(".datepicker-operation").datepicker({
         dateFormat: "dd-mm-yy",
         changeMonth: true,
@@ -443,45 +471,45 @@ $("#decision_making_delete").on("click", function (e) {
 //         ['Ajout/mise à jour des données', 20]
 //     ]);
 
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+// google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
+// function drawChart() {
 
-  var data = google.visualization.arrayToDataTable([
-    ['Task', 'Hours per Day'],
-    ['Ouvert',     46],
-    ['Non délivré',  14],
-    ['Non ouvert', 20],
-    ['Ajout/mise à jour des données', 20]
-  ]);
+//   var data = google.visualization.arrayToDataTable([
+//     ['Task', 'Hours per Day'],
+//     ['Ouvert',     46],
+//     ['Non délivré',  14],
+//     ['Non ouvert', 20],
+//     ['Ajout/mise à jour des données', 20]
+//   ]);
 
-  var options = {
-    title: 'Performance des opérations',
-    pieHole : 0.5,
-  };
+//   var options = {
+//     title: 'Performance des opérations',
+//     pieHole : 0.5,
+//   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+//   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-  chart.draw(data, options);
-}
+//   chart.draw(data, options);
+// }
 
-  //doughnut
-  var ctxD = document.getElementById("doughnutChart").getContext('2d');
-  var myLineChart = new Chart(ctxD, {
-    type: 'doughnut',
-    data: {
-      labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+//   //doughnut
+//   var ctxD = document.getElementById("doughnutChart").getContext('2d');
+//   var myLineChart = new Chart(ctxD, {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
       
-      datasets: [{
-        data: [300, 50, 100, 40, 120],
-        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+//       datasets: [{
+//         data: [300, 50, 100, 40, 120],
+//         backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+//         hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+//       }]
+//     },
+//     options: {
+//       responsive: true
+//     }
+//   });
 
 

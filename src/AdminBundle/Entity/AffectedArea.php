@@ -99,5 +99,10 @@ class AffectedArea
         $this->departments =  $departments;
     }
 
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+
 
 }

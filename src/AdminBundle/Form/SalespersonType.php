@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\AdminBundle\Entity\AffectedArea;
 
 class SalespersonType extends AbstractType
 {
@@ -68,7 +69,6 @@ class SalespersonType extends AbstractType
             ])
             ->add('arrivalDate', DateType::class, [
                 
-                'by_reference' => true,
                 "label" => "Début/fin du poste",
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
@@ -78,7 +78,6 @@ class SalespersonType extends AbstractType
             ])
             ->add('departureDate', DateType::class, [
                 
-                'by_reference' => true,
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
@@ -139,11 +138,11 @@ class SalespersonType extends AbstractType
                 'required' => false,
                 "label" => "Responsable N+1"
             ])
-            ->add('region', EntityType::class, [
-                'class' => Region::class,
+            ->add('affectedArea', EntityType::class, [
+                'class' => AffectedArea::class,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('region')
-                        ->orderBy('region.libelle', 'ASC');
+                    return $er->createQueryBuilder('affectedArea')
+                        ->orderBy('affectedArea.libelle', 'ASC');
                 },
                 'required' => false,
                 "label" => "Zone affectée"

@@ -23,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use App\AdminBundle\Entity\CompanyStatus;
 
 class CompanyType extends AbstractType
 {
@@ -36,14 +37,14 @@ class CompanyType extends AbstractType
             ->add('name', TextType::class, [
                 "label" => "Nom"
             ])
-            ->add('status', ChoiceType::class, [
-                'choices'  => [
-
-                    'Piste' => 'Piste',
-                    'Prospect' => 'Prospect',
-                    'Client' => 'Client'
-                ],
-                'label' => "Statut"
+            ->add('companyStatus', EntityType::class, [
+                "label" => "Statut",
+                'class' => CompanyStatus::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('companyStatus')
+                        ->orderBy('companyStatus.libelle', 'ASC');
+                },
+                'required' => false
             ])
             ->add('imageFile', FileType::class, [
                 "required" => false,
@@ -53,10 +54,6 @@ class CompanyType extends AbstractType
                 "label" => "Remarques",
                 "required" => false
             ])
-            // ->add('country', TextType::class, [
-            //     "label" => "Pays",
-            //     "required" => false
-            // ])
             ->add('address', TextType::class, [
                 "label" => "Adresse",
                 "required" => false
@@ -65,11 +62,6 @@ class CompanyType extends AbstractType
                 "label" => "Complément ",
                 "required" => false
             ])
-            // ->add('decisionLevel', TextType::class, [
-            //     "label" => "Potentiel",
-            //     "required" => false
-            // ])
-
             ->add('email', EmailType::class, [
                 "label" => "Email",
                 "required" => false
@@ -96,35 +88,19 @@ class CompanyType extends AbstractType
                 "label" => "Site web",
                 "required" => false
             ])
-            // ->add('createdAtCompany', DateType::class, [
-            //     "label" => "Date de création",
-            //     'format' => 'dd-MM-yyyy',
-            //     "years" => range(date('Y'), date('Y') - 70)
-            // ])
             ->add('siret', TextType::class, [
                 "label" => "N°SIRET",
                 "required" => false
             ])
-            ->add('nafCode', TextType::class, [
+            ->add('activityArea', EntityType::class, [
                 "label" => "Activité (NAF)",
-                "required" => false
+                'class' => ActivityArea::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('activity')
+                        ->orderBy('activity.libelle', 'ASC');
+                },
+                'required' => false
             ])
-            // ->add('source', TextType::class, [
-            //     "label" => "Source",
-            //     "required" => false
-            // ])
-            // ->add('idActivityArea', EntityType::class, [
-            //     'class' => ActivityArea::class,
-            //     "label" => "Aire d'activité",
-            //     'choice_label' => "libelle",
-            //     'required' => false
-            // ])
-            // ->add('idCompanyCategory', EntityType::class, [
-            //     'class' => CompanyCategory::class,
-            //     "label" => "Catégorie de l'entreprise",
-            //     'choice_label' => "libelle",
-            //     'required' => false
-            // ])
             ->add('idSalesperson', EntityType::class, [
                 'class' => Salesperson::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -144,23 +120,22 @@ class CompanyType extends AbstractType
                 'class' => NumberEmployees::class,
                 
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('n')
-                        ->orderBy('n.libelle', 'ASC');
+                    return $er->createQueryBuilder('numberEmployees')
+                        ->orderBy('numberEmployees.libelle', 'ASC');
                 },
                 "label" => "Effectifs",
                 'choice_label' => "libelle",
                 'required' => false
             ])
-            ->add('idTurnovers', EntityType::class, [
+            ->add('turnovers', EntityType::class, [
                 'class' => Turnovers::class,
                 "label" => "Chiffre d'affaires (M€)",
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('t')
-                        ->orderBy('t.libelle', 'ASC');
+                    return $er->createQueryBuilder('turnovers')
+                        ->orderBy('turnovers.libelle', 'ASC');
                 },
                 'choice_label' => "libelle",
-                'required' => false,
-                'multiple' => true
+                'required' => false
             ])
         ;
     }
