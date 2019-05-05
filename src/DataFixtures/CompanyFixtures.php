@@ -13,7 +13,7 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
         $this->createMany(100, "Company", function($count){
             $company = new Company();
             $company->setCode($this->faker->regexify('[A-Z]{10}'));
-            $company->setIdActivityArea($this->getRandomReference("ActivityArea"));
+            $company->setActivityArea($this->getRandomReference("ActivityArea"));
             $company->setIdCompanyCategory($this->getRandomReference("CompanyCategory"));
             $company->setIdSalesperson($this->getRandomReference("Salesperson"));
             $company->setIdLegalStatus($this->getRandomReference("LegalStatus"));
@@ -35,7 +35,7 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setSiret(str_replace(" ", "", $this->faker->siret));
             $company->setNafCode($this->faker->randomNumber($nbDigits = 4, $strict = false) . $this->faker->randomLetter);
 
-            $company->addIdTurnover($this->getRandomReference("Turnovers"));
+            $company->setTurnovers($this->getRandomReference("Turnovers"));
             return $company;
         });
 
