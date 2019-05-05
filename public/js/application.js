@@ -326,7 +326,7 @@ $(function () {
         buttonText: "<i class='fa fa-calendar'></i>"
     });
 
-    //Date arrivée et départ des commerciaux
+    //Date arrivée et départ des commerciaux et contacts
     $(".datepickerArrival").datepicker({
         dateFormat: "dd-mm-yy",
         changeMonth: true,

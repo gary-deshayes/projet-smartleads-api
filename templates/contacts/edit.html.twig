@@ -8,7 +8,11 @@
         <div class="form-informations">
             <div class="infos-entity">
                 <p class="title">{{ contact.getCivilite() ~ " " ~ contact.firstName ~ " " ~ (contact.lastName | upper )}}</p>
-                <p class="description"> {{ contact.workName }}, {{ contact.getAge() }} ans</p>
+                <p class="description"> {{ contact.workName }}
+                {% if contact.birthdate != null %}
+                , {{ contact.getAge() }} ans
+                {% endif %}
+                </p>
             </div>
             
             <div class="inline-status-date">

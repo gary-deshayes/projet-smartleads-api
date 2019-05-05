@@ -46,13 +46,6 @@ class ContactsType extends AbstractType
             ->add('firstName', TextType::class, [
                 "label" => "Prénom"
             ])
-            // ->add('status', ChoiceType::class, [
-            //     'choices'  => [
-            //         'Actif' => 1,
-            //         'Inactif' => 0
-            //     ],
-            //     'label' => "Statut"
-            // ])
             ->add('profession', EntityType::class, [
                 'label' => "Métier",
                 'class' => Profession::class,
@@ -72,7 +65,8 @@ class ContactsType extends AbstractType
                 'required' => false
             ])
             ->add('workName', TextType::class, [
-                "label" => "Nom du poste"
+                "label" => "Nom du poste",
+                "required" => false
             ])
             ->add('salesperson', EntityType::class, [
                 'class' => Salesperson::class,
@@ -97,7 +91,8 @@ class ContactsType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                "required" => false
             ])
             ->add('arrivalDate', DateType::class, [
                 
