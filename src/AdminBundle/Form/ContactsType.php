@@ -88,7 +88,7 @@ class ContactsType extends AbstractType
             ])
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,
@@ -98,7 +98,7 @@ class ContactsType extends AbstractType
                 
                 'by_reference' => true,
                 "label" => "Début/fin du poste",
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,
@@ -107,7 +107,7 @@ class ContactsType extends AbstractType
             ->add('departureDate', DateType::class, [
                 
                 'by_reference' => true,
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,

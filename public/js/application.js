@@ -314,11 +314,23 @@ $(document).ready(function ($) {
         
     })
 
+
+
+    $("#suppression-contacts").on("click", function(event){
+        event.preventDefault();
+        $("#form_delete_contacts").submit();
+    })
+
+    $("#suppression-salesperson").on("click", function(event){
+        event.preventDefault();
+        $("#form_delete_salesperson").submit();
+    })
+
 });
 
 $(function () {
     $(".datepicker").datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-100:+0",
@@ -328,7 +340,7 @@ $(function () {
 
     //Date arrivée et départ des commerciaux et contacts
     $(".datepickerArrival").datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-100:+0",
@@ -340,7 +352,7 @@ $(function () {
     });
 
     $(".datepickerDeparture").datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-100:+20",

@@ -228,7 +228,7 @@
                     </button>
                 </div>
                 <div>
-                    <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
+                    <button class="btn btn-radius-red btn-outline-red" id="suppression-contacts">Supprimer</button>
                     <button class="btn btn-radius-red btn-outline-red">Demande de mise à jour</button>
                     <button class="btn btn-radius-red">
                         {{ button_label|default('Save') }}</button>
@@ -246,3 +246,7 @@
             </div>
         {% endif %}
         {{ form_end(form) }}
+        {# Formulaire de suppression #}
+        {% if app.request.attributes.get("_route") == "contacts_edit" %}
+            {% include "contacts/_delete_form.html.twig" %}
+        {% endif %}

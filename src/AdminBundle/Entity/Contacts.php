@@ -28,7 +28,7 @@ class Contacts
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
      * @ORM\Id
-     * * @Assert\Length(
+     * @Assert\Length(
      *      max = 10,
      *      maxMessage = "Le code ne doit pas dépasser {{ limit }} caractères."
      * )
@@ -410,7 +410,7 @@ class Contacts
         return $this;
     }
 
-    public function getCreatedAt(): ? \DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }

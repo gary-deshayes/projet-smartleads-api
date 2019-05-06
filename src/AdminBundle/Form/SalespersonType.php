@@ -53,24 +53,18 @@ class SalespersonType extends AbstractType
                 ],
                 'label' => "Profil/droits"
             ])
-            ->add('status', ChoiceType::class, [
-                'choices'  => [
-                    'Actif' => 1,
-                    'Inactif' => 0
-                ],
-                'label' => "Statut"
-            ])
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                "required" => false
             ])
             ->add('arrivalDate', DateType::class, [
                 
-                "label" => "Début/fin du poste",
-                'format' => 'dd-MM-yyyy',
+                "label" => "Date d'arrivée/départ",
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,
@@ -78,14 +72,15 @@ class SalespersonType extends AbstractType
             ])
             ->add('departureDate', DateType::class, [
                 
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,
                 'required' => false
             ])
             ->add('workname', TextType::class, [
-                "label" => "Fonction/poste"
+                "label" => "Fonction/poste",
+                "required" => false
             ])
             ->add('mobilePhone', TelType::class, [
                 "label" => "Tél. mobile",

@@ -286,7 +286,7 @@ class Company
      *
      * @ORM\ManyToOne(targetEntity="Salesperson")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code")
+     *   @ORM\JoinColumn(name="id_salesperson", referencedColumnName="code", onDelete="SET NULL")
      * })
      */
     private $idSalesperson;
