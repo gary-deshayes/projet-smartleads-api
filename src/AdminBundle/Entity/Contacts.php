@@ -321,7 +321,7 @@ class Contacts
      *
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="contacts")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_company", referencedColumnName="code")
+     *   @ORM\JoinColumn(name="id_company", referencedColumnName="code", onDelete="SET NULL")
      * })
      */
     private $company;

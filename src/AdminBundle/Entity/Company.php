@@ -25,6 +25,10 @@ class Company
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Le code ne doit pas dépasser {{ limit }} caractères."
+     * )
      * @ORM\Id
      */
     private $code;
@@ -104,15 +108,12 @@ class Company
     private $comment;
 
     /**
-     * @var string|null
+     * @var \Salesperson
      *
-     * @ORM\Column(name="country", type="string", length=255, nullable=true)
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255,
-     *      minMessage = "Le pays doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le pays ne doit pas dépasser {{ limit }} caractères."
-     * )
+     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_country", referencedColumnName="code")
+     * })
      */
     private $country;
 
@@ -145,11 +146,9 @@ class Company
     /**
      * @var string|null
      *
-     * @ORM\Column(name="postal_code", type="string", length=5, nullable=true)
+     * @ORM\Column(name="postal_code", type="string", length=100, nullable=true)
      * @Assert\Length(
-     *      min = 5,
-     *      max = 5,
-     *      minMessage = "Le code postal doit contenir au minimum {{ limit }} caractères de long.",
+     *      max = 100,
      *      maxMessage = "Le code postal ne doit pas dépasser {{ limit }} caractères."
      * )
      */
