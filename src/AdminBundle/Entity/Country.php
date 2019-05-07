@@ -29,6 +29,10 @@ class Country
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255, nullable=false)
+     * * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le code ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $libelle;
 

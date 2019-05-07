@@ -46,6 +46,7 @@
                     <option value="3">Statut juridique</option>
                     <option value="4">Effectifs</option>
                     <option value="5">Chiffres d'affaires</option>
+                    <option value="6">Pays</option>
                 </select>
                 <div id="partStatuts">
                     {{ include('company_status/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
@@ -61,6 +62,9 @@
                 </div>
                 <div id="partTurnovers">
                     {{ include('turnovers/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partCountry">
+                    {{ include('country/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
             </div>
             <div aria-labelledby="settings-commerciaux-tab" class="tab-pane fade show" id="panel_commerciaux" role="tabpanel">

@@ -26,30 +26,30 @@ $(document).ready(function ($) {
     $(".gestion-formulaire-checkbox-div > div").addClass("custom-control custom-checkbox");
 
     //Permet de rendre dynamique la selection des checkbox dans le formulaire d'opérations
-    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function(){
-        if($(this).is(":checked")) {
-            switch($(this).val()){
+    $(".gestion-formulaire-checkbox-div").on("click", ":checkbox", function () {
+        if ($(this).is(":checked")) {
+            switch ($(this).val()) {
                 case "2":
                     $(this).parent().prev().children("input").prop("checked", true);
-                break;
+                    break;
                 case "3":
                     $(this).parent().prev().children("input").prop("checked", true);
                     $(this).parent().prev().prev().children("input").prop("checked", true);
-                break;
+                    break;
             }
         }
-        if(!$(this).is(":checked")) {
-            switch($(this).val()){
+        if (!$(this).is(":checked")) {
+            switch ($(this).val()) {
                 case "2":
                     $(this).parent().next().children("input").prop("checked", false);
-                break;
+                    break;
                 case "1":
                     $(this).parent().next().children("input").prop("checked", false);
                     $(this).parent().next().next().children("input").prop("checked", false);
-                break;
+                    break;
             }
         }
-        
+
     })
     //Permet de noter les entreprises de 0 à 10
     $(".my-rating").starRating({
@@ -72,15 +72,15 @@ $(document).ready(function ($) {
     });
 
     //Permet de mettre un background aux lignes selectionées
-    $(".checkbox-dynamic :checkbox").on("click", function(){
-        if($(this).is(":checked")){
+    $(".checkbox-dynamic :checkbox").on("click", function () {
+        if ($(this).is(":checked")) {
             $(this).parent().parent().parent().addClass("selected-line");
         } else {
             $(this).parent().parent().parent().removeClass("selected-line");
         }
     })
     //Check tout les checkbox
-    $(".checkbox-dynamic-all :checkbox").on("click", function(){
+    $(".checkbox-dynamic-all :checkbox").on("click", function () {
         $(".checkbox-dynamic :checkbox").click();
     })
 
@@ -131,30 +131,42 @@ $(document).ready(function ($) {
         $("#partLegalStatus").hide();
         $("#partNumberEmployees").hide();
         $("#partTurnovers").hide();
+        $("#partCountry").hide();
     } else if ($("#settings-entreprises").val() == 2) {
         $("#partStatuts").hide();
         $("#partActivityArea").show();
         $("#partLegalStatus").hide();
         $("#partNumberEmployees").hide();
         $("#partTurnovers").hide();
+        $("#partCountry").hide();
     } else if ($("#settings-entreprises").val() == 3) {
         $("#partStatuts").hide();
         $("#partActivityArea").hide();
         $("#partLegalStatus").show();
         $("#partNumberEmployees").hide();
         $("#partTurnovers").hide();
+        $("#partCountry").hide();
     } else if ($("#settings-entreprises").val() == 4) {
         $("#partStatuts").hide();
         $("#partActivityArea").hide();
         $("#partLegalStatus").hide();
         $("#partNumberEmployees").show();
         $("#partTurnovers").hide();
+        $("#partCountry").hide();
     } else if ($("#settings-entreprises").val() == 5) {
         $("#partStatuts").hide();
         $("#partActivityArea").hide();
         $("#partLegalStatus").hide();
         $("#partNumberEmployees").hide();
         $("#partTurnovers").show();
+        $("#partCountry").hide();
+    } else if ($("#settings-entreprises").val() == 6) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+        $("#partCountry").show();
     }
 
     //Partie settings entreprise
@@ -166,6 +178,7 @@ $(document).ready(function ($) {
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").hide();
                 $("#partTurnovers").hide();
+                $("#partCountry").hide();
                 break;
             case "2":
                 $("#partStatuts").hide();
@@ -173,6 +186,7 @@ $(document).ready(function ($) {
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").hide();
                 $("#partTurnovers").hide();
+                $("#partCountry").hide();
                 break;
             case "3":
                 $("#partStatuts").hide();
@@ -180,6 +194,7 @@ $(document).ready(function ($) {
                 $("#partLegalStatus").show();
                 $("#partNumberEmployees").hide();
                 $("#partTurnovers").hide();
+                $("#partCountry").hide();
                 break;
             case "4":
                 $("#partStatuts").hide();
@@ -187,6 +202,7 @@ $(document).ready(function ($) {
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").show();
                 $("#partTurnovers").hide();
+                $("#partCountry").hide();
                 break;
             case "5":
                 $("#partStatuts").hide();
@@ -194,6 +210,15 @@ $(document).ready(function ($) {
                 $("#partLegalStatus").hide();
                 $("#partNumberEmployees").hide();
                 $("#partTurnovers").show();
+                $("#partCountry").hide();
+                break;
+            case "6":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
+                $("#partCountry").show();
                 break;
 
 
@@ -263,7 +288,7 @@ $(document).ready(function ($) {
         var modal = $(this);
 
 
-        
+
     })
 
 
@@ -281,15 +306,15 @@ $(document).ready(function ($) {
             url: '/admin/affectedarea/getdepartments/' + id,
             type: 'GET',
             success: function (result) {
-                if(result.data.length > 0){
-                    result.data.forEach(function(e){
+                if (result.data.length > 0) {
+                    result.data.forEach(function (e) {
                         $("#affected_area_departments option[value='" + e + "]'").attr("selected", "selected");
                     })
                     $(".select2-tags").val(result.data).trigger("change");
                     $('.select2-tags').select2({
                         width: "300px"
                     });
-                    
+
                 }
             }
         });
@@ -308,27 +333,35 @@ $(document).ready(function ($) {
         //             $('.select2-tags').select2({
         //                 width: "300px"
         //             });
-                    
+
         //         }
         //     }
         // });
 
-        
+
     })
 
+    $('#editModalCountry').on('show.bs.modal', function (event) {
+        console.log("toto");
+        var button = $(event.relatedTarget)
+        var code = button.data('code');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#country_code').val(code)
+        modal.find('#country_libelle').val(libelle)
+    })
 
-
-    $("#suppression-contacts").on("click", function(event){
+    $("#suppression-contacts").on("click", function (event) {
         event.preventDefault();
         $("#form_delete_contacts").submit();
     })
 
-    $("#suppression-salesperson").on("click", function(event){
+    $("#suppression-salesperson").on("click", function (event) {
         event.preventDefault();
         $("#form_delete_salesperson").submit();
     })
 
-    $("#suppression-company").on("click", function(event){
+    $("#suppression-company").on("click", function (event) {
         event.preventDefault();
         $("#form_delete_company").submit();
     })
@@ -369,10 +402,10 @@ $(function () {
         }
     });
     //Si la date d'arrivée du commercial est déjà selectionnée, au lancement on restreint la date de départ après la date d'arrivée
-    if($(".datepickerArrival").val() != null){
+    if ($(".datepickerArrival").val() != null) {
         $(".datepickerDeparture").datepicker("option", "minDate", $(".datepickerArrival").val());
     }
-    
+
     $(".datepicker-operation").datepicker({
         dateFormat: "dd-mm-yy",
         changeMonth: true,
@@ -519,7 +552,7 @@ $("#decision_making_delete").on("click", function (e) {
 //     type: 'doughnut',
 //     data: {
 //       labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-      
+
 //       datasets: [{
 //         data: [300, 50, 100, 40, 120],
 //         backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],

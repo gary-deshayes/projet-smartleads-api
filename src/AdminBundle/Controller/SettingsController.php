@@ -2,8 +2,10 @@
 
 namespace App\AdminBundle\Controller;
 
+use App\AdminBundle\Entity\Country;
 use App\AdminBundle\Entity\Settings;
 use App\AdminBundle\Entity\Turnovers;
+use App\AdminBundle\Form\CountryType;
 use App\AdminBundle\Entity\Department;
 use App\AdminBundle\Form\SettingsType;
 use App\AdminBundle\Form\TurnoversType;
@@ -218,7 +220,13 @@ class SettingsController extends AbstractController
 
 
 
+
+
+
         $affectedAreaEdit = null;
+
+
+
         //Gère la partie zone affecté des commerciaux
         if ($request->get('affected_area') != null) {
             $arrayAffectedArea = $request->get('affected_area');
@@ -247,7 +255,9 @@ class SettingsController extends AbstractController
                 return $this->redirectToRoute('settings_index');
             }
         }
-        //Récupère la partie zone affecté des commerciaux
+
+
+        //Récupère la partie zone affecté des zones
         $affectedArea = new AffectedArea();
         $formAffectedAreaAdd = $this->createForm(AffectedAreaType::class, $affectedArea);
         $formAffectedAreaEdit = $this->createForm(AffectedAreaType::class, $affectedAreaEdit);
@@ -255,7 +265,7 @@ class SettingsController extends AbstractController
             $formAffectedAreaEdit->handleRequest($request);
         }
         if ($formAffectedAreaEdit->isSubmitted() && $formAffectedAreaEdit->isValid()) {
-            //Récupère les départments lié à la zonne
+            //Récupère les départments lié à la zone
             $departmentAffectedArea = $this->getDoctrine()->getRepository(Department::class)->getDepartmentAffectedArea($affectedAreaEdit->getId());
 
             //Département envoyé par le formulaire
@@ -279,6 +289,36 @@ class SettingsController extends AbstractController
         foreach ($affectedAreas as $area) {
             $area->setAllDepartments($this->getDoctrine()->getRepository(Department::class)->getDepartmentAffectedArea($area->getId())->getResult());
         }
+
+
+
+
+        
+        //Gère les pays
+        if ($request->get('country') != null) {
+            $arrayCountry = $request->get('country');
+            if (isset($arrayCountry["code"])) {
+                $countryEdot = $this->getDoctrine()
+                    ->getRepository(Country::class)
+                    ->findOneBy(array("code" => $arrayCountry["code"]));
+                $countryEdot->setLibelle($arrayCountry["libelle"]);
+            } else {
+                $newCountry = new Country();
+                
+                $newCountry->setLibelle($arrayCountry["libelle"]);
+                $newCountry->setCode($arrayCountry["code"]);
+                $entityManager = $this->getDoctrine()->getManager()->persist($newCountry);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('settings_index');
+        }
+        //Récupère la partie pays
+        $country = new Country();
+        $formCountryAdd = $this->createForm(CountryType::class, $country);
+        $formCountryEdit = $this->createForm(CountryType::class);
+        $countries = $this->getDoctrine()->getRepository(Country::class)->findAll();
+
         
         return $this->render('settings/index.html.twig', [
             'settings' => $settings,
@@ -315,6 +355,10 @@ class SettingsController extends AbstractController
             'affectedAreas' => $affectedAreas,
             'formAffectedAreaAdd' => $formAffectedAreaAdd->createView(),
             'formAffectedAreaEdit' => $formAffectedAreaEdit->createView(),
+
+            'countries' => $countries,
+            'formCountryAdd' => $formCountryAdd->createView(),
+            'formCountryEdit' => $formCountryEdit->createView(),
         ]);
     }
 }

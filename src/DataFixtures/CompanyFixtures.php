@@ -23,7 +23,6 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setUpdatedAt(new \DateTime());
             $company->setComment($this->faker->text($maxNbChars = 50));
             $company->setAddress($this->faker->address);
-            $company->setAdditionalAddress($this->faker->secondaryAddress);
             $company->setPostalCode($this->faker->randomNumber($nbDigits = 5, $strict = false));
             $company->setTown($this->faker->city);
             $company->setPhone("03" . $this->faker->randomNumber($nbDigits = 8, $strict = false));
