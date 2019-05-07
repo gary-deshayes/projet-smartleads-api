@@ -204,9 +204,11 @@ $(document).ready(function ($) {
         var button = $(event.relatedTarget)
         var id = button.data('id');
         var libelle = button.data('libelle');
+        var color = button.data('color');
         var modal = $(this)
         modal.find('#company_status_id').val(id)
         modal.find('#company_status_libelle').val(libelle)
+        modal.find('#company_status_color').val(color)
     })
 
     $('#editModalActivity').on('show.bs.modal', function (event) {
@@ -324,6 +326,11 @@ $(document).ready(function ($) {
     $("#suppression-salesperson").on("click", function(event){
         event.preventDefault();
         $("#form_delete_salesperson").submit();
+    })
+
+    $("#suppression-company").on("click", function(event){
+        event.preventDefault();
+        $("#form_delete_company").submit();
     })
 
 });

@@ -9,7 +9,7 @@
     <tbody>
         {% for state in companyStatus %}
             <tr class="settings-row">
-                <td data-toggle="modal" data-target="#editModalStatus" data-id="{{ state.id }}" data-libelle="{{ state.libelle }}">{{ state.libelle }}</td>
+                <td data-toggle="modal" data-target="#editModalStatus" data-id="{{ state.id }}" data-libelle="{{ state.libelle }}" data-color="{{ state.color }}">{{ state.libelle }}</td>
             </tr>
         {% endfor %}
     </tbody>
@@ -33,6 +33,10 @@
                 <div class="row">
                     {{ form_label(formStatusAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
                     {{ form_widget(formStatusAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="row">
+                    {{ form_label(formStatusAdd.color,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formStatusAdd.color, { "attr" : { "class" : "form-control col-lg-8"}})}}
                 </div>
                 <div class="btn-end-form-add">
                     <button class="btn btn-radius-red" type="submit">Valider</button>
@@ -61,6 +65,10 @@
                 <div class="row">
                     {{ form_label(formStatusEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
                     {{ form_widget(formStatusEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="row">
+                    {{ form_label(formStatusEdit.color,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formStatusEdit.color, { "attr" : { "class" : "form-control col-lg-8"}})}}
                 </div>
                 <div class="btn-end-form-add">
                     <button class="btn btn-radius-red" type="submit">Valider</button>

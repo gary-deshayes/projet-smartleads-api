@@ -55,17 +55,15 @@
                         <td>
                             {{ company.town }}</td>
                         <td>
-                            {{ company.idSalesperson.firstName ~ " " ~ company.idSalesperson.lastName }}</td>
+                            {% if company.idSalesperson != null %}
+                                {{ company.idSalesperson.firstName ~ " " ~ company.idSalesperson.lastName }}</td>
+                        {% endif %}
                         <td>
                             {% if company.companyStatus != null %}
-                                {% if company.companyStatus.libelle == "Client" %}
-                                    <span class="badge badge-pill badge-success badge-corrector">{{ company.companyStatus.libelle }}</span>
-                                {% endif %}
-                                {% if company.companyStatus.libelle == "Prospect" %}
-                                    <span class="badge badge-pill badge-warning badge-corrector">{{ company.companyStatus.libelle }}</span>
-                                {% endif %}
-                                {% if company.companyStatus.libelle == "Piste" %}
-                                    <span class="badge badge-pill badge-light badge-corrector">{{ company.companyStatus.libelle }}</span>
+                                {% if company.companyStatus.color != null %}
+                                    <span class="badge badge-pill" style="background-color: {{company.companyStatus.color}} !important">{{ company.companyStatus.libelle }}</span>
+                                {% else %}
+                                    <span class="badge badge-pill badge-primary">{{ company.companyStatus.libelle }}</span>
                                 {% endif %}
                             {% endif %}
                         </td>

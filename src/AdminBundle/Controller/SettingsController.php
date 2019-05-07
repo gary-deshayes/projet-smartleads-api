@@ -107,9 +107,11 @@ class SettingsController extends AbstractController
                     ->getRepository(CompanyStatus::class)
                     ->findOneBy(array("id" => $arrayStatus["id"]));
                 $statusEdit->setLibelle($arrayStatus["libelle"]);
+                $statusEdit->setColor($arrayStatus["color"]);
             } else {
                 $newStatus = new CompanyStatus();
                 $newStatus->setLibelle($arrayStatus["libelle"]);
+                $newStatus->setColor($arrayStatus["color"]);
                 $entityManager = $this->getDoctrine()->getManager()->persist($newStatus);
             }
 

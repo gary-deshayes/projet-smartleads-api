@@ -80,7 +80,6 @@ class CompanyController extends AbstractController
 
             return $this->redirectToRoute('company_index');
         }
-
         return $this->render('company/new.html.twig', [
             'company' => $company,
             'form' => $form->createView(),

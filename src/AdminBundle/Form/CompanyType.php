@@ -4,10 +4,12 @@ namespace App\AdminBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use App\AdminBundle\Entity\Company;
+use App\AdminBundle\Entity\Country;
 use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Entity\Turnovers;
 use App\AdminBundle\Entity\ActivityArea;
 use Symfony\Component\Form\AbstractType;
+use App\AdminBundle\Entity\CompanyStatus;
 use App\AdminBundle\Entity\CompanyCategory;
 use App\AdminBundle\Entity\NumberEmployees;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +25,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use App\AdminBundle\Entity\CompanyStatus;
 
 class CompanyType extends AbstractType
 {
@@ -56,10 +57,6 @@ class CompanyType extends AbstractType
             ])
             ->add('address', TextType::class, [
                 "label" => "Adresse",
-                "required" => false
-            ])
-            ->add('additionalAddress', TextType::class, [
-                "label" => "Complément ",
                 "required" => false
             ])
             ->add('email', EmailType::class, [
@@ -135,6 +132,15 @@ class CompanyType extends AbstractType
                         ->orderBy('turnovers.libelle', 'ASC');
                 },
                 'choice_label' => "libelle",
+                'required' => false
+            ])
+            ->add('country', EntityType::class, [
+                "label" => "Pays",
+                'class' => Country::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->orderBy('country.libelle', 'ASC');
+                },
                 'required' => false
             ])
         ;

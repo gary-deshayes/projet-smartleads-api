@@ -5,18 +5,20 @@ namespace App\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use App\AdminBundle\Entity\Turnovers;
 use App\AdminBundle\Entity\ActivityArea;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\AdminBundle\Entity\Turnovers;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Company
  *
  * @ORM\Table(name="company", indexes={@ORM\Index(name="company_legal_status2_FK", columns={"id_legal_status"}), @ORM\Index(name="company_company_category0_FK", columns={"id_company_category"}), @ORM\Index(name="id_salesperson", columns={"id_salesperson"}), @ORM\Index(name="company_activity_area_FK", columns={"id_activity_area"}), @ORM\Index(name="company_number_employees1_FK", columns={"id_number_employees"})})
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyRepository")
+ * @UniqueEntity("email", message="Cet email existe déjà dans la base de données, veuillez en saisir un autre.")
  * @Vich\Uploadable
  */
 class Company
@@ -78,7 +80,7 @@ class Company
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logo")
      * @Assert\Image(
      *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
@@ -122,26 +124,11 @@ class Company
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      * @Assert\Length(
-     *      min = 1,
      *      max = 255,
-     *      minMessage = "L'adresse doit contenir au minimum {{ limit }} caractères de long.",
      *      maxMessage = "L'adresse ne doit pas dépasser {{ limit }} caractères."
      * )
      */
     private $address;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="additional_address", type="string", length=255, nullable=true)
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 255,
-     *      minMessage = "Le complément d'adresse doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le complément d'adresse ne doit pas dépasser {{ limit }} caractères."
-     * )
-     */
-    private $additionalAddress;
 
     /**
      * @var string|null
@@ -172,13 +159,14 @@ class Company
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
      * @Assert\Regex(
-     *      pattern="/^[0-9]*$/", 
-     *      message="Seulement les nombres sont autorisés") 
+     *      pattern="/^[0-9]*$/",
+     *      message="Seulement les nombres sont autorisés")
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de téléphone doit être à ce format 0XXXXXXXXX"
      * )
      */
     private $phone;
@@ -188,13 +176,14 @@ class Company
      *
      * @ORM\Column(name="fax", type="string", length=10, nullable=true)
      * @Assert\Regex(
-     *      pattern="/^[0-9]*$/", 
-     *      message="Seulement les nombres sont autorisés") 
+     *      pattern="/^[0-9]*$/",
+     *      message="Seulement les nombres sont autorisés")
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le fax en 0612345678",
-     *      maxMessage = "Veuillez saisir le fax en 0612345678"
+     *      maxMessage = "Veuillez saisir le fax en 0612345678",
+     *      exactMessage = "Le numéro de fax doit être à ce format 0XXXXXXXXX"
      * )
      */
     private $fax;
@@ -203,6 +192,7 @@ class Company
      * @var string|null
      *
      * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     * @Assert\Url
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
@@ -228,7 +218,8 @@ class Company
      *      min = 14,
      *      max = 14,
      *      minMessage = "Le numéro de SIRET doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le numéro de SIRET ne doit pas dépasser {{ limit }} caractères."
+     *      maxMessage = "Le numéro de SIRET ne doit pas dépasser {{ limit }} caractères.",
+     *      exactMessage = "Le numéro de SIRET doit contenir {{ limit }} caractères."
      * )
      */
     private $siret;
@@ -241,6 +232,7 @@ class Company
      *      max = 255,
      *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
      * )
+     * @Assert\Email
      */
     private $email;
 
@@ -253,8 +245,6 @@ class Company
      * })
      */
     private $activityArea;
-
-
 
     /**
      * @var string|null
@@ -441,24 +431,24 @@ class Company
         return $this;
     }
 
-    public function getCountry(): ?string
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    public function setCountry(?string $country): self
+    public function setCountry(?Country $country): self
     {
         $this->country = $country;
 
         return $this;
     }
 
-    public function getActif(): ? bool
+    public function getActif(): ?bool
     {
         return $this->actif;
     }
 
-    public function setActif(? bool $actif): self
+    public function setActif(?bool $actif): self
     {
         $this->actif = $actif;
 
@@ -473,18 +463,6 @@ class Company
     public function setAddress(?string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getAdditionalAddress(): ?string
-    {
-        return $this->additionalAddress;
-    }
-
-    public function setAdditionalAddress(?string $additionalAddress): self
-    {
-        $this->additionalAddress = $additionalAddress;
 
         return $this;
     }
@@ -671,7 +649,7 @@ class Company
      * @param  Turnovers $turnovers
      *
      * @return  self
-     */ 
+     */
     public function setTurnovers(?Turnovers $turnovers)
     {
         $this->turnovers = $turnovers;
@@ -724,12 +702,12 @@ class Company
         return $this;
     }
 
-    public function getImageFile(): ? File
+    public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    public function setImageFile(? File $imageFile = null): void
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
@@ -745,12 +723,11 @@ class Company
         return count($this->contacts);
     }
 
-
     /**
      * Get the value of user_last_update
      *
      * @return  \Salesperson
-     */ 
+     */
     public function getUser_last_update()
     {
         return $this->user_last_update;
@@ -762,7 +739,7 @@ class Company
      * @param  \Salesperson  $user_last_update
      *
      * @return  self
-     */ 
+     */
     public function setUser_last_update(Salesperson $user_last_update)
     {
         $this->user_last_update = $user_last_update;
@@ -770,5 +747,4 @@ class Company
         return $this;
     }
 
-    
 }
