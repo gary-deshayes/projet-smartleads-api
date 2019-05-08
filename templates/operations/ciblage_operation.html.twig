@@ -11,12 +11,64 @@
             {{ form_widget(formTargetOperation.parameter, { "attr" : { "class" : "form-control"}})}}
         </div>
         <p>=</p>
-        <div class="col-lg-4" id="div-target-value">
-            
-        </div>
+        <div class="col-lg-4" id="div-target-value"></div>
+        <input hidden id="target_operation_operation" name="target_operation[operation]" value='{{operation.code}}'/>
         {{ form_end(formTargetOperation) }}
         <button id="add-target">+</button>
     </div>
     <hr>
-        <div></div>
+    <div class="div-target-selected-operation">
+        <p class="red-font">{{ contacts_cibles |length }}</p>
+        <p>
+            contacts destinataires optin après dédoublonnage des
+        </p>
+        <p class="red-font">{{ ciblages | length}}</p>
+        <p>
+            critères de ciblages ajoutés</p>
+        <div>
+            {% for cible in ciblages %}
+                <div class="row div-target-operation">
+                    <div class="col-lg-3 white-back">
+                        {% if cible.entity == "Company" %}
+                            Entreprises
+                        {% elseif cible.entity == "Salesperson" %}
+                            Commerciaux
+                        {% elseif cible.entity == "Contacts" %}
+                            Contacts
+                        {% endif %}
+                    </div>
+                    <p>Dont</p>
+                    <div class="col-lg-3 white-back">
+
+                        {% if cible.parameter == "AffectedArea" %}
+                            Zone affectée
+                        {% elseif cible.parameter == "NumberEmployees" %}
+                            Effectifs
+                        {% elseif cible.parameter == "postalCode" %}
+                            Code postal
+                        {% elseif cible.parameter == "CompanyStatus" %}
+                            Statut
+                        {% elseif cible.parameter == "Country" %}
+                            Pays
+                        {% elseif cible.parameter == "ActivityArea" %}
+                            Code NAF
+                        {% elseif cible.parameter == "Turnovers" %}
+                            Chiffre d'affaire
+                        {% elseif cible.parameter == "Profession" %}
+                            Métier
+                        {% elseif cible.parameter == "DecisionMaking" %}
+                            Pouvoir décisionnel
+                        {% endif %}
+                        </div>
+                        <p>=</p>
+                        <div class="col-lg-3 white-back" id="div-target-value">
+                        
+                         {{cible.value }}</div>
+                        <button id="delete-target">x</button>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
     </div>

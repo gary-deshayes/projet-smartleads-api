@@ -580,9 +580,6 @@ $('#target_operation_entity').on("change", function () {
                 case "postalCode":
                     inputTargetOperation();
                     break;
-                case "name":
-                    inputTargetOperation();
-                    break;
                 case "NumberEmployees":
                     selectTargetOperation("NumberEmployees");
                     break;
@@ -594,9 +591,6 @@ $('#target_operation_entity').on("change", function () {
                     break;
                 case "ActivityArea":
                     selectTargetOperation("ActivityArea");
-                    break;
-                case "Salesperson":
-                    selectTargetOperation("Salesperson");
                     break;
                 case "Turnovers":
                     selectTargetOperation("Turnovers");
@@ -642,9 +636,6 @@ $('#target_operation_parameter').on("change", function () {
         case "postalCode":
             inputTargetOperation();
             break;
-        case "name":
-            inputTargetOperation();
-            break;
         case "NumberEmployees":
             selectTargetOperation("NumberEmployees");
             break;
@@ -656,9 +647,6 @@ $('#target_operation_parameter').on("change", function () {
             break;
         case "ActivityArea":
             selectTargetOperation("ActivityArea");
-            break;
-        case "Salesperson":
-            selectTargetOperation("Salesperson");
             break;
         case "Turnovers":
             selectTargetOperation("Turnovers");
@@ -700,17 +688,9 @@ function parameterTargetCompany() {
         value: "ActivityArea",
         text: 'Code NAF'
     }));
-    // $('#target_operation_parameter').append($('<option>', {
-    //     value: "Salesperson",
-    //     text: 'Commercial'
-    // }));
     $('#target_operation_parameter').append($('<option>', {
         value: "Turnovers",
         text: 'Chiffre d\'affaire'
-    }));
-    $('#target_operation_parameter').append($('<option>', {
-        value: "name",
-        text: 'Nom'
     }));
 }
 
@@ -767,7 +747,7 @@ function selectTargetOperation(entity) {
 
     //Récupération des valeurs a ajouter au select
     $.ajax({
-        url: '/admin/target_operation/selectDynamique/' + entity,
+        url: '/admin/operations/selectDynamique/' + entity,
         type: 'GET',
         success: function (result) {
             result.data.forEach(function (res) {
@@ -796,7 +776,7 @@ function selectTargetOperation(entity) {
 $("#add-target").on("click", function () {
     $.ajax({
         type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url: '/admin/target_operation/envoi_operation', // the url where we want to POST
+        url: '/admin/operations/sauvegarde_target', // the url where we want to POST
         data: $("#form_target_operation").serialize(), // our data object
         dataType: 'json', // what type of data do we expect back from the server
         encode: true

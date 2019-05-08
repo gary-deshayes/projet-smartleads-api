@@ -3,6 +3,7 @@
 namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\AdminBundle\Entity\Operations;
 
 /**
  * Target
@@ -12,12 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TargetOperation
 {
+
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer", name="id")
+     */
+    private $id;
+
     /**
      * @var \Operations
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Operations")
+     * @ORM\ManyToOne(targetEntity="Operations")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_operation", referencedColumnName="code")
      * })
@@ -45,6 +52,12 @@ class TargetOperation
      */
     private $value;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="send", type="integer", length=1,  nullable=false)
+     */
+    private $send;
    
 
 
@@ -140,9 +153,54 @@ class TargetOperation
      *
      * @return  self
      */ 
-    public function setOperation(\Operations $operation)
+    public function setOperation(Operations $operation)
     {
         $this->operation = $operation;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of send
+     *
+     * @return  int
+     */ 
+    public function getSend()
+    {
+        return $this->send;
+    }
+
+    /**
+     * Set the value of send
+     *
+     * @param  int  $send
+     *
+     * @return  self
+     */ 
+    public function setSend(int $send)
+    {
+        $this->send = $send;
 
         return $this;
     }

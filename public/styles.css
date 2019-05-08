@@ -406,6 +406,7 @@ input#search-search:focus {
   margin-left: 60px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-radius: 2px;
 }
 .div-target-operation div {
   display: inline;
@@ -423,6 +424,21 @@ input#search-search:focus {
 }
 .div-target-operation button {
   display: inline;
+}
+
+.div-target-selected-operation p {
+  display: inline;
+  font-weight: bold;
+}
+.div-target-selected-operation .red-font {
+  color: red;
+}
+.div-target-selected-operation .white-back {
+  background-color: white;
+}
+.div-target-selected-operation .div-target-operation {
+  padding-left: 15px;
+  margin-bottom: 5px;
 }
 
 /* ---------------------------------------------------

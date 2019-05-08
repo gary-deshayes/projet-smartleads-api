@@ -2,9 +2,11 @@
 
 namespace App\AdminBundle\Controller;
 
+use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Entity\Operations;
+use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Form\OperationsType;
 use App\AdminBundle\Entity\OperationSent;
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\AdminBundle\Entity\FormulaireOperation;
 use App\AdminBundle\Form\SettingsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\AdminBundle\Form\FormulaireOperationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -67,7 +70,8 @@ class OperationsController extends AbstractController
     /**
      * @Route("/new", name="operations_new", methods={"GET","POST"})
      */
-    function new (Request $request): Response {
+    function new(Request $request): Response
+    {
         $operation = new Operations();
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
@@ -98,7 +102,6 @@ class OperationsController extends AbstractController
             $formulaire_operation = $this->getDoctrine()
                 ->getRepository(FormulaireOperation::class)
                 ->findOneBy(array("id" => $operation->getFormulaire_operation()->getId()));
-
         } else {
             $formulaire_operation = new FormulaireOperation();
         }
@@ -243,19 +246,13 @@ class OperationsController extends AbstractController
             return $this->redirectToRoute('operations_edit', [
                 'code' => $operation->getCode(),
             ]);
-
         }
 
         //Partie ciblage
         $targetOperation = new TargetOperation();
         $formTargetOperation = $this->createForm(TargetOperationType::class, $targetOperation, [
-            'action' => $this->generateUrl('target_operation_envoi'),
+            'action' => $this->generateUrl('target_operation_sauvegarde_target'),
         ]);
-        if($formTargetOperation->isSubmitted() && $formTargetOperation->isValid()){
-            dump($targetOperation);
-            die();
-        }
-
 
         //Formulaire d'édition de l'opération
         $form = $this->createForm(OperationsType::class, $operation);
@@ -269,15 +266,15 @@ class OperationsController extends AbstractController
             ]);
         }
         $operationSettings = new SettingsOperation();
-        if($operation->getSettings() != null){
+        if ($operation->getSettings() != null) {
             $operationSettings = $operation->getSettings();
         } else {
             $operationSettings = new SettingsOperation();
         }
         $formSettings = $this->createForm(SettingsOperationType::class, $operationSettings);
         $formSettings->handleRequest($request);
-        if($formSettings->isSubmitted() && $formSettings->isValid()){
-            
+        if ($formSettings->isSubmitted() && $formSettings->isValid()) {
+
             $operation->setSettings($operationSettings);
             $operation->setUser_last_update($this->getUser());
             $operationSettings->setOperation($operation);
@@ -288,7 +285,110 @@ class OperationsController extends AbstractController
                 'code' => $operation->getCode(),
             ]);
         }
-            
+
+
+        //Récupération des ciblages
+
+        $ciblages = $this->getDoctrine()->getRepository(TargetOperation::class)->findBy(array("operation" => $operation->getCode()));
+        //Récupération des contacts pour chaque cibles
+        $contactsCibles = array();
+        $repoContacts = $this->getDoctrine()->getRepository(Contacts::class);
+        foreach ($ciblages as $cible) {
+            //Ciblage par entreprises
+            if ($cible->getEntity() == "Company") {
+                $repoCompany = $this->getDoctrine()->getRepository(Company::class);
+                switch ($cible->getParameter()) {
+                    case "postalCode":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.postalCode", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+                        break;
+                    case "NumberEmployees":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.numberEmployees", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "CompanyStatus":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.companyStatus", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "Country":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.country", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+                        break;
+                    case "ActivityArea":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.activityArea", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "Turnovers":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.turnovers", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                }
+                //Ciblage par contacts
+            } else if ($cible->getEntity() == "Contacts") {
+                switch ($cible->getParameter()) {
+                    case "Profession":
+                        $contacts = $repoContacts->getContactsBy("contacts.profession", $cible->getValue());
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+
+
+                        break;
+                    case "DecisionMaking":
+                        $contacts = $repoContacts->getContactsBy("contacts.decision_making", $cible->getValue());
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                }
+                //Ciblage par commerciaux
+            } else if ($cible->getEntity() == "Salesperson") {
+                $repoSalesperson = $this->getDoctrine()->getRepository(Salesperson::class);
+                switch ($cible->getParameter()) {
+                    case "AffectedArea":
+                        $salespersonsCodes = $repoSalesperson->getCodeSalespersonBy("salesperson.affectedArea", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereSalespersonInArray($salespersonsCodes);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+
+
+                        break;
+                }
+            }
+        }
+        //On retire tout les contacts qui ne sont pas opt in
+        foreach ($contactsCibles as $key => $contacts) {
+            if ($contacts->getOptInOffresCommercial() == false) {
+                unset($contactsCibles[$key]);
+            }
+        }
+        $contactsCiblesSansDoublons = array_unique($contactsCibles);
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
@@ -296,7 +396,9 @@ class OperationsController extends AbstractController
             "formulaire_operation" => $formulaire_operation,
             "settings_operation" => $operationSettings,
             "formSettings" => $formSettings->createView(),
-            "formTargetOperation" => $formTargetOperation->createView()
+            "formTargetOperation" => $formTargetOperation->createView(),
+            "contacts_cibles" => $contactsCiblesSansDoublons,
+            "ciblages" => $ciblages
         ]);
     }
 
@@ -312,5 +414,91 @@ class OperationsController extends AbstractController
         }
 
         return $this->redirectToRoute('operations_index');
+    }
+
+    /**
+     * @Route("/selectDynamique/{entity}", name="target_operation_select_dynamique", methods={"GET"})
+     */
+    public function selectDynamique($entity)
+    {
+        $result = $this->getDoctrine()->getRepository("AdminBundle:" . $entity)->findBy(array(), array("libelle" => "ASC"));
+
+        $data = array();
+        if ($entity == "Country") {
+            foreach ($result as $res) {
+                $jsonData = array(
+                    "code" => $res->getCode(),
+                    "libelle" => $res->getLibelle()
+                );
+
+
+
+                array_push($data, $jsonData);
+            }
+        } else {
+            foreach ($result as $res) {
+                $jsonData = array(
+                    "id" => $res->getId(),
+                    "libelle" => $res->getLibelle()
+                );
+
+
+
+                array_push($data, $jsonData);
+            }
+        }
+
+
+        $dataJson = [
+            "entité" => $entity,
+            "data" => $data,
+            "retour" => "-1"
+        ];
+        $response = new Response(json_encode($dataJson), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @Route("/sauvegarde_target", name="target_operation_sauvegarde_target", methods={"POST"})
+     */
+    public function sauvegardeTarget(Request $request)
+    {
+        $arrayTarget = $request->get('target_operation');
+        $targetOperation = new TargetOperation();
+
+        $formTarget = $this->createForm(TargetOperationType::class, $targetOperation);
+
+        $formTarget->handleRequest($request);
+        $operation = $this->getDoctrine()->getRepository(Operations::class)->findOneBy(array("code" => $arrayTarget["operation"]));
+        $value = "";
+        if (!isset($arrayTarget["input"])) {
+            $value = $arrayTarget["select"];
+        } else {
+            $value = $arrayTarget["input"];
+        }
+        $targetOperationExist = $this->getDoctrine()->getRepository(TargetOperation::class)->findOneBy(array(
+            "entity" => $arrayTarget["entity"],
+            "parameter" => $arrayTarget["parameter"],
+            "value" => $value
+        ));
+        if (!isset($targetOperationExist)) {
+            $targetOperation->setSend(0);
+            $targetOperation->setOperation($operation);
+            $targetOperation->setEntity($arrayTarget["entity"]);
+            $targetOperation->setParameter($arrayTarget["parameter"]);
+            $targetOperation->setValue($value);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($targetOperation);
+            $em->flush();
+        }
+
+
+        $response = new Response(json_encode($targetOperation), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }

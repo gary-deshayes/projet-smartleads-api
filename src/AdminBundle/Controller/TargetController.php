@@ -99,59 +99,6 @@ class TargetController extends AbstractController
         return $this->redirectToRoute('target_index');
     }
 
-    /**
-     * @Route("/selectDynamique/{entity}", name="target_operation_select_dynamique", methods={"GET"})
-     */
-    public function selectDynamique($entity)
-    {
-        $result = $this->getDoctrine()->getRepository("AdminBundle:" . $entity)->findBy(array(), array("libelle" => "ASC"));
-
-        $data = array();
-        if ($entity == "Country") {
-            foreach ($result as $res) {
-                $jsonData = array(
-                    "code" => $res->getCode(),
-                    "libelle" => $res->getLibelle()
-                );
-
-
-
-                array_push($data, $jsonData);
-            }
-        } else {
-            foreach ($result as $res) {
-                $jsonData = array(
-                    "id" => $res->getId(),
-                    "libelle" => $res->getLibelle()
-                );
-
-
-
-                array_push($data, $jsonData);
-            }
-        }
-
-
-        $dataJson = [
-            "entité" => $entity,
-            "data" => $data,
-            "retour" => "-1"
-        ];
-        $response = new Response(json_encode($dataJson), 200);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/envoi_operation",name="target_operation_envoi")
-     */
-    public function envoiOperation(Request $request)
-    { 
-        dump($request);
-
-        return new Response("toto");
     
-    }
 
 }

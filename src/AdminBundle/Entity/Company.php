@@ -298,7 +298,7 @@ class Company
      *   @ORM\JoinColumn(name="id_number_employees", referencedColumnName="id")
      * })
      */
-    private $idNumberEmployees;
+    private $numberEmployees;
 
     /**
      * @var Turnovers
@@ -623,14 +623,14 @@ class Company
         return $this;
     }
 
-    public function getIdNumberEmployees(): ?NumberEmployees
+    public function getNumberEmployees(): ?NumberEmployees
     {
-        return $this->idNumberEmployees;
+        return $this->numberEmployees;
     }
 
-    public function setIdNumberEmployees(?NumberEmployees $idNumberEmployees): self
+    public function setNumberEmployees(?NumberEmployees $numberEmployees): self
     {
-        $this->idNumberEmployees = $idNumberEmployees;
+        $this->numberEmployees = $numberEmployees;
 
         return $this;
     }

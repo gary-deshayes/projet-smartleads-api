@@ -465,6 +465,7 @@ input#search-search:focus {
     margin-left: 60px;
     padding-top: 10px;
     padding-bottom: 10px;
+    border-radius: 2px;
     div {
         display: inline;
         select{
@@ -486,5 +487,26 @@ input#search-search:focus {
     button {
         display: inline;
         
+    }
+}
+
+.div-target-selected-operation {
+    p {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .red-font {
+        color:red;
+    }
+
+    .white-back {
+        background-color: white;
+    }
+
+    .div-target-operation {
+        padding-left: 15px;
+
+        margin-bottom: 5px;
     }
 }

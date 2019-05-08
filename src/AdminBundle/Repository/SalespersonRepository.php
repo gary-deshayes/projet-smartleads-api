@@ -144,4 +144,18 @@ class SalespersonRepository extends ServiceEntityRepository
         return $query->getQuery();
 
     }
+
+    /**
+     * Récupération des id des commerciaux avec des choix dynamique d'entité
+     */
+    public function getCodeSalespersonBy($parameter, $value)
+    {
+            $query = $this->createQueryBuilder("salesperson")
+                ->select("salesperson.code")
+                ->where($parameter .   " = :value")
+                ->setParameter('value', $value)
+                ->getQuery();
+
+        return $query->getResult();
+    }
 }
