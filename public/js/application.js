@@ -571,6 +571,68 @@ if ($("#target_operation_entity").val() == "Company") {
     parameterTargetCompany()
 }
 
+$('#target_operation_entity').on("change", function () {
+    switch ($(this).val()) {
+        case "Company":
+            $("#target_operation_parameter").empty();
+            parameterTargetCompany();
+            switch ($("#target_operation_parameter").val()) {
+                case "postalCode":
+                    inputTargetOperation();
+                    break;
+                case "name":
+                    inputTargetOperation();
+                    break;
+                case "NumberEmployees":
+                    selectTargetOperation("NumberEmployees");
+                    break;
+                case "CompanyStatus":
+                    selectTargetOperation("CompanyStatus");
+                    break;
+                case "Country":
+                    selectTargetOperation("Country");
+                    break;
+                case "ActivityArea":
+                    selectTargetOperation("ActivityArea");
+                    break;
+                case "Salesperson":
+                    selectTargetOperation("Salesperson");
+                    break;
+                case "Turnovers":
+                    selectTargetOperation("Turnovers");
+                    break;
+            }
+            break;
+        case "Salesperson":
+            $("#target_operation_parameter").empty();
+            parameterTargetSalesperson();
+            console.log($("#target_operation_parameter").val());
+            switch ($("#target_operation_parameter").val()) {
+                case "AffectedArea":
+                    selectTargetOperation("AffectedArea");
+                    break;
+
+            }
+            break;
+        case "Contacts":
+            $("#target_operation_parameter").empty();
+            parameterTargetContacts();
+            console.log($("#target_operation_parameter").val());
+            switch ($("#target_operation_parameter").val()) {
+                case "DecisionMaking":
+                    selectTargetOperation("DecisionMaking");
+                    break;
+                case "Profession":
+                    selectTargetOperation("Profession");
+                    break;
+
+            }
+            break;
+
+    }
+
+})
+
 if ($('#target_operation_parameter').val() == "postalCode") {
     inputTargetOperation();
 }
@@ -600,6 +662,15 @@ $('#target_operation_parameter').on("change", function () {
             break;
         case "Turnovers":
             selectTargetOperation("Turnovers");
+            break;
+        case "AffectedArea":
+            selectTargetOperation("AffectedArea");
+            break;
+        case "DecisionMaking":
+            selectTargetOperation("DecisionMaking");
+            break;
+        case "Profession":
+            selectTargetOperation("Profession");
             break;
     }
 
@@ -640,6 +711,24 @@ function parameterTargetCompany() {
     $('#target_operation_parameter').append($('<option>', {
         value: "name",
         text: 'Nom'
+    }));
+}
+
+function parameterTargetSalesperson() {
+    $('#target_operation_parameter').append($('<option>', {
+        value: "AffectedArea",
+        text: 'Zone affectée'
+    }));
+}
+
+function parameterTargetContacts() {
+    $('#target_operation_parameter').append($('<option>', {
+        value: "DecisionMaking",
+        text: 'Pouvoir décisionnel'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Profession",
+        text: 'Métier'
     }));
 }
 
