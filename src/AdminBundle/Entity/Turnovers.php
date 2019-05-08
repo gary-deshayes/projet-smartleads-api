@@ -33,16 +33,16 @@ class Turnovers
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Company", mappedBy="idTurnovers")
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="turnovers")
      */
-    private $idCompany;
+    private $companies;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->idCompany = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->companies = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,26 +65,26 @@ class Turnovers
     /**
      * @return Collection|Company[]
      */
-    public function getIdCompany(): Collection
+    public function getCompanies(): Collection
     {
-        return $this->idCompany;
+        return $this->companies;
     }
 
-    public function addIdCompany(Company $idCompany): self
+    public function addCompany(Company $company): self
     {
-        if (!$this->idCompany->contains($idCompany)) {
-            $this->idCompany[] = $idCompany;
-            $idCompany->addIdTurnover($this);
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+            $company->addIdTurnover($this);
         }
 
         return $this;
     }
 
-    public function removeIdCompany(Company $idCompany): self
+    public function removeCompany(Company $company): self
     {
-        if ($this->idCompany->contains($idCompany)) {
-            $this->idCompany->removeElement($idCompany);
-            $idCompany->removeIdTurnover($this);
+        if ($this->companies->contains($company)) {
+            $this->companies->removeElement($company);
+            $company->setTurnovers(null);
         }
 
         return $this;

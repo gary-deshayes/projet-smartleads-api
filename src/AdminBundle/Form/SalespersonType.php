@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\AdminBundle\Entity\AffectedArea;
 
 class SalespersonType extends AbstractType
 {
@@ -52,25 +53,18 @@ class SalespersonType extends AbstractType
                 ],
                 'label' => "Profil/droits"
             ])
-            ->add('status', ChoiceType::class, [
-                'choices'  => [
-                    'Actif' => 1,
-                    'Inactif' => 0
-                ],
-                'label' => "Statut"
-            ])
             ->add('birthDate', DateType::class, [
                 "label" => "Date de naissance",
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                "required" => false
             ])
             ->add('arrivalDate', DateType::class, [
                 
-                'by_reference' => true,
-                "label" => "Début/fin du poste",
-                'format' => 'dd-MM-yyyy',
+                "label" => "Date d'arrivée/départ",
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,
@@ -78,15 +72,15 @@ class SalespersonType extends AbstractType
             ])
             ->add('departureDate', DateType::class, [
                 
-                'by_reference' => true,
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd/MM/yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
                 'html5' => false,
                 'required' => false
             ])
             ->add('workname', TextType::class, [
-                "label" => "Fonction/poste"
+                "label" => "Fonction/poste",
+                "required" => false
             ])
             ->add('mobilePhone', TelType::class, [
                 "label" => "Tél. mobile",
@@ -139,11 +133,11 @@ class SalespersonType extends AbstractType
                 'required' => false,
                 "label" => "Responsable N+1"
             ])
-            ->add('region', EntityType::class, [
-                'class' => Region::class,
+            ->add('affectedArea', EntityType::class, [
+                'class' => AffectedArea::class,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('region')
-                        ->orderBy('region.libelle', 'ASC');
+                    return $er->createQueryBuilder('affectedArea')
+                        ->orderBy('affectedArea.libelle', 'ASC');
                 },
                 'required' => false,
                 "label" => "Zone affectée"

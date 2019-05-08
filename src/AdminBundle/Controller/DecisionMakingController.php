@@ -65,12 +65,12 @@ class DecisionMakingController extends AbstractController
      */
     public function delete(Request $request, DecisionMaking $decision): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$decision->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($decision);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($decision);
+        $entityManager->flush();
+        $response = new Response(json_encode(1));
+        $response->headers->set('Content-Type', 'application/json');
 
-        return $this->redirectToRoute('settings_index');
+        return $response;
     }
 }

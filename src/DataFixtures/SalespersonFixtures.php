@@ -4,12 +4,11 @@ namespace App\DataFixtures;
 
 
 use App\AdminBundle\Entity\Salesperson;
-use App\DataFixtures\DepartmentFixtures;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class SalespersonFixtures extends BaseFixture implements DependentFixtureInterface
+class SalespersonFixtures extends BaseFixture 
 {
 
     private $passwordEncoder;
@@ -55,8 +54,6 @@ class SalespersonFixtures extends BaseFixture implements DependentFixtureInterfa
 
             $salesperson->setPassword($this->passwordEncoder->encodePassword($salesperson, "azerty"));
 
-            $salesperson->setRegion($this->getRandomReference("Region"));
-
             $salesperson->setRoles($this->faker->randomElement($array = array(["ROLE_DIRECTEUR"], ["ROLE_COMMERCIAL"], ["ROLE_RESPONSABLE"])));
 
             return $salesperson;
@@ -65,13 +62,6 @@ class SalespersonFixtures extends BaseFixture implements DependentFixtureInterfa
         
 
         $manager->flush();
-    }
-
-    public function getDependencies()
-    {
-        return array(
-            RegionFixtures::class
-        );
     }
 
 }

@@ -1,20 +1,6 @@
 {{ form_start(form) }}
-<div
-    class="row">
-    {# <div class="col-lg-2 flex-column-center">
-                {% if vich_uploader_asset(operation, 'imageFile') is null %}
-                    <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
-                {% else %}
-                    <img src="{{ vich_uploader_asset(operation, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
-                {% endif %}
-                <div class="div-photo">
-                    <label for="operations_imageFile">
-                        <i class="fas fa-sync"></i>PHOTO</label>
-                    <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
-                </div>
-                {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}})}}
-                {{ form_widget(form.imageFile) }}
-            </div> #}
+<div class="row">
+    
     <div class="col-lg-12 form-style">
         <div class="row">
             <div class="col-lg-6">
@@ -58,19 +44,6 @@
                 </div>
             </div>
         </div>
-        {# <div class="row">
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    {{ form_label(form.mail_object, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                                            }}
-                                    <div class="required-field">
-                                        {{ form_widget(form.mail_object, { "attr" : { "class" : "form-control col-lg-9"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}
-                                    </div>
-                                    {{ form_errors(form.mail_object) }}
-                                </div>
-                            </div>
-                        </div> #}
         <div class="row">
             <div class="col-lg-6">
                 <div class="row">

@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="contacts", indexes={@ORM\Index(name="id_profession", columns={"id_profession"})})
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ContactsRepository")
  * @UniqueEntity("code")
+ * @UniqueEntity("email", message="Cet email existe déjà dans la base de données, veuillez en saisir un autre.")
  * @Vich\Uploadable
  */
 class Contacts
@@ -27,6 +28,10 @@ class Contacts
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
      * @ORM\Id
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Le code ne doit pas dépasser {{ limit }} caractères."
+     * )
      */
     private $code;
 
@@ -101,7 +106,7 @@ class Contacts
 
     /**
      * @OneToOne(targetEntity="DecisionMaking")
-     * @JoinColumn(name="decision_making", referencedColumnName="id")
+     * @JoinColumn(name="decision_making", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $decision_making;
 
@@ -116,15 +121,14 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="mobile_phone", type="string", length=10, nullable=true)
-     * @Assert\Type(
-     *     type="string",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $mobilePhone;
@@ -133,15 +137,14 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=10, nullable=true)
-     * @Assert\Type(
-     *     type="string",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $phone;
@@ -150,15 +153,14 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="standard_phone", type="string", length=10, nullable=true)
-     * @Assert\Type(
-     *     type="integer",
-     *     message="Veuillez ne saisir que des numéros."
-     * )
+     * @Assert\Regex(
+     *      pattern="/^[0-9]*$/", 
+     *      message="Seulement les nombres sont autorisés") 
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      minMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX",
-     *      maxMessage = "Veuillez saisir le numéro en 0X-XX-XX-XX-XX"
+     *      minMessage = "Veuillez saisir le numéro en 0612345678",
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
      * )
      */
     private $standardPhone;
@@ -166,11 +168,12 @@ class Contacts
     /**
      * @var string|null
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true, unique=true)
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
      * )
+     * @Assert\Email
      */
     private $email;
 
@@ -192,9 +195,6 @@ class Contacts
      * @var string|null
      *
      * @ORM\Column(name="work_name", type="string", length=255, nullable=true)
-     * @Assert\NotBlank(
-     *      message = "Cette valeur ne doit pas être vide."
-     * )
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "Le nom du poste ne doit pas dépasser {{ limit }} caractères."
@@ -301,7 +301,7 @@ class Contacts
      *
      * @ORM\ManyToOne(targetEntity="Profession")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_profession", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_profession", referencedColumnName="id", onDelete="SET NULL")
      * })
      */
     private $idProfession;
@@ -321,7 +321,7 @@ class Contacts
      *
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="contacts")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_company", referencedColumnName="code")
+     *   @ORM\JoinColumn(name="id_company", referencedColumnName="code", onDelete="SET NULL")
      * })
      */
     private $company;
@@ -410,7 +410,7 @@ class Contacts
         return $this;
     }
 
-    public function getCreatedAt(): ? \DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -422,24 +422,24 @@ class Contacts
         return $this;
     }
 
-    public function getArrivalDate(): ?string
+    public function getArrivalDate(): ?\DateTime
     {
         return $this->arrivalDate;
     }
 
-    public function setArrivalDate(string $code): self
+    public function setArrivalDate(?\Datetime $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 
         return $this;
     }
 
-    public function getDepartureDate(): ?string
+    public function getDepartureDate(): ?\DateTime
     {
         return $this->departureDate;
     }
 
-    public function setDepartureDate(string $code): self
+    public function setDepartureDate(?\DateTime $departureDate): self
     {
         $this->departureDate = $departureDate;
 
@@ -672,7 +672,7 @@ class Contacts
         return $this->company;
     }
 
-    public function setCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
 
@@ -783,8 +783,7 @@ class Contacts
         {
             $result = 'obsolète';
         }
-        return $nbJours3 . '+' . $nbJours12;
-        // return $result;
+        return $result;
     }
 
     /**

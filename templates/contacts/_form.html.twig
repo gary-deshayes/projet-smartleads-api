@@ -30,8 +30,8 @@
                         <div class="row">
                             {{ form_label(form.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
-                            {{ form_widget(form.email, { "attr" : { "class" : "form-control col-lg-8"}})
-                                                                                                                                                                                                                                                                                }}
+                            {{ form_widget(form.email, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                            {{ form_errors(form.email)                                                                                                                                                                                                                                                  }}
                         </div>
                     </div>
                 </div>
@@ -112,10 +112,10 @@
                         <div class="row">
                             {{ form_label(form.arrivalDate, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
-                            {{ form_widget(form.arrivalDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
+                            {{ form_widget(form.arrivalDate, { "id":"datepickerArrival", "attr" : { "class" : "datepickerArrival form-control col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
                             {{ form_errors(form.arrivalDate) }}
-                            {{ form_widget(form.departureDate, { "id":"datepicker", "attr" : { "class" : "datepicker form-control col-lg-4"}})
+                            {{ form_widget(form.departureDate, { "id":"datepickerDeparture", "attr" : { "class" : "datepickerDeparture form-control col-lg-4"}})
                                                                                                                                                                                                                                                                                 }}
                             {{ form_errors(form.departureDate) }}
                         </div>
@@ -228,7 +228,7 @@
                     </button>
                 </div>
                 <div>
-                    <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
+                    <button class="btn btn-radius-red btn-outline-red" id="suppression-contacts">Supprimer</button>
                     <button class="btn btn-radius-red btn-outline-red">Demande de mise à jour</button>
                     <button class="btn btn-radius-red">
                         {{ button_label|default('Save') }}</button>
@@ -246,3 +246,7 @@
             </div>
         {% endif %}
         {{ form_end(form) }}
+        {# Formulaire de suppression #}
+        {% if app.request.attributes.get("_route") == "contacts_edit" %}
+            {% include "contacts/_delete_form.html.twig" %}
+        {% endif %}

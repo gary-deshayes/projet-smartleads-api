@@ -28,6 +28,13 @@ class Profession
      */
     private $libelle;
 
+    /**
+     * @var \Contacts
+     *
+     * @ORM\OneToMany(targetEntity="Contacts", mappedBy="code",  cascade={"persist"})
+     */
+    private $contacts;
+
     public function getId(): ?int
     {
         return $this->id;

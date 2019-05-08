@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         {% for decision in decisions %}
-            <tr class="settings-row">
+            <tr class="settings-row" id="td-settings-decision-{{ decision.id }}">
                 <td data-toggle="modal" data-target="#editModalDecision" data-id="{{ decision.id }}" data-libelle="{{ decision.libelle }}">{{ decision.libelle }}</td>
             </tr>
         {% endfor %}
@@ -63,6 +63,7 @@
                     {{ form_widget(formDecisionEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
                 </div>
                 <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" id="decision_making_delete">supprimer</button>
                     <button class="btn btn-radius-red" type="submit">Valider</button>
                 </div>
                 {{ form_end(formDecisionEdit) }}

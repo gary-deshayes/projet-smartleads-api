@@ -16,6 +16,9 @@
             <li class="nav-item">
                 <a aria-controls="entreprises" aria-selected="false" class="nav-link" data-toggle="tab" href="#panel_entreprises" id="settings-entreprises-tab" role="tab">Entreprises</a>
             </li>
+            <li class="nav-item">
+                <a aria-controls="commerciaux" aria-selected="false" class="nav-link" data-toggle="tab" href="#panel_commerciaux" id="settings-commerciaux-tab" role="tab">Equipe commerciale</a>
+            </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
@@ -35,7 +38,7 @@
                     {{ include('decision_making/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
             </div>
-            <div aria-labelledby="settings_entreprises-tab" class="tab-pane fade show active" id="panel_entreprises" role="tabpanel">
+            <div aria-labelledby="settings-entreprises-tab" class="tab-pane fade show" id="panel_entreprises" role="tabpanel">
                 <h1>Entreprises</h1>
                 <select class="form-control col-lg-3" id="settings-entreprises">
                     <option value="1">Statuts</option>
@@ -43,6 +46,7 @@
                     <option value="3">Statut juridique</option>
                     <option value="4">Effectifs</option>
                     <option value="5">Chiffres d'affaires</option>
+                    <option value="6">Pays</option>
                 </select>
                 <div id="partStatuts">
                     {{ include('company_status/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
@@ -50,6 +54,29 @@
                 <div id="partActivityArea">
                     {{ include('activity_area/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
+                <div id="partLegalStatus">
+                    {{ include('legal_status/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partNumberEmployees">
+                    {{ include('number_employees/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partTurnovers">
+                    {{ include('turnovers/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                <div id="partCountry">
+                    {{ include('country/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+            </div>
+            <div aria-labelledby="settings-commerciaux-tab" class="tab-pane fade show" id="panel_commerciaux" role="tabpanel">
+                <h1>Equipe commerciale</h1>
+                <select class="form-control col-lg-3" id="settings-commerciaux">
+                    <option value="1">Zones</option>
+                    <option value="2">Départements</option>
+                </select>
+                <div id="partAffectedArea">
+                    {{ include('affected_area/settings_view.html.twig', {'button_label': 'Enregistrer'}) }}
+                </div>
+                
             </div>
         </div>
     </div>

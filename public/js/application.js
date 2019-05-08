@@ -51,8 +51,7 @@ $(document).ready(function ($) {
         }
 
     })
-
-    //Permet de gérer le niveau des entreprises avec les étoiles
+    //Permet de noter les entreprises de 0 à 10
     $(".my-rating").starRating({
         initialRating: $("#decision_level").val() / 2,
         strokeColor: '#894A00',
@@ -60,8 +59,6 @@ $(document).ready(function ($) {
         starSize: 25,
         disableAfterRate: false,
         callback: function (currentRating, $el) {
-            console.log('rated ' + currentRating * 2);
-            console.log('DOM element ', $el);
             var data = {
                 decision_level: currentRating * 2
             };
@@ -87,8 +84,11 @@ $(document).ready(function ($) {
         $(".checkbox-dynamic :checkbox").click();
     })
 
+
+    /*Partie Settings*/
+
     //Permet de gérer l'affichage des sous catégories dans paramètres
-    if($("#settings-contacts").val() == 1 ){
+    if ($("#settings-contacts").val() == 1) {
         $("#partProfession").show();
         $("#partDecisionMaking").hide();
     } else {
@@ -96,8 +96,8 @@ $(document).ready(function ($) {
         $("#partDecisionMaking").show();
     }
 
-    $("#settings-contacts").on("change", function(){
-        if($("#settings-contacts").val() == 1 ){
+    $("#settings-contacts").on("change", function () {
+        if ($("#settings-contacts").val() == 1) {
             $("#partProfession").show();
             $("#partDecisionMaking").hide();
         } else {
@@ -113,48 +113,131 @@ $(document).ready(function ($) {
         var modal = $(this)
         modal.find('#profession_id').val(id)
         modal.find('#profession_libelle').val(libelle)
-      })
+    })
 
-      $('#editModalDecision').on('show.bs.modal', function (event) {
+    $('#editModalDecision').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var id = button.data('id');
         var libelle = button.data('libelle');
         var modal = $(this)
         modal.find('#decision_making_id').val(id)
         modal.find('#decision_making_libelle').val(libelle)
-      })
+    })
 
-      //Permet de gérer l'affichage des sous catégories dans paramètres
-    if($("#settings-contacts").val() == 1 ){
+    //Permet de gérer l'affichage des sous catégories dans paramètres
+    if ($("#settings-entreprises").val() == 1) {
         $("#partStatuts").show();
         $("#partActivityArea").hide();
-    } else {
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+        $("#partCountry").hide();
+    } else if ($("#settings-entreprises").val() == 2) {
         $("#partStatuts").hide();
         $("#partActivityArea").show();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+        $("#partCountry").hide();
+    } else if ($("#settings-entreprises").val() == 3) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").show();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+        $("#partCountry").hide();
+    } else if ($("#settings-entreprises").val() == 4) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").show();
+        $("#partTurnovers").hide();
+        $("#partCountry").hide();
+    } else if ($("#settings-entreprises").val() == 5) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").show();
+        $("#partCountry").hide();
+    } else if ($("#settings-entreprises").val() == 6) {
+        $("#partStatuts").hide();
+        $("#partActivityArea").hide();
+        $("#partLegalStatus").hide();
+        $("#partNumberEmployees").hide();
+        $("#partTurnovers").hide();
+        $("#partCountry").show();
     }
 
     //Partie settings entreprise
-    $("#settings-entreprises").on("change", function(){
-        if($("#settings-entreprises").val() == 1 ){
-            $("#partStatuts").show();
-            $("#partActivityArea").hide();
-        } else {
-            $("#partStatuts").hide();
-            $("#partActivityArea").show();
+    $("#settings-entreprises").on("change", function () {
+        switch ($("#settings-entreprises").val()) {
+            case "1":
+                $("#partStatuts").show();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
+                $("#partCountry").hide();
+                break;
+            case "2":
+                $("#partStatuts").hide();
+                $("#partActivityArea").show();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
+                $("#partCountry").hide();
+                break;
+            case "3":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").show();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
+                $("#partCountry").hide();
+                break;
+            case "4":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").show();
+                $("#partTurnovers").hide();
+                $("#partCountry").hide();
+                break;
+            case "5":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").show();
+                $("#partCountry").hide();
+                break;
+            case "6":
+                $("#partStatuts").hide();
+                $("#partActivityArea").hide();
+                $("#partLegalStatus").hide();
+                $("#partNumberEmployees").hide();
+                $("#partTurnovers").hide();
+                $("#partCountry").show();
+                break;
+
+
         }
     });
 
     $('#editModalStatus').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
+        var button = $(event.relatedTarget)
         var id = button.data('id');
         var libelle = button.data('libelle');
+        var color = button.data('color');
         var modal = $(this)
         modal.find('#company_status_id').val(id)
         modal.find('#company_status_libelle').val(libelle)
+        modal.find('#company_status_color').val(color)
     })
 
     $('#editModalActivity').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
+        var button = $(event.relatedTarget)
         var id = button.data('id');
         var libelle = button.data('libelle');
         var modal = $(this)
@@ -162,17 +245,166 @@ $(document).ready(function ($) {
         modal.find('#activity_area_libelle').val(libelle)
     })
 
+    $('#editModalLegalStatus').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#legal_status_id').val(id)
+        modal.find('#legal_status_libelle').val(libelle)
+    })
+
+    $('#editModalNumberEmployees').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#number_employees_id').val(id)
+        modal.find('#number_employees_libelle').val(libelle)
+    })
+
+    $('#editModalTurnovers').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#turnovers_id').val(id)
+        modal.find('#turnovers_libelle').val(libelle)
+    })
+
+    $('.select2-tags').select2({
+        width: "300px"
+    });
+
+    $('#addModalAffectedArea').on('show.bs.modal', function (event) {
+        console.log($(".select2-tags-add"));
+        $(".select2-tags-add").val(null);
+        $('.select2-tags-add').select2({
+            width: "300px"
+        });
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this);
+
+
+
+    })
+
+
+
+    $('#editModalAffectedArea').on('show.bs.modal', function (event) {
+        $(".select2-tags").val(null);
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var libelle = button.data('libelle');
+        var modal = $(this);
+        modal.find('#affected_area_id').val(id);
+        modal.find('#affected_area_libelle').val(libelle);
+        //Récupération des départements déjà lié à une zone
+        $.ajax({
+            url: '/admin/affectedarea/getdepartments/' + id,
+            type: 'GET',
+            success: function (result) {
+                if (result.data.length > 0) {
+                    result.data.forEach(function (e) {
+                        $("#affected_area_departments option[value='" + e + "]'").attr("selected", "selected");
+                    })
+                    $(".select2-tags").val(result.data).trigger("change");
+                    $('.select2-tags').select2({
+                        width: "300px"
+                    });
+
+                }
+            }
+        });
+        //FINALEMENT LA DESACTIVATION EMPECHE LES FORMULAIRES D'ETRE ENVOYER
+        // //Récupération des départements déjà lié donc on les mets en disabled
+        // $.ajax({
+        //     url: '/admin/affectedarea/getdepartmentswithaffectedarea/',
+        //     type: 'GET',
+        //     success: function (result) {
+        //         console.log(result);
+        //         if(result.data.length > 0){
+        //             result.data.forEach(function(e){
+        //                 $('.select2-tags option[value="' + e + '"]').attr('disabled', 'disabled');
+        //             });
+        //             $(".select2-tags").trigger("change");
+        //             $('.select2-tags').select2({
+        //                 width: "300px"
+        //             });
+
+        //         }
+        //     }
+        // });
+
+
+    })
+
+    $('#editModalCountry').on('show.bs.modal', function (event) {
+        console.log("toto");
+        var button = $(event.relatedTarget)
+        var code = button.data('code');
+        var libelle = button.data('libelle');
+        var modal = $(this)
+        modal.find('#country_code').val(code)
+        modal.find('#country_libelle').val(libelle)
+    })
+
+    $("#suppression-contacts").on("click", function (event) {
+        event.preventDefault();
+        $("#form_delete_contacts").submit();
+    })
+
+    $("#suppression-salesperson").on("click", function (event) {
+        event.preventDefault();
+        $("#form_delete_salesperson").submit();
+    })
+
+    $("#suppression-company").on("click", function (event) {
+        event.preventDefault();
+        $("#form_delete_company").submit();
+    })
+
 });
 
 $(function () {
     $(".datepicker").datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-100:+0",
         maxDate: "+0d",
         buttonText: "<i class='fa fa-calendar'></i>"
     });
+
+    //Date arrivée et départ des commerciaux et contacts
+    $(".datepickerArrival").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        maxDate: "+0d",
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepickerDeparture").datepicker("option", "minDate", selectedDate);
+        }
+    });
+
+    $(".datepickerDeparture").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+20",
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepickerArrival").datepicker("option", "maxDate", selectedDate);
+        }
+    });
+    //Si la date d'arrivée du commercial est déjà selectionnée, au lancement on restreint la date de départ après la date d'arrivée
+    if ($(".datepickerArrival").val() != null) {
+        $(".datepickerDeparture").datepicker("option", "minDate", $(".datepickerArrival").val());
+    }
 
     $(".datepicker-operation").datepicker({
         dateFormat: "dd-mm-yy",
@@ -191,9 +423,9 @@ $(function () {
 $("#search_limit").on("change", function () {
     $("#form_search").submit();
 })
+
 //Changement des statut switchs
 $("[id^='statut']").on("change", function () {
-    console.log($(this));
     var entity = $(this).attr("id").split("statut-")[1];
     var value;
     if ($(this).is(":checked")) {
@@ -205,6 +437,12 @@ $("[id^='statut']").on("change", function () {
     if (entity == "contact") {
         changeStatutContact(value)
     }
+    if (entity == "salesperson") {
+        changeStatutSalesperson(value)
+    }
+    if (entity == "company") {
+        changeStatutCompany(value)
+    }
 })
 
 function changeStatutContact(value) {
@@ -214,7 +452,6 @@ function changeStatutContact(value) {
     var url = "/admin/contacts/change_statut/" + $("#contacts_code").val();
     $.post(url, data, function (data) {
         if (data.retour == true) {
-            console.log("okk");
         }
     });
 }
@@ -332,6 +569,59 @@ var chart = new ApexCharts(
     document.querySelector("#line-operation-chart"),
     options
 );
-
 chart.render();
+
+function changeStatutSalesperson(value) {
+    var data = {
+        statut: value
+    };
+    var url = "/admin/salesperson/change_statut/" + $("#salesperson_code").val();
+    $.post(url, data, function (data) {
+        if (data.retour == true) {
+        }
+    });
+}
+
+
+function changeStatutCompany(value) {
+    var data = {
+        statut: value
+    };
+    var url = "/admin/company/change_statut/" + $("#company_code").val();
+    $.post(url, data, function (data) {
+        if (data.retour == true) {
+        }
+    });
+}
+
+
+$("#profession_delete").on("click", function (e) {
+    e.preventDefault();
+    $('#editModalProfession').modal("hide");
+
+    $.ajax({
+        url: '/admin/profession/' + $("#profession_id").val(),
+        type: 'DELETE',
+        success: function (result) {
+            if (result == 1) {
+                $("#td-settings-profession-" + $("#profession_id").val()).remove();
+            }
+        }
+    });
+});
+
+$("#decision_making_delete").on("click", function (e) {
+    e.preventDefault();
+    $('#editModalDecision').modal("hide");
+
+    $.ajax({
+        url: '/admin/decisionMaking/' + $("#decision_making_id").val(),
+        type: 'DELETE',
+        success: function (result) {
+            if (result == 1) {
+                $("#td-settings-decision-" + $("#decision_making_id").val()).remove();
+            }
+        }
+    });
+})
 

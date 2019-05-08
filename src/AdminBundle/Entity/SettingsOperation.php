@@ -5,9 +5,14 @@ namespace App\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\SettingsOperationRepository")
+ * @Vich\Uploadable
  */
 class SettingsOperation
 {
@@ -24,6 +29,17 @@ class SettingsOperation
      * @ORM\Column(name="mail_object", type="string", length=255, nullable=false)
      */
     private $mail_object;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="operation_img", fileNameProperty="mail_visual")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $mail_image;
 
     /**
      * @var string
@@ -52,6 +68,17 @@ class SettingsOperation
      * @ORM\Column(name="title_page", type="string", length=255, nullable=false)
      */
     private $title_page;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="operation_img", fileNameProperty="page_visual")
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"}
+     * )
+     * @var File
+     */
+    private $page_image;
 
     /**
      * @var string
@@ -85,10 +112,16 @@ class SettingsOperation
     /**
      * @var string
      *
-     * @ORM\Column(name="button_reject", type="boolean", nullable=false, options={"default": false})
+     * @ORM\Column(name="button_reject", type="boolean", nullable=true, options={"default": false})
      */
     private $button_reject;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     /**
      * Get the value of operation
@@ -151,7 +184,7 @@ class SettingsOperation
      *
      * @return  self
      */ 
-    public function setMailVisual(string $mail_visual)
+    public function setMailVisual(?string $mail_visual)
     {
         $this->mail_visual = $mail_visual;
 
@@ -247,7 +280,7 @@ class SettingsOperation
      *
      * @return  self
      */ 
-    public function setPageVisual(string $page_visual)
+    public function setPageVisual(?string $page_visual)
     {
         $this->page_visual = $page_visual;
 
@@ -348,5 +381,40 @@ class SettingsOperation
         $this->button_reject = $button_reject;
 
         return $this;
+    }
+
+    public function getMailImage(): ? File
+    {
+        return $this->mail_image;
+    }
+
+    public function setMailImage(? File $mail_image = null): void
+    {
+        $this->mail_image = $mail_image;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->mail_image instanceof UploadedFile) {
+            dump($mail_image);
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPageImage(): ? File
+    {
+        return $this->page_image;
+    }
+
+    public function setPageImage(? File $page_image = null): void
+    {
+        
+        $this->page_image = $page_image;
+
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->page_image instanceof UploadedFile) {
+            dump($page_image);
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 }

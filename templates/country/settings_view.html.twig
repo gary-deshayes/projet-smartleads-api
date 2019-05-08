@@ -1,0 +1,79 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Pays</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for country in countries %}
+            <tr class="settings-row">
+                <td data-toggle="modal" data-target="#editModalCountry" data-code="{{ country.code }}" data-libelle="{{ country.libelle }}">{{ country.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary" data-target="#addModalCountry" data-toggle="modal" type="button">Ajouter</button>
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModalCountry" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter un pays</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formCountryAdd) }}
+                <div class="row">
+                    {{ form_label(formCountryAdd.code,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formCountryAdd.code, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="row">
+                    {{ form_label(formCountryAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formCountryAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formCountryAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalCountry" class="modal fade" id="editModalCountry" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalCountry">Editer un pays</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formCountryEdit) }}
+                <div class="row">
+                    {{ form_label(formCountryEdit.code,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formCountryEdit.code, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="row">
+                    {{ form_label(formCountryEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formCountryEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formCountryEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

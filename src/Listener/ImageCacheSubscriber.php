@@ -4,21 +4,21 @@ namespace App\Listener;
 
 use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
-use Doctrine\Common\EventSubscriber;
 use App\AdminBundle\Entity\Salesperson;
+use App\AdminBundle\Entity\SettingsOperation;
+use Doctrine\Common\EventSubscriber;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
-
 
 class ImageCacheSubscriber implements EventSubscriber
 {
 
     /**
-    * var CacheManager
-    */
+     * var CacheManager
+     */
     private $cacheManager;
 
     /**
@@ -36,18 +36,28 @@ class ImageCacheSubscriber implements EventSubscriber
     {
         return [
             "preRemove",
-            "preUpdate"
+            "preUpdate",
         ];
     }
 
     /**
      * Permet de supprimer l'image en cache d'une entité supprimée
      */
-    public function preRemove(LifecycleEventArgs $args){
+    public function preRemove(LifecycleEventArgs $args)
+    {
         $entity = $args->getEntity();
-        if($entity instanceof Contacts || $entity instanceof Salesperson || $entity instanceof Company){
-            if($entity->getImageFile() instanceof UploadedFile){
-                $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
+        if ($entity instanceof Contacts || $entity instanceof Salesperson || $entity instanceof Company || $entity instanceof SettingsOperation) {
+            if ($entity instanceof SettingsOperation) {
+                if ($entity->getMailVisual() instanceof UploadedFile) {
+                    $this->cacheManager->remove($this->helper->asset($entity, "mail_visual"));
+                }
+                if ($entity->getPageVisual() instanceof UploadedFile) {
+                    $this->cacheManager->remove($this->helper->asset($entity, "page_visual"));
+                }
+            } else {
+                if ($entity->getImageFile() instanceof UploadedFile) {
+                    $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
+                }
             }
         } else {
             return;
@@ -57,16 +67,25 @@ class ImageCacheSubscriber implements EventSubscriber
     /**
      * Permet de supprimer l'ancienne image du cache lors de l'upload d'une nouvelle image
      */
-    public function preUpdate(PreUpdateEventArgs $args){
+    public function preUpdate(PreUpdateEventArgs $args)
+    {
         $entity = $args->getEntity();
-        if($entity instanceof Contacts || $entity instanceof Salesperson || $entity instanceof Company){
-            if($entity->getImageFile() instanceof UploadedFile){
-                $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
+        if ($entity instanceof Contacts || $entity instanceof Salesperson || $entity instanceof Company || $entity instanceof SettingsOperation) {
+            if ($entity instanceof SettingsOperation) {
+                if ($entity->getMailVisual() instanceof UploadedFile) {
+                    $this->cacheManager->remove($this->helper->asset($entity, "mail_visual"));
+                }
+                if ($entity->getPageVisual() instanceof UploadedFile) {
+                    $this->cacheManager->remove($this->helper->asset($entity, "page_visual"));
+                }
+            } else {
+                if ($entity->getImageFile() instanceof UploadedFile) {
+                    $this->cacheManager->remove($this->helper->asset($entity, "imageFile"));
+                }
             }
         } else {
             return;
         }
-        
-        
+
     }
 }

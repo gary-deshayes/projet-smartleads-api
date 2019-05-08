@@ -2,21 +2,25 @@
 
 namespace App\AdminBundle\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Entity\Operations;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Salesperson
  *
  * @ORM\Table(name="salesperson", indexes={@ORM\Index(name="id_leader", columns={"id_leader"})})
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\SalespersonRepository")
+ * @UniqueEntity("email", message="Cet email existe déjà dans la base de données, veuillez en saisir un autre.")
  * @Vich\Uploadable
  */
 class Salesperson implements UserInterface
@@ -25,8 +29,10 @@ class Salesperson implements UserInterface
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
-     * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Le code ne doit pas dépasser {{ limit }} caractères."
+     * )
      * @ORM\Id
      */
     private $code;
@@ -36,7 +42,8 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="gender", type="string", length=255, nullable=false)
      * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
@@ -51,12 +58,13 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
-     *      minMessage = "Le prénom doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le prénom ne doit pas dépasser {{ limit }} caractères."
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
      * )
      */
     private $firstName;
@@ -66,7 +74,8 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
@@ -81,12 +90,13 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="profile", type="string", length=255, nullable=false)
      * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
+     *      message = "Cette valeur ne doit pas être vide."
+     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 255,
-     *      minMessage = "Le profile doit contenir au minimum {{ limit }} caractères de long.",
-     *      maxMessage = "Le profile ne doit pas dépasser {{ limit }} caractères."
+     *      minMessage = "Le nom de famille doit contenir au minimum {{ limit }} caractères de long.",
+     *      maxMessage = "Le nom de famille ne doit pas dépasser {{ limit }} caractères."
      * )
      */
     private $profile;
@@ -166,7 +176,7 @@ class Salesperson implements UserInterface
 
     /**
      * @var string|null
-     *
+     * @ORM\Column(name="phone", type="string", length=10, nullable=true)
      * @Assert\Regex(
      *      pattern="/^[0-9]*$/", 
      *      message="Seulement les nombres sont autorisés") 
@@ -183,13 +193,11 @@ class Salesperson implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
-     * @Assert\Email(
-     *     message = "L'email '{{ value }}' n'est pas valide.",
-     * )
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "L'email ne doit pas dépasser {{ limit }} caractères."
      * )
+     * @Assert\Email
      */
     private $email;
 
@@ -198,9 +206,7 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
      * @Assert\Length(
-     *      min = 1,
      *      max = 255,
-     *     minMessage = "L'url linkedin doit contenir au minimum {{ limit }} caractères de long.",
      *      maxMessage = "L'url linkedin ne doit pas dépasser {{ limit }} caractères."
      * )
      */
@@ -212,9 +218,7 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      * @Assert\Length(
-     *      min = 1,
      *      max = 255,
-     *     minMessage = "L'url facebook doit contenir au minimum {{ limit }} caractères de long.",
      *      maxMessage = "L'url facebook ne doit pas dépasser {{ limit }} caractères."
      * )
      */
@@ -225,9 +229,7 @@ class Salesperson implements UserInterface
      *
      * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
      * @Assert\Length(
-     *      min = 1,
      *      max = 255,
-     *     minMessage = "L'url twitter doit contenir au minimum {{ limit }} caractères de long.",
      *      maxMessage = "L'url twitter ne doit pas dépasser {{ limit }} caractères."
      * )
      */
@@ -265,14 +267,14 @@ class Salesperson implements UserInterface
     private $comment;
 
     /**
-     * @var \Region
+     * @var \AffectedArea
      *
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="AffectedArea")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_region", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_affectedArea", referencedColumnName="id")
      * })
      */
-    private $region;
+    private $affectedArea;
 
     /**
      * @var \Salesperson
@@ -549,24 +551,24 @@ class Salesperson implements UserInterface
         return $this;
     }
 
-    public function getDepartureDate(): ?\DateTimeInterface
+    public function getDepartureDate(): ?\DateTime
     {
         return $this->departureDate;
     }
 
-    public function setDepartureDate(\DateTimeInterface $departureDate): self
+    public function setDepartureDate(?\DateTime $departureDate): self
     {
         $this->departureDate = $departureDate;
 
         return $this;
     }
 
-    public function getArrivalDate(): ?\DateTimeInterface
+    public function getArrivalDate(): ?\DateTime
     {
         return $this->arrivalDate;
     }
 
-    public function setArrivalDate(\DateTimeInterface $arrivalDate): self
+    public function setArrivalDate(?\DateTime $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 
@@ -585,12 +587,12 @@ class Salesperson implements UserInterface
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBirthDate(): ?\DateTime
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    public function setBirthDate(?\DateTime $birthDate): self
     {
         $this->birthDate = $birthDate;
 
@@ -739,14 +741,14 @@ class Salesperson implements UserInterface
         }
     }
 
-    public function getRegion(): ?Region
+    public function getAffectedArea()
     {
-        return $this->region;
+        return $this->affectedArea;
     }
 
-    public function setRegion(?Region $region): self
+    public function setAffectedArea($affectedArea)
     {
-        $this->region = $region;
+        $this->affectedArea = $affectedArea;
 
         return $this;
     }

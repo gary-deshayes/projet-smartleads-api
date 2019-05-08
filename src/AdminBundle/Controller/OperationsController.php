@@ -2,21 +2,23 @@
 
 namespace App\AdminBundle\Controller;
 
-use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Entity\FormulaireOperation;
-use App\AdminBundle\Entity\Operations;
-use App\AdminBundle\Entity\OperationSent;
-use App\AdminBundle\Form\FormulaireOperationType;
-use App\AdminBundle\Form\OperationsType;
 use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\Entity\Operations;
+use App\AdminBundle\EntitySearch\Search;
+use App\AdminBundle\Form\OperationsType;
+use App\AdminBundle\Entity\OperationSent;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use App\AdminBundle\Entity\SettingsOperation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\AdminBundle\Entity\FormulaireOperation;
+use App\AdminBundle\Form\SettingsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\AdminBundle\Form\FormulaireOperationType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/operations")
@@ -348,11 +350,31 @@ class OperationsController extends AbstractController
             $operation->setUser_last_update($this->getUser());
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('operations_index', [
+            return $this->redirectToRoute('operations_edit', [
                 'code' => $operation->getCode(),
             ]);
         }
-        
+        $operationSettings;
+        if($operation->getSettings() != null){
+            $operationSettings = $operation->getSettings();
+        } else {
+            $operationSettings = new SettingsOperation();
+        }
+        $formSettings = $this->createForm(SettingsOperationType::class, $operationSettings);
+        $formSettings->handleRequest($request);
+        if($formSettings->isSubmitted() && $formSettings->isValid()){
+            
+            $operation->setSettings($operationSettings);
+            $operation->setUser_last_update($this->getUser());
+            $operationSettings->setOperation($operation);
+            $this->getDoctrine()->getManager()->persist($operationSettings);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('operations_edit', [
+                'code' => $operation->getCode(),
+            ]);
+        }
+            
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
@@ -363,7 +385,9 @@ class OperationsController extends AbstractController
             'nbMaj' => $nbMaj["nombre"],
             'nbNonOuvert' => $nbNonOuvert["nombre"],
             "formulaireOperation" => $formFormulaireOperation->createView(),
-            "formulaire_operation" => $formulaire_operation
+            "formulaire_operation" => $formulaire_operation,
+            "settings_operation" => $operationSettings,
+            "formSettings" => $formSettings->createView()
         ]);
     }
 

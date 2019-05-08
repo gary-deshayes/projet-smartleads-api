@@ -18,8 +18,7 @@ class ProfessionController extends AbstractController
     /**
      * @Route("/new", name="profession_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    function new (Request $request): Response {
         $profession = new Profession();
         $form = $this->createForm(ProfessionType::class, $profession);
         $form->handleRequest($request);
@@ -65,12 +64,12 @@ class ProfessionController extends AbstractController
      */
     public function delete(Request $request, Profession $profession): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$profession->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($profession);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($profession);
+        $entityManager->flush();
+        $response = new Response(json_encode(1));
+        $response->headers->set('Content-Type', 'application/json');
 
-        return $this->redirectToRoute('profession_index');
+        return $response;
     }
 }
