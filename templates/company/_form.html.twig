@@ -91,7 +91,6 @@
                     {{ form_label(form.activityArea, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                     {{ form_widget(form.activityArea, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.activityArea) }}
-
                 </div>
             </div>
             <div class="col-lg-6">
@@ -146,7 +145,7 @@
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.website, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.website, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_widget(form.website, { "attr" : { "class" : "form-control col-lg-8"}, 'label' : '<i class="fas fa-print"></i>'}) }}
                     {{ form_errors(form.website) }}
 
                 </div>
@@ -159,11 +158,6 @@
                     {{ form_widget(form.turnovers, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.turnovers) }}
                 </div>
-                {# operation <div class="row">
-                                                                                                                                                                {{ form_label(form.facebook, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                                                                                                                                                                {{ form_widget(form.facebook, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                                                                                                                                                                {{ form_errors(form.facebook) }}
-                                                                                                                                                            </div> #}
             </div>
             <div class="col-lg-6">
                 <div class="row">
