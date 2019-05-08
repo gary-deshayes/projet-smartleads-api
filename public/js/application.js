@@ -565,3 +565,151 @@ $("#decision_making_delete").on("click", function (e) {
 //   });
 
 
+//Partie target opération
+
+if ($("#target_operation_entity").val() == "Company") {
+    parameterTargetCompany()
+}
+
+if ($('#target_operation_parameter').val() == "postalCode") {
+    inputTargetOperation();
+}
+
+$('#target_operation_parameter').on("change", function () {
+    switch ($(this).val()) {
+        case "postalCode":
+            inputTargetOperation();
+            break;
+        case "name":
+            inputTargetOperation();
+            break;
+        case "NumberEmployees":
+            selectTargetOperation("NumberEmployees");
+            break;
+        case "CompanyStatus":
+            selectTargetOperation("CompanyStatus");
+            break;
+        case "Country":
+            selectTargetOperation("Country");
+            break;
+        case "ActivityArea":
+            selectTargetOperation("ActivityArea");
+            break;
+        case "Salesperson":
+            selectTargetOperation("Salesperson");
+            break;
+        case "Turnovers":
+            selectTargetOperation("Turnovers");
+            break;
+    }
+
+})
+
+
+
+
+function parameterTargetCompany() {
+    $('#target_operation_parameter').append($('<option>', {
+        value: "postalCode",
+        text: 'Code postal'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "NumberEmployees",
+        text: 'Effectifs'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "CompanyStatus",
+        text: 'Statut'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Country",
+        text: 'Pays'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "ActivityArea",
+        text: 'Code NAF'
+    }));
+    // $('#target_operation_parameter').append($('<option>', {
+    //     value: "Salesperson",
+    //     text: 'Commercial'
+    // }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Turnovers",
+        text: 'Chiffre d\'affaire'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "name",
+        text: 'Nom'
+    }));
+}
+
+function inputTargetOperation() {
+    if ($("#target_operation_select").length > 0) {
+        $("#target_operation_select").remove()
+    }
+    if ($("#target_operation_input").length == 0) {
+        $("#div-target-value").append($("<input>", {
+            id: "target_operation_input",
+            class: "form-control col-lg-4",
+            name: "target_operation[input]"
+        }))
+    } else {
+        $("#target_operation_input").val("");
+    }
+
+}
+
+function selectTargetOperation(entity) {
+    console.log(entity);
+    if ($("#target_operation_input").length > 0) {
+        $("#target_operation_input").remove()
+    }
+
+
+    if ($("#target_operation_select").length == 0) {
+        $("#div-target-value").append($("<select>", {
+            id: "target_operation_select",
+            class: "form-control col-lg-4",
+            name: "target_operation[select]"
+        }))
+    } else {
+        $("#target_operation_select").empty();
+    }
+
+    //Récupération des valeurs a ajouter au select
+    $.ajax({
+        url: '/admin/target_operation/selectDynamique/' + entity,
+        type: 'GET',
+        success: function (result) {
+            result.data.forEach(function (res) {
+                if (entity == "Country") {
+                    $('#target_operation_select').append($('<option>', {
+                        value: res.code,
+                        text: res.libelle
+                    }));
+                } else {
+                    $('#target_operation_select').append($('<option>', {
+                        value: res.id,
+                        text: res.libelle
+                    }));
+                }
+
+            })
+
+        }
+    });
+
+
+
+
+}
+
+$("#add-target").on("click", function () {
+    $.ajax({
+        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url: '/admin/target_operation/envoi_operation', // the url where we want to POST
+        data: $("#form_target_operation").serialize(), // our data object
+        dataType: 'json', // what type of data do we expect back from the server
+        encode: true
+    })
+})

@@ -8,8 +8,10 @@ use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Form\OperationsType;
 use App\AdminBundle\Entity\OperationSent;
+use App\AdminBundle\Entity\TargetOperation;
 use Knp\Component\Pager\PaginatorInterface;
 use App\AdminBundle\Entity\SettingsOperation;
+use App\AdminBundle\Form\TargetOperationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\AdminBundle\Entity\FormulaireOperation;
@@ -87,7 +89,7 @@ class OperationsController extends AbstractController
     /**
      * @Route("/{code}/edit", name="operations_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Operations $operation, \Swift_Mailer $mailer): Response
+    public function edit(Request $request, Operations $operation): Response
     {
 
         //On crée le formulaire pour FormulaireOpération
@@ -244,104 +246,16 @@ class OperationsController extends AbstractController
 
         }
 
-        //On récupère le nombre de contacts qui ont reçu l'opération
-        $nbContactOperation = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->getNbContactsOperation($operation->getCode());
-
-        //On récupère le nombre de personne qui ont vu l'opération
-        $nbLuOperation = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->getNbLu($operation->getCode());
-
-        //On récupère le nombre de personne qui non pas ouvert l'opération
-        $nbNonOuvert = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->getNbNonOuvert($operation->getCode());
-
-        //On récupère le nombre de personne qui ont mis à jour leurs infos
-        $nbMaj = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->getNbMAJ($operation->getCode());
-
-        //On ne récupere que les id des contacts qui ont déjà reçu l'opération
-        $idContacts = $this->getDoctrine()
-            ->getRepository(OperationSent::class)
-            ->getCodeContactsOperation($operation->getCode());
-
-        //Contacts à selectionné
-        if ($idContacts == null) {
-            $contacts = $this->getDoctrine()
-                ->getRepository(Contacts::class)
-                ->findBy(array(), array('lastName' => 'ASC'));
-        } else {
-            $contacts = $this->getDoctrine()
-                ->getRepository(Contacts::class)
-                ->getContactsOperationNotSend($idContacts);
+        //Partie ciblage
+        $targetOperation = new TargetOperation();
+        $formTargetOperation = $this->createForm(TargetOperationType::class, $targetOperation, [
+            'action' => $this->generateUrl('target_operation_envoi'),
+        ]);
+        if($formTargetOperation->isSubmitted() && $formTargetOperation->isValid()){
+            dump($targetOperation);
+            die();
         }
 
-        $defaultData = ['message' => 'Form sans entité'];
-
-        // Formulaire des contacts qui recevront l'opération
-        $formAddContacts = $this->createFormBuilder($defaultData)
-            ->add('contacts', EntityType::class, [
-                'class' => Contacts::class,
-                // 'choices' => $contacts,
-                "multiple" => true,
-                "expanded" => true,
-            ])
-            ->add("operation", HiddenType::class, [
-                'data' => $operation->getCode(),
-            ])
-            ->getForm();
-
-        $formAddContacts->handleRequest($request);
-
-        //Envoi des mails et procédure d'opérations
-        if ($formAddContacts->isSubmitted()) {
-
-            //Operation envoyée
-            $operation = $this->getDoctrine()
-                ->getRepository(Operations::class)
-                ->findOneBy(array("code" => $request->get("form")["operation"]));
-            $author = $operation->getAuthor();
-            $em = $this->getDoctrine()->getManager();
-
-            //Récuperation des contacts ciblés
-            $contactsCible = $this->getDoctrine()
-                ->getRepository(Contacts::class)
-                ->getContactsInArray($request->get("form")["contacts"]);
-            //Pour chaque contacts on insère son envoi dans la base et lui envoi un mail
-            foreach ($contactsCible as $contact) {
-                $uniqid = \uniqid();
-                $operationSent = new OperationSent();
-                $operationSent->setOperation($operation);
-                $operationSent->setSalesperson($author);
-                $operationSent->setContacts($contact);
-                $operationSent->setUniqIdContact($uniqid);
-                $operationSent->setSentAt(new \DateTime());
-                $operationSent->setState(1);
-                $em->persist($operationSent);
-
-                $message = (new \Swift_Message($operation->getMailObject()))
-                    ->setFrom('smartleads.supp@outlook.com')
-
-                    ->setTo($contact->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'operations/mail_view.html.twig',
-                            [
-                                "name" => $contact->__toString(),
-                                "link" => $_SERVER["HTTP_ORIGIN"] . "/operation/" . $operation->getName() . "/" . $uniqid,
-                            ]
-                        ),
-                        'text/html'
-                    );
-                $mailer->send($message);
-            }
-            $em->flush();
-            return $this->redirectToRoute('operations_index');
-        }
 
         //Formulaire d'édition de l'opération
         $form = $this->createForm(OperationsType::class, $operation);
@@ -354,7 +268,7 @@ class OperationsController extends AbstractController
                 'code' => $operation->getCode(),
             ]);
         }
-        $operationSettings;
+        $operationSettings = new SettingsOperation();
         if($operation->getSettings() != null){
             $operationSettings = $operation->getSettings();
         } else {
@@ -378,16 +292,11 @@ class OperationsController extends AbstractController
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
-            'contacts' => $contacts,
-            'formAddContacts' => $formAddContacts->createView(),
-            'nbRecu' => $nbContactOperation["nombre"],
-            'nbOuvert' => $nbLuOperation["nombre"],
-            'nbMaj' => $nbMaj["nombre"],
-            'nbNonOuvert' => $nbNonOuvert["nombre"],
             "formulaireOperation" => $formFormulaireOperation->createView(),
             "formulaire_operation" => $formulaire_operation,
             "settings_operation" => $operationSettings,
-            "formSettings" => $formSettings->createView()
+            "formSettings" => $formSettings->createView(),
+            "formTargetOperation" => $formTargetOperation->createView()
         ]);
     }
 

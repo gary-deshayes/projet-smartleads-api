@@ -459,3 +459,32 @@ input#search-search:focus {
         font-weight: 400;
     }
 }
+
+.div-target-operation {
+    background-color: #999999;
+    margin-left: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    div {
+        display: inline;
+        select{
+            width: auto;
+            display: inline;
+        }
+
+        input {
+            background-color: white !important;
+            display: inline;
+        }
+    }
+
+    p {
+        display: inline;
+        
+    }
+
+    button {
+        display: inline;
+        
+    }
+}

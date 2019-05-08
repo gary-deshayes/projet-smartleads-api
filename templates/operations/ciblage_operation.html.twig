@@ -1,0 +1,22 @@
+{# {% if  "now" | date("Y-m-d") >= operation.getSendingDate | date("Y-m-d") and "now" | date("Y-m-d") <= operation.getClosingDate | date("Y-m-d") %} #}
+<div>
+    <label>Ajoutez un critère de ciblage</label>
+    <div class="row div-target-operation">
+        {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-10"}}) }}
+        <div class="col-lg-4">
+            {{ form_widget(formTargetOperation.entity, { "attr" : { "class" : "form-control"}})}}
+        </div>
+        <p>Dont</p>
+        <div class="col-lg-4">
+            {{ form_widget(formTargetOperation.parameter, { "attr" : { "class" : "form-control"}})}}
+        </div>
+        <p>=</p>
+        <div class="col-lg-4" id="div-target-value">
+            
+        </div>
+        {{ form_end(formTargetOperation) }}
+        <button id="add-target">+</button>
+    </div>
+    <hr>
+        <div></div>
+    </div>

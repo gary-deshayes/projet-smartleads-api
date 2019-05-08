@@ -240,17 +240,15 @@ class SettingsController extends AbstractController
                 $newAffectedArea->setLibelle($arrayAffectedArea["libelle"]);
 
 
-                if ($arrayAffectedArea["departments"] != null){
+                if ($arrayAffectedArea["departments"] != null) {
                     $depts = $this->getDoctrine()->getRepository(Department::class)->getDepartmentInArray($arrayAffectedArea["departments"])->getResult();
-                    
-                    foreach($depts as $dept){
+
+                    foreach ($depts as $dept) {
                         $dept->setAffectedArea($newAffectedArea);
                         $this->getDoctrine()->getManager()->persist($dept);
-                        
                     }
-                    
                 }
-                
+
                 $this->getDoctrine()->getManager()->flush();
                 return $this->redirectToRoute('settings_index');
             }
@@ -293,18 +291,19 @@ class SettingsController extends AbstractController
 
 
 
-        
+
         //Gère les pays
         if ($request->get('country') != null) {
             $arrayCountry = $request->get('country');
-            if (isset($arrayCountry["code"])) {
-                $countryEdot = $this->getDoctrine()
-                    ->getRepository(Country::class)
-                    ->findOneBy(array("code" => $arrayCountry["code"]));
-                $countryEdot->setLibelle($arrayCountry["libelle"]);
+            $country = $this->getDoctrine()
+                ->getRepository(Country::class)
+                ->findOneBy(array("code" => $arrayCountry["code"]));
+            if (isset($country)) {
+                $country->setCode($arrayCountry["code"]);
+                $country->setLibelle($arrayCountry["libelle"]);
             } else {
                 $newCountry = new Country();
-                
+
                 $newCountry->setLibelle($arrayCountry["libelle"]);
                 $newCountry->setCode($arrayCountry["code"]);
                 $entityManager = $this->getDoctrine()->getManager()->persist($newCountry);
@@ -319,7 +318,7 @@ class SettingsController extends AbstractController
         $formCountryEdit = $this->createForm(CountryType::class);
         $countries = $this->getDoctrine()->getRepository(Country::class)->findAll();
 
-        
+
         return $this->render('settings/index.html.twig', [
             'settings' => $settings,
             'form' => $form->createView(),
