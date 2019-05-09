@@ -440,13 +440,34 @@ input#search-search:focus {
 }
 
 #email_reset_email {
-    width: 235px;
+    width: 290px;
+    margin-top: 12px;
+}
+
+.test23 {
+    padding: 0 !important;
+}
+
+.emailMdp {
+    height: 40px;
+}
+
+.annuler-mdp {
+    font-size: 13px;
+    font-weight: 400;
+    color: #a0a0a0 !important;
+}
+
+.annulation-mdp {
+    margin-top: 17px;
 }
 
 .waves-light{
     &#valide-mdp {
-        margin-top: 12% !important;
+        margin-top: 6% !important;
         margin: 0px;
+        font-size: 11px;
+        height: 45px;
     }
 }
 .annule-mdp {
@@ -458,4 +479,27 @@ input#search-search:focus {
         color: rgb(168, 168, 168);
         font-weight: 400;
     }
+}
+
+.mdpQuestion {
+    color: #e44a6c;
+    font-weight: bold;
+    margin-top: 5%;
+}
+
+.precisionMdp {
+    width: 300px;
+    text-align: center;
+    color: #919191 !important;
+}
+
+.validationsMdp {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-connect {
+    position: absolute;
+    bottom: 0;
+    margin-left: 280px;
 }
