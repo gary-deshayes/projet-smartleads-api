@@ -402,7 +402,7 @@ input#search-search:focus {
 }
 
 .div-target-operation {
-  background-color: #999999;
+  background-color: #F2F2F2;
   margin-left: 60px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -439,6 +439,32 @@ input#search-search:focus {
 .div-target-selected-operation .div-target-operation {
   padding-left: 15px;
   margin-bottom: 5px;
+}
+.div-target-selected-operation .div-target-operation p {
+  margin: 0 5px 0 5px;
+}
+
+.btn-delete-target {
+  border-radius: 3px;
+  border: 1px solid;
+  background-color: #999999;
+  color: #999999;
+}
+.btn-delete-target i {
+  color: #FFFFFF;
+}
+
+.btn-add-target {
+  border-radius: 3px;
+  border: 1px solid;
+  background-color: #CF1740;
+  color: #CF1740;
+  width: 16px;
+  height: 16px;
+}
+.btn-add-target i {
+  color: #FFFFFF;
+  font-size: 16px;
 }
 
 /* ---------------------------------------------------

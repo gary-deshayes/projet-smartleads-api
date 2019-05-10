@@ -782,3 +782,30 @@ $("#add-target").on("click", function () {
         encode: true
     })
 })
+
+$(".btn-delete-target").on("click", function () {
+    let div = $(this);
+
+    $.ajax({
+        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url: '/admin/operations/delete_target/' + $(this).next().val(), // the url where we want to POST
+        dataType: 'json', // what type of data do we expect back from the server
+        encode: true,
+        success: function (result) {
+            console.log(result);
+            if (result.retour == "1" || result.retour == "1") {
+
+                div.parent().fadeOut({
+                    duration: 1500,
+                    done: function () {
+                        div.parent().remove();
+                        $(".div-target-selected-operation .red-font:eq(0)").text(result.contacts_cibles);
+                        $(".div-target-selected-operation .red-font:eq(1)").text(result.ciblages);
+                    }
+                });
+
+            }
+
+        }
+    })
+})

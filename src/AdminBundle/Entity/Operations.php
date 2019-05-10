@@ -146,6 +146,12 @@ class Operations
      */
     private $settings;
 
+    /**
+     * @var Bool
+     * @ORM\Column(name="sent", type="boolean", nullable=false, options={"default": false})
+     */
+    private $sent;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -361,7 +367,7 @@ class Operations
      *
      * @return  self
      */ 
-    public function setOptInformation(notification $opt_information)
+    public function setOptInformation(bool $opt_information)
     {
         $this->opt_information = $opt_information;
 
@@ -385,7 +391,7 @@ class Operations
      *
      * @return  self
      */ 
-    public function setOptSalesOffer(notification $opt_sales_offer)
+    public function setOptSalesOffer(bool $opt_sales_offer)
     {
         $this->opt_sales_offer = $opt_sales_offer;
 
@@ -408,6 +414,26 @@ class Operations
     public function setSettings($settings)
     {
         $this->settings = $settings;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sent
+     */ 
+    public function getSent(): bool
+    {
+        return $this->sent;
+    }
+
+    /**
+     * Set the value of sent
+     *
+     * @return  self
+     */ 
+    public function setSent(bool $sent)
+    {
+        $this->sent = $sent;
 
         return $this;
     }
