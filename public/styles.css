@@ -467,6 +467,10 @@ input#search-search:focus {
   font-size: 16px;
 }
 
+.operation-template-div-principale {
+  display: inline-block;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

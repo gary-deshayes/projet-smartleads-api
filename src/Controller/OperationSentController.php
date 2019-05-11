@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\AdminBundle\Entity\FormulaireOperation;
 
 class OperationSentController extends AbstractController
 {
@@ -70,7 +71,7 @@ class OperationSentController extends AbstractController
             //Si l'opération n'est pas finie
             if ($operation->getClosingDate() >= new \DateTime()) {
 
-                //Si déjà mis à jour on redirige vers une template déjà participé
+                //Si le contact a déjà mis à jour on redirige vers une template déjà participé
                 if ($operationSent->getState() != 3) {
 
                     $contact = $operationSent->getContacts();
@@ -80,7 +81,7 @@ class OperationSentController extends AbstractController
                         $this->getDoctrine()->getManager()->persist($operationSent);
                         $this->getDoctrine()->getManager()->flush();
 
-                        $form = $this->createForm(ContactsOperationType::class, $contact);
+                        $form = $this->createForm(ContactsOperationType::class);
                         $form->handleRequest($request);
                         if ($form->isSubmitted() && $form->isValid()) {
                             $contact->setUpdatedAt(new \DateTime());
@@ -88,21 +89,27 @@ class OperationSentController extends AbstractController
                             $operationSent->setState(3);
                             $this->getDoctrine()->getManager()->persist($operationSent);
                             $this->getDoctrine()->getManager()->flush();
-                            return $this->render("template_operations/thanks.html.twig",["operation" => $operation]);
+                            return $this->render("template_operations/thanks.html.twig", ["operation" => $operation]);
                         }
+                        //Récupération des options du formulaire
+                        $formulaire_options = $this->getDoctrine()->getRepository(FormulaireOperation::class)->findOneBy(array("operation" => $operation->getCode()));
+                        dump($formulaire_options);
                         return $this->render(
                             "template_operations/operation_commerciale.html.twig",
-                            ["contact" => $contact,
+                            [
+                                "contact" => $contact,
                                 "operation" => $operation,
-                                "formContact" => $form->createView()]
+                                "formContact" => $form->createView(),
+                                "formulaire_options" => $formulaire_options
+                            ]
                         );
                     }
                 } else {
-                    return $this->render("template_operations/already_sent.html.twig",["operation" => $operation,]);
+                    return $this->render("template_operations/already_sent.html.twig", ["operation" => $operation,]);
                 }
             } else {
                 //Redirect opération finie
-            return $this->render("template_operations/operation_finished.html.twig");
+                return $this->render("template_operations/operation_finished.html.twig");
             }
         } else {
             //Redirect pas d'opération

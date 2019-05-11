@@ -583,6 +583,11 @@ class FormulaireOperation
         return $this->contacts_birthdate;
     }
 
+    public function getcontacts_birthdate()
+    {
+        return $this->contacts_birthdate;
+    }
+
     /**
      * Set the value of contacts_birthdate
      *
@@ -599,6 +604,11 @@ class FormulaireOperation
      * Get the value of contacts_lastname
      */ 
     public function getContactsLastname()
+    {
+        return $this->contacts_lastname;
+    }
+
+    public function getcontacts_lastname()
     {
         return $this->contacts_lastname;
     }
@@ -623,6 +633,11 @@ class FormulaireOperation
         return $this->contacts_firstname;
     }
 
+    public function getcontacts_firstname()
+    {
+        return $this->contacts_firstname;
+    }
+
     /**
      * Set the value of contacts_firstname
      *
@@ -642,6 +657,14 @@ class FormulaireOperation
     {
         return $this->contacts_gender;
     }
+
+    //Doctrine generait une classe Proxy identique a cette classe qui demandait cette méthode, je n'ai pas compris pourquoi
+    public function getcontacts_gender()
+    {
+        return $this->contacts_gender;
+    }
+
+    
 
     /**
      * Set the value of contacts_gender

@@ -546,26 +546,22 @@ class OperationsController extends AbstractController
             $uniqid =  md5(uniqid(rand(), true));
             $mailer->send_operation($operation, $contact, $settings_operation, $uniqid);
 
-            // $operationSent = new OperationSent();
-            // $operationSent->setOperation($operation);
-            // $operationSent->setSalesperson($author);
-            // $operationSent->setContacts($contact);
-            // $operationSent->setUniqIdContact($uniqid);
-            // $operationSent->setSentAt(new \DateTime());
-            // //On mets l'état à 1 qui signifie envoyé
-            // $operationSent->setState(1);
-            // $em->persist($operationSent);
+            $operationSent = new OperationSent();
+            $operationSent->setOperation($operation);
+            $operationSent->setSalesperson($author);
+            $operationSent->setContacts($contact);
+            $operationSent->setUniqIdContact($uniqid);
+            $operationSent->setSentAt(new \DateTime());
+            //On mets l'état à 1 qui signifie envoyé
+            $operationSent->setState(1);
+            $em->persist($operationSent);
         }
         //On déclare l'opération envoyé il ne sera plus possible de l'envoyer
-        // $operation->setSent(true);
+        $operation->setSent(true);
         $em->flush();
 
-        // return $this->redirectToRoute('operations_edit', [
-        //     'code' => $operation->getCode(),
-        // ]);
-        $response = new Response(json_encode("toto"), 200);
-            $response->headers->set('Content-Type', 'application/json');
-        
-        return $response;
+        return $this->redirectToRoute('operations_edit', [
+            'code' => $operation->getCode(),
+        ]);
     }
 }
