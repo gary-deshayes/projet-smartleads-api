@@ -66,6 +66,7 @@
 
         &-window-block {
             box-shadow: 0px 1px 5px 0px #b3b3b3;
+            height: 100%;
     
             table {
                 thead {
@@ -209,6 +210,19 @@
                             }
                         }
                     }
+                }
+            }
+        }
+
+        &-france-map {
+            height: 100%;
+
+            .france-map {
+                height: 100%;
+                object {
+                    height: 100%;
+                    width: 100%;
+
                 }
             }
         }
