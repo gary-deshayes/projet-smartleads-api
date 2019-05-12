@@ -1,235 +1,640 @@
 {% extends 'base_operation.html.twig' %}
 
-{% block title %}Grand jeu -
-    {{operation.name}}
+{% block title %}
+    {{ settings_operation.title_page }}
 {% endblock %}
 
 {% block body %}
-    <h1>Bonjour,
-        {{ contact.lastName ~ " " ~ contact.firstName }}!</h1>
-    <h2>Participez au jeu concours '{{operation.name}}' dans l'espoir de gagner un Bitcoin !</h2>
+    {# {% if vich_uploader_asset(settings_operation, 'page_image') != null %}
+        <img src="{{ vich_uploader_asset(settings_operation, 'page_image') }}">
+    {% endif %} #}
+    <h1>{{ settings_operation.introduction_title  }}</h1>
+    <p>{{ settings_operation.introduction_text  }}</p>
     <div class="form-style">
         {{ form_start(formContact) }}
-        <div class="window">
-            <div class="col-lg-5 form-style operation-template-div-principale">
-                <h2>Infos personnelles</h2>
-                {% if formulaire_options.contacts_gender >= 1 %}
-                    <div class="row">
+        <div class="window window-operation">
+            <div class="content-window-operation">
+                <div class="col-lg-6 form-style operation-template-div-principale div-left">
+                    <h2>Infos personnelles</h2>
+                    {% if formulaire_options.contacts_gender >= 1 %}
+                        <div class="row">
 
 
-                        {{ form_label(formContact.gender)}}
+                            {{ form_label(formContact.gender)}}
 
-                        {% if formulaire_options.contacts_gender == 1 %}
+                            {% if formulaire_options.contacts_gender == 1 %}
 
-                            {{ form_widget(formContact.gender, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+                                {{ form_widget(formContact.gender, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
 
-                        {% elseif formulaire_options.contacts_gender == 2 %}
+                            {% elseif formulaire_options.contacts_gender == 2 %}
 
-                            {{ form_widget(formContact.gender, { "attr" : { "class" : "form-control col-lg-12"}})}}
+                                {{ form_widget(formContact.gender, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
-                        {% elseif formulaire_options.contacts_gender == 3 %}
+                            {% elseif formulaire_options.contacts_gender == 3 %}
 
-                            {{ form_widget(formContact.gender, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+                                {{ form_widget(formContact.gender, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
 
-                        {% endif %}
+                            {% endif %}
 
-                        {{ form_errors(formContact.gender) }}
-
-
-                    </div>
-                {% endif %}
-                {% if formulaire_options.contacts_firstname >= 1 %}
-                    <div class="row">
+                            {{ form_errors(formContact.gender) }}
 
 
-                        {{ form_label(formContact.firstName)}}
-
-                        {% if formulaire_options.contacts_firstname == 1 %}
-
-                            {{ form_widget(formContact.firstName, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
-
-                        {% elseif formulaire_options.contacts_firstname == 2 %}
-
-                            {{ form_widget(formContact.firstName, { "attr" : { "class" : "form-control col-lg-12"}})}}
-
-                        {% elseif formulaire_options.contacts_firstname == 3 %}
-
-                            {{ form_widget(formContact.firstName, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
-
-                        {% endif %}
-
-                        {{ form_errors(formContact.firstName) }}
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_firstname >= 1 %}
+                        <div class="row">
 
 
-                    </div>
-                {% endif %}
-                {% if formulaire_options.contacts_lastname >= 1 %}
-                    <div class="row">
+                            {{ form_label(formContact.firstName)}}
 
-                        {{ form_label(formContact.lastName)}}
+                            {% if formulaire_options.contacts_firstname == 1 %}
 
-                        {% if formulaire_options.contacts_lastname == 1 %}
+                                {{ form_widget(formContact.firstName, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
 
-                            {{ form_widget(formContact.lastName, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+                            {% elseif formulaire_options.contacts_firstname == 2 %}
 
-                        {% elseif formulaire_options.contacts_lastname == 2 %}
+                                {{ form_widget(formContact.firstName, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
-                            {{ form_widget(formContact.lastName, { "attr" : { "class" : "form-control col-lg-12"}})}}
+                            {% elseif formulaire_options.contacts_firstname == 3 %}
 
-                        {% elseif formulaire_options.contacts_lastname == 3 %}
+                                {{ form_widget(formContact.firstName, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
 
-                            {{ form_widget(formContact.lastName, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+                            {% endif %}
 
-                        {% endif %}
-
-                        {{ form_errors(formContact.lastName) }}
+                            {{ form_errors(formContact.firstName) }}
 
 
-                    </div>
-                {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_lastname >= 1 %}
+                        <div class="row">
 
-                {% if formulaire_options.contacts_birthdate >= 1 %}
-                    <div class="row">
+                            {{ form_label(formContact.lastName)}}
 
-                        {{ form_label(formContact.birthDate)}}
+                            {% if formulaire_options.contacts_lastname == 1 %}
 
-                        {% if formulaire_options.contacts_birthdate == 1 %}
+                                {{ form_widget(formContact.lastName, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
 
-                            {{ form_widget(formContact.birthDate, { "attr" : { "class" : "datepicker form-control col-lg-12", "disabled": "disabled"}})}}
+                            {% elseif formulaire_options.contacts_lastname == 2 %}
 
-                        {% elseif formulaire_options.contacts_birthdate == 2 %}
+                                {{ form_widget(formContact.lastName, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
-                            {{ form_widget(formContact.birthDate, { "attr" : { "class" : "datepicker form-control col-lg-12"}})}}
+                            {% elseif formulaire_options.contacts_lastname == 3 %}
 
-                        {% elseif formulaire_options.contacts_birthdate == 3 %}
+                                {{ form_widget(formContact.lastName, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
 
-                            {{ form_widget(formContact.birthDate, { "attr" : { "class" : "datepicker form-control col-lg-12", "required": "required"}})}}
+                            {% endif %}
 
-                        {% endif %}
-
-                        {{ form_errors(formContact.birthDate) }}
-
-
-                    </div>
-                {% endif %}
-
-                <div class="row">
-
-                    {{ form_label(formContact.linkedin)}}
-
-                    {{ form_widget(formContact.linkedin, { "attr" : { "class" : "form-control col-lg-4"}})}}
-
-                    {{ form_errors(formContact.linkedin) }}
+                            {{ form_errors(formContact.lastName) }}
 
 
-                    {{ form_label(formContact.phone)}}
+                        </div>
+                    {% endif %}
 
-                    {{ form_widget(formContact.phone, { "attr" : { "class" : "form-control col-lg-4"}})}}
+                    {% if formulaire_options.contacts_birthdate >= 1 %}
+                        <div class="row">
 
-                    {{ form_errors(formContact.phone) }}
+                            {{ form_label(formContact.birthDate)}}
 
+                            {% if formulaire_options.contacts_birthdate == 1 %}
+
+                                {{ form_widget(formContact.birthDate, { "attr" : { "class" : "datepicker form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_birthdate == 2 %}
+
+                                {{ form_widget(formContact.birthDate, { "attr" : { "class" : "datepicker form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_birthdate == 3 %}
+
+                                {{ form_widget(formContact.birthDate, { "attr" : { "class" : "datepicker form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.birthDate) }}
+
+
+                        </div>
+                    {% endif %}
+
+
+                    {% if formulaire_options.contacts_mail_pro >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.email_contact)}}
+
+                            {% if formulaire_options.contacts_mail_pro == 1 %}
+
+                                {{ form_widget(formContact.email_contact, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_mail_pro == 2 %}
+
+                                {{ form_widget(formContact.email_contact, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_mail_pro == 3 %}
+
+                                {{ form_widget(formContact.email_contact, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.email_contact) }}
+
+
+                        </div>
+                    {% endif %}
+
+                    {% if formulaire_options.contacts_mobile_phone >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.mobilePhone)}}
+
+                            {% if formulaire_options.contacts_mobile_phone == 1 %}
+
+                                {{ form_widget(formContact.mobilePhone, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_mobile_phone == 2 %}
+
+                                {{ form_widget(formContact.mobilePhone, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_mobile_phone == 3 %}
+
+                                {{ form_widget(formContact.mobilePhone, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.mobilePhone) }}
+
+
+                        </div>
+                    {% endif %}
+
+                    {% if formulaire_options.contacts_phone >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.phone)}}
+
+                            {% if formulaire_options.contacts_phone == 1 %}
+
+                                {{ form_widget(formContact.phone, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_phone == 2 %}
+
+                                {{ form_widget(formContact.phone, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_phone == 3 %}
+
+                                {{ form_widget(formContact.phone, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.phone) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_linkedin >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.linkedin)}}
+
+                            {% if formulaire_options.contacts_linkedin == 1 %}
+
+                                {{ form_widget(formContact.linkedin, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_linkedin == 2 %}
+
+                                {{ form_widget(formContact.linkedin, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_linkedin == 3 %}
+
+                                {{ form_widget(formContact.linkedin, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.linkedin) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_facebook >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.facebook)}}
+
+                            {% if formulaire_options.contacts_facebook == 1 %}
+
+                                {{ form_widget(formContact.facebook, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_facebook == 2 %}
+
+                                {{ form_widget(formContact.facebook, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_facebook == 3 %}
+
+                                {{ form_widget(formContact.facebook, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.facebook) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_twitter >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.twitter)}}
+
+                            {% if formulaire_options.contacts_twitter == 1 %}
+
+                                {{ form_widget(formContact.twitter, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_twitter == 2 %}
+
+                                {{ form_widget(formContact.twitter, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_twitter == 3 %}
+
+                                {{ form_widget(formContact.twitter, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.twitter) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_profession >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.profession)}}
+
+                            {% if formulaire_options.contacts_profession == 1 %}
+
+                                {{ form_widget(formContact.profession, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_profession == 2 %}
+
+                                {{ form_widget(formContact.profession, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_profession == 3 %}
+
+                                {{ form_widget(formContact.profession, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.profession) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.contacts_workname >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.workname)}}
+
+                            {% if formulaire_options.contacts_workname == 1 %}
+
+                                {{ form_widget(formContact.workname, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.contacts_workname == 2 %}
+
+                                {{ form_widget(formContact.workname, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.contacts_workname == 3 %}
+
+                                {{ form_widget(formContact.workname, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.workname) }}
+
+
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="row">
+                <div class="col-lg-5 form-style operation-template-div-principale div-right">
+                    <h2>Infos entreprise</h2>
+                    {% if formulaire_options.company_name >= 1 %}
+                        <div class="row">
 
-                    {{ form_label(formContact.facebook)}}
+                            {{ form_label(formContact.name_company)}}
 
-                    {{ form_widget(formContact.facebook, { "attr" : { "class" : "form-control col-lg-4"}})}}
+                            {% if formulaire_options.company_name == 1 %}
 
-                    {{ form_errors(formContact.facebook) }}
+                                {{ form_widget(formContact.name_company, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"  }  })}}
+
+                            {% elseif formulaire_options.company_name == 2 %}
+
+                                {{ form_widget(formContact.name_company, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_name == 3 %}
+
+                                {{ form_widget(formContact.name_company, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.name_company) }}
 
 
-                    {{ form_label(formContact.standardPhone)}}
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_naf >= 1 %}
+                        <div class="row">
 
-                    {{ form_widget(formContact.standardPhone, { "attr" : { "class" : "form-control col-lg-4"}})}}
+                            {{ form_label(formContact.activityArea)}}
 
-                    {{ form_errors(formContact.standardPhone) }}
+                            {% if formulaire_options.company_naf == 1 %}
 
-                </div>
-                <div class="row">
+                                {{ form_widget(formContact.activityArea, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
 
-                    {{ form_label(formContact.twitter)}}
+                            {% elseif formulaire_options.company_naf == 2 %}
 
-                    {{ form_widget(formContact.twitter, { "attr" : { "class" : "form-control col-lg-12"}})}}
+                                {{ form_widget(formContact.activityArea, { "attr" : { "class" : "form-control col-lg-12"}})}}
 
-                    {{ form_errors(formContact.twitter) }}
+                            {% elseif formulaire_options.company_naf == 3 %}
+
+                                {{ form_widget(formContact.activityArea, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.activityArea) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_legal_status >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.legalStatus)}}
+
+                            {% if formulaire_options.company_legal_status == 1 %}
+
+                                {{ form_widget(formContact.legalStatus, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_legal_status == 2 %}
+
+                                {{ form_widget(formContact.legalStatus, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_legal_status == 3 %}
+
+                                {{ form_widget(formContact.legalStatus, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.legalStatus) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_siret >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.siret)}}
+
+                            {% if formulaire_options.company_siret == 1 %}
+
+                                {{ form_widget(formContact.siret, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_siret == 2 %}
+
+                                {{ form_widget(formContact.siret, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_siret == 3 %}
+
+                                {{ form_widget(formContact.siret, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.siret) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_number_employees >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.numberEmployees)}}
+
+                            {% if formulaire_options.company_number_employees == 1 %}
+
+                                {{ form_widget(formContact.numberEmployees, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_number_employees == 2 %}
+
+                                {{ form_widget(formContact.numberEmployees, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_number_employees == 3 %}
+
+                                {{ form_widget(formContact.numberEmployees, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.numberEmployees) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_turnovers >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.turnovers)}}
+
+                            {% if formulaire_options.company_turnovers == 1 %}
+
+                                {{ form_widget(formContact.turnovers, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_turnovers == 2 %}
+
+                                {{ form_widget(formContact.turnovers, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_turnovers == 3 %}
+
+                                {{ form_widget(formContact.turnovers, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.turnovers) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_address >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.address)}}
+
+                            {% if formulaire_options.company_address == 1 %}
+
+                                {{ form_widget(formContact.address, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_address == 2 %}
+
+                                {{ form_widget(formContact.address, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_address == 3 %}
+
+                                {{ form_widget(formContact.address, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.address) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_postal_code >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.postalCode)}}
+
+                            {% if formulaire_options.company_postal_code == 1 %}
+
+                                {{ form_widget(formContact.postalCode, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_postal_code == 2 %}
+
+                                {{ form_widget(formContact.postalCode, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_postal_code == 3 %}
+
+                                {{ form_widget(formContact.postalCode, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.postalCode) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_country >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.country)}}
+
+                            {% if formulaire_options.company_country == 1 %}
+
+                                {{ form_widget(formContact.country, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_country == 2 %}
+
+                                {{ form_widget(formContact.country, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_country == 3 %}
+
+                                {{ form_widget(formContact.country, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.country) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_standard_phone >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.phone_company)}}
+
+                            {% if formulaire_options.company_standard_phone == 1 %}
+
+                                {{ form_widget(formContact.phone_company, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_standard_phone == 2 %}
+
+                                {{ form_widget(formContact.phone_company, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_standard_phone == 3 %}
+
+                                {{ form_widget(formContact.phone_company, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.phone_company) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_fax >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.fax)}}
+
+                            {% if formulaire_options.company_fax == 1 %}
+
+                                {{ form_widget(formContact.fax, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_fax == 2 %}
+
+                                {{ form_widget(formContact.fax, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_fax == 3 %}
+
+                                {{ form_widget(formContact.fax, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.fax) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_website >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.website)}}
+
+                            {% if formulaire_options.company_website == 1 %}
+
+                                {{ form_widget(formContact.website, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_website == 2 %}
+
+                                {{ form_widget(formContact.website, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_website == 3 %}
+
+                                {{ form_widget(formContact.website, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.website) }}
+
+
+                        </div>
+                    {% endif %}
+                    {% if formulaire_options.company_mail >= 1 %}
+                        <div class="row">
+
+                            {{ form_label(formContact.email_company)}}
+
+                            {% if formulaire_options.company_mail == 1 %}
+
+                                {{ form_widget(formContact.email_company, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
+
+                            {% elseif formulaire_options.company_mail == 2 %}
+
+                                {{ form_widget(formContact.email_company, { "attr" : { "class" : "form-control col-lg-12"}})}}
+
+                            {% elseif formulaire_options.company_mail == 3 %}
+
+                                {{ form_widget(formContact.email_company, { "attr" : { "class" : "form-control col-lg-12", "required": "required"}})}}
+
+                            {% endif %}
+
+                            {{ form_errors(formContact.email_company) }}
+
+
+                        </div>
+                    {% endif %}
+
 
                 </div>
             </div>
-            <div class="col-lg-5 form-style operation-template-div-principale">
-                <div class="row">
 
 
-                    {{ form_label(formContact.workName)}}
-
-                    {{ form_widget(formContact.workName, { "attr" : { "class" : "form-control col-lg-12", "disabled": "disabled"}})}}
-
-                    {{ form_errors(formContact.workName) }}
-
-                </div>
-                <div class="row">
-
-                    {{ form_label(formContact.birthDate)}}
-
-                    {{ form_widget(formContact.birthDate, { "id":"", "attr" : { "class" : "datepicker form-control col-lg-6"}})
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}
-                    {{ form_errors(formContact.birthDate) }}
-
-
-                </div>
-                <div class="row">
-
-                    {{ form_label(formContact.mobilePhone)}}
-
-                    {{ form_widget(formContact.mobilePhone, { "attr" : { "class" : "form-control col-lg-12"}})}}
-
-                    {{ form_errors(formContact.mobilePhone) }}
-
-                </div>
-
-                <div class="row">
-
-                    {{ form_label(formContact.linkedin)}}
-
-                    {{ form_widget(formContact.linkedin, { "attr" : { "class" : "form-control col-lg-4"}})}}
-
-                    {{ form_errors(formContact.linkedin) }}
-
-
-                    {{ form_label(formContact.phone)}}
-
-                    {{ form_widget(formContact.phone, { "attr" : { "class" : "form-control col-lg-4"}})}}
-
-                    {{ form_errors(formContact.phone) }}
-
-                </div>
-                <div class="row">
-
-                    {{ form_label(formContact.facebook)}}
-
-                    {{ form_widget(formContact.facebook, { "attr" : { "class" : "form-control col-lg-4"}})}}
-
-                    {{ form_errors(formContact.facebook) }}
-
-
-                    {{ form_label(formContact.standardPhone)}}
-
-                    {{ form_widget(formContact.standardPhone, { "attr" : { "class" : "form-control col-lg-4"}})}}
-
-                    {{ form_errors(formContact.standardPhone) }}
-
-                </div>
-                <div class="row">
-
-                    {{ form_label(formContact.twitter)}}
-
-                    {{ form_widget(formContact.twitter, { "attr" : { "class" : "form-control col-lg-12"}})}}
-
-                    {{ form_errors(formContact.twitter) }}
-
-                </div>
-                <input class="btn btn-primary" type="submit" value="Envoyer"/>
-            </div>
+            <input class="btn btn-primary button-send-operation" type="submit" value="Envoyer"/>
         </div>
+
         {{ form_end(formContact) }}
     </div>
 {% endblock %}

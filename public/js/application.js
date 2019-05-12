@@ -809,3 +809,5 @@ $(".btn-delete-target").on("click", function () {
         }
     })
 })
+
+$(".window-operation").nextAll("div").remove();

@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\AdminBundle\Entity\ContactOperation;
 
 class ContactsOperationType extends AbstractType
 {
@@ -33,13 +34,16 @@ class ContactsOperationType extends AbstractType
                     'Femme' => "Femme"
 
                 ],
-                'label' => "Genre"
+                'label' => "Genre",
+                "required" => false
             ])
             ->add('lastName', TextType::class, [
-                "label" => "Nom"
+                "label" => "Nom",
+                "required" => false
             ])
             ->add('firstName', TextType::class, [
-                "label" => "Prénom"
+                "label" => "Prénom",
+                "required" => false
             ])
 
             ->add('birthDate', DateType::class, [
@@ -47,26 +51,33 @@ class ContactsOperationType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 "years" => range(date('Y'), date('Y') - 70),
                 'widget' => 'single_text',
-                'html5' => false
+                'html5' => false,
+                "required" => false
+            ])
+            ->add('email_contact', EmailType::class, [
+                "label" => "Email",
+                "required" => false
             ])
 
             ->add('mobilePhone', TelType::class, [
                 "label" => "Tél. mobile",
+                "required" => false
             ])
             ->add('phone', TelType::class, [
-                "label" => "Tél. Fixe"
-            ])
-            ->add('standardPhone', TelType::class, [
-                "label" => "Tél. Standard"
+                "label" => "Tél. Fixe",
+                "required" => false
             ])
             ->add('linkedin', UrlType::class, [
-                "label" => "Profil Linkedin"
+                "label" => "Profil Linkedin",
+                "required" => false
             ])
             ->add('facebook', UrlType::class, [
-                "label" => "Profil Facebook"
+                "label" => "Profil Facebook",
+                "required" => false
             ])
             ->add('twitter', UrlType::class, [
-                "label" => "Profil Twitter"
+                "label" => "Profil Twitter",
+                "required" => false
             ])
             ->add('profession', EntityType::class, [
                 'label' => "Métier",
@@ -74,23 +85,18 @@ class ContactsOperationType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.libelle', 'ASC');
-                }
+                },
+                "required" => false
             ])
-            ->add('workName', TextType::class, [
-                "label" => "Nom du poste"
+            ->add('workname', TextType::class, [
+                "label" => "Nom du poste",
+                "required" => false
             ])
             //Partie entreprise
 
-            ->add('name', TextType::class, [
-                "label" => "Nom"
-            ])
-            ->add('companyStatus', EntityType::class, [
-                "label" => "Statut",
-                'class' => CompanyStatus::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('companyStatus')
-                        ->orderBy('companyStatus.libelle', 'ASC');
-                }
+            ->add('name_company', TextType::class, [
+                "label" => "Nom",
+                "required" => false
             ])
             ->add('activityArea', EntityType::class, [
                 "label" => "Activité (NAF)",
@@ -98,17 +104,20 @@ class ContactsOperationType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('activity')
                         ->orderBy('activity.libelle', 'ASC');
-                }
+                },
+                "required" => false
             ])
-            ->add('idLegalStatus', EntityType::class, [
+            ->add('legalStatus', EntityType::class, [
                 'class' => LegalStatus::class,
                 "label" => "Statut juridique",
-                'choice_label' => "libelle"
+                'choice_label' => "libelle",
+                "required" => false
             ])
             ->add('siret', TextType::class, [
-                "label" => "N°SIRET"
+                "label" => "N°SIRET",
+                "required" => false
             ])
-            ->add('idNumberEmployees', EntityType::class, [
+            ->add('numberEmployees', EntityType::class, [
                 'class' => NumberEmployees::class,
 
                 'query_builder' => function (EntityRepository $er) {
@@ -116,7 +125,8 @@ class ContactsOperationType extends AbstractType
                         ->orderBy('numberEmployees.libelle', 'ASC');
                 },
                 "label" => "Effectifs",
-                'choice_label' => "libelle"
+                'choice_label' => "libelle",
+                "required" => false
             ])
             ->add('turnovers', EntityType::class, [
                 'class' => Turnovers::class,
@@ -125,7 +135,8 @@ class ContactsOperationType extends AbstractType
                     return $er->createQueryBuilder('turnovers')
                         ->orderBy('turnovers.libelle', 'ASC');
                 },
-                'choice_label' => "libelle"
+                'choice_label' => "libelle",
+                "required" => false
             ])
             ->add('address', TextType::class, [
                 "label" => "Adresse",
@@ -143,11 +154,11 @@ class ContactsOperationType extends AbstractType
                         ->orderBy('country.libelle', 'ASC');
                 }
             ])
-            ->add('email', EmailType::class, [
+            ->add('email_company', EmailType::class, [
                 "label" => "Email",
                 "required" => false
             ])
-            ->add('phone', TelType::class, [
+            ->add('phone_company', TelType::class, [
                 "label" => "Téléphone",
                 "required" => false,
                 "help" => "Format 0612345678"
@@ -158,8 +169,8 @@ class ContactsOperationType extends AbstractType
                 "help" => "Format 0612345678"
             ])
             ->add('website', UrlType::class, [
-                "label" => "Site web"
+                "label" => "Site web",
+                "required" => false
             ]);
     }
-
 }

@@ -404,7 +404,7 @@ class Contacts
         return $this->workName;
     }
 
-    public function setWorkName(string $workName): self
+    public function setWorkName(? string $workName): self
     {
         $this->workName = $workName;
 

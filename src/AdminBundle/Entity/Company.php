@@ -611,9 +611,15 @@ class Company
         return $this;
     }
 
+    public function getLegalStatus(): ?LegalStatus
+    {
+        return $this->idLegalStatus;
+    }
+
     public function getIdLegalStatus(): ?LegalStatus
     {
         return $this->idLegalStatus;
+
     }
 
     public function setIdLegalStatus(?LegalStatus $idLegalStatus): self
@@ -624,6 +630,11 @@ class Company
     }
 
     public function getNumberEmployees(): ?NumberEmployees
+    {
+        return $this->numberEmployees;
+    }
+
+    public function getIdNumberEmployees(): ?NumberEmployees
     {
         return $this->numberEmployees;
     }

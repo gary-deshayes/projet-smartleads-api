@@ -290,6 +290,10 @@ class OperationsController extends AbstractController
         $ciblages = $this->getDoctrine()->getRepository(TargetOperation::class)->findBy(array("operation" => $operation->getCode()));
         //La méthode fais le tri des cibles
         $contactsCiblesSansDoublons = self::recuperationCiblages($ciblages);
+
+        //Récupération des résultats
+        $operationsSents = $this->getDoctrine()->getRepository(OperationSent::class)->findBy(array("operation" => $operation));
+        dump($operationsSents);
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
@@ -299,7 +303,8 @@ class OperationsController extends AbstractController
             "formSettings" => $formSettings->createView(),
             "formTargetOperation" => $formTargetOperation->createView(),
             "contacts_cibles" => $contactsCiblesSansDoublons,
-            "ciblages" => $ciblages
+            "ciblages" => $ciblages,
+            "resultats_operation" => $operationsSents
         ]);
     }
 

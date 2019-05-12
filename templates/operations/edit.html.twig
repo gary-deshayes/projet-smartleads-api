@@ -53,30 +53,9 @@
             {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
                 <div aria-labelledby="resultats-tab" class="tab-pane fade" id="resultats" role="tabpanel">
                     <h1>Résultats</h1>
-                    {# <div>
-                        <p>Nombre de personne ayant reçu l'opération
-                            <strong class="red-primary">{{nbRecu}}</strong>
-                        </p>
-
-                    </div>
-                    <div>
-                        <p>Nombre de personne ayant ouvert l'opération
-                            <strong class="red-primary">{{nbOuvert}}</strong>
-                        </p>
-
-                    </div>
-                    <div>
-                        <p>Nombre de personne ayant mis à jour leurs informations
-                            <strong class="red-primary">{{nbMaj}}</strong>
-                        </p>
-
-                    </div>
-                    <div>
-                        <p>Nombre de personne n'ayant pas ouvert l'opération
-                            <strong class="red-primary">{{nbNonOuvert}}</strong>
-                        </p>
-
-                    </div> #}
+                    {% for resultat in resultats_operation %}
+                            {{ resultat.contacts.firstname}}
+                    {% endfor %}
                 </div>
             {% endif %}
         </div>

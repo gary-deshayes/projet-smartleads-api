@@ -471,6 +471,11 @@ input#search-search:focus {
   display: inline-block;
 }
 
+.content-window-operation {
+  display: flex;
+  align-items: flex-start;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
