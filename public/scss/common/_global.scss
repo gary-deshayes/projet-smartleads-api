@@ -549,3 +549,57 @@ input#search-search:focus {
     display: flex;
     align-items: flex-start;
 }
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+
+
+    &.dot-red {
+        background-color: red;
+    }
+
+    &.dot-green{
+        background-color: green;
+    }
+
+    &.dot-light-green{
+        background-color: lightgreen;
+    }
+
+    &.dot-orange {
+        background-color: orange;
+    }
+
+    &.dot-grey {
+        background-color: grey;
+    }
+}
+
+.pourcentage-resultats {
+    font-weight: 500;
+    
+
+    p {
+        display: inline;
+    }
+
+    .pourcentage-non-ouvert {
+        color: grey;
+    }
+    .pourcentage-ouvert {
+        color: lightgreen;
+    }
+    .pourcentage-qualifier {
+        color: green;
+    }
+    .pourcentage-refus {
+        color: orange;
+    }
+    .pourcentage-desabonnement {
+        color: red;
+    }
+}

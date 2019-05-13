@@ -476,6 +476,51 @@ input#search-search:focus {
   align-items: flex-start;
 }
 
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+.dot.dot-red {
+  background-color: red;
+}
+.dot.dot-green {
+  background-color: green;
+}
+.dot.dot-light-green {
+  background-color: lightgreen;
+}
+.dot.dot-orange {
+  background-color: orange;
+}
+.dot.dot-grey {
+  background-color: grey;
+}
+
+.pourcentage-resultats {
+  font-weight: 500;
+}
+.pourcentage-resultats p {
+  display: inline;
+}
+.pourcentage-resultats .pourcentage-non-ouvert {
+  color: grey;
+}
+.pourcentage-resultats .pourcentage-ouvert {
+  color: lightgreen;
+}
+.pourcentage-resultats .pourcentage-qualifier {
+  color: green;
+}
+.pourcentage-resultats .pourcentage-refus {
+  color: orange;
+}
+.pourcentage-resultats .pourcentage-desabonnement {
+  color: red;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

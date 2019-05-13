@@ -241,7 +241,7 @@ class Company
      *
      * @ORM\ManyToOne(targetEntity="ActivityArea")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id", nullable=true)
      * })
      */
     private $activityArea;

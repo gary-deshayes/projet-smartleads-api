@@ -52,10 +52,8 @@
             {% endif %}
             {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
                 <div aria-labelledby="resultats-tab" class="tab-pane fade" id="resultats" role="tabpanel">
-                    <h1>Résultats</h1>
-                    {% for resultat in resultats_operation %}
-                            {{ resultat.contacts.firstname}}
-                    {% endfor %}
+                    {{ include('operations/resultats.html.twig') }}
+                    
                 </div>
             {% endif %}
         </div>

@@ -27,13 +27,14 @@ class MailerService
             // ->setFrom(getEnv("MAILER_FROM"))
             ->setFrom('smartleads.supp@outlook.com')
             ->setTo($salesperson->getEmail())
+
             ->setBody(
                 $this->template->render(
                     "reset_password/template.html.twig",
                     [
                         "name" => $salesperson->getLastName(),
                         "firstName" => $salesperson->getFirstName(),
-                        "link" => $_SERVER["HTTP_ORIGIN"] .  "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
+                        "link" => $_SERVER['HTTP_REFERER'] .  "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
                     ]
                 ),
                 "text/html"
@@ -43,10 +44,6 @@ class MailerService
 
     public function send_operation(Operations $operation, $contact, SettingsOperation $settings_operation, $uniqid)
     {
-        dump($operation);
-        dump($contact);
-        dump($settings_operation);
-
         $message = (new \Swift_Message($settings_operation->getMailObject()))
             // ->setFrom(getEnv("MAILER_FROM"))
             ->setFrom('smartleads.supp@outlook.com')
@@ -59,7 +56,7 @@ class MailerService
                         "prenom" => $contact->getLastName(),
                         "texte" => $settings_operation->getTextMail(),
                         "settings_operation" => $settings_operation,
-                        "link" => $_SERVER['REMOTE_ADDR'] . "/operation/" . $operation->getName() . "/" . $uniqid
+                        "link" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid
                     ]
                 ),
                 "text/html"

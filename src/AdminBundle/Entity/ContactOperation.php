@@ -696,7 +696,7 @@ class ContactOperation
      *
      * @return  self
      */ 
-    public function setLegalStatus(LegalStatus $legalStatus)
+    public function setLegalStatus(?LegalStatus $legalStatus)
     {
         $this->legalStatus = $legalStatus;
 
@@ -720,7 +720,7 @@ class ContactOperation
      *
      * @return  self
      */ 
-    public function setActivityArea(ActivityArea $activityArea)
+    public function setActivityArea(? ActivityArea $activityArea)
     {
         $this->activityArea = $activityArea;
 

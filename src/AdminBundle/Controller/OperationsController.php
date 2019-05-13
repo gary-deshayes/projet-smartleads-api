@@ -2,26 +2,27 @@
 
 namespace App\AdminBundle\Controller;
 
+use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\Entity\FormulaireOperation;
 use App\AdminBundle\Entity\Operations;
-use App\AdminBundle\Entity\Salesperson;
-use App\AdminBundle\EntitySearch\Search;
-use App\AdminBundle\Form\OperationsType;
 use App\AdminBundle\Entity\OperationSent;
-use App\AdminBundle\Service\MailerService;
-use App\AdminBundle\Entity\TargetOperation;
-use Knp\Component\Pager\PaginatorInterface;
+use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Entity\SettingsOperation;
+use App\AdminBundle\Entity\TargetOperation;
+use App\AdminBundle\Form\FormulaireOperationType;
+use App\AdminBundle\Form\OperationsType;
+use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\Form\SettingsOperationType;
 use App\AdminBundle\Form\TargetOperationType;
+use App\AdminBundle\Service\MailerService;
+use Faker;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\AdminBundle\Entity\FormulaireOperation;
-use App\AdminBundle\Form\SettingsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
-use App\AdminBundle\Form\FormulaireOperationType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/operations")
@@ -68,13 +69,21 @@ class OperationsController extends AbstractController
     /**
      * @Route("/new", name="operations_new", methods={"GET","POST"})
      */
-    function new(Request $request): Response
-    {
+    function new (Request $request): Response {
+        $repoOperation = $this->getDoctrine()->getRepository(Operations::class);
+        $this->faker = Faker\Factory::create('fr_FR');
         $operation = new Operations();
         $form = $this->createForm(OperationsType::class, $operation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $request->request->get("operation");
+            do {
+                $code = $this->faker->regexify("[A-Z]{10}");
+            } while ($repoOperation->findOneBy(array("code" => $code)) != null);
+            $operation->setCode($code);
+            $operation->setCreated_At(new \DateTime());
+            $operation->setSent(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($operation);
             $entityManager->flush();
@@ -240,7 +249,6 @@ class OperationsController extends AbstractController
             $this->getDoctrine()->getManager()->persist($formulaire_operation);
             $this->getDoctrine()->getManager()->flush();
 
-
             return $this->redirectToRoute('operations_edit', [
                 'code' => $operation->getCode(),
             ]);
@@ -284,7 +292,6 @@ class OperationsController extends AbstractController
             ]);
         }
 
-
         //Récupération des ciblages
 
         $ciblages = $this->getDoctrine()->getRepository(TargetOperation::class)->findBy(array("operation" => $operation->getCode()));
@@ -293,7 +300,44 @@ class OperationsController extends AbstractController
 
         //Récupération des résultats
         $operationsSents = $this->getDoctrine()->getRepository(OperationSent::class)->findBy(array("operation" => $operation));
-        dump($operationsSents);
+        //Calcul des pourcentage résultats
+        $pourcentage["nonouvert"] = "";
+        $pourcentage["ouvert"] = "";
+        $pourcentage["qualifier"] = "";
+        $pourcentage["refus"] = "";
+        $pourcentage["desabonnement"] = "";
+        if (count($operationsSents) > 0) {
+            $nombre["non-ouvert"] = 0;
+            $nombre["ouvert"] = 0;
+            $nombre["qualifier"] = 0;
+            $nombre["refus"] = 0;
+            $nombre["desabonnement"] = 0;
+            foreach ($operationsSents as $opeSent) {
+                switch ($opeSent->getState()) {
+                    case 1:
+                        $nombre["non-ouvert"]++;
+                        break;
+                    case 2:
+                        $nombre["ouvert"]++;
+                        break;
+                    case 3:
+                        $nombre["qualifier"]++;
+                        break;
+                    case 4:
+                        $nombre["refus"]++;
+                        break;
+                    case 5:
+                        $nombre["desabonnement"]++;
+                        break;
+
+                }
+            }
+            $pourcentage["nonouvert"] = round((100 * $nombre["non-ouvert"]) / count($operationsSents));
+            $pourcentage["ouvert"] = round((100 * $nombre["ouvert"]) / count($operationsSents));
+            $pourcentage["qualifier"] = round((100 * $nombre["qualifier"]) / count($operationsSents));
+            $pourcentage["refus"] = round((100 * $nombre["refus"]) / count($operationsSents));
+            $pourcentage["desabonnement"] = round((100 * $nombre["desabonnement"]) / count($operationsSents));
+        }
         return $this->render('operations/edit.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
@@ -304,7 +348,8 @@ class OperationsController extends AbstractController
             "formTargetOperation" => $formTargetOperation->createView(),
             "contacts_cibles" => $contactsCiblesSansDoublons,
             "ciblages" => $ciblages,
-            "resultats_operation" => $operationsSents
+            "resultats_operation" => $operationsSents,
+            "pourcentage" => $pourcentage,
         ]);
     }
 
@@ -334,10 +379,8 @@ class OperationsController extends AbstractController
             foreach ($result as $res) {
                 $jsonData = array(
                     "code" => $res->getCode(),
-                    "libelle" => $res->getLibelle()
+                    "libelle" => $res->getLibelle(),
                 );
-
-
 
                 array_push($data, $jsonData);
             }
@@ -345,20 +388,17 @@ class OperationsController extends AbstractController
             foreach ($result as $res) {
                 $jsonData = array(
                     "id" => $res->getId(),
-                    "libelle" => $res->getLibelle()
+                    "libelle" => $res->getLibelle(),
                 );
-
-
 
                 array_push($data, $jsonData);
             }
         }
 
-
         $dataJson = [
             "entité" => $entity,
             "data" => $data,
-            "retour" => "-1"
+            "retour" => "-1",
         ];
         $response = new Response(json_encode($dataJson), 200);
         $response->headers->set('Content-Type', 'application/json');
@@ -387,7 +427,7 @@ class OperationsController extends AbstractController
         $targetOperationExist = $this->getDoctrine()->getRepository(TargetOperation::class)->findOneBy(array(
             "entity" => $arrayTarget["entity"],
             "parameter" => $arrayTarget["parameter"],
-            "value" => $value
+            "value" => $value,
         ));
         if (!isset($targetOperationExist)) {
             $targetOperation->setSend(0);
@@ -401,13 +441,11 @@ class OperationsController extends AbstractController
             $em->flush();
         }
 
-
         $response = new Response(json_encode($targetOperation), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
-
 
     /**
      * @Route("/delete_target/{id}", name="target_operation_delete_target", methods={"POST"})
@@ -423,7 +461,7 @@ class OperationsController extends AbstractController
         $data = [
             "retour" => "1",
             "contacts_cibles" => count($contactsCiblesSansDoublons),
-            "ciblages" => count($ciblages)
+            "ciblages" => count($ciblages),
         ];
         $response = new Response(json_encode($data), 200);
         $response->headers->set('Content-Type', 'application/json');
@@ -497,8 +535,6 @@ class OperationsController extends AbstractController
                             array_push($contactsCibles, $contact);
                         }
 
-
-
                         break;
                     case "DecisionMaking":
                         $contacts = $repoContacts->getContactsBy("contacts.decision_making", $cible->getValue());
@@ -518,8 +554,6 @@ class OperationsController extends AbstractController
                         foreach ($contacts as $contact) {
                             array_push($contactsCibles, $contact);
                         }
-
-
 
                         break;
                 }
@@ -548,7 +582,7 @@ class OperationsController extends AbstractController
         $author = $operation->getAuthor();
         $settings_operation = $this->getDoctrine()->getRepository(SettingsOperation::class)->findOneBy(array("operation" => $operation->getCode()));
         foreach ($contactsCiblesSansDoublons as $contact) {
-            $uniqid =  md5(uniqid(rand(), true));
+            $uniqid = md5(uniqid(rand(), true));
             $mailer->send_operation($operation, $contact, $settings_operation, $uniqid);
 
             $operationSent = new OperationSent();
