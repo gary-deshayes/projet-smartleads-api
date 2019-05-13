@@ -4,6 +4,7 @@ namespace App\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use App\AdminBundle\Entity\Salesperson;
 use App\AdminBundle\Entity\DecisionMaking;
@@ -105,7 +106,7 @@ class Contacts
     private $status;
 
     /**
-     * @OneToOne(targetEntity="DecisionMaking")
+     * @ManyToOne(targetEntity="DecisionMaking")
      * @JoinColumn(name="decision_making", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $decision_making;
@@ -304,7 +305,7 @@ class Contacts
      *   @ORM\JoinColumn(name="id_profession", referencedColumnName="id", onDelete="SET NULL")
      * })
      */
-    private $idProfession;
+    private $profession;
 
     /**
      * @var \Salesperson
@@ -403,7 +404,7 @@ class Contacts
         return $this->workName;
     }
 
-    public function setWorkName(string $workName): self
+    public function setWorkName(? string $workName): self
     {
         $this->workName = $workName;
 
@@ -654,12 +655,12 @@ class Contacts
 
     public function getProfession(): ? Profession
     {
-        return $this->idProfession;
+        return $this->profession;
     }
 
-    public function setProfession(? Profession $idProfession): self
+    public function setProfession(? Profession $profession): self
     {
-        $this->idProfession = $idProfession;
+        $this->profession = $profession;
 
         return $this;
     }

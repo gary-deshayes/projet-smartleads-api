@@ -17,7 +17,7 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setIdCompanyCategory($this->getRandomReference("CompanyCategory"));
             $company->setIdSalesperson($this->getRandomReference("Salesperson"));
             $company->setIdLegalStatus($this->getRandomReference("LegalStatus"));
-            $company->setIdNumberEmployees($this->getRandomReference("NumberEmployees"));
+            $company->setNumberEmployees($this->getRandomReference("NumberEmployees"));
             $company->setName($this->faker->company);
             $company->setCreatedAt(new \DateTime());
             $company->setUpdatedAt(new \DateTime());

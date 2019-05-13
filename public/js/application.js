@@ -625,3 +625,302 @@ $("#decision_making_delete").on("click", function (e) {
     });
 })
 
+
+// function drawChart() {
+
+//     var data = google.visualization.arrayToDataTable([
+//         ['Task', 'Hours per Day'],
+//         ['Ouvert', 46],
+//         ['Non délivré', 14],
+//         ['Non ouvert', 20],
+//         ['Ajout/mise à jour des données', 20]
+//     ]);
+
+// google.charts.load('current', {'packages':['corechart']});
+// google.charts.setOnLoadCallback(drawChart);
+
+// function drawChart() {
+
+//   var data = google.visualization.arrayToDataTable([
+//     ['Task', 'Hours per Day'],
+//     ['Ouvert',     46],
+//     ['Non délivré',  14],
+//     ['Non ouvert', 20],
+//     ['Ajout/mise à jour des données', 20]
+//   ]);
+
+//   var options = {
+//     title: 'Performance des opérations',
+//     pieHole : 0.5,
+//   };
+
+//   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+//   chart.draw(data, options);
+// }
+
+//   //doughnut
+//   var ctxD = document.getElementById("doughnutChart").getContext('2d');
+//   var myLineChart = new Chart(ctxD, {
+//     type: 'doughnut',
+//     data: {
+//       labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+
+//       datasets: [{
+//         data: [300, 50, 100, 40, 120],
+//         backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+//         hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+//       }]
+//     },
+//     options: {
+//       responsive: true
+//     }
+//   });
+
+
+//Partie target opération
+
+if ($("#target_operation_entity").val() == "Company") {
+    parameterTargetCompany()
+}
+
+$('#target_operation_entity').on("change", function () {
+    switch ($(this).val()) {
+        case "Company":
+            $("#target_operation_parameter").empty();
+            parameterTargetCompany();
+            switch ($("#target_operation_parameter").val()) {
+                case "postalCode":
+                    inputTargetOperation();
+                    break;
+                case "NumberEmployees":
+                    selectTargetOperation("NumberEmployees");
+                    break;
+                case "CompanyStatus":
+                    selectTargetOperation("CompanyStatus");
+                    break;
+                case "Country":
+                    selectTargetOperation("Country");
+                    break;
+                case "ActivityArea":
+                    selectTargetOperation("ActivityArea");
+                    break;
+                case "Turnovers":
+                    selectTargetOperation("Turnovers");
+                    break;
+            }
+            break;
+        case "Salesperson":
+            $("#target_operation_parameter").empty();
+            parameterTargetSalesperson();
+            console.log($("#target_operation_parameter").val());
+            switch ($("#target_operation_parameter").val()) {
+                case "AffectedArea":
+                    selectTargetOperation("AffectedArea");
+                    break;
+
+            }
+            break;
+        case "Contacts":
+            $("#target_operation_parameter").empty();
+            parameterTargetContacts();
+            console.log($("#target_operation_parameter").val());
+            switch ($("#target_operation_parameter").val()) {
+                case "DecisionMaking":
+                    selectTargetOperation("DecisionMaking");
+                    break;
+                case "Profession":
+                    selectTargetOperation("Profession");
+                    break;
+
+            }
+            break;
+
+    }
+
+})
+
+if ($('#target_operation_parameter').val() == "postalCode") {
+    inputTargetOperation();
+}
+
+$('#target_operation_parameter').on("change", function () {
+    switch ($(this).val()) {
+        case "postalCode":
+            inputTargetOperation();
+            break;
+        case "NumberEmployees":
+            selectTargetOperation("NumberEmployees");
+            break;
+        case "CompanyStatus":
+            selectTargetOperation("CompanyStatus");
+            break;
+        case "Country":
+            selectTargetOperation("Country");
+            break;
+        case "ActivityArea":
+            selectTargetOperation("ActivityArea");
+            break;
+        case "Turnovers":
+            selectTargetOperation("Turnovers");
+            break;
+        case "AffectedArea":
+            selectTargetOperation("AffectedArea");
+            break;
+        case "DecisionMaking":
+            selectTargetOperation("DecisionMaking");
+            break;
+        case "Profession":
+            selectTargetOperation("Profession");
+            break;
+    }
+
+})
+
+
+
+
+function parameterTargetCompany() {
+    $('#target_operation_parameter').append($('<option>', {
+        value: "postalCode",
+        text: 'Code postal'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "NumberEmployees",
+        text: 'Effectifs'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "CompanyStatus",
+        text: 'Statut'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Country",
+        text: 'Pays'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "ActivityArea",
+        text: 'Code NAF'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Turnovers",
+        text: 'Chiffre d\'affaire'
+    }));
+}
+
+function parameterTargetSalesperson() {
+    $('#target_operation_parameter').append($('<option>', {
+        value: "AffectedArea",
+        text: 'Zone affectée'
+    }));
+}
+
+function parameterTargetContacts() {
+    $('#target_operation_parameter').append($('<option>', {
+        value: "DecisionMaking",
+        text: 'Pouvoir décisionnel'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Profession",
+        text: 'Métier'
+    }));
+}
+
+function inputTargetOperation() {
+    if ($("#target_operation_select").length > 0) {
+        $("#target_operation_select").remove()
+    }
+    if ($("#target_operation_input").length == 0) {
+        $("#div-target-value").append($("<input>", {
+            id: "target_operation_input",
+            class: "form-control col-lg-4",
+            name: "target_operation[input]"
+        }))
+    } else {
+        $("#target_operation_input").val("");
+    }
+
+}
+
+function selectTargetOperation(entity) {
+    console.log(entity);
+    if ($("#target_operation_input").length > 0) {
+        $("#target_operation_input").remove()
+    }
+
+
+    if ($("#target_operation_select").length == 0) {
+        $("#div-target-value").append($("<select>", {
+            id: "target_operation_select",
+            class: "form-control col-lg-4",
+            name: "target_operation[select]"
+        }))
+    } else {
+        $("#target_operation_select").empty();
+    }
+
+    //Récupération des valeurs a ajouter au select
+    $.ajax({
+        url: '/admin/operations/selectDynamique/' + entity,
+        type: 'GET',
+        success: function (result) {
+            result.data.forEach(function (res) {
+                if (entity == "Country") {
+                    $('#target_operation_select').append($('<option>', {
+                        value: res.code,
+                        text: res.libelle
+                    }));
+                } else {
+                    $('#target_operation_select').append($('<option>', {
+                        value: res.id,
+                        text: res.libelle
+                    }));
+                }
+
+            })
+
+        }
+    });
+
+
+
+
+}
+
+$("#add-target").on("click", function () {
+    $.ajax({
+        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url: '/admin/operations/sauvegarde_target', // the url where we want to POST
+        data: $("#form_target_operation").serialize(), // our data object
+        dataType: 'json', // what type of data do we expect back from the server
+        encode: true
+    })
+})
+
+$(".btn-delete-target").on("click", function () {
+    let div = $(this);
+
+    $.ajax({
+        type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url: '/admin/operations/delete_target/' + $(this).next().val(), // the url where we want to POST
+        dataType: 'json', // what type of data do we expect back from the server
+        encode: true,
+        success: function (result) {
+            console.log(result);
+            if (result.retour == "1" || result.retour == "1") {
+
+                div.parent().fadeOut({
+                    duration: 1500,
+                    done: function () {
+                        div.parent().remove();
+                        $(".div-target-selected-operation .red-font:eq(0)").text(result.contacts_cibles);
+                        $(".div-target-selected-operation .red-font:eq(1)").text(result.ciblages);
+                    }
+                });
+
+            }
+
+        }
+    })
+})
+
+$(".window-operation").nextAll("div").remove();

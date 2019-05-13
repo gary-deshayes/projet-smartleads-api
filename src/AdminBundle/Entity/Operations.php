@@ -26,8 +26,10 @@ class Operations
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
-     * @Assert\NotBlank(
-     * message = "Cette valeur ne doit pas être vide")
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Le code ne doit pas dépasser {{ limit }} caractères."
+     * )
      * @ORM\Id
      */
     private $code;
@@ -44,7 +46,7 @@ class Operations
     /**
      * @var int
      *
-     * @ORM\Column(name="revival", type="integer", nullable=false)
+     * @ORM\Column(name="revival", type="integer", nullable=true)
      */
     private $revival;
 
@@ -98,7 +100,7 @@ class Operations
     /**
      * @var \DateTime
      * @Assert\DateTime
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updated_at;
 
@@ -146,6 +148,12 @@ class Operations
      */
     private $settings;
 
+    /**
+     * @var Bool
+     * @ORM\Column(name="sent", type="boolean", nullable=false, options={"default": 0})
+     */
+    private $sent;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -187,7 +195,7 @@ class Operations
         return $this->created_at;
     }
 
-    public function setCreated_At(\DateTimeInterface $created_at): self
+    public function setCreated_At(\DateTime $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -361,7 +369,7 @@ class Operations
      *
      * @return  self
      */ 
-    public function setOptInformation(notification $opt_information)
+    public function setOptInformation(bool $opt_information)
     {
         $this->opt_information = $opt_information;
 
@@ -385,7 +393,7 @@ class Operations
      *
      * @return  self
      */ 
-    public function setOptSalesOffer(notification $opt_sales_offer)
+    public function setOptSalesOffer(bool $opt_sales_offer)
     {
         $this->opt_sales_offer = $opt_sales_offer;
 
@@ -408,6 +416,26 @@ class Operations
     public function setSettings($settings)
     {
         $this->settings = $settings;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sent
+     */ 
+    public function getSent(): bool
+    {
+        return $this->sent;
+    }
+
+    /**
+     * Set the value of sent
+     *
+     * @return  self
+     */ 
+    public function setSent(bool $sent)
+    {
+        $this->sent = $sent;
 
         return $this;
     }

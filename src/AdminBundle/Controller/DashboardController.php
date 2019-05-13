@@ -8,10 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/", name="dashboard")
+     * @Route("dashboard/{period}", name="dashboard")
      */
-    public function index()
+    public function dashboard($period)
     {
+        $periods = array("today", "week", "month", "year");
+        //Si il y a une mauvaise période on mets sur today de base
+        if(!in_array($period, $periods)){
+            $period = "today";
+        }
         $repositoryContacts = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
         $data["totalContacts"] = $repositoryContacts->getCountAllContacts();
         // $repositoryOperations = $this->getDoctrine()->getRepository("AdminBundle:Operations");
@@ -20,7 +25,17 @@ class DashboardController extends AbstractController
         
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
-            "data" => $data
+            "data" => $data,
+            "period" => $period
         ]);
+    }
+
+    /**
+     * @Route("dashboard", name="dashboard_redirect")
+     * Permet de rediriger si quelqu'un enlève le paramètre de période
+     */
+    public function redirectToDashboardToday()
+    {
+        return $this->redirectToRoute('dashboard', ['period' => "today"]);
     }
 }

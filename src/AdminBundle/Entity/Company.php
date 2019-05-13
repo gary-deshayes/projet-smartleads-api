@@ -241,7 +241,7 @@ class Company
      *
      * @ORM\ManyToOne(targetEntity="ActivityArea")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_activity_area", referencedColumnName="id", nullable=true)
      * })
      */
     private $activityArea;
@@ -298,7 +298,7 @@ class Company
      *   @ORM\JoinColumn(name="id_number_employees", referencedColumnName="id")
      * })
      */
-    private $idNumberEmployees;
+    private $numberEmployees;
 
     /**
      * @var Turnovers
@@ -611,9 +611,15 @@ class Company
         return $this;
     }
 
+    public function getLegalStatus(): ?LegalStatus
+    {
+        return $this->idLegalStatus;
+    }
+
     public function getIdLegalStatus(): ?LegalStatus
     {
         return $this->idLegalStatus;
+
     }
 
     public function setIdLegalStatus(?LegalStatus $idLegalStatus): self
@@ -623,14 +629,19 @@ class Company
         return $this;
     }
 
-    public function getIdNumberEmployees(): ?NumberEmployees
+    public function getNumberEmployees(): ?NumberEmployees
     {
-        return $this->idNumberEmployees;
+        return $this->numberEmployees;
     }
 
-    public function setIdNumberEmployees(?NumberEmployees $idNumberEmployees): self
+    public function getIdNumberEmployees(): ?NumberEmployees
     {
-        $this->idNumberEmployees = $idNumberEmployees;
+        return $this->numberEmployees;
+    }
+
+    public function setNumberEmployees(?NumberEmployees $numberEmployees): self
+    {
+        $this->numberEmployees = $numberEmployees;
 
         return $this;
     }
