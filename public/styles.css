@@ -96,7 +96,8 @@ input:focus {
 }
 
 #mdp-all {
-  margin-top: -6%; }
+  margin-top: -6%;
+}
 
 .text-muted {
   font-weight: 400;
@@ -371,55 +372,67 @@ input#search-search:focus {
   size: 10px;
   font-weight: bold;
   margin-top: 16%;
-  margin-bottom: 0%; }
+  margin-bottom: 0%;
+}
 
 .text-mdp {
   color: #a0a0a0;
   font-weight: 400;
   font-size: 11px;
-  text-align: center; }
+  text-align: center;
+}
 
 #email_reset_email {
   width: 290px;
-  margin-top: 12px; }
+  margin-top: 12px;
+}
 
 .test23 {
-  padding: 0 !important; }
+  padding: 0 !important;
+}
 
 .emailMdp {
-  height: 40px; }
+  height: 40px;
+}
 
 .annuler-mdp {
   font-size: 13px;
   font-weight: 400;
-  color: #a0a0a0 !important; }
+  color: #a0a0a0 !important;
+}
 
 .annulation-mdp {
-  margin-top: 17px; }
+  margin-top: 17px;
+}
 
 .waves-light#valide-mdp {
   margin-top: 6% !important;
   margin: 0px;
   font-size: 11px;
-  height: 45px; }
+  height: 45px;
+}
 
 .annule-mdp {
   font-size: 13px;
   width: 100%;
-  text-align: center; }
-  .annule-mdp a {
-    color: #a8a8a8;
-    font-weight: 400; }
+  text-align: center;
+}
+.annule-mdp a {
+  color: #a8a8a8;
+  font-weight: 400;
+}
 
 .mdpQuestion {
   color: #e44a6c;
   font-weight: bold;
-  margin-top: 5%; }
+  margin-top: 5%;
+}
 
 .precisionMdp {
   width: 300px;
   text-align: center;
-  color: #919191 !important; }
+  color: #919191 !important;
+}
 
 .div-target-operation {
   background-color: #F2F2F2;
@@ -543,12 +556,14 @@ input#search-search:focus {
 
 .validationsMdp {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+}
 
 .bottom-connect {
   position: absolute;
   bottom: 0;
-  margin-left: 280px; }
+  margin-left: 280px;
+}
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -1087,6 +1102,7 @@ nav#sidebar ul .nav-item i {
   border-radius: 15px;
   color: #fff;
 }
+
 .dashboard-class .nav-pills .nav-item {
   justify-content: space-between; }
   .dashboard-class .top-dashboard .right-top-dashboard {
@@ -1100,10 +1116,12 @@ nav#sidebar ul .nav-item i {
       padding: 5px 12px;
       border-radius: 15px;
       color: #fff; }
+
 .dashboard-class .nav-pill .nav-item {
   border: 2px #EBEBEB solid;
   margin-right: -2px;
 }
+
 .dashboard-class .nav-pills .nav-item:first-child {
   border-radius: 20px 0 0 20px;
 }
@@ -1115,6 +1133,7 @@ nav#sidebar ul .nav-item i {
   font-weight: 500;
   font-size: 12px;
 }
+
 .dashboard-class .nav-pills .nav-item .nav-link.active {
   background-color: transparent;
   color: #999999;
@@ -1131,19 +1150,24 @@ nav#sidebar ul .nav-item i {
     .dashboard-class .nav-pill .nav-item .nav-link.active {
       background-color: transparent;
       color: #999999; }
+
 .dashboard-class .dash-top {
   display: flex;
   justify-content: space-between;
-  padding: 20px; }
-  .dashboard-class .dash-top h4 {
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: bold;
-    color: #888888; }
-  .dashboard-class .dash-top i {
-    font-size: 14px; }
+  padding: 20px;
+}
+.dashboard-class .dash-top h4 {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #888888;
+}
+.dashboard-class .dash-top i {
+  font-size: 14px;
+}
 .dashboard-class .dash-window-block {
   box-shadow: 0px 1px 5px 0px #b3b3b3;
+  height: 100%;
 }
 .dashboard-class .dash-window-block table thead th {
   color: #B3B3B3;
@@ -1169,6 +1193,11 @@ nav#sidebar ul .nav-item i {
   border-radius: 11px;
   padding: 3px 10px;
 }
+
+.dashboard-class .dash-statistiques {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
   box-shadow: 0px 1px 5px 0px #b3b3b3;
   height: 100%; }
   .dashboard-class .dash-window-block table thead th {
@@ -1188,10 +1217,7 @@ nav#sidebar ul .nav-item i {
     background-color: #FFA200;
     border-radius: 11px;
     padding: 3px 10px; }
-.dashboard-class .dash-statistiques {
-  display: flex;
-  flex-wrap: wrap;
-}
+
 .dashboard-class .dash-statistiques .box {
   height: 150px;
   width: 150px;
@@ -1203,6 +1229,7 @@ nav#sidebar ul .nav-item i {
   text-align: center;
   box-shadow: 0px 0px 5px 0px #dedede !important;
 }
+
   flex-wrap: wrap;
   max-width: 800px; }
   .dashboard-class .dash-statistiques .box {
@@ -1244,29 +1271,39 @@ nav#sidebar ul .nav-item i {
     .dashboard-class .dash-statistiques .box .effectif {
       font-size: 35px;
       color: #6d6d6d; }
+
 .dashboard-class .dash-perf-operation #chart {
-  margin-top: -30px; }
-  .dashboard-class .dash-perf-operation #chart .apexcharts-legend-text {
-    margin-left: 10px;
-    font-weight: bold; }
+  margin-top: -30px;
+}
+.dashboard-class .dash-perf-operation #chart .apexcharts-legend-text {
+  margin-left: 10px;
+  font-weight: bold;
+}
 .dashboard-class .dash-indicateur-perf .dash-top {
-  border-bottom: 2px #F5F5F5 solid; }
+  border-bottom: 2px #F5F5F5 solid;
+}
 .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav {
   flex-direction: column;
-  font-size: 13px; }
-  .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li {
-    border-right: 2px #F5F5F5 solid; }
-    .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li:not(:first-child) {
-      border-top: 2px #F5F5F5 solid; }
-    .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li a {
-      padding: 20px;
-      color: #999999;
-      font-weight: 500;
-      border-radius: 0; }
-      .dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li a.active {
-        background-color: transparent;
-        border-left: 3px red solid; }
+  font-size: 13px;
+}
+.dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li {
+  border-right: 2px #F5F5F5 solid;
+}
+.dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li:not(:first-child) {
+  border-top: 2px #F5F5F5 solid;
+}
+.dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li a {
+  padding: 20px;
+  color: #999999;
+  font-weight: 500;
+  border-radius: 0;
+}
+.dashboard-class .dash-indicateur-perf .menu-indicateur-perf .nav li a.active {
+  background-color: transparent;
+  border-left: 3px red solid;
+}
 .dashboard-class .dash-france-map {
+
   height: 100%; }
   .dashboard-class .dash-france-map .france-map {
     height: 100%; }
