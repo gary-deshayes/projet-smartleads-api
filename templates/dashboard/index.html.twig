@@ -240,26 +240,3 @@
 
 
 {% endblock %}
-{% block javascripts %}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-                            
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $('#francemap').vectorMap({
-            map: 'france_fr',
-            hoverOpacity: 0.5,
-            hoverColor: false,
-            backgroundColor: "#ffffff",
-            colors: couleurs,
-            borderColor: "#000000",
-            selectedColor: "#EC0000",
-            enableZoom: false,
-            showTooltip: true
-        });
-    });
-    </script>
-    <script src="{{ asset("js/jquery.vmap.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("js/jquery.vmap.france.js") }}" type="text/javascript"></script>
-	<script src="{{ asset("js/jquery.vmap.colorsFrance.js") }}" type="text/javascript"></script>
-{% endblock %}
