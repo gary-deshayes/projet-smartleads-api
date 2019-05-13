@@ -1017,3 +1017,69 @@ $(".btn-delete-target").on("click", function () {
 })
 
 $(".window-operation").nextAll("div").remove();
+
+$("#suppression-contacts-checked").on("click", function () {
+    getCheckBoxId();
+    console.log(values);
+    if(values.length > 0)
+    {
+        if ( confirm( "Êtes-vous sur de vouloir supprimer les contacts selectionnés ?" ) ) {
+            deleteEntitiesSelected(values);
+            $(':checkbox').prop('checked', false);
+    
+        } else {
+            
+        }
+    }
+    else{
+        alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
+    }
+    
+    
+
+  
+})
+
+function deleteEntitiesSelected(values)
+{
+    var data = {
+        eachId : values
+    };
+
+    var url = "/admin/contacts/delete/many";
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        data: data,
+        success: function(result) {
+            if (result.result == 1) {
+                result.ids.forEach(id => {
+                    $("#check-" + id).parent().parent().parent().fadeOut(1500, function() {
+                        $("#check-" + id).parent().parent().parent().remove();
+                        document.location.reload();
+                      });
+                });
+                
+            }
+            
+        }
+    });
+    
+}
+
+
+$("#suppression-contacts").on("click", function (event) {
+    event.preventDefault();
+    $("#form_delete_contacts").submit();
+})
+
+function getCheckBoxId() {
+    values= [];
+    $("[id^='check']:checked").each(function () {
+        var eachId = $(this).attr("id").split("check-")[1];
+        values.push(eachId);
+    });
+
+}
+
+
