@@ -419,9 +419,12 @@ class OperationsController extends AbstractController
         $formTarget->handleRequest($request);
         $operation = $this->getDoctrine()->getRepository(Operations::class)->findOneBy(array("code" => $arrayTarget["operation"]));
         $value = "";
+        $type = 0;
         if (!isset($arrayTarget["input"])) {
+            $type = 1;
             $value = $arrayTarget["select"];
         } else {
+            $type = 2;
             $value = $arrayTarget["input"];
         }
         $targetOperationExist = $this->getDoctrine()->getRepository(TargetOperation::class)->findOneBy(array(
@@ -431,6 +434,49 @@ class OperationsController extends AbstractController
         ));
         if (!isset($targetOperationExist)) {
             $targetOperation->setSend(0);
+            if ($type == 1) {
+                $targetOperation->setType_value($type);
+                switch ($cible->getParameter()) {
+                    case "NumberEmployees":
+                        $nbEmployee = $this->getDoctrine()->getRepository(NumberEmployees::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($nbEmployee->getLibelle());
+                        break;
+                    case "CompanyStatus":
+                        $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($nbEmcompanyStatusployee->getLibelle());
+                        break;
+                    case "Country":
+                        $country = $this->getDoctrine()->getRepository(Country::class)->findOneBy("code", $cible->getValue());
+                        $targetOperation->setValue_entity($country->getLibelle());
+                        break;
+                    case "ActivityArea":
+                        $activityArea = $this->getDoctrine()->getRepository(ActivityArea::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($activityArea->getLibelle());
+
+                        break;
+                    case "Turnovers":
+                        $turnovers = $this->getDoctrine()->getRepository(Turnovers::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($turnovers->getLibelle());
+
+                        break;
+                    case "AffectedArea":
+                        $affectedArea = $this->getDoctrine()->getRepository(AffectedArea::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($affectedArea->getLibelle());
+
+                        break;
+                    case "Profession":
+                        $profession = $this->getDoctrine()->getRepository(Profession::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($profession->getLibelle());
+
+                        break;
+                    case "DecisionMaking":
+                        $decisionMaking = $this->getDoctrine()->getRepository(DecisionMaking::class)->findOneBy("id", $cible->getValue());
+                        $targetOperation->setValue_entity($decisionMaking->getLibelle());
+
+                        break;
+                }
+            }
+
             $targetOperation->setOperation($operation);
             $targetOperation->setEntity($arrayTarget["entity"]);
             $targetOperation->setParameter($arrayTarget["parameter"]);
