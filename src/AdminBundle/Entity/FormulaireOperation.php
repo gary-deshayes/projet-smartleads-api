@@ -163,6 +163,11 @@ class FormulaireOperation
         return $this->company_mail;
     }
 
+    public function getcompany_mail()
+    {
+        return $this->company_mail;
+    }
+
     /**
      * Set the value of company_mail
      *
@@ -179,6 +184,11 @@ class FormulaireOperation
      * Get the value of company_website
      */ 
     public function getCompanyWebsite()
+    {
+        return $this->company_website;
+    }
+
+    public function getcompany_website()
     {
         return $this->company_website;
     }
@@ -203,6 +213,11 @@ class FormulaireOperation
         return $this->company_fax;
     }
 
+    public function getcompany_fax()
+    {
+        return $this->company_fax;
+    }
+
     /**
      * Set the value of company_fax
      *
@@ -219,6 +234,11 @@ class FormulaireOperation
      * Get the value of company_standard_phone
      */ 
     public function getCompanyStandardPhone()
+    {
+        return $this->company_standard_phone;
+    }
+
+    public function getcompany_standard_phone()
     {
         return $this->company_standard_phone;
     }
@@ -243,6 +263,11 @@ class FormulaireOperation
         return $this->company_country;
     }
 
+    public function getcompany_country()
+    {
+        return $this->company_country;
+    }
+
     /**
      * Set the value of company_country
      *
@@ -259,6 +284,11 @@ class FormulaireOperation
      * Get the value of company_postal_code
      */ 
     public function getCompanyPostalCode()
+    {
+        return $this->company_postal_code;
+    }
+
+    public function getcompany_postal_code()
     {
         return $this->company_postal_code;
     }
@@ -283,6 +313,11 @@ class FormulaireOperation
         return $this->company_address;
     }
 
+    public function getcompany_address()
+    {
+        return $this->company_address;
+    }
+
     /**
      * Set the value of company_address
      *
@@ -299,6 +334,11 @@ class FormulaireOperation
      * Get the value of company_turnovers
      */ 
     public function getCompanyTurnovers()
+    {
+        return $this->company_turnovers;
+    }
+
+    public function getcompany_turnovers()
     {
         return $this->company_turnovers;
     }
@@ -323,6 +363,11 @@ class FormulaireOperation
         return $this->company_number_employees;
     }
 
+    public function getcompany_number_employees()
+    {
+        return $this->company_number_employees;
+    }
+
     /**
      * Set the value of company_number_employees
      *
@@ -339,6 +384,11 @@ class FormulaireOperation
      * Get the value of company_siret
      */ 
     public function getCompanySiret()
+    {
+        return $this->company_siret;
+    }
+
+    public function getcompany_siret()
     {
         return $this->company_siret;
     }
@@ -363,6 +413,11 @@ class FormulaireOperation
         return $this->company_legal_status;
     }
 
+    public function getcompany_legal_status()
+    {
+        return $this->company_legal_status;
+    }
+
     /**
      * Set the value of company_legal_status
      *
@@ -379,6 +434,11 @@ class FormulaireOperation
      * Get the value of company_naf
      */ 
     public function getCompanyNaf()
+    {
+        return $this->company_naf;
+    }
+
+    public function getcompany_naf()
     {
         return $this->company_naf;
     }
@@ -403,6 +463,11 @@ class FormulaireOperation
         return $this->company_name;
     }
 
+    public function getcompany_name()
+    {
+        return $this->company_name;
+    }
+
     /**
      * Set the value of company_name
      *
@@ -419,6 +484,11 @@ class FormulaireOperation
      * Get the value of contacts_workname
      */ 
     public function getContactsWorkname()
+    {
+        return $this->contacts_workname;
+    }
+
+    public function getcontacts_workname()
     {
         return $this->contacts_workname;
     }
@@ -443,6 +513,11 @@ class FormulaireOperation
         return $this->contacts_profession;
     }
 
+    public function getcontacts_profession()
+    {
+        return $this->contacts_profession;
+    }
+
     /**
      * Set the value of contacts_profession
      *
@@ -459,6 +534,11 @@ class FormulaireOperation
      * Get the value of contacts_facebook
      */ 
     public function getContactsFacebook()
+    {
+        return $this->contacts_facebook;
+    }
+
+    public function getcontacts_facebook()
     {
         return $this->contacts_facebook;
     }
@@ -483,6 +563,11 @@ class FormulaireOperation
         return $this->contacts_twitter;
     }
 
+    public function getcontacts_twitter()
+    {
+        return $this->contacts_twitter;
+    }
+
     /**
      * Set the value of contacts_twitter
      *
@@ -499,6 +584,11 @@ class FormulaireOperation
      * Get the value of contacts_linkedin
      */ 
     public function getContactsLinkedin()
+    {
+        return $this->contacts_linkedin;
+    }
+
+    public function getcontacts_linkedin()
     {
         return $this->contacts_linkedin;
     }
@@ -523,6 +613,11 @@ class FormulaireOperation
         return $this->contacts_mobile_phone;
     }
 
+    public function getcontacts_mobile_phone()
+    {
+        return $this->contacts_mobile_phone;
+    }
+
     /**
      * Set the value of contacts_mobile_phone
      *
@@ -539,6 +634,11 @@ class FormulaireOperation
      * Get the value of contacts_phone
      */ 
     public function getContactsPhone()
+    {
+        return $this->contacts_phone;
+    }
+
+    public function getcontacts_phone()
     {
         return $this->contacts_phone;
     }
@@ -563,6 +663,11 @@ class FormulaireOperation
         return $this->contacts_mail_pro;
     }
 
+    public function getcontacts_mail_pro()
+    {
+        return $this->contacts_mail_pro;
+    }
+
     /**
      * Set the value of contacts_mail_pro
      *
@@ -579,6 +684,11 @@ class FormulaireOperation
      * Get the value of contacts_birthdate
      */ 
     public function getContactsBirthdate()
+    {
+        return $this->contacts_birthdate;
+    }
+
+    public function getcontacts_birthdate()
     {
         return $this->contacts_birthdate;
     }
@@ -603,6 +713,11 @@ class FormulaireOperation
         return $this->contacts_lastname;
     }
 
+    public function getcontacts_lastname()
+    {
+        return $this->contacts_lastname;
+    }
+
     /**
      * Set the value of contacts_lastname
      *
@@ -619,6 +734,11 @@ class FormulaireOperation
      * Get the value of contacts_firstname
      */ 
     public function getContactsFirstname()
+    {
+        return $this->contacts_firstname;
+    }
+
+    public function getcontacts_firstname()
     {
         return $this->contacts_firstname;
     }
@@ -642,6 +762,14 @@ class FormulaireOperation
     {
         return $this->contacts_gender;
     }
+
+    //Doctrine generait une classe Proxy identique a cette classe qui demandait cette méthode, je n'ai pas compris pourquoi
+    public function getcontacts_gender()
+    {
+        return $this->contacts_gender;
+    }
+
+    
 
     /**
      * Set the value of contacts_gender

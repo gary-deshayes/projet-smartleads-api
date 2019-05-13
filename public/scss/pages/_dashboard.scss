@@ -219,10 +219,125 @@
 
             .france-map {
                 height: 100%;
-                object {
-                    height: 100%;
-                    width: 100%;
+                svg {
+                    margin-left: -60px;
+                }
 
+                .score {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    p {
+                        color: #999999;
+                        font-size: 13px;
+                        font-weight: bold;
+                    }
+
+                    ul {
+                        padding: 0;
+
+                        li {
+                            color: #B3B3B3;
+                            font-size: 12px;
+                            list-style: none;
+                            font-weight: bold;
+                            
+                            &:not(:last-child) {
+                                margin-bottom: 5px;
+                            }
+
+                            i {
+                                font-size: 10px;
+                                margin-right: 10px;
+
+                                &.sup-100 {
+                                    color: #3A507E;
+                                }
+
+                                &.bet-50-100 {
+                                    color: #59709F;
+                                }
+
+                                &.bet-25-50 {
+                                    color: #8EA1C8;
+                                }
+
+                                &.bet-25-15 {
+                                    color: #B4C1DD;
+                                }
+
+                                &.bet-15-10 {
+                                    color: #D6DBED;
+                                }
+
+                                &.bet-10-5 {
+                                    color: #DFE3EE;
+                                }
+
+                                &.inf-5 {
+                                    color: #EAEEF7;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .jqvmap-label
+                {
+                    position: absolute;
+                    display: none;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    border-radius: 3px;
+                    background: #292929;
+                    color: white;
+                    font-family: sans-serif, Verdana;
+                    font-size: smaller;
+                    padding: 3px;
+                }
+                .jqvmap-zoomin, .jqvmap-zoomout
+                {
+                    position: absolute;
+                    left: 10px;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    border-radius: 3px;
+                    background: #000000;
+                    padding: 3px;
+                    color: white;
+                    width: 10px;
+                    height: 10px;
+                    cursor: pointer;
+                    line-height: 10px;
+                    text-align: center;
+                }
+                .jqvmap-zoomin
+                {
+                    top: 10px;
+                }
+                .jqvmap-zoomout
+                {
+                    top: 30px;
+                }
+                .jqvmap-region
+                {
+                fill: #EAEEF7;
+                cursor: pointer;
+
+                    &#jqvmap1_60 {
+                        fill: #8EA1C8;
+                    }
+                }
+                .jqvmap-ajax_response
+                {
+                width: 100%;
+                height: 500px;
+                }
+
+                #jqvmap1_971,#jqvmap1_972,#jqvmap1_973,#jqvmap1_974 {
+                    display: none;
                 }
             }
         }

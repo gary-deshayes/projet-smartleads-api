@@ -37,7 +37,6 @@ class ContactsRepository extends ServiceEntityRepository
         }
 
         return $query->getQuery();
-
     }
 
     /**
@@ -51,7 +50,7 @@ class ContactsRepository extends ServiceEntityRepository
             ->orderBy('contacts.lastName', 'ASC')
             ->setParameter(":salesperson", $id_user)
             ->getQuery();
-            
+
         return $query->getSingleScalarResult();
     }
 
@@ -70,7 +69,6 @@ class ContactsRepository extends ServiceEntityRepository
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
         return $query->getQuery();
-
     }
 
     /**
@@ -81,11 +79,12 @@ class ContactsRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('contacts')
             ->select('count(contacts.code)')
             ->getQuery();
-            
+
         return $query->getSingleScalarResult();
     }
 
-    public function getContactsInArray($array){
+    public function getContactsInArray($array)
+    {
         $query = $this->createQueryBuilder('contacts')
             ->orderBy('contacts.lastName', 'ASC')
             ->where("contacts.code in (:array)")
@@ -94,7 +93,8 @@ class ContactsRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function getContactsOperationNotSend($array){
+    public function getContactsOperationNotSend($array)
+    {
         $query = $this->createQueryBuilder('contacts')
             ->orderBy('contacts.lastName', 'ASC')
             ->where("contacts.code not in (:array)")
@@ -106,7 +106,8 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts crée ce jour là
      */
-    public function getNumberNewContactsPerDay($since){
+    public function getNumberNewContactsPerDay($since)
+    {
         date_default_timezone_set('Europe/Paris');
         $dateNow = date("Y-m-d H:i");
         $dateBefore = date("Y-m-d 00:00", strtotime($since));
@@ -123,7 +124,8 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts mis à jour ce jour là
      */
-    public function getNumberContactsUpdatedPerDay($since){
+    public function getNumberContactsUpdatedPerDay($since)
+    {
         date_default_timezone_set('Europe/Paris');
         $dateNow = date("Y-m-d H:i");
         $dateBefore = date("Y-m-d 00:00", strtotime($since));
@@ -141,7 +143,8 @@ class ContactsRepository extends ServiceEntityRepository
      * Récupère le nombre de nouveaux contacts depuis la variable envoyée
      * @param $since Permet de savoir depuis quand on cherche les nouveaux contacts
      */
-    public function getNumberNewContactsSince($since){
+    public function getNumberNewContactsSince($since)
+    {
         date_default_timezone_set('Europe/Paris');
         $dateNow = date("Y-m-d H:i");
         $dateBefore = date("Y-m-d 00:00", strtotime($since));
@@ -152,5 +155,35 @@ class ContactsRepository extends ServiceEntityRepository
             ->setParameter('date_fin', $dateNow)
             ->getQuery();
         return $query;
+    }
+
+    public function getContactsWhereCompanyInArray($array)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->where("contacts.company in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsWhereSalespersonInArray($array)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->where("contacts.salesperson in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsBy($parameter, $value)
+    {
+        $query = $this->createQueryBuilder("contacts")
+            ->select("contacts")
+            ->where($parameter .   " = :value")
+            ->setParameter('value', $value)
+            ->getQuery();
+
+
+        return $query->getResult();
     }
 }

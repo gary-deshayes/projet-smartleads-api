@@ -32,7 +32,7 @@ class CompanyRepository extends ServiceEntityRepository
             $query->andWhere('company.name LIKE :search');
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-      
+
         return $query->getQuery();
     }
 
@@ -44,19 +44,20 @@ class CompanyRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('company')
             ->select('count(company.code)')
             ->orderBy('company.name', 'ASC');
-            
-            if($search->getSearch()) {
-                $query->andWhere('company.name LIKE :search ');
-    
-                $query->setParameter(":search", "%" . $search->getSearch() . "%");
-            }
+
+        if ($search->getSearch()) {
+            $query->andWhere('company.name LIKE :search ');
+
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
         return $query->getQuery()->getSingleScalarResult();
     }
 
     /**
      * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts crée ce jour là
      */
-    public function getNumberNewCompanies($since){
+    public function getNumberNewCompanies($since)
+    {
         date_default_timezone_set('Europe/Paris');
         $dateNow = date("Y-m-d H:i");
         $dateBefore = date("Y-m-d 00:00", strtotime($since));
@@ -74,7 +75,8 @@ class CompanyRepository extends ServiceEntityRepository
      * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
      * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
      */
-    public function getNumberNewCompaniesSince($since){
+    public function getNumberNewCompaniesSince($since)
+    {
         date_default_timezone_set('Europe/Paris');
         $dateNow = date("Y-m-d H:i");
         $dateBefore = date("Y-m-d 00:00", strtotime($since));
@@ -91,7 +93,8 @@ class CompanyRepository extends ServiceEntityRepository
      * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
      * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
      */
-    public function getNumberCompaniesBetween($begin, $end){
+    public function getNumberCompaniesBetween($begin, $end)
+    {
         date_default_timezone_set('Europe/Paris');
         $begin = date("Y-m-d 00:00", strtotime($begin));
         $end = date("Y-m-d 00:00", strtotime($end));
@@ -104,5 +107,22 @@ class CompanyRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
-   
+    public function getIdCompanyBy($parameter, $value)
+    {
+        if ($parameter == "company.postalCode") {
+            $query = $this->createQueryBuilder("company")
+                ->select("company.code")
+                ->where($parameter .   " = :value")
+                ->setParameter('value', $value)
+                ->getQuery();
+        } else {
+            $query = $this->createQueryBuilder("company")
+                ->select("company.code")
+                ->where($parameter .   " = :value")
+                ->setParameter('value', $value . "%")
+                ->getQuery();
+        }
+
+        return $query->getResult();
+    }
 }

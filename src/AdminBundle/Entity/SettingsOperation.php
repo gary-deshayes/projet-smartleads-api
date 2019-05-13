@@ -244,6 +244,11 @@ class SettingsOperation
      *
      * @return  string
      */ 
+    public function gettitle_page()
+    {
+        return $this->title_page;
+    }
+
     public function getTitlePage()
     {
         return $this->title_page;
@@ -292,6 +297,11 @@ class SettingsOperation
      *
      * @return  string
      */ 
+    public function getintroduction_title()
+    {
+        return $this->introduction_title;
+    }
+
     public function getIntroductionTitle()
     {
         return $this->introduction_title;
@@ -316,6 +326,11 @@ class SettingsOperation
      *
      * @return  string
      */ 
+    public function getintroduction_text()
+    {
+        return $this->introduction_text;
+    }
+
     public function getIntroductionText()
     {
         return $this->introduction_text;
