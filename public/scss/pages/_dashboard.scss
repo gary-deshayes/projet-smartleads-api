@@ -226,5 +226,99 @@
                 }
             }
         }
+
+        &-stats-quality {
+
+            display: flex;
+            flex-direction: row;
+            font-size: 13px;
+
+            .circle-quality {
+
+                #chart-circle {
+                    min-height: 0px !important;
+                    height: 100px;
+                }
+                width: 280px;
+                max-height: 100px;
+            }
+
+            .chrono-quality {
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 780px;
+
+                .fa-arrow-right {
+                    margin-bottom: 25px;
+                }
+
+                .box-quality {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    font-size: 12px;
+                    margin-top: 25px;
+                    margin-bottom: 25px;
+    
+                    .periode-qualiy {
+                        font-weight: 500;
+                        color: #999999;
+                    }
+    
+                    .trait-rouge-quality {
+                        margin-top: 13px;
+                        background: rgba(228, 0, 0, 0.829);
+                        width: 110px;
+                        height: 2px;
+                    }
+                    
+                    .trait-orange-quality {
+                        margin-top: 13px;
+                        background: #ffa405;
+                        width: 110px;
+                        height: 2px;
+                    }
+    
+                    .trait-jaune-quality {
+                        margin-top: 13px;
+                        background: #ffde05;
+                        width: 110px;
+                        height: 2px;
+                    }
+    
+                    .trait-vert-quality {
+                        margin-top: 13px;
+                        background: #b8e22f;
+                        width: 110px;
+                        height: 2px;
+                    }
+
+                    .trait-vert-fonce-quality {
+                        margin-top: 13px;
+                        background: #00b900;
+                        width: 110px;
+                        height: 2px;
+                    }
+    
+                    .nb-contact-quality {
+                        margin-top: 13px;
+                        font-weight: 500;
+                        color: #bebebe;
+                    }
+    
+                    .pourcentage-quality {
+                        margin-top: 5px;
+                        font-weight: 500;
+                        color: #555555;
+                        font-size: 15px;
+                    }
+
+            }
+
+            
+            }
+        }
     }
 }

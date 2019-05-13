@@ -624,4 +624,97 @@ $("#decision_making_delete").on("click", function (e) {
         }
     });
 })
+    //colors: ["ffa200"],
+
+var options = {
+    chart: {
+        height: 230,
+        type: 'radialBar',
+    },
+
+    series: [50],
+    labels: ["Indice de qualité CRM"],
+    colors: ["#ffa200"],
+    plotOptions: {
+        radialBar: {
+            startAngle: -90,
+            endAngle: 90,
+            hollow: {
+              margin: 15,
+              size: "70%"
+            },
+           
+            dataLabels: {
+              showOn: "always",
+              name: {
+                offsetY: 20,
+                show: true,
+                color: "#999999",
+                fontSize: "12px",
+                fontWeight: "bold"
+              },
+              value: {
+                offsetY: -22,
+                color: "#999999",
+                fontSize: "28px",
+                show: true
+              }
+            }
+        }
+    },
+
+    stroke: {
+        lineCap: "round",
+      },
+}
+
+var chart = new ApexCharts(
+    document.querySelector("#chart-circle"),
+    options
+);
+
+chart.render();
+
+
+var options1 = {
+    chart: {
+      height: 280,
+      type: "radialBar",
+    },
+    series: [67],
+    colors: ["#20E647"],
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 135,
+        track: {
+          background: '#333',
+          startAngle: -135,
+          endAngle: 135,
+        },
+        dataLabels: {
+          name: {
+            show: false,
+          },
+          value: {
+            fontSize: "30px",
+            show: true
+          }
+        }
+      }
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        shade: "dark",
+        type: "horizontal",
+        gradientToColors: ["#87D4F9"],
+        stops: [0, 100]
+      }
+    },
+    stroke: {
+      lineCap: "butt"
+    },
+    labels: ["Progress"]
+  };
 
