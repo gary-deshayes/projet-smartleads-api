@@ -625,3 +625,52 @@ $("#decision_making_delete").on("click", function (e) {
     });
 })
 
+$("#suppression-contacts-checked").on("click", function () {
+    getCheckBoxId();
+    console.log(values);
+    
+    deleteEntitiesSelected(values);
+    
+     
+})
+
+function deleteEntitiesSelected(values)
+{
+    var data = {
+        eachId : values
+    };
+
+    var url = "/admin/contacts/delete/many";
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        data: data,
+        success: function(result) {
+            if (result.result == 1) {
+                result.ids.forEach(id => {
+                    $("#check-" + id).parent().parent().parent().fadeOut(1500, function() {
+                        $("#check-" + id).parent().parent().parent().remove();
+                      });
+                });
+                
+            }
+        }
+    });
+}
+
+
+$("#suppression-contacts").on("click", function (event) {
+    event.preventDefault();
+    $("#form_delete_contacts").submit();
+})
+
+function getCheckBoxId() {
+    values= [];
+    $("[id^='check']:checked").each(function () {
+        var eachId = $(this).attr("id").split("check-")[1];
+        values.push(eachId);
+    });
+
+}
+
+

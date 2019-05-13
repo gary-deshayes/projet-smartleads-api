@@ -125,7 +125,7 @@ class ContactsController extends AbstractController
     }
 
     /**
-     * @Route("/{code}", name="contacts_delete", methods={"DELETE"})
+     * @Route("delete_one/{code}", name="contacts_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Contacts $contact): Response
     {
@@ -136,6 +136,32 @@ class ContactsController extends AbstractController
         }
 
         return $this->redirectToRoute('contacts_index');
+    }
+
+    /**
+     * @Route("/delete/many", name="contacts_delete_many", methods={"DELETE"})
+     */
+    public function delete_many(Request $request): Response
+    {
+        $eachId = $request->request->get("eachId");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        foreach ($eachId as $id)
+        {
+            $contact = $this->getDoctrine()->getRepository(Contacts::class)->findOneBy(['code' => $id]);
+
+            $entityManager->remove($contact);
+                
+        }
+        $data = [
+            'ids' => $eachId,
+            'result' => true
+        ];
+
+        $entityManager->flush();
+        // return $this->redirectToRoute('contacts_index');
+        return new JsonResponse($data);
+
     }
 
     /**
