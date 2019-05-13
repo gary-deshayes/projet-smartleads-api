@@ -902,42 +902,77 @@ nav#sidebar ul {
     height: 100%; }
     .dashboard-class .dash-france-map .france-map svg {
       margin-left: -60px; }
-.dashboard-class .jqvmap-label {
-  position: absolute;
-  display: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background: #292929;
-  color: white;
-  font-family: sans-serif, Verdana;
-  font-size: smaller;
-  padding: 3px; }
-.dashboard-class .jqvmap-zoomin, .dashboard-class .jqvmap-zoomout {
-  position: absolute;
-  left: 10px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background: #000000;
-  padding: 3px;
-  color: white;
-  width: 10px;
-  height: 10px;
-  cursor: pointer;
-  line-height: 10px;
-  text-align: center; }
-.dashboard-class .jqvmap-zoomin {
-  top: 10px; }
-.dashboard-class .jqvmap-zoomout {
-  top: 30px; }
-.dashboard-class .jqvmap-region {
-  fill: #CCC;
-  cursor: pointer; }
-.dashboard-class .jqvmap-ajax_response {
-  width: 100%;
-  height: 500px; }
-.dashboard-class #jqvmap1_971, .dashboard-class #jqvmap1_972, .dashboard-class #jqvmap1_973, .dashboard-class #jqvmap1_974 {
-  display: none; }
+    .dashboard-class .dash-france-map .france-map .score {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: flex-start; }
+      .dashboard-class .dash-france-map .france-map .score p {
+        color: #999999;
+        font-size: 13px;
+        font-weight: bold; }
+      .dashboard-class .dash-france-map .france-map .score ul {
+        padding: 0; }
+        .dashboard-class .dash-france-map .france-map .score ul li {
+          color: #B3B3B3;
+          font-size: 12px;
+          list-style: none;
+          font-weight: bold; }
+          .dashboard-class .dash-france-map .france-map .score ul li:not(:last-child) {
+            margin-bottom: 5px; }
+          .dashboard-class .dash-france-map .france-map .score ul li i {
+            font-size: 10px;
+            margin-right: 10px; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.sup-100 {
+              color: #3A507E; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.bet-50-100 {
+              color: #59709F; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.bet-25-50 {
+              color: #8EA1C8; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.bet-25-15 {
+              color: #B4C1DD; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.bet-15-10 {
+              color: #D6DBED; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.bet-10-5 {
+              color: #DFE3EE; }
+            .dashboard-class .dash-france-map .france-map .score ul li i.inf-5 {
+              color: #EAEEF7; }
+    .dashboard-class .dash-france-map .france-map .jqvmap-label {
+      position: absolute;
+      display: none;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      background: #292929;
+      color: white;
+      font-family: sans-serif, Verdana;
+      font-size: smaller;
+      padding: 3px; }
+    .dashboard-class .dash-france-map .france-map .jqvmap-zoomin, .dashboard-class .dash-france-map .france-map .jqvmap-zoomout {
+      position: absolute;
+      left: 10px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      background: #000000;
+      padding: 3px;
+      color: white;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+      line-height: 10px;
+      text-align: center; }
+    .dashboard-class .dash-france-map .france-map .jqvmap-zoomin {
+      top: 10px; }
+    .dashboard-class .dash-france-map .france-map .jqvmap-zoomout {
+      top: 30px; }
+    .dashboard-class .dash-france-map .france-map .jqvmap-region {
+      fill: #CCC;
+      cursor: pointer; }
+    .dashboard-class .dash-france-map .france-map .jqvmap-ajax_response {
+      width: 100%;
+      height: 500px; }
+    .dashboard-class .dash-france-map .france-map #jqvmap1_971, .dashboard-class .dash-france-map .france-map #jqvmap1_972, .dashboard-class .dash-france-map .france-map #jqvmap1_973, .dashboard-class .dash-france-map .france-map #jqvmap1_974 {
+      display: none; }
 
 /*# sourceMappingURL=styles.css.map */
