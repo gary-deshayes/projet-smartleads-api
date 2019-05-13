@@ -473,14 +473,14 @@ var options = {
                 size: '80%'
             }
         }
-      },
-      legend: {
+    },
+    legend: {
         show: true,
         showForSingleSeries: false,
         showForNullSeries: true,
         showForZeroSeries: true,
         position: 'bottom',
-        horizontalAlign: 'left', 
+        horizontalAlign: 'left',
         offsetY: 30,
         itemMargin: {
             horizontal: 0,
@@ -533,14 +533,14 @@ var options = {
         enabled: true,
     },
     series: [{
-            name: "Opérations",
-            data: [28, 29, 33, 36, 32, 32, 33]
-        },
-        {
-            //Pour avoir le point en haut a droite
-            name: "",
-            data: []
-        }
+        name: "Opérations",
+        data: [28, 29, 33, 36, 32, 32, 33]
+    },
+    {
+        //Pour avoir le point en haut a droite
+        name: "",
+        data: []
+    }
     ],
     grid: {
         borderColor: '#e7e7e7',
@@ -550,7 +550,7 @@ var options = {
         },
     },
     markers: {
-        
+
         size: 6
     },
     xaxis: {
@@ -892,11 +892,75 @@ $("#add-target").on("click", function () {
         url: '/admin/operations/sauvegarde_target', // the url where we want to POST
         data: $("#form_target_operation").serialize(), // our data object
         dataType: 'json', // what type of data do we expect back from the server
-        encode: true
+        encode: true,
+        success: function (result) {
+            console.log(result);
+            let div = '<div class="row div-target-operation">';
+            div += '<div class="col-lg-3 white-back">';
+            switch (result.target.entity) {
+                case "Company":
+                    div += "Entreprise";
+                    break;
+                case "Contacts":
+                    div += "Contact";
+                    break;
+                case "Salesperson":
+                    div += "Commercial";
+                    break;
+            }
+            div += '</div>';
+            div += '<p>Dont</p>';
+            div += '<div class="col-lg-3 white-back">';
+            switch (result.target.parameter) {
+                case "NumberEmployees":
+                    div += "Effectifs";
+                    break;
+                case "Country":
+                    div += "Pays";
+                    break;
+                case "AffectedArea":
+                    div += "Zone affectée";
+                    break;
+                case "ActivityArea":
+                    div += "Code NAF";
+                    break;
+                case "CompanyStatus":
+                    div += "Statut";
+                    break;
+                case "postalCode":
+                    div += "Code postal";
+                    break;
+                case "Turnovers":
+                    div += "Chiffre d'affaire";
+                    break;
+                case "Profession":
+                    div += "Métier";
+                    break;
+                case "DecisionMaking":
+                    div += "Pouvoir décisionnel";
+                    break;
+            }
+            div += '</div>';
+            div += '<p>=</p>';
+            div += '<div class="col-lg-3 white-back" id="div-target-value">';
+            if (result.target.type_value == 1) {
+                div += result.target.value_entity;
+            } else {
+                div += result.target.value;
+            }
+            div += '</div>';
+            div += '<button class="btn-delete-target"> <i class="fas fa-times"></i></button>';
+            div += '<input hidden value="' + result.target.id + '"/>';
+            $("#list_ciblages_valide").prepend(div);
+
+            $(".div-target-selected-operation .red-font:eq(0)").text(result.contacts_cibles);
+            $(".div-target-selected-operation .red-font:eq(1)").text(result.ciblages);
+
+        }
     })
 })
 
-$(".btn-delete-target").on("click", function () {
+$("#list_ciblages_valide").on("click", 'button', function () {
     let div = $(this);
 
     $.ajax({
@@ -909,7 +973,7 @@ $(".btn-delete-target").on("click", function () {
             if (result.retour == "1" || result.retour == "1") {
 
                 div.parent().fadeOut({
-                    duration: 1500,
+                    duration: 750,
                     done: function () {
                         div.parent().remove();
                         $(".div-target-selected-operation .red-font:eq(0)").text(result.contacts_cibles);

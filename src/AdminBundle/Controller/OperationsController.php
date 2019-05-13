@@ -2,27 +2,36 @@
 
 namespace App\AdminBundle\Controller;
 
-use App\AdminBundle\EntitySearch\Search;
-use App\AdminBundle\Entity\Company;
-use App\AdminBundle\Entity\Contacts;
-use App\AdminBundle\Entity\FormulaireOperation;
-use App\AdminBundle\Entity\Operations;
-use App\AdminBundle\Entity\OperationSent;
-use App\AdminBundle\Entity\Salesperson;
-use App\AdminBundle\Entity\SettingsOperation;
-use App\AdminBundle\Entity\TargetOperation;
-use App\AdminBundle\Form\FormulaireOperationType;
-use App\AdminBundle\Form\OperationsType;
-use App\AdminBundle\Form\SearchType;
-use App\AdminBundle\Form\SettingsOperationType;
-use App\AdminBundle\Form\TargetOperationType;
-use App\AdminBundle\Service\MailerService;
 use Faker;
+use Faker\Factory;
+use App\AdminBundle\Entity\Company;
+use App\AdminBundle\Entity\Country;
+use App\AdminBundle\Entity\Contacts;
+use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\Entity\Turnovers;
+use App\AdminBundle\Entity\Operations;
+use App\AdminBundle\Entity\Profession;
+use App\AdminBundle\Entity\Salesperson;
+use App\AdminBundle\Entity\ActivityArea;
+use App\AdminBundle\Entity\AffectedArea;
+use App\AdminBundle\EntitySearch\Search;
+use App\AdminBundle\Form\OperationsType;
+use App\AdminBundle\Entity\CompanyStatus;
+use App\AdminBundle\Entity\OperationSent;
+use App\AdminBundle\Entity\DecisionMaking;
+use App\AdminBundle\Service\MailerService;
+use App\AdminBundle\Entity\NumberEmployees;
+use App\AdminBundle\Entity\TargetOperation;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AdminBundle\Entity\SettingsOperation;
+use App\AdminBundle\Form\TargetOperationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\AdminBundle\Entity\FormulaireOperation;
+use App\AdminBundle\Form\SettingsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\AdminBundle\Form\FormulaireOperationType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/operations")
@@ -69,7 +78,8 @@ class OperationsController extends AbstractController
     /**
      * @Route("/new", name="operations_new", methods={"GET","POST"})
      */
-    function new (Request $request): Response {
+    function new(Request $request): Response
+    {
         $repoOperation = $this->getDoctrine()->getRepository(Operations::class);
         $this->faker = Faker\Factory::create('fr_FR');
         $operation = new Operations();
@@ -83,7 +93,7 @@ class OperationsController extends AbstractController
             } while ($repoOperation->findOneBy(array("code" => $code)) != null);
             $operation->setCode($code);
             $operation->setCreated_At(new \DateTime());
-            $operation->setSent(0);
+            $operation->setSent(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($operation);
             $entityManager->flush();
@@ -329,7 +339,6 @@ class OperationsController extends AbstractController
                     case 5:
                         $nombre["desabonnement"]++;
                         break;
-
                 }
             }
             $pourcentage["nonouvert"] = round((100 * $nombre["non-ouvert"]) / count($operationsSents));
@@ -414,9 +423,6 @@ class OperationsController extends AbstractController
         $arrayTarget = $request->get('target_operation');
         $targetOperation = new TargetOperation();
 
-        $formTarget = $this->createForm(TargetOperationType::class, $targetOperation);
-
-        $formTarget->handleRequest($request);
         $operation = $this->getDoctrine()->getRepository(Operations::class)->findOneBy(array("code" => $arrayTarget["operation"]));
         $value = "";
         $type = 0;
@@ -434,43 +440,43 @@ class OperationsController extends AbstractController
         ));
         if (!isset($targetOperationExist)) {
             $targetOperation->setSend(0);
+            $targetOperation->setType_value($type);
             if ($type == 1) {
-                $targetOperation->setType_value($type);
-                switch ($cible->getParameter()) {
+                switch ($arrayTarget["parameter"]) {
                     case "NumberEmployees":
-                        $nbEmployee = $this->getDoctrine()->getRepository(NumberEmployees::class)->findOneBy("id", $cible->getValue());
+                        $nbEmployee = $this->getDoctrine()->getRepository(NumberEmployees::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($nbEmployee->getLibelle());
                         break;
                     case "CompanyStatus":
-                        $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findOneBy("id", $cible->getValue());
-                        $targetOperation->setValue_entity($nbEmcompanyStatusployee->getLibelle());
+                        $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findOneBy(array("code" => $value));
+                        $targetOperation->setValue_entity($companyStatus->getLibelle());
                         break;
                     case "Country":
-                        $country = $this->getDoctrine()->getRepository(Country::class)->findOneBy("code", $cible->getValue());
+                        $country = $this->getDoctrine()->getRepository(Country::class)->findOneBy(array("code" => $value));
                         $targetOperation->setValue_entity($country->getLibelle());
                         break;
                     case "ActivityArea":
-                        $activityArea = $this->getDoctrine()->getRepository(ActivityArea::class)->findOneBy("id", $cible->getValue());
+                        $activityArea = $this->getDoctrine()->getRepository(ActivityArea::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($activityArea->getLibelle());
 
                         break;
                     case "Turnovers":
-                        $turnovers = $this->getDoctrine()->getRepository(Turnovers::class)->findOneBy("id", $cible->getValue());
+                        $turnovers = $this->getDoctrine()->getRepository(Turnovers::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($turnovers->getLibelle());
 
                         break;
                     case "AffectedArea":
-                        $affectedArea = $this->getDoctrine()->getRepository(AffectedArea::class)->findOneBy("id", $cible->getValue());
+                        $affectedArea = $this->getDoctrine()->getRepository(AffectedArea::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($affectedArea->getLibelle());
 
                         break;
                     case "Profession":
-                        $profession = $this->getDoctrine()->getRepository(Profession::class)->findOneBy("id", $cible->getValue());
+                        $profession = $this->getDoctrine()->getRepository(Profession::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($profession->getLibelle());
 
                         break;
                     case "DecisionMaking":
-                        $decisionMaking = $this->getDoctrine()->getRepository(DecisionMaking::class)->findOneBy("id", $cible->getValue());
+                        $decisionMaking = $this->getDoctrine()->getRepository(DecisionMaking::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($decisionMaking->getLibelle());
 
                         break;
@@ -487,7 +493,23 @@ class OperationsController extends AbstractController
             $em->flush();
         }
 
-        $response = new Response(json_encode($targetOperation), 200);
+        $ciblages = $this->getDoctrine()->getRepository(TargetOperation::class)->findBy(array("operation" => $operation->getCode()));
+        //La méthode fais le tri des cibles
+        $contactsCiblesSansDoublons = self::recuperationCiblages($ciblages);
+        
+        $data = [
+            "target" => [
+                "id" => $targetOperation->getId(),
+                "entity" => $targetOperation->getEntity(),
+                "parameter" => $targetOperation->getParameter(),
+                "type_value" => $targetOperation->getType_Value(),
+                "value"  => $targetOperation->getValue(),
+                "value_entity" => $targetOperation->getValue_Entity(),
+            ],
+            "contacts_cibles" => count($contactsCiblesSansDoublons),
+            "ciblages" => count($ciblages)
+        ];
+        $response = new Response(json_encode($data), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
