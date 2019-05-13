@@ -11,7 +11,7 @@
     {{ form_start(parameters) }}
 
     <div class="d-flex">
-        <div class="col-lg-2">
+        <div class="col-lg-2 flex-column-center">
             {% if vich_uploader_asset(salesperson, 'imageFile') is null %}
 
             <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
@@ -27,13 +27,13 @@
 
             {{ form_widget(parameters.imageFile, { "attr" : { "class" : "display-none"}}) }}
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-10 form-style">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="row">
                         {{ form_label(parameters.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                         }}
-                        {{ form_widget(parameters.email, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                        {{ form_widget(parameters.email, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                         {{ form_errors(parameters.email) }}
                     </div>
                 </div>
@@ -47,11 +47,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="row">
                         {{ form_label(parameters.linkedin, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                         }}
-                        {{ form_widget(parameters.linkedin, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                        {{ form_widget(parameters.linkedin, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                         {{ form_errors(parameters.linkedin) }}
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="row">
                         {{ form_label(parameters.twitter, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
                         }}
-                        {{ form_widget(parameters.twitter, { "attr" : { "class" : "form-control col-lg-4"}}) }}
+                        {{ form_widget(parameters.twitter, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                         {{ form_errors(parameters.twitter) }}
                     </div>
                 </div>
@@ -82,15 +82,14 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-radius-red">
-                {{ button_label|default('Save') }}</button>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-radius-red mt-5">
+                    {{ button_label|default('Sauvegarder') }}
+                </button>
+            </div>
         </div>
     </div>
     {{ form_end(parameters) }}
-
-    <a href="{{ path('salesperson_index') }}">back to list</a>
-
-    {{ include('salesperson/_delete_form.html.twig') }}
 
 </div>
 {% endblock %}

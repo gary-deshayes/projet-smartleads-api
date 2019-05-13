@@ -323,8 +323,12 @@
                 }
                 .jqvmap-region
                 {
-                fill: #CCC;
+                fill: #EAEEF7;
                 cursor: pointer;
+
+                    &#jqvmap1_60 {
+                        fill: #8EA1C8;
+                    }
                 }
                 .jqvmap-ajax_response
                 {

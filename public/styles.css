@@ -967,8 +967,10 @@ nav#sidebar ul {
     .dashboard-class .dash-france-map .france-map .jqvmap-zoomout {
       top: 30px; }
     .dashboard-class .dash-france-map .france-map .jqvmap-region {
-      fill: #CCC;
+      fill: #EAEEF7;
       cursor: pointer; }
+      .dashboard-class .dash-france-map .france-map .jqvmap-region#jqvmap1_60 {
+        fill: #8EA1C8; }
     .dashboard-class .dash-france-map .france-map .jqvmap-ajax_response {
       width: 100%;
       height: 500px; }
