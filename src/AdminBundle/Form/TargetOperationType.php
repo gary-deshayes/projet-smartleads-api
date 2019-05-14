@@ -7,6 +7,7 @@ use App\AdminBundle\Entity\TargetOperation;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 
 class TargetOperationType extends AbstractType
 {
@@ -21,7 +22,8 @@ class TargetOperationType extends AbstractType
             ],
         ])
         ->add('parameter', ChoiceType::class, [
-            
+            "allow_extra_fields" => true,
+            'choice_loader' => null
         ])
         ;
     }
@@ -30,6 +32,7 @@ class TargetOperationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => TargetOperation::class,
+            "allow_extra_fields" => true
         ]);
     }
 }

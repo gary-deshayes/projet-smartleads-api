@@ -58,7 +58,20 @@ class TargetOperation
      * @ORM\Column(name="send", type="integer", length=1,  nullable=false)
      */
     private $send;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="type_value", type="integer", length=1,  nullable=false)
+     */
+    private $type_value;
    
+    /**
+     * @var string|NULL
+     *
+     * @ORM\Column(name="value_entity", type="string", length=255,  nullable=true)
+     */
+    private $value_entity;
 
 
 
@@ -201,6 +214,54 @@ class TargetOperation
     public function setSend(int $send)
     {
         $this->send = $send;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of type_value
+     *
+     * @return  int
+     */ 
+    public function getType_value()
+    {
+        return $this->type_value;
+    }
+
+    /**
+     * Set the value of type_value
+     *
+     * @param  int  $type_value
+     *
+     * @return  self
+     */ 
+    public function setType_value(int $type_value)
+    {
+        $this->type_value = $type_value;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of value_entity
+     *
+     * @return  string|NULL
+     */ 
+    public function getValue_entity()
+    {
+        return $this->value_entity;
+    }
+
+    /**
+     * Set the value of value_entity
+     *
+     * @param  string $value_entity
+     *
+     * @return  self
+     */ 
+    public function setValue_entity($value_entity)
+    {
+        $this->value_entity = $value_entity;
 
         return $this;
     }

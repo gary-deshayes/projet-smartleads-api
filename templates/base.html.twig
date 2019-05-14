@@ -16,11 +16,12 @@
         <link rel="stylesheet" href="{{ asset("star-rating-svg.css") }}">
         <link rel="stylesheet" href="{{ asset("styles.css") }}">
         <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="wrapper">
+        <div
+            class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
@@ -46,7 +47,7 @@
                         </a>
                     </li>
                     {% if is_granted("ROLE_DIRECTEUR") %}
-                        <li class="nav-item {% if (app.request.attributes.get('_route')  == 'salesperson_index' or app.request.attributes.get('_route')  == 'salesperson_new' or app.request.attributes.get('_route')  == 'salesperson_edit')%}li-active{% endif %}" >
+                        <li class="nav-item {% if (app.request.attributes.get('_route')  == 'salesperson_index' or app.request.attributes.get('_route')  == 'salesperson_new' or app.request.attributes.get('_route')  == 'salesperson_edit')%}li-active{% endif %}">
                             <a class="nav-link" href="{{ path('salesperson_index') }}">
                                 <i class="fas fa-handshake"></i>
                                 <span>Commerciaux</span>
@@ -147,30 +148,30 @@
                 </div>
             </div>
         </div>
-        
-            <!-- JQuery -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-            <!-- Bootstrap tooltips -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js" type="text/javascript"></script>
-            <!-- Bootstrap core JavaScript -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
-            <!-- MDB core JavaScript -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/js/mdb.min.js" type="text/javascript"></script>
-            <!-- Charts dashboard -->
-            <script src='https://cdn.jsdelivr.net/npm/apexcharts'></script>
-            <!-- Systeme de tags -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-            <!-- JQuery UI -->
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            <!-- Application Javascript -->
-            <script type="text/javascript" src="{{ asset("js/jquery.star-rating-svg.js") }}"></script>
-            <!-- Application Javascript -->
-            <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
 
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-                            
-            <script type="text/javascript">
-            $(document).ready(function() {
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+        <!-- Bootstrap tooltips -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js" type="text/javascript"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- MDB core JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/js/mdb.min.js" type="text/javascript"></script>
+        <!-- Charts dashboard -->
+        <script src='https://cdn.jsdelivr.net/npm/apexcharts'></script>
+        <!-- Systeme de tags -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <!-- JQuery UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- Application Javascript -->
+        <script type="text/javascript" src="{{ asset("js/jquery.star-rating-svg.js") }}"></script>
+        <!-- Application Javascript -->
+        <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
+
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
                 $('#francemap').vectorMap({
                     map: 'france_fr',
                     hoverOpacity: 0.5,
@@ -183,13 +184,10 @@
                     showTooltip: true
                 });
             });
-            </script>
-            <script src="{{ asset("js/jquery.vmap.js") }}" type="text/javascript"></script>
-            <script src="{{ asset("js/jquery.vmap.france.js") }}" type="text/javascript"></script>
-            <script src="{{ asset("js/jquery.vmap.colorsFrance.js") }}" type="text/javascript"></script>
-        {% block javascripts %}
-
-
-        {% endblock %}
+        </script>
+        <script src="{{ asset("js/jquery.vmap.js") }}" type="text/javascript"></script>
+        <script src="{{ asset("js/jquery.vmap.france.js") }}" type="text/javascript"></script>
+        <script src="{{ asset("js/jquery.vmap.colorsFrance.js") }}" type="text/javascript"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

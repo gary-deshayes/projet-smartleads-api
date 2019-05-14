@@ -29,7 +29,7 @@
         <p class="red-font">{{ ciblages | length}}</p>
         <p>
             critères de ciblages ajoutés</p>
-        <div>
+        <div id="list_ciblages_valide">
             {% for cible in ciblages %}
                 <div class="row div-target-operation">
                     <div class="col-lg-3 white-back">
@@ -66,8 +66,12 @@
                     </div>
                     <p>=</p>
                     <div class="col-lg-3 white-back" id="div-target-value">
-
-                        {{cible.value }}</div>
+                        {% if cible.type_value == 1 %}
+                            {{cible.value_entity }}
+                        {% else %}
+                            {{cible.value }}
+                        {% endif %}
+                        </div>
                     {% if operation.sent == false %}
                         <button class="btn-delete-target">
                             <i class="fas fa-times"></i>
