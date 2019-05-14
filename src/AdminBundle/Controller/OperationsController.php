@@ -448,7 +448,7 @@ class OperationsController extends AbstractController
                         $targetOperation->setValue_entity($nbEmployee->getLibelle());
                         break;
                     case "CompanyStatus":
-                        $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findOneBy(array("code" => $value));
+                        $companyStatus = $this->getDoctrine()->getRepository(CompanyStatus::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($companyStatus->getLibelle());
                         break;
                     case "Country":

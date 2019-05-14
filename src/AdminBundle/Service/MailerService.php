@@ -47,7 +47,7 @@ class MailerService
         $message = (new \Swift_Message($settings_operation->getMailObject()))
             // ->setFrom(getEnv("MAILER_FROM"))
             ->setFrom('smartleads.supp@outlook.com')
-            ->setTo("deshayesgary@hotmail.fr")
+            ->setTo("smartleads@mailforspam.com")
             ->setBody(
                 $this->template->render(
                     "operations/mail_view.html.twig",
