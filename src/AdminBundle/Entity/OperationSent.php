@@ -68,6 +68,13 @@ class OperationSent
 
     /**
      * @var string
+     * 
+     * @ORM\Column(name="messageID", type="string", length=255, nullable=false)
+     */
+    private $messageID;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="uniqIdContact", type="string", length=255, nullable=false)
      */
