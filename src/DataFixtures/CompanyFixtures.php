@@ -18,6 +18,7 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setIdSalesperson($this->getRandomReference("Salesperson"));
             $company->setIdLegalStatus($this->getRandomReference("LegalStatus"));
             $company->setNumberEmployees($this->getRandomReference("NumberEmployees"));
+            $company->setCompanyStatus($this->getRandomReference("CompanyStatus"));
             $company->setName($this->faker->company);
             $company->setCreatedAt(new \DateTime());
             $company->setUpdatedAt(new \DateTime());
@@ -28,7 +29,6 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             $company->setPhone("03" . $this->faker->randomNumber($nbDigits = 8, $strict = false));
             $company->setFax($this->faker->regexify('[0-9]{10}'));
             $company->setActif(0);
-            $company->setWebsite(0);
             $company->setCreatedAtCompany($this->faker->dateTime($max = 'now', $timezone = null));
             $company->setSiret(str_replace(" ", "", $this->faker->siret));
             $company->setNafCode($this->faker->randomNumber($nbDigits = 4, $strict = false) . $this->faker->randomLetter);
@@ -48,7 +48,8 @@ class CompanyFixtures extends BaseFixture implements DependentFixtureInterface
             ActivityAreaFixtures::class,
             SalespersonFixtures::class,
             LegalStatusFixtures::class,
-            NumberEmployeesFixtures::class
+            NumberEmployeesFixtures::class,
+            CompanyStatusFixtures::class
         );
     }
 }
