@@ -14,6 +14,7 @@ class MailjetNotificationsController extends AbstractController
      */
     public function notification(Request $request)
     {
+        
         dump($request);
         $data = [
             "receive" => true

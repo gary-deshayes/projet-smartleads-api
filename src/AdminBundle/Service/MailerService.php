@@ -58,7 +58,7 @@ class MailerService
                     "prenom" => $contact->getLastName(),
                     "texte" => $settings_operation->getTextMail(),
                     "settings_operation" => $settings_operation,
-                    "link" => $_SERVER['REQUEST_URI'] . "/operation/" . $operation->getName() . "/" . $uniqid
+                    "link" => "/operation/" . $operation->getName() . "/" . $uniqid
                 ]
             ),
             'Recipients' => [
@@ -68,9 +68,21 @@ class MailerService
             ]
         ];
         dump($body);
+        
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        // $response->success() && var_dump($response->getData());
+        if($response->success()){
+            $messageID = $response->getData();
+            $data = array(
+                "retour" => 1,
+                "messageID" => $response->getData()["Sent"][0]["MessageID"]
 
+            );
+        } else {
+            $data = array(
+                "retour" => 0
+            );
+        }
+        return $data;
 
         // $message = (new \Swift_Message($settings_operation->getMailObject()))
         //     // ->setFrom(getEnv("MAILER_FROM"))

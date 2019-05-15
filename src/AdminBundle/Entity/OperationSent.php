@@ -69,7 +69,7 @@ class OperationSent
     /**
      * @var string
      * 
-     * @ORM\Column(name="messageID", type="string", length=255, nullable=false)
+     * @ORM\Column(name="messageID", type="bigint", nullable=false)
      */
     private $messageID;
 
@@ -162,6 +162,32 @@ class OperationSent
     public function setState(int $state)
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Get the value of messageID
+     *
+     * @return  int
+     */ 
+    public function getMessageID()
+    {
+        return $this->messageID;
+    }
+
+    /**
+     * Set the value of messageID
+     *
+     * @param  int  $messageID
+     *
+     * @return  self
+     */ 
+    public function setMessageID(int $messageID)
+    {
+        $this->messageID = $messageID;
 
         return $this;
     }
