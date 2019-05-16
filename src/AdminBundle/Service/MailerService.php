@@ -6,6 +6,7 @@ use Twig\Environment;
 use Symfony\Component\Routing\RouterInterface;
 use App\AdminBundle\Entity\Operations;
 use Proxies\__CG__\App\AdminBundle\Entity\SettingsOperation;
+use \Mailjet\Resources;
 
 class MailerService
 {
@@ -44,6 +45,68 @@ class MailerService
 
     public function send_operation(Operations $operation, $contact, SettingsOperation $settings_operation, $uniqid)
     {
+        $mj = new \Mailjet\Client(getenv('MJ_APIKEY_PUBLIC'), getenv('MJ_APIKEY_PRIVATE'));
+
+        $body = [
+            'FromEmail' => "smartleads.supp@outlook.com",
+            'FromName' => "Smartleads No reply",
+            'Subject' => $settings_operation->getMailObject(),
+            'Html-part' => $this->template->render(
+                "operations/mail_view.html.twig",
+                [
+                    "nom" => $contact->getFirstName(),
+                    "prenom" => $contact->getLastName(),
+                    "texte" => $settings_operation->getTextMail(),
+                    "settings_operation" => $settings_operation,
+                    "link" => "/operation/" . $operation->getName() . "/" . $uniqid
+                ]
+            ),
+            'Recipients' => [
+                [
+                    'Email' => "smartleads@mailforspam.com"
+                ]
+            ]
+        ];
+        
+        $response = $mj->post(Resources::$Email, ['body' => $body]);
+        if($response->success()){
+            $messageID = $response->getData();
+            $data = array(
+                "retour" => 1,
+                "messageID" => $response->getData()["Sent"][0]["MessageID"]
+
+            );
+        } else {
+            $data = array(
+                "retour" => 0
+            );
+        }
+        return $data;
+
+        // $message = (new \Swift_Message($settings_operation->getMailObject()))
+        //     // ->setFrom(getEnv("MAILER_FROM"))
+        //     ->setFrom('smartleads.supp@outlook.com')
+        //     ->setTo("smartleads@mailforspam.com")
+        //     ->setBody(
+        //         $this->template->render(
+        //             "operations/mail_view.html.twig",
+        //             [
+        //                 "nom" => $contact->getFirstName(),
+        //                 "prenom" => $contact->getLastName(),
+        //                 "texte" => $settings_operation->getTextMail(),
+        //                 "settings_operation" => $settings_operation,
+        //                 "link" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid
+        //             ]
+        //         ),
+        //         "text/html"
+        //     );
+        // $this->mailer->send($message);
+    }
+
+    public function send_operation_swift(Operations $operation, $contact, SettingsOperation $settings_operation, $uniqid)
+    {
+        
+
         $message = (new \Swift_Message($settings_operation->getMailObject()))
             // ->setFrom(getEnv("MAILER_FROM"))
             ->setFrom('smartleads.supp@outlook.com')

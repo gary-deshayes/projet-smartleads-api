@@ -651,9 +651,11 @@ class OperationsController extends AbstractController
         $settings_operation = $this->getDoctrine()->getRepository(SettingsOperation::class)->findOneBy(array("operation" => $operation->getCode()));
         foreach ($contactsCiblesSansDoublons as $contact) {
             $uniqid = md5(uniqid(rand(), true));
-            $mailer->send_operation($operation, $contact, $settings_operation, $uniqid);
-
+            // $dataReturn = $mailer->send_operation($operation, $contact, $settings_operation, $uniqid);
+            $mailer->send_operation_swift($operation, $contact, $settings_operation, $uniqid);
+            // $messageID = $dataReturn["messageID"];
             $operationSent = new OperationSent();
+            $operationSent->setMessageID(1);
             $operationSent->setOperation($operation);
             $operationSent->setSalesperson($author);
             $operationSent->setContacts($contact);

@@ -78,4 +78,26 @@ class OperationSentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    public function getByMessageID($messageID)
+    {
+        return $this->createQueryBuilder('operationSent')
+            ->select("count(operationSent.messageID) as nombre")
+            ->where("operationSent.messageID = :messageID")
+            ->setParameter(":messageID", (int)$messageID)
+            ->getQuery()->getSingleResult();
+    }
+
+    public function setStateOperationSent($state, $messageID){
+
+        
+        return $this->createQueryBuilder("operationSent")
+            ->update("\App\AdminBundle\Entity\OperationSent", "o")
+            ->set("o.state", ":state")
+            ->where("o.messageID = :messageID")
+            ->setParameter(":messageID", (int)$messageID)
+            ->setParameter(":state", (int)$state)
+
+            ->getQuery()->execute();
+    }
 }
