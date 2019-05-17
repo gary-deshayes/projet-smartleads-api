@@ -17,8 +17,19 @@ class DashboardController extends AbstractController
         if(!in_array($period, $periods)){
             $period = "today";
         }
+        if($period == "today"){
+            $period = "day";
+        }
+        $period = "-1 " . $period;
+        //Data contacts
         $repositoryContacts = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
-        $data["totalContacts"] = $repositoryContacts->getCountAllContacts();
+        $data["numberNewContactsSince"] = $repositoryContacts->getNumberNewContactsSince($period)->getSingleResult()["nb"];
+
+        //Data entreprises
+        $repositoryCompany = $this->getDoctrine()->getRepository('AdminBundle:Company');
+        $data["numberNewCompaniesSince"] = $repositoryCompany->getNumberNewCompaniesSince($period)->getSingleResult()["nb"];
+
+        dump($data);
         // $repositoryOperations = $this->getDoctrine()->getRepository("AdminBundle:Operations");
         // $data["operationsActives"] = $repositoryOperations->getNbOperationsActives();
 

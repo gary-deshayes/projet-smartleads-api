@@ -126,7 +126,7 @@ class OperationSentController extends AbstractController
                         $form = $this->createForm(ContactsOperationType::class, $contactOperation);
                         $form->handleRequest($request);
                         if ($form->isSubmitted() && $form->isValid()) {
-                            
+
                             //On gère l'enregistrement des données du contact
                             if ($formulaire_options->getContacts_Gender() >= 2) {
                                 $contact->setGender($contactOperation->getGender());
@@ -235,6 +235,28 @@ class OperationSentController extends AbstractController
             }
         } else {
             //Redirect pas d'opération
+            return $this->render("template_operations/operation_not_found.html.twig");
+        }
+    }
+
+    /**
+     * @Route("/operation/{name}/{uniqid}/refus", name="operation_send_refus", methods={"GET"})
+     */
+    public function refus(Request $request)
+    {
+        //Ligne qui lit l'opération au contact etc
+        $operationSent = $this->getDoctrine()
+            ->getRepository(OperationSent::class)
+            ->findOneBy(array("uniqIdContact" => $request->get("uniqid")));
+        if ($operationSent != null) {
+            if ($operationSent->getState() == 5) {
+                return $this->render("template_operations/already_rejected.html.twig");
+            } else {
+                $operationSent->setState(5);
+                $this->getDoctrine()->getManager()->flush();
+                return $this->render("template_operations/rejected_accepted.html.twig");
+            }
+        } else {
             return $this->render("template_operations/operation_not_found.html.twig");
         }
     }

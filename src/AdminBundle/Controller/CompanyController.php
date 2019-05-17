@@ -70,7 +70,6 @@ class CompanyController extends AbstractController
                 $code = $this->faker->regexify("[A-Z]{10}");
                 
             }while($repoCompany->findOneBy(array("code" => $code)) != null);
-            //dump($request);
             $company->setCode($code);
             $company->setCreatedAt(new \DateTime());
             $company->setUpdatedAt(new \DateTime());
@@ -138,7 +137,6 @@ class CompanyController extends AbstractController
      */
     public function changeDecision(Request $request, Company $company)
     {
-        dump($request);
         $decision = (int)$request->request->get("decision_level");
         $company->setDecisionLevel($decision);
         $company->setUser_last_update($this->getUser());

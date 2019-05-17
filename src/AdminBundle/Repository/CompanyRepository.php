@@ -80,13 +80,15 @@ class CompanyRepository extends ServiceEntityRepository
         date_default_timezone_set('Europe/Paris');
         $dateNow = date("Y-m-d H:i");
         $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        dump($dateNow);
+        dump($dateBefore);
         $query = $this->createQueryBuilder("company")
             ->select("COUNT(company.createdAt) as nb")
             ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
             ->setParameter('date_debut', $dateBefore)
             ->setParameter('date_fin', $dateNow)
             ->getQuery();
-        return $query->getSingleScalarResult();
+        return $query;
     }
 
     /**

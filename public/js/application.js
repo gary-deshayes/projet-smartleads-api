@@ -1081,3 +1081,16 @@ $("#list_ciblages_valide").on("click", 'button', function () {
 })
 
 $(".window-operation").nextAll("div").remove();
+
+$('#table-resultats-operation').DataTable( {
+    "dom": '<"top"f>rt<"bottom"lp><"clear">',
+    "info": false,
+    "language": {
+        "paginate": {
+          "next": ">",
+          "previous": "<"
+        }, 
+        "lengthMenu": "_MENU_",
+        "search": "",
+      }
+  } );
