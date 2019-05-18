@@ -103,6 +103,59 @@ class ContactsRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+
+    public function getContactsWhereCompanyInArray($array)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->where("contacts.company in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsWhereSalespersonInArray($array)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->where("contacts.salesperson in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsBy($parameter, $value)
+    {
+        $query = $this->createQueryBuilder("contacts")
+            ->select("contacts")
+            ->where($parameter .   " = :value")
+            ->setParameter('value', $value)
+            ->getQuery();
+
+
+        return $query->getResult();
+    }
+
+
+
+
+
+    // Fonction principale au dashboard
+
+    /**
+     * Récupère le pourcentage de nouvelles entreprises depuis la dernière période
+     */
+    public function getPourcentageNewContacts($period)
+    {
+
+        $actualPeriodNumber = $this->getNumberNewContactsSince($period)->getSingleResult()["nb"];
+        dump($actualPeriodNumber);
+
+        $lastPeriodNumber = $this->getNumberContactsBetween($period)->getSingleResult()["nb"];
+        dump($lastPeriodNumber);
+        $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+        return $pourcentage;
+    }
+
+    
     /**
      * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts crée ce jour là
      */
@@ -146,44 +199,69 @@ class ContactsRepository extends ServiceEntityRepository
     public function getNumberNewContactsSince($since)
     {
         date_default_timezone_set('Europe/Paris');
-        $dateNow = date("Y-m-d H:i");
-        $dateBefore = date("Y-m-d 00:00", strtotime($since));
-        $query = $this->createQueryBuilder("contacts")
-            ->select("COUNT(contacts.createdAt) as nb")
-            ->where("DATE(contacts.createdAt) BETWEEN :date_debut AND :date_fin")
-            ->setParameter('date_debut', $dateBefore)
-            ->setParameter('date_fin', $dateNow)
-            ->getQuery();
-        return $query;
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("contacts")->select("COUNT(contacts.createdAt) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W");
+                $query->where("WEEK(contacts.createdAt,1) = :week AND YEAR(contacts.createdAt) = :year")
+                    ->setParameter('week', $semaine)
+                    ->setParameter('year', $annee);
+
+                break;
+            case "-1 day":
+                $query->where("DATE(contacts.createdAt) = :date")
+                    ->setParameter('date', date("Y-m-d 00:00"));
+                break;
+            case "-1 month":
+                $mois = date("m");
+                $query->where("MONTH(contacts.createdAt) = :month AND YEAR(contacts.createdAt) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(contacts.createdAt) = :year")
+                    ->setParameter('year', $annee);
+                break;
+        }
+        return $query->getQuery();
     }
 
-    public function getContactsWhereCompanyInArray($array)
+    /**
+     * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
+     * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
+     */
+    public function getNumberContactsBetween($since)
     {
-        $query = $this->createQueryBuilder('contacts')
-            ->where("contacts.company in (:array)")
-            ->setParameter(":array", $array)
-            ->getQuery();
-        return $query->getResult();
-    }
+        date_default_timezone_set('Europe/Paris');
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("contacts")->select("COUNT(contacts.createdAt) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W") - 1;
+                $query->where("WEEK(contacts.createdAt,1) = :weekBefore")
+                ->andWhere("YEAR(contacts.createdAt) = :year")
+                    ->setParameter('weekBefore', $semaine)
 
-    public function getContactsWhereSalespersonInArray($array)
-    {
-        $query = $this->createQueryBuilder('contacts')
-            ->where("contacts.salesperson in (:array)")
-            ->setParameter(":array", $array)
-            ->getQuery();
-        return $query->getResult();
-    }
+                    ->setParameter('year', $annee);
 
-    public function getContactsBy($parameter, $value)
-    {
-        $query = $this->createQueryBuilder("contacts")
-            ->select("contacts")
-            ->where($parameter .   " = :value")
-            ->setParameter('value', $value)
-            ->getQuery();
-
-
-        return $query->getResult();
+                break;
+            case "-1 day":
+                $dateBefore = date("Y-m-d 00:00", strtotime($since));
+                $query->where("DATE(contacts.createdAt) = :dateBefore")
+                    ->setParameter('dateBefore', $dateBefore);
+                break;
+            case "-1 month":
+                $mois = date("m") - 1;
+                $query->where("MONTH(contacts.createdAt) = :month AND YEAR(contacts.createdAt) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(contacts.createdAt) = :year")
+                    ->setParameter('year', $annee - 1);
+                break;
+        }
+        return $query->getQuery();
     }
 }

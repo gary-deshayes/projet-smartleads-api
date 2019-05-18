@@ -2,9 +2,10 @@
 
 namespace App\AdminBundle\Repository;
 
+use Doctrine\ORM\Query;
 use App\AdminBundle\Entity\Company;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Company|null find($id, $lockMode = null, $lockVersion = null)
@@ -78,35 +79,70 @@ class CompanyRepository extends ServiceEntityRepository
     public function getNumberNewCompaniesSince($since)
     {
         date_default_timezone_set('Europe/Paris');
-        $dateNow = date("Y-m-d H:i");
-        $dateBefore = date("Y-m-d 00:00", strtotime($since));
-        dump($dateNow);
-        dump($dateBefore);
-        $query = $this->createQueryBuilder("company")
-            ->select("COUNT(company.createdAt) as nb")
-            ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
-            ->setParameter('date_debut', $dateBefore)
-            ->setParameter('date_fin', $dateNow)
-            ->getQuery();
-        return $query;
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("company")->select("COUNT(company.createdAt) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W");
+                $query->where("WEEK(company.createdAt,1) = :week AND YEAR(company.createdAt) = :year")
+                    ->setParameter('week', $semaine)
+                    ->setParameter('year', $annee);
+
+                break;
+            case "-1 day":
+                $query->where("DATE(company.createdAt) = :date")
+                    ->setParameter('date', date("Y-m-d 00:00"));
+                break;
+            case "-1 month":
+                $mois = date("m");
+                $query->where("MONTH(company.createdAt) = :month AND YEAR(company.createdAt) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(company.createdAt) = :year")
+                    ->setParameter('year', $annee);
+                break;
+        }
+        return $query->getQuery();
     }
 
     /**
      * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
      * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
      */
-    public function getNumberCompaniesBetween($begin, $end)
+    public function getNumberCompaniesBetween($since)
     {
         date_default_timezone_set('Europe/Paris');
-        $begin = date("Y-m-d 00:00", strtotime($begin));
-        $end = date("Y-m-d 00:00", strtotime($end));
-        $query = $this->createQueryBuilder("company")
-            ->select("COUNT(company.createdAt) as nb")
-            ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
-            ->setParameter('date_debut', $begin)
-            ->setParameter('date_fin', $end)
-            ->getQuery();
-        return $query->getSingleScalarResult();
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("company")->select("COUNT(company.createdAt) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W") - 1;
+                $query->where("WEEK(company.createdAt,1) = :weekBefore")
+                ->andWhere("YEAR(company.createdAt) = :year")
+                    ->setParameter('weekBefore', $semaine)
+
+                    ->setParameter('year', $annee);
+
+                break;
+            case "-1 day":
+                $dateBefore = date("Y-m-d 00:00", strtotime($since));
+                $query->where("DATE(company.createdAt) = :dateBefore")
+                    ->setParameter('dateBefore', $dateBefore);
+                break;
+            case "-1 month":
+                $mois = date("m") - 1;
+                $query->where("MONTH(company.createdAt) = :month AND YEAR(company.createdAt) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(company.createdAt) = :year")
+                    ->setParameter('year', $annee - 1);
+                break;
+        }
+        return $query->getQuery();
     }
 
     public function getIdCompanyBy($parameter, $value)
@@ -126,5 +162,17 @@ class CompanyRepository extends ServiceEntityRepository
         }
 
         return $query->getResult();
+    }
+
+    /**
+     * Récupère le pourcentage de nouvelles entreprises depuis la dernière période
+     */
+    public function getPourcentageNewCompanies($period)
+    {
+
+        $actualPeriodNumber = $this->getNumberNewCompaniesSince($period)->getSingleResult()["nb"];
+        $lastPeriodNumber = $this->getNumberCompaniesBetween($period)->getSingleResult()["nb"];
+        $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+        return $pourcentage;
     }
 }
