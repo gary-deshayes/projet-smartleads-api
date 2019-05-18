@@ -21,6 +21,31 @@
             border-bottom: 2px $primary-color solid;
         }
     }
+
+    &.company {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        li.potentiel {
+            display: flex;
+            justify-content: space-between;
+
+            .my-rating {
+                margin-right: 20px;
+                margin-left: 20px;
+
+                .jq-star {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
 }
 
 .tab-content {

@@ -9,11 +9,11 @@
     <div class="window">
         <div class="form-informations">
             <div class="infos-entity">
-                <p class="title">{{ company.name | upper ~ ", " ~ company.postalCode}}</p>
+                <p class="title">{{ company.name | upper }}</p><p class="description">, {{ company.activityArea }} ({{ company.postalCode }} {{ company.town }})</p>
             </div>
 
             <div class="inline-status-date">
-                <p class="infos">A jour</p>
+                <i class="fas fa-circle"></i><p class="infos">A jour</p>
                 <p>Dernière mise à jour le
                     {{ company.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
@@ -27,31 +27,36 @@
                 </div>
             </div>
         </div>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
-            </li>
-            <li class="nav-item">
-                <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
-            </li>
+        <ul class="nav nav-tabs company" id="myTab" role="tablist">
+            <div class="d-flex">
+                <li class="nav-item">
+                    <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
+                </li>
+                <li class="nav-item">
+                    <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
+                </li>
+            </div>
             {% if company.decisionLevel == NULL %}
                 <input id="decision_level" type="hidden" value="0"/>
             {% else %}
                 <input id="decision_level" type="hidden" value=" {{ company.decisionLevel }}"/>
             {% endif %}
-            <p>Potentiel</p>
-            <div class="my-rating"></div>
-            {% if company.companyStatus != null %}
-                {% if company.companyStatus.libelle == "Client" %}
-                    <span class="badge badge-pill badge-success">{{ company.companyStatus.libelle }}</span>
+            <li class="potentiel">
+                <p>Potentiel</p>
+                <div class="my-rating"></div>
+                {% if company.companyStatus != null %}
+                    {% if company.companyStatus.libelle == "Client" %}
+                        <span class="badge badge-pill badge-success">{{ company.companyStatus.libelle }}</span>
+                    {% endif %}
+                    {% if company.companyStatus.libelle == "Prospect" %}
+                        <span class="badge badge-pill badge-warning">{{ company.companyStatus.libelle }}</span>
+                    {% endif %}
+                    {% if company.companyStatus.libelle == "Piste" %}
+                        <span class="badge badge-pill badge-light">{{ company.companyStatus.libelle }}</span>
+                    {% endif %}
                 {% endif %}
-                {% if company.companyStatus.libelle == "Prospect" %}
-                    <span class="badge badge-pill badge-warning">{{ company.companyStatus.libelle }}</span>
-                {% endif %}
-                {% if company.companyStatus.libelle == "Piste" %}
-                    <span class="badge badge-pill badge-light">{{ company.companyStatus.libelle }}</span>
-                {% endif %}
-            {% endif %}
+                <span class="badge badge-client">Client</span>
+            </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
