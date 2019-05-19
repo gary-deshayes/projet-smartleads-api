@@ -121,7 +121,9 @@ class MailerService
                         "prenom" => $contact->getLastName(),
                         "texte" => $settings_operation->getTextMail(),
                         "settings_operation" => $settings_operation,
-                        "link" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid
+                        "link" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid,
+                        "link_reject" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid . "/refus"
+
                     ]
                 ),
                 "text/html"

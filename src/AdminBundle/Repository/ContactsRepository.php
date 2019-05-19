@@ -151,7 +151,12 @@ class ContactsRepository extends ServiceEntityRepository
 
         $lastPeriodNumber = $this->getNumberContactsBetween($period)->getSingleResult()["nb"];
         dump($lastPeriodNumber);
-        $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+        if($lastPeriodNumber == 0) {
+            $pourcentage = $actualPeriodNumber * 100;
+        }else {
+            $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+
+        }
         return $pourcentage;
     }
 

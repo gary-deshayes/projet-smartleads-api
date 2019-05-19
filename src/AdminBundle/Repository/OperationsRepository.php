@@ -95,4 +95,97 @@ class OperationsRepository extends ServiceEntityRepository
         return $query;
     }
 
+
+
+    //Function dashbord 
+    
+    public function getPourcentageOperationsActive($period)
+    {
+
+        $actualPeriodNumber = $this->getNumberActivesOperationsSince($period)->getSingleResult()["nb"];
+        dump($actualPeriodNumber);
+
+        $lastPeriodNumber = $this->getNumberOperationsActiveBetween($period)->getSingleResult()["nb"];
+        dump($lastPeriodNumber);
+        if($lastPeriodNumber == 0) {
+            $pourcentage = $actualPeriodNumber * 100;
+        }else {
+            $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+
+        }
+        return $pourcentage;
+    }
+
+    public function getNumberActivesOperationsSince($since)
+    {
+        date_default_timezone_set('Europe/Paris');
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("operation")->select("COUNT(operation.closing_date) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W");
+                $query->where("WEEK(operation.closing_date, 1) <= :lastWeek AND WEEK(operation.closing_date, 1) >= :week ")
+                    ->andWhere("YEAR(operation.closing_date) = :year")
+                    ->setParameter('week', $semaine)
+                    ->setParameter('lastWeek', $semaine - 1)
+
+                    ->setParameter('year', $annee);
+
+                break;
+            case "-1 day":
+                $query->where("DATE(operation.closing_date) >= :date")
+                    ->setParameter('date', date("Y-m-d 00:00"));
+                break;
+            case "-1 month":
+                $mois = date("m");
+                $query->where("MONTH(operation.closing_date) = :month AND YEAR(operation.closing_date) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(operation.closing_date) = :year")
+                    ->setParameter('year', $annee);
+                break;
+        }
+        return $query->getQuery();
+    }
+
+    /**
+     * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
+     * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
+     */
+    public function getNumberOperationsActiveBetween($since)
+    {
+        date_default_timezone_set('Europe/Paris');
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("operation")->select("COUNT(operation.closing_date) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W") - 1;
+                $query->where("WEEK(operation.closing_date,1) = :weekBefore")
+                ->andWhere("YEAR(operation.closing_date) = :year")
+                    ->setParameter('weekBefore', $semaine)
+
+                    ->setParameter('year', $annee);
+
+                break;
+            case "-1 day":
+                $dateBefore = date("Y-m-d 00:00", strtotime($since));
+                $query->where("DATE(operation.closing_date) = :dateBefore")
+                    ->setParameter('dateBefore', $dateBefore);
+                break;
+            case "-1 month":
+                $mois = date("m") - 1;
+                $query->where("MONTH(operation.closing_date) = :month AND YEAR(operation.closing_date) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(operation.closing_date) = :year")
+                    ->setParameter('year', $annee - 1);
+                break;
+        }
+        return $query->getQuery();
+    }
+
 }

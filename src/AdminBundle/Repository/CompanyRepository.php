@@ -172,7 +172,11 @@ class CompanyRepository extends ServiceEntityRepository
 
         $actualPeriodNumber = $this->getNumberNewCompaniesSince($period)->getSingleResult()["nb"];
         $lastPeriodNumber = $this->getNumberCompaniesBetween($period)->getSingleResult()["nb"];
-        $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+        if($lastPeriodNumber == 0){
+            $pourcentage = 0;
+        }else {
+            $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+        }
         return $pourcentage;
     }
 }
