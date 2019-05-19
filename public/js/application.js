@@ -1018,13 +1018,31 @@ $(".btn-delete-target").on("click", function () {
 
 $(".window-operation").nextAll("div").remove();
 
-$("#suppression-contacts-checked").on("click", function () {
+$("[id$='-checked']").on("click", function () {
     getCheckBoxId();
-    console.log(values);
+    var id = $(this).attr("id").split("-",2);
+    var entity = id[1];
+    console.log(entity);
+
+    switch (entity) {
+        case 'company':
+          entité = "entreprises"
+          break;
+        case 'salesperson':
+            entité = "commerciaux"
+            break;
+        case 'contacts':
+            entité = "contacts"
+            break;
+        case 'responsable':
+            entité = "responsable"
+            entity = "company"
+            break;
+      }
     if(values.length > 0)
     {
-        if ( confirm( "Êtes-vous sur de vouloir supprimer les contacts selectionnés ?" ) ) {
-            deleteEntitiesSelected(values);
+        if ( confirm( "Êtes-vous sur de vouloir supprimer les " + entité + " selectionnés ?" ) ) {
+            deleteEntitiesSelected(values, entity);
             $(':checkbox').prop('checked', false);
     
         } else {
@@ -1035,18 +1053,46 @@ $("#suppression-contacts-checked").on("click", function () {
         alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
     }
     
-    
-
-  
 })
+// $("[#all-check']").on("click", function () {
 
-function deleteEntitiesSelected(values)
+//     getCheckBoxId();
+//     var id = $(this).attr("id").split("-",2);
+//     var entity = id[1];
+//     console.log(entity);
+
+//     switch (entity) {
+//         case 'company':
+//           entité = "entreprises"
+//           break;
+//         case 'salesperson':
+//         entité = "commerciaux"
+//         break;
+//       }
+//     if(values.length > 0)
+//     {
+//         if ( confirm( "Êtes-vous sur de vouloir supprimer les " + entité + " selectionnés ?" ) ) {
+//             deleteEntitiesSelected(values, entity);
+//             $(':checkbox').prop('checked', false);
+    
+//         } else {
+            
+//         }
+//     }
+//     else{
+//         alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
+//     }
+    
+// })
+
+function deleteEntitiesSelected(values, entity)
 {
     var data = {
         eachId : values
     };
 
-    var url = "/admin/contacts/delete/many";
+
+    var url = "/admin/" + entity + "/delete/many";
     $.ajax({
         url: url,
         type: 'DELETE',

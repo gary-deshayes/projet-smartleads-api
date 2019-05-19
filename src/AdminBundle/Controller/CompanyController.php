@@ -134,6 +134,32 @@ class CompanyController extends AbstractController
     }
 
     /**
+     * @Route("/delete/many", name="company_delete_many", methods={"DELETE"})
+     */
+    public function delete_many(Request $request): Response
+    {
+        $eachId = $request->request->get("eachId");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        foreach ($eachId as $id)
+        {
+            $company = $this->getDoctrine()->getRepository(Company::class)->findOneBy(['code' => $id]);
+
+            $entityManager->remove($company);
+                
+        }
+        $data = [
+            'ids' => $eachId,
+            'result' => true
+        ];
+
+        $entityManager->flush();
+        // return $this->redirectToRoute('contacts_index');
+        return new JsonResponse($data);
+
+    }
+
+    /**
      * @Route("/change_decision/{code}", name="company_change_decision", methods={"POST"})
      */
     public function changeDecision(Request $request, Company $company)
