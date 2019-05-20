@@ -129,7 +129,8 @@ class Contacts
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de fax doit contenir 10 chiffres"
      * )
      */
     private $mobilePhone;
@@ -145,7 +146,8 @@ class Contacts
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de fax doit contenir 10 chiffres"
      * )
      */
     private $phone;
