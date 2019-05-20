@@ -33,7 +33,7 @@ class SalespersonRepository extends ServiceEntityRepository
             $query->orWhere('salesperson.firstName LIKE :search');
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-      
+
         return $query->getQuery();
     }
 
@@ -45,13 +45,13 @@ class SalespersonRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('salesperson')
             ->select('count(salesperson.code)')
             ->orderBy('salesperson.lastName', 'ASC');
-            
+
         if ($search->getSearch()) {
             $query->andWhere('salesperson.lastName LIKE :search');
             $query->orWhere('salesperson.firstName LIKE :search');
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-      
+
         return $query->getQuery()->getSingleScalarResult();
     }
 
@@ -66,15 +66,14 @@ class SalespersonRepository extends ServiceEntityRepository
             ->orderBy('salesperson.lastName', 'ASC')
             ->setParameter(":roles", '["ROLE_RESPONSABLE"]');
 
-        if($search->getSearch()) {
+        if ($search->getSearch()) {
             $query->andWhere('salesperson.lastName LIKE :search');
             $query->orWhere('salesperson.firstName LIKE :search');
 
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
         }
-        
-        return $query->getQuery();
 
+        return $query->getQuery();
     }
 
     /**
@@ -88,7 +87,7 @@ class SalespersonRepository extends ServiceEntityRepository
             ->orderBy('salesperson.lastName', 'ASC')
             ->setParameter(":roles", '["ROLE_RESPONSABLE"]')
             ->getQuery();
-            
+
         return $query->getSingleScalarResult();
     }
 
@@ -103,7 +102,7 @@ class SalespersonRepository extends ServiceEntityRepository
             ->orderBy('salesperson.lastName', 'ASC')
             ->setParameter(':leader', $code);
 
-        if($search->getSearch()) {
+        if ($search->getSearch()) {
             $query->andWhere('salesperson.lastName LIKE :search OR salesperson.firstName LIKE :search');
 
             $query->setParameter(":search", "%" . $search->getSearch() . "%");
@@ -122,11 +121,11 @@ class SalespersonRepository extends ServiceEntityRepository
             ->orderBy('salesperson.lastName', 'ASC')
             ->setParameter(':leader', $code);
 
-            if($search->getSearch()) {
-                $query->andWhere('salesperson.lastName LIKE :search OR salesperson.firstName LIKE :search');
-    
-                $query->setParameter(":search", "%" . $search->getSearch() . "%");
-            }
+        if ($search->getSearch()) {
+            $query->andWhere('salesperson.lastName LIKE :search OR salesperson.firstName LIKE :search');
+
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
         return $query->getQuery()->getSingleScalarResult();
     }
 
@@ -140,9 +139,8 @@ class SalespersonRepository extends ServiceEntityRepository
             ->andWhere('salesperson.code = :leader')
             ->orderBy('salesperson.lastName', 'ASC')
             ->setParameter(':leader', $code);
-        
-        return $query->getQuery();
 
+        return $query->getQuery();
     }
 
     /**
@@ -150,11 +148,25 @@ class SalespersonRepository extends ServiceEntityRepository
      */
     public function getCodeSalespersonBy($parameter, $value)
     {
+        if ($parameter == "RolesSalesperson") {
+            $query = $this->createQueryBuilder("salesperson")
+                ->select("salesperson.code")
+                ->where("salesperson.roles LIKE :value")
+                ->setParameter('value', '%' . $value . '%')
+                ->getQuery();
+        } elseif ($parameter == "NameSalesperson") {
+            $query = $this->createQueryBuilder('salesperson')
+                ->select("salesperson.code")
+                ->where('salesperson.lastName LIKE :search')
+                ->setParameter(":search", "%" . $value . "%")->getQuery();
+        } else {
             $query = $this->createQueryBuilder("salesperson")
                 ->select("salesperson.code")
                 ->where($parameter .   " = :value")
                 ->setParameter('value', $value)
                 ->getQuery();
+        }
+
 
         return $query->getResult();
     }

@@ -16,6 +16,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, ObjectManager $manager): Response
     {   
+        if($this->getUser() != null){
+            return $this->redirectToRoute("dashboard", array("period" => "today"));
+        }
         $messReset = "";
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
