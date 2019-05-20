@@ -885,6 +885,10 @@ nav#sidebar ul {
       box-shadow: none; }
     .form-connect form a.text-description {
       margin-top: 10px; }
+  .form-connect .alert.alert-danger {
+    padding: 0 20px;
+    font-size: 13px;
+    margin-top: 20px; }
 
 .dashboard-class .top-dashboard {
   display: flex;
