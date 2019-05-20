@@ -827,6 +827,10 @@ nav#sidebar ul {
   border-radius: 11px;
   -webkit-box-shadow: none;
   box-shadow: none; }
+  .badge-company {
+    height: 25px;
+    width: 100px;
+    border-radius: 13px; }
   .badge-number {
     background-color: #CF1740;
     height: 22px;

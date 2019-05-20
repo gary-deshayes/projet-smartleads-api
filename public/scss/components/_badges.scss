@@ -7,6 +7,12 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 
+    &-company {
+        height: 25px;
+        width: 100px;
+        border-radius: 13px;
+    }
+
     &-number {
         background-color: #CF1740;
         height: 22px;
