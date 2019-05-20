@@ -58,7 +58,8 @@ class MailerService
                     "prenom" => $contact->getLastName(),
                     "texte" => $settings_operation->getTextMail(),
                     "settings_operation" => $settings_operation,
-                    "link" => "/operation/" . $operation->getName() . "/" . $uniqid
+                    "link" => "/operation/" . $operation->getName() . "/" . $uniqid,
+                    "link_reject" => "/operation/" . $operation->getName() . "/" . $uniqid . "/refus"
                 ]
             ),
             'Recipients' => [
@@ -83,26 +84,6 @@ class MailerService
         }
         return $data;
 
-        // $message = (new \Swift_Message($settings_operation->getMailObject()))
-        //     // ->setFrom(getEnv("MAILER_FROM"))
-        //     ->setFrom('smartleads.supp@outlook.com')
-        //     ->setTo("smartleads@mailforspam.com")
-        //     ->setBody(
-        //         $this->template->render(
-        //             "operations/mail_view.html.twig",
-        //             [
-        //                 "nom" => $contact->getFirstName(),
-        //                 "prenom" => $contact->getLastName(),
-        //                 "texte" => $settings_operation->getTextMail(),
-        //                 "settings_operation" => $settings_operation,
-        //                 "link" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid,
-        //                 "link_reject" => $_SERVER['HTTP_REFERER'] . "/operation/" . $operation->getName() . "/" . $uniqid . "/refus"
-
-        //             ]
-        //         ),
-        //         "text/html"
-        //     );
-        // $this->mailer->send($message);
     }
 
     public function send_operation_swift(Operations $operation, $contact, SettingsOperation $settings_operation, $uniqid)
