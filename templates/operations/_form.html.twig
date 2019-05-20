@@ -1,0 +1,152 @@
+{{ form_start(form) }}
+<div
+    class="row">
+    {# <div class="col-lg-2 flex-column-center">
+                {% if vich_uploader_asset(operation, 'imageFile') is null %}
+                    <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+                {% else %}
+                    <img src="{{ vich_uploader_asset(operation, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+                {% endif %}
+                <div class="div-photo">
+                    <label for="operations_imageFile">
+                        <i class="fas fa-sync"></i>PHOTO</label>
+                    <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
+                </div>
+                {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}})}}
+                {{ form_widget(form.imageFile) }}
+            </div> #}
+    <div class="col-lg-12 form-style">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                    <div class="required-field">
+                        {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-9"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}
+                    </div>
+                    {{ form_errors(form.code) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.author, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                    {{ form_widget(form.author, { "attr" : { "class" : "form-control col-lg-8"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.name, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                    <div class="required-field">
+                        {{ form_widget(form.name, { "attr" : { "class" : "form-control col-lg-9"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}
+                    </div>
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.comment, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                    {{ form_widget(form.comment, { "attr" : { "class" : "form-control col-lg-8"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                    }}
+                </div>
+            </div>
+        </div>
+        {# <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    {{ form_label(form.mail_object, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                            }}
+                                    <div class="required-field">
+                                        {{ form_widget(form.mail_object, { "attr" : { "class" : "form-control col-lg-9"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}
+                                    </div>
+                                    {{ form_errors(form.mail_object) }}
+                                </div>
+                            </div>
+                        </div> #}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.revival, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }} 
+                        {{ form_widget(form.revival, { "attr" : { "class" : "form-control col-lg-6"}}) }}
+                    {{ form_errors(form.revival) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.sending_date, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
+                    {{ form_widget(form.sending_date, { "attr" : { "class" : "datepicker-operation form-control col-lg-6"}})}}
+                    {{ form_errors(form.sending_date) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.closing_date, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
+                    {{ form_widget(form.closing_date, { "attr" : { "class" : "datepicker-operation form-control col-lg-6"}})}}
+                    {{ form_errors(form.closing_date) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <label class="grey-text font-weight-light col-lg-4 ">Information</label>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="operations_opt_information" name="operations[opt_information]" class="custom-control-input checkbox-information" value="1">
+                        <label class="custom-control-label" value="" for="operations_opt_information"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                
+                    <label class="grey-text font-weight-light col-lg-4 ">Offre commerciale</label>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="operations_opt_sales_offer" name="operations[opt_sales_offer]" class="custom-control-input checkbox-offer" value="1">
+                        <label class="custom-control-label" for="operations_opt_sales_offer"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% if app.request.attributes.get("_route") == "operations_edit" %}
+            <div class="btn-end-form-upd">
+                <div>
+                    <button class="btn btn-retour-radius btn-light">
+                        <a href="{{path('operations_index')}}">Retour</a>
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
+                    <button class="btn btn-radius-red btn-outline-red">Dupliquer</button>
+                    <button class="btn btn-radius-red">
+                        {{ button_label|default('Save') }}</button>
+                </div>
+            </div>
+        {% endif %}
+        {# {% if app.request.attributes.get("_route") == "operations_edit" %}
+                            {{ include('contacts/_delete_form.html.twig') }}
+                        {% endif %} #}
+        {% if app.request.attributes.get("_route") == "operations_new" %}
+            <div class="btn-end-form-add">
+                <a class="btn btn-basic btn-second" href="{{ path('operations_index') }}">Annuler</a>
+                <button class="btn btn-radius-red">
+                    {{ button_label|default('Save') }}</button>
+            </div>
+        {% endif %}
+{{ form_end(form) }}

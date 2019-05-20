@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification opération :
+    {{ operation.name }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="window">
+        <div class="form-informations">
+            <p class="infos-entity">{{ operation.name}}</p>
+            <div class="inline-status-date">
+                <p>Dernière mise à jour le
+                    {{ operation.updatedAt | date("d/m/Y")}}</p>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#informations" id="informations-tab" role="tab">Informations</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="parametrage" aria-selected="false" class="nav-link" data-toggle="tab" href="#parametrage" id="parametrage-tab" role="tab">Paramétrage</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="formulaire" aria-selected="false" class="nav-link" data-toggle="tab" href="#formulaire" id="formulaire-tab" role="tab">Formulaire</a>
+            </li>
+            {% if (operation.getSendingDate != null and operation.getClosingDate != null) %}
+                <li class="nav-item">
+                    <a aria-controls="contacts_cible" aria-selected="false" class="nav-link" data-toggle="tab" href="#contacts_cible" id="contacts_cible-tab" role="tab">Ciblage</a>
+                </li>
+            {% endif %}
+            {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
+                <li class="nav-item">
+                    <a aria-controls="resultats" aria-selected="false" class="nav-link" data-toggle="tab" href="#resultats" id="resultats-tab" role="tab">Résultats</a>
+                </li>
+            {% endif %}
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div aria-labelledby="informations-tab" class="tab-pane fade show active" id="informations" role="tabpanel">
+                {{ include('operations/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            <div aria-labelledby="parametrage-tab" class="tab-pane fade" id="parametrage" role="tabpanel">
+                {{ include('operations/form_parameter.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            <div aria-labelledby="formulaire-tab" class="tab-pane fade" id="formulaire" role="tabpanel">
+                {{ include('operations/_gestion_formulaire.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            {% if (operation.getSendingDate != null and operation.getClosingDate != null) %}
+                <div aria-labelledby="contacts_cible-tab" class="tab-pane fade" id="contacts_cible" role="tabpanel">
+                    {{ include('operations/ciblage_operation.html.twig', {'button_label': 'Envoyer'}) }}
+                </div>
+            {% endif %}
+            {% if  ("now" | date("Y-m-d")) >= (operation.getSendingDate | date("Y-m-d")) %}
+                <div aria-labelledby="resultats-tab" class="tab-pane fade" id="resultats" role="tabpanel">
+                    {{ include('operations/resultats.html.twig') }}
+                    
+                </div>
+            {% endif %}
+        </div>
+
+
+    </div>
+{% endblock %}

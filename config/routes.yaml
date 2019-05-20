@@ -1,0 +1,14 @@
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /admin/login
+        permanent: true
+
+
+adminhome:
+    path: /admin/
+    controller: App\AdminBundle\Controller\SecurityController::login
+
+api_login_check:
+    path: /api/login_check

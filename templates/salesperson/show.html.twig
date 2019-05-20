@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salesperson{% endblock %}
+
+{% block body %}
+    <h1>Fiche du commercial : {{salesperson.lastName ~ " " ~ salesperson.firstName}}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ salesperson.code }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ salesperson.gender }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ salesperson.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ salesperson.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td><img class="img-fluid" src="{{ asset('img/' ~ salesperson.picture) }}"></td>
+            </tr>
+            <tr>
+                <th>Profil</th>
+                <td>{{ salesperson.profile }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance</th>
+                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Responsable commercial</th>
+                <td>{{ salesperson.getLeader }}</td>
+            </tr>
+            <tr>
+                <th>Poste</th>
+                <td>{{ salesperson.workName }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ salesperson.mobilePhone }}</td>
+            </tr>
+            <tr>
+                <th>Fixe</th>
+                <td>{{ salesperson.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ salesperson.email }}</td>
+            </tr>
+            <tr>
+                <th>Linkedin</th>
+                <td>{{ salesperson.linkedin }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <a class="btn btn-warning" href="{{ path('salesperson_index') }}">Retour à la liste</a>
+
+    <a class="btn btn-radius-red" href="{{ path('salesperson_edit', {'code': salesperson.code}) }}">Modifier</a>
+
+    {{ include('salesperson/_delete_form.html.twig') }}
+{% endblock %}

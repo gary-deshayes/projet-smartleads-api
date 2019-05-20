@@ -1,0 +1,20 @@
+{# templates/emails/registration.html.twig #}
+{% if vich_uploader_asset(settings_operation, 'mail_image') != null %}
+    <img src="{{ vich_uploader_asset(settings_operation, 'mail_image') | imagine_filter('img_operations') }}">
+{% endif %}
+<div>
+    <h3>Bonjour
+        {{ nom ~ " " ~ prenom }}</h3>
+
+    <div>
+        {{ texte }}
+    </div>
+
+    Voici le lien :
+    <a class="btn btn-primary" href="{{link}}">lien vers jeu concours</a>
+    <a class="btn btn-warning" href="{{link_reject}}">lien pour signaler un refus de participation</a>
+
+</div>
+
+{# Makes an absolute URL to the /images/logo.png file #}
+<img src="{{ absolute_url(asset('img/logo-login.png')) }}">

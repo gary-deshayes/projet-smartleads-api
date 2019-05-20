@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block body %}
+    <h1>Contacts</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ contact.code }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ contact.gender }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ contact.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ contact.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ contact.status ? 'Actif' : 'Inactif' }}</td>
+            </tr>
+            <tr>
+                <th>Niveau de décision</th>
+                <td>{{ contact.decisionMaking }}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance</th>
+                <td>{{ contact.birthDate ? contact.birthDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ contact.mobilePhone }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone fixe</th>
+                <td>{{ contact.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>Linkedin</th>
+                <td>{{ contact.linkedin }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img class="img-fluid" src="{{ vich_uploader_asset(contact, "imageFile") }}"></td>
+            </tr>
+            <tr>
+                <th>Opération qui a permis l'ajout</th>
+                <td>{{ contact.operationSource }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ contact.comment }}</td>
+            </tr>
+            <tr>
+                <th>Envoi des newsletter</th>
+                <td>{{ contact.optInNewsletter ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Envoi des offres commerciales</th>
+                <td>{{ contact.optInOffresCommercial ? 'Oui' : 'Non' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('contacts_index') }}">back to list</a>
+
+    <a href="{{ path('contacts_edit', {'code': contact.code}) }}">edit</a>
+
+    {{ include('contacts/_delete_form.html.twig') }}
+{% endblock %}

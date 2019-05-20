@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Turnovers{% endblock %}
+
+{% block body %}
+    <h1>Create new Turnovers</h1>
+
+    {{ include('turnovers/_form.html.twig') }}
+
+    <a href="{{ path('turnovers_index') }}">back to list</a>
+{% endblock %}

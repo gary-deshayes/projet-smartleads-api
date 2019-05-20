@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle opération
+{% endblock %}
+
+{% block body %}
+    <h1>Opérations</h1>
+    <div class="window">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#informations" id="informations-tab" role="tab">Informations</a>
+            </li>
+
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div aria-labelledby="informations-tab" class="tab-pane fade show active" id="informations" role="tabpanel">
+                {{ include('operations/_form.html.twig', {'button_label': 'Ajouter'}) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

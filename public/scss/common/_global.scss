@@ -1,0 +1,649 @@
+@import 'variables';
+@import 'mixins';
+
+html {
+    font-family: Roboto,sans-serif;
+}
+
+h1 {
+    font-size: 36px;
+    color: #707070
+}
+
+p {
+    font-size: 12px;
+}
+
+i {
+    color: #D9D9D9;
+    font-size: 24px;
+}
+
+.content {
+    padding: 22px 35px;
+    background-color: #FAFAFA;
+
+    &-dashboard {
+        padding: 22px 35px;
+        background-color: #fff;
+    }
+}
+
+.window {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 6px;
+    -moz-box-shadow: 0px 0px 8px 0px #cfcfcf;
+    -webkit-box-shadow: 0px 0px 8px 0px #cfcfcf;
+    -o-box-shadow: 0px 0px 8px 0px #cfcfcf;
+    box-shadow: 0px 0px 8px 0px #cfcfcf;
+
+    &-description {
+        font-weight: bold;
+        font-size: 18px;
+        color: #888888;
+        margin-bottom: 20px;
+    }
+}
+
+.btn-retour-radius {
+    background-color: #F5F5F5 !important;
+    box-shadow: 0px 0px 0px 0px #656565;
+    padding: 12px 17px 12px 17px !important;
+
+    &:hover {
+        box-shadow: 0px 0px 7px 0px #c5c5c5;
+        background-color: rgb(240, 240, 240) !important;
+    }
+
+    a {
+        color: #999999;
+
+    }
+
+    i {
+        margin-right: 10px;
+        color: #999999;
+    }
+}
+
+input {
+    background-color: transparent !important;
+    font-size: 13px !important;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.primary-btn {
+    border-color: $primary-color;
+    background-color: $primary-color !important;
+    letter-spacing: 1px;
+    border-radius: 4px;
+
+    &:focus {
+        background-color: desaturate($primary-color, 10) !important;
+        color: #fff;
+    }
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.row {
+    margin-right: 0;
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#mdp-all {
+    margin-top: -6%;
+}
+
+.text {
+    &-muted {
+        font-weight: 400;
+        color: #CECECE !important;
+    }
+
+    &-description {
+        color: #b3b3b3;
+        font-size: 12px;      
+    }
+}
+
+.titleSearch {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inline-search {
+    display: flex !important;
+    align-items: center;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+}
+
+.clickable-row:hover {
+    background:  #fff7f7;
+    cursor: pointer;
+}
+
+.container-content {
+    border-radius: 0.25rem;
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    box-shadow: 0 0 15px 0px #eeeeee;
+}
+
+.red-primary {
+    color: $primary-color;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.table {
+    thead th {
+        border-bottom: 2px solid #eeeeee;
+        color: #8a8a8a
+    }
+
+    td {
+        border-top: 2px solid #eeeeee;
+        border-bottom: 2px solid #eeeeee;
+        font-weight: 500;
+        color: #999999;
+        vertical-align: middle;
+
+        i {
+            font-size: 18px;
+        }
+    }
+}
+
+.logo-table {
+    width: 30px;
+    padding: 0 !important;
+}
+
+.check-user {
+    width: 55px;
+}
+
+.custom-control-label {
+    &::before,&::after {
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #CF1740;
+    background-color: #CF1740;
+}
+
+.panel {
+    &-Boutons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    &-left {
+        width: 20%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;        
+    }
+}
+
+.form-control-lg {
+    max-width: 75px;
+    color: #a7a7a7;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.search-input {
+    border: none;
+    font-size: 14px !important;
+    max-width: 80px;
+    color: #C1C1C1;
+
+    &:focus {
+        border: none;
+    }
+}
+
+input#search-search:focus {
+    border-color: red !important;
+}
+
+.display-none {
+    display: none;
+}
+
+::placeholder {
+    color: rgb(150, 150, 150);
+
+    &:focus {
+        color: rgb(212, 212, 212);
+    }
+}
+
+:focus::placeholder{
+    color: rgb(206, 206, 206);
+}
+
+.inline-search {
+    display: inline-block;
+    padding-right: 20px;
+}
+
+#compteur {
+    display: flex;
+    align-items: flex-end;
+}
+
+.flex-column-center {
+    @include flex-column-center();
+}
+
+
+.form-informations {
+    
+    * {
+        display: inline;
+    }
+
+    .infos-entity {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    .inline-status-date {
+
+        display: inline;
+    
+    
+        .custom-control-label::before {
+            height: 1rem;
+            
+        }
+        
+        .custom-control-input:checked~.custom-control-label::before {
+            color: #fff;
+            border-color: #00ff00;
+            background-color: #00ff00;
+        }
+    }
+
+}
+
+.btn-outline-red {
+    background-color: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+}
+
+.btn-end-form-upd {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-end-form-add {
+    display: flex;
+    justify-content: flex-end;
+}
+
+//Menu du compte
+.info-compte{
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    p{
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+
+    p:first-child{
+        font-weight: bold;
+    }
+}
+
+.dropdown-menu{
+    height: 155px;
+    width: 200px;
+}
+
+.dropdown-item{
+    
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    background-color : #f8f8f8;
+    font-size: 13px !important;
+    display: flex !important;
+    align-items: center;
+
+
+    &:hover{
+        background-color : #ebebeb;
+        border-left: 4px solid #CF1740;
+    }
+
+    i {
+        color: #929292;
+    }
+}
+
+.menu-click{
+
+    i {
+        margin-right: 10px;
+    }
+
+    a:first-child {
+        margin-top: 20px;
+        border-bottom: none;
+    }
+}
+
+.top-menuDown{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .logo-dropDown {
+        margin-left: 20px;
+        i {
+            size: 40px;
+        }
+    }
+}
+
+#menu-compte {
+    box-shadow: 0px 0px 6px 3px #f1f1f1;
+    border: 1px solid #e6e6e6;
+}
+
+.div-contacts-cible {
+    margin-left: 30px;
+}
+
+
+.gestion_formulaire {
+
+    .row{
+
+        .custom-control{
+            display: inline-flex;
+            justify-content: flex-end;
+        }
+
+        label {
+            padding-right: 60px;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    }
+}
+
+.selected-line {
+    background-color: #f2f2f2;
+}
+
+.badge-corrector {
+    width: 70px !important;
+}
+
+.settings-row {
+    cursor: pointer;
+}
+
+#oublie-mdp{
+    color: #e44a6c;
+    size: 10px;
+    font-weight: bold;
+    margin-top: 16%;
+    margin-bottom: 0%;
+}
+
+.text-mdp{
+    color: #a0a0a0;
+    font-weight: 400;
+    font-size: 11px;
+    text-align: center;
+}
+
+#email_reset_email {
+    width: 290px;
+    margin-top: 12px;
+}
+
+.test23 {
+    padding: 0 !important;
+}
+
+.emailMdp {
+    height: 40px;
+}
+
+.annuler-mdp {
+    font-size: 13px;
+    font-weight: 400;
+    color: #a0a0a0 !important;
+}
+
+.annulation-mdp {
+    margin-top: 17px;
+}
+
+.waves-light{
+    &#valide-mdp {
+        margin-top: 6% !important;
+        margin: 0px;
+        font-size: 11px;
+        height: 45px;
+    }
+}
+.annule-mdp {
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+
+    a {
+        color: rgb(168, 168, 168);
+        font-weight: 400;
+    }
+}
+
+.div-target-operation {
+    background-color: #F2F2F2;
+    margin-left: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 2px;
+    div {
+        display: inline;
+        select{
+            width: auto;
+            display: inline;
+        }
+
+        input {
+            background-color: white !important;
+            display: inline;
+        }
+    }
+
+    p {
+        display: inline;
+        
+    }
+
+    button {
+        display: inline;
+        
+    }
+}
+
+.div-target-selected-operation {
+    p {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .red-font {
+        color:red;
+    }
+
+    .white-back {
+        background-color: white;
+    }
+
+    .div-target-operation {
+        padding-left: 15px;
+
+        margin-bottom: 5px;
+
+        p {
+            margin: 0 5px 0 5px;
+        }
+    }
+
+    
+}
+.btn-delete-target {
+        border-radius: 3px;
+        border: 1px solid;
+        background-color: #999999;
+        color: #999999;
+
+    i {
+        color: #FFFFFF;
+    }
+}
+
+.btn-add-target {
+    border-radius: 3px;
+    border: 1px solid;
+    background-color: #CF1740;
+    color: #CF1740;
+    width: 16px;
+    height: 16px;
+
+    i {
+    color: #FFFFFF;
+    font-size: 16px;
+    }
+}
+
+.operation-template-div-principale {
+    display: inline-block;
+}
+
+.content-window-operation {
+    display: flex;
+    align-items: flex-start;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+
+
+    &.dot-red {
+        background-color: red;
+    }
+
+    &.dot-green{
+        background-color: green;
+    }
+
+    &.dot-light-green{
+        background-color: lightgreen;
+    }
+
+    &.dot-orange {
+        background-color: orange;
+    }
+
+    &.dot-grey {
+        background-color: grey;
+    }
+}
+
+.pourcentage-resultats {
+    font-weight: 500;
+    
+
+    p {
+        display: inline;
+    }
+
+    .pourcentage-non-ouvert {
+        color: grey;
+    }
+    .pourcentage-ouvert {
+        color: lightgreen;
+    }
+    .pourcentage-qualifier {
+        color: green;
+    }
+    .pourcentage-refus {
+        color: orange;
+    }
+    .pourcentage-desabonnement {
+        color: red;
+    }
+}
+
+.mdpQuestion {
+    color: #e44a6c;
+    font-weight: bold;
+    margin-top: 5%;
+}
+
+.precisionMdp {
+    width: 300px;
+    text-align: center;
+    color: #919191 !important;
+}
+
+.validationsMdp {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-connect {
+    position: absolute;
+    bottom: 0;
+    margin-left: 280px;
+}

@@ -1,0 +1,28 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.*.local
+/public/bundles/
+/public/images/contacts/
+/public/images/salespersons/
+/public/images/companies/
+/public/images/settings/
+/src/Migrations/
+/var/
+/vendor/
+/src/Migrations/
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+/public/.sass-cache
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

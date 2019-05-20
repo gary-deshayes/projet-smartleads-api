@@ -1,0 +1,202 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-lg-2 flex-column-center">
+        {% if vich_uploader_asset(company, 'imageFile') is null %}
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+        {% else %}
+            <img src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+        {% endif %}
+        <div class="div-photo">
+            <label for="companys_imageFile">
+                <i class="fas fa-sync"></i>PHOTO</label>
+            <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
+        </div>
+        {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}})}}
+        {{ form_widget(form.imageFile) }}
+    </div>
+    <div class="col-lg-10 form-style">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.idSalesperson, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.idSalesperson, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.idSalesperson) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.email, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                }}
+                    <div class="required-field">
+                        {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                    </div>
+                    {{ form_errors(form.code) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.address, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.address, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.address)}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.name, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    <div class="required-field">
+                        {{ form_widget(form.name, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                    </div>
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.postalCode, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.postalCode, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.postalCode) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.companyStatus, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    <div class="required-field">
+                        {{ form_widget(form.companyStatus, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.town, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.town, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_widget(form.town)}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.activityArea, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.activityArea, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.activityArea) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.country, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.country, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.country) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.idLegalStatus, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.idLegalStatus, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.phone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.phone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {# {{ form_help(form.phone)}} #}
+                    {{ form_errors(form.phone) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.siret, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.siret, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.siret) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.fax, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.fax, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.fax) }}
+                    {# {{ form_help(form.fax)}} #}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.idNumberEmployees, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.idNumberEmployees, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.idNumberEmployees) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.website, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.website, { "attr" : { "class" : "form-control col-lg-8"}, 'label' : '<i class="fas fa-print"></i>'}) }}
+                    {{ form_errors(form.website) }}
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.turnovers, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.turnovers, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.turnovers) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.comment, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.comment, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% if app.request.attributes.get("_route") == "company_edit" %}
+    <div class="btn-end-form-upd">
+        <div>
+            <button class="btn btn-retour-radius btn-light">
+                <a href="{{path('company_index')}}">Retour</a>
+            </button>
+        </div>
+        <div>
+            <button class="btn btn-radius-red btn-outline-red"  id="suppression-company">Supprimer</button>
+            <button class="btn btn-radius-red btn-outline-red" disabled>Demande de mise à jour</button>
+            <button class="btn btn-radius-red">
+                {{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+{% endif %}
+{# {% if app.request.attributes.get("_route") == "company_edit" %}
+                                    {{ include('contacts/_delete_form.html.twig') }}
+                                {% endif %} #}
+{% if app.request.attributes.get("_route") == "company_new" %}
+    <div class="btn-end-form-add">
+        <a class="btn btn-basic btn-second" href="{{ path('company_index') }}">Annuler</a>
+        <button class="btn btn-radius-red">
+            {{ button_label|default('Save') }}</button>
+    </div>
+{% endif %}
+{{ form_end(form) }}
+{# Formulaire de suppression #}
+{% if app.request.attributes.get("_route") == "company_edit" %}
+    {% include "company/_delete_form.html.twig" %}
+{% endif %}

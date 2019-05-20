@@ -1,0 +1,372 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="dashboard-class">
+        <div class="top-dashboard">
+            <h1>Tableau de bord</h1>
+            <div class="right-top-dashboard">
+                <a class="display-tv" href="#">Afficher sur la TV</a>
+                <ul class="nav nav-pill" id="pills-tab">
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-today-tab" href="{{ path('dashboard', {period: "today"}) }}">Aujourd'hui</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-week-tab" href="{{ path('dashboard', {period: "week"}) }}">Semaine</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-month-tab" href="{{ path('dashboard', {period: "month"}) }}">Mois</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-year-tab" href="{{ path('dashboard', {period: "year"}) }}">Année</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <div aria-labelledby="pills-today-tab" class="tab-pane fade show active" id="pills-today" role="tabpanel">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="dash-statistiques">
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-user-friends fa-lg"></i>
+                                    {% if '-' in data.pourcentNewContactsSince %}
+                                        <span class="taux" style="color: red;">{{ data.pourcentNewContactsSince }}%</span>
+                                    {% else %}
+                                        <span class="taux">{{ data.pourcentNewContactsSince }}%</span>
+
+                                    {% endif %}
+                                </div>
+                                <span class="effectif">{{ data.numberNewContactsSince }}</span>
+                                <span id="libelle">Nouveaux contacts</span>
+                            </div>
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-building"></i>
+                                    {% if '-' in data.pourcentNewCompaniesSince %}
+                                        <span class="taux" style="color: red;">{{ data.pourcentNewCompaniesSince }}%</span>
+                                    {% else %}
+                                        <span class="taux">{{ data.pourcentNewCompaniesSince }}%</span>
+
+                                    {% endif %}
+                                </div>
+                                <span class="effectif">{{ data.numberNewCompaniesSince }}</span>
+                                <span id="libelle">Nouvelles entreprises</span>
+                            </div>
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-envelope"></i>
+                                    {% if '-' in data.pourcentNewMailsSince %}
+                                        <span class="taux" style="color: red;">{{ data.pourcentNewMailsSince }}%</span>
+                                    {% else %}
+                                        <span class="taux">{{ data.pourcentNewMailsSince }}%</span>
+                                    {% endif %}
+                                </div>
+                                <span class="effectif">{{ data.numberNewMailsSince }}</span>
+                                <span id="libelle">Nouveaux emails</span>
+                            </div>
+                            <div class="box box-first">
+                                <div class="partSup">
+                                    <i class="fas fa-star"></i>
+                                    {% if '-' in data.pourcentOperationsActiveSince %}
+                                        <span class="taux" style="color: red;">{{ data.pourcentOperationsActiveSince }}%</span>
+                                    {% else %}
+                                        <span class="taux">{{ data.pourcentOperationsActiveSince }}%</span>
+
+                                    {% endif %}
+                                </div>
+                                <span class="effectif">{{ data.numberOperationsActiveSince }}</span>
+                                <span id="libelle">Opérations actives</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span class="withadd">TOTAL</span>
+                                    <a href="/admin/contacts/new">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </a>
+                                </div>
+                                <span class="effectif">{{ data.numberContactsActive }}</span>
+                                <span id="libelle">Contacts actifs</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span class="withadd">TOTAL</span>
+                                    <a href="/admin/company/new">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </a>
+                                </div>
+                                <span class="effectif">{{ data.numberCompaniesActive }}</span>
+                                <span id="libelle">Entreprises actives</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span>TOTAL</span>
+                                </div>
+                                <span class="effectif">{{ data.numberSentMails }}</span>
+                                <span id="libelle">Emails</span>
+                            </div>
+                            <div class="box box-second">
+                                <div class="partSup-second">
+                                    <span class="withadd">TOTAL</span>
+                                    <a href="/admin/operations/new">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </a>
+                                </div>
+                                <span class="effectif">{{ data.numberOperationRealised }}</span>
+                                <span id="libelle">Opérations réalisées</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="dash-window-block">
+                            <div class="dash-perf-operation">
+                                <div class="dash-top">
+                                    <h4>Performances des opérations</h4>
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <div class="dash-window-block">
+                            <div class="dash-indicateur-perf">
+                                <div class="dash-top">
+                                    <h4>Suivi des indicateurs de performance</h4>
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div class="indic-perf">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="menu-indicateur-perf">
+                                                <ul class="nav nav-pills" id="indic-pills-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a aria-controls="pills-today" aria-selected="true" class="nav-link active" data-toggle="pill" href="#pills-operations" id="pills-operations-tab" role="tab">Opérations</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a aria-controls="pills-week" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-contacts-new" id="pills-contacts-new-tab" role="tab">Nouveaux contacts</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a aria-controls="pills-week" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-contacts-maj" id="pills-contacts-maj-tab" role="tab">Contacts mis à jour</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a aria-controls="pills-week" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-contacts-lost" id="pills-contacts-lost-tab" role="tab">Contacts perdus</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a aria-controls="pills-week" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-new-company" id="pills-new-company-tab" role="tab">Nouvelles entreprises</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a aria-controls="pills-week" aria-selected="false" class="nav-link" data-toggle="pill" href="#pills-new-email" id="pills-new-email-tab" role="tab">Nouveaux emails</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div id="line-operation-chart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-4">
+                        <div class="dash-window-block">
+                            <div class="dash-france-map">
+                                <div class="dash-top">
+                                    <h4>Performance par départements</h4>
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <div class="france-map">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <div id="francemap" style="width: 500px; height: 400px;"></div>
+                                        </div>
+                                        <div class="col-3 score">
+                                            <p>Score</p>
+                                            <ul>
+                                                <li>
+                                                    <i class="fas fa-circle sup-100"></i>
+                                                    Supérieur à 100</li>
+                                                <li>
+                                                    <i class="fas fa-circle bet-50-100"></i>
+                                                    Entre 50 et 100</li>
+                                                <li>
+                                                    <i class="fas fa-circle bet-25-50"></i>
+                                                    Entre 25 et 50</li>
+                                                <li>
+                                                    <i class="fas fa-circle bet-25-15"></i>
+                                                    Entre 25 et 15</li>
+                                                <li>
+                                                    <i class="fas fa-circle bet-15-10"></i>
+                                                    Entre 15 et 10</li>
+                                                <li>
+                                                    <i class="fas fa-circle bet-10-5"></i>
+                                                    Entre 10 et 5</li>
+                                                <li>
+                                                    <i class="fas fa-circle inf-5"></i>
+                                                    Moins de 5</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-4">
+                        <div class="dash-window-block">
+                            <table class="table">
+                                <thead>
+                                    <tr class="top-tr">
+                                        <th scope="col">Top commerciaux</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Score</th>
+                                        <th scope="col">Gagnés</th>
+                                        <th scope="col">Mis à jour</th>
+                                        <th scope="col">Perdus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i>
+                                            Vincent DUMONT</td>
+                                        <td>
+                                            <span class="bulle">26</span>
+                                        </td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i>
+                                            Vincent DUMONT</td>
+                                        <td>
+                                            <span class="bulle">26</span>
+                                        </td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i>
+                                            Vincent DUMONT</td>
+                                        <td>
+                                            <span class="bulle">26</span>
+                                        </td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i>
+                                            Vincent DUMONT</td>
+                                        <td>
+                                            <span class="bulle">26</span>
+                                        </td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i>
+                                            Vincent DUMONT</td>
+                                        <td>
+                                            <span class="bulle">26</span>
+                                        </td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row"><img src="{{ asset("img/account/profile-img.png") }}"><i class="fas fa-arrow-up"></i>
+                                            Vincent DUMONT</td>
+                                        <td>
+                                            <span class="bulle">26</span>
+                                        </td>
+                                        <td>5</td>
+                                        <td>24</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <div class="dash-window-block">
+                            <div class="dash-stats-quality">
+                                <div class="circle-quality">
+                                    <div id="chart-circle"></div>
+                                </div>
+                                <div class="chrono-quality">
+                                    <div class="box-quality">
+                                        <span class="periode-qualiy">
+                                            <3</div ans et + </span> <div class="trait-rouge-quality">>
+                                                <span class="nb-contact-quality">1687 contacts</span>
+                                                <span class="pourcentage-quality">47%</span>
+                                            </div>
+                                            <i class="fas fa-arrow-right fa-lg"></i>
+                                            <div class="box-quality">
+                                                <span class="periode-qualiy">
+                                                    <2ans</div </span> <div class="trait-orange-quality">>
+                                                        <span class="nb-contact-quality">1687 contacts</span>
+                                                        <span class="pourcentage-quality">47%</span>
+                                                    </div>
+                                                    <i class="fas fa-arrow-right fa-lg"></i>
+                                                    <div class="box-quality">
+                                                        <span class="periode-qualiy">
+                                                            <1</div an </span> <div class="trait-jaune-quality">>
+                                                                <span class="nb-contact-quality">1687 contacts</span>
+                                                                <span class="pourcentage-quality">47%</span>
+                                                            </div>
+                                                            <i class="fas fa-arrow-right fa-lg"></i>
+                                                            <div class="box-quality">
+                                                                <span class="periode-qualiy">
+                                                                    <6</div mois </span> <div class="trait-vert-quality">>
+                                                                        <span class="nb-contact-quality">1687 contacts</span>
+                                                                        <span class="pourcentage-quality">47%</span>
+                                                                    </div>
+                                                                    <i class="fas fa-arrow-right fa-lg"></i>
+                                                                    <div class="box-quality">
+                                                                        <span class="periode-qualiy">
+                                                                            <3</div mois </span> <div class="trait-vert-fonce-quality">>
+                                                                                <span class="nb-contact-quality">1687 contacts</span>
+                                                                                <span class="pourcentage-quality">47%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+
+                                            {% endblock %}
+
+                                            {% block javascripts %}
+                                                <script type="text/javascript"/>
+                                                switch('{{period}}'){
+                                                    case 'day':
+                                                        $("#pills-today-tab").addClass("active");
+                                                    break;
+                                                    case 'week':
+                                                        $("#pills-week-tab").addClass("active");
+                                                    break;
+                                                    case 'month':
+                                                        $("#pills-month-tab").addClass("active");
+                                                    break;
+                                                    case 'year':
+                                                        $("#pills-year-tab").addClass("active");
+                                                    break;
+                                                }
+                                            </script>
+                                        {% endblock %}

@@ -1,0 +1,96 @@
+.pagination {
+    .previous {
+        background-color: #F5F5F5;
+        @include btn-pagination();
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Roboto,Medium;
+
+        a {
+            color: #999999;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+    .current {
+        background-color: #CECECE;
+        @include btn-pagination();
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Roboto,Medium;
+    }
+    .page {
+        background-color: white;
+        border: 3px solid #F5F5F5;
+        color: red !important;
+        @include btn-pagination();
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            color: #B3B3B3;
+            font-family: Roboto,Medium;
+            font-weight: 500px;
+        }
+    }
+
+    .next {
+        background-color: #F5F5F5;
+        @include btn-pagination();
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Roboto,Medium;
+        
+        a {
+            color: #999999;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+
+    .first {
+        display: none !important;
+        background-color: #F5F5F5;
+        @include btn-pagination();
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Roboto,Medium;
+        
+        a {
+            color: #999999;
+            font-weight: 300;
+            font-size: 25px;
+        }
+    }
+
+    .last {
+        display: none !important;
+        background-color: #F5F5F5;
+        @include btn-pagination();
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Roboto,Medium;
+        
+        a {
+            color: #999999;
+            font-weight: 300;
+            font-size: 25px;
+        }
+    }
+
+    a {
+        padding: 7px 17px;
+    }
+
+}

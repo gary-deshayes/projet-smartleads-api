@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Turnovers{% endblock %}
+
+{% block body %}
+    <h1>Turnovers</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ turnover.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ turnover.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('turnovers_index') }}">back to list</a>
+
+    <a href="{{ path('turnovers_edit', {'id': turnover.id}) }}">edit</a>
+
+    {{ include('turnovers/_delete_form.html.twig') }}
+{% endblock %}

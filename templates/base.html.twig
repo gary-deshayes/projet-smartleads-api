@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://image.noelshack.com/fichiers/2019/14/2/1554226175-monfavicon.png" rel="icon" type="image/png"/>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}Accueil
+            {% endblock %}
+        </title>
+        <!-- Bootstrap core CSS -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/css/mdb.min.css" rel="stylesheet">
+        <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset("star-rating-svg.css") }}">
+        <link rel="stylesheet" href="{{ asset("styles.css") }}">
+        <link rel="stylesheet" href="{{ asset("datatables.min.css") }}">
+
+        <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div
+            class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <a href="{{ path('dashboard', {period: "week"}) }}">
+                        <img class="img-primary img" src="{{ asset("img/logo-login.png") }}">
+                    </a>
+                    <a href="{{ path('dashboard', {period: "week"}) }}">
+                        <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
+                    </a>
+                    <i class="fas fa-angle-left" id="sidebarCollapse"></i>
+                </div>
+                <ul class="navbar-nav mr-auto nav-active">
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'dashboard' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('dashboard', {period: "week"}) }}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'contacts' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('contacts_index') }}">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Contacts</span>
+                        </a>
+                    </li>
+                    {% if is_granted("ROLE_DIRECTEUR") %}
+                        <li class="nav-item {% if (app.request.attributes.get('_route')  == 'salesperson_index' or app.request.attributes.get('_route')  == 'salesperson_new' or app.request.attributes.get('_route')  == 'salesperson_edit')%}li-active{% endif %}">
+                            <a class="nav-link" href="{{ path('salesperson_index') }}">
+                                <i class="fas fa-handshake"></i>
+                                <span>Commerciaux</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted("ROLE_DIRECTEUR") %}
+                        <li class="nav-item {% if app.request.attributes.get('_route') == 'salesperson_list_responsable' %}li-active{% endif %}">
+                            <a class="nav-link" href="{{ path('salesperson_list_responsable') }}">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Responsables d'équipes</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted("ROLE_RESPONSABLE") %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('salesperson_team') }}">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Équipe commerciale</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'company' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('company_index') }}">
+                            <i class="fas fa-building"></i>
+                            <span>Entreprises</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') starts with 'operations' %}li-active{% endif %}">
+                        <a class="nav-link" href="{{ path('operations_index') }}">
+                            <i class="fas fa-star"></i>
+                            <span>Opérations</span>
+                        </a>
+                    </li>
+                    {% if is_granted("ROLE_DIRECTEUR") %}
+                        <li class="nav-item {% if app.request.attributes.get('_route') starts with 'settings' %}li-active{% endif %}">
+                            <a class="nav-link" href="{{ path('settings_index') }}">
+                                <i class="fas fa-cog"></i>
+                                <span>Paramètres</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <!-- Page Content  -->
+            <div id="content">
+                <nav class="navbar navbar-expand-lg">
+                    <form class="form-inline">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <input aria-label="Rechercher..." class="form-control form-search" placeholder="Rechercher..." type="text">
+                        </div>
+                    </form>
+                    <button aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent-4" data-toggle="collapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" id="navbarDropdownMenuLink-4">
+                                    {% if vich_uploader_asset(app.user, 'imageFile') is null %}
+                                        <i class="fas fa-user"></i>
+                                    {% else %}
+                                        <img class="rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('profile_menu') }}">
+                                    {% endif %}
+
+                                </a>
+                                <div aria-labelledby="navbarDropdownMenuLink-4" class="dropdown-menu dropdown-menu-right dropdown-info" id="menu-compte">
+                                    <div class="top-menuDown">
+                                        <div class="logo-dropDown">
+                                            {% if vich_uploader_asset(app.user, 'imageFile') is null %}
+                                                <i class="fas fa-user fa-2x"></i>
+                                            {% else %}
+                                                <img class="rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('profile_menu') }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="info-compte">
+                                            <p>{{ app.user.lastName ~ " " ~ app.user.firstName }}</p>
+                                            <p>{{  app.user.getRolesFormat() }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="menu-click">
+                                        <a class="dropdown-item waves-effect waves-light" id="tqt" href="{{ path('user_parameters', {'code': app.user.code}) }}">
+                                            <i class="fas fa-cog fa-lg"></i>
+                                            Mon Compte</a>
+                                        <a class="dropdown-item waves-effect waves-light" href="{{ path('app_logout') }}">
+                                            <i class="fas fa-sign-out-alt fa-lg"></i>Déconnexion</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="content{% if app.request.attributes.get('_route') starts with 'dashboard' %}-dashboard{% endif %}">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+        <!-- Bootstrap tooltips -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js" type="text/javascript"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- MDB core JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.4/js/mdb.min.js" type="text/javascript"></script>
+        <!-- Charts dashboard -->
+        <script src='https://cdn.jsdelivr.net/npm/apexcharts'></script>
+        <!-- Systeme de tags -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <!-- JQuery UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" charset="utf8" src="{{ asset("js/datatables.min.js")}}"></script>
+        <!-- Application Javascript -->
+        <script type="text/javascript" src="{{ asset("js/jquery.star-rating-svg.js") }}"></script>
+        <!-- Application Javascript -->
+        <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
+
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#francemap').vectorMap({
+                    map: 'france_fr',
+                    hoverOpacity: 0.5,
+                    hoverColor: false,
+                    backgroundColor: "#ffffff",
+                    colors: couleurs,
+                    borderColor: "#000000",
+                    selectedColor: "#EC0000",
+                    enableZoom: false,
+                    showTooltip: true
+                });
+            });
+        </script>
+        <script src="{{ asset("js/jquery.vmap.js") }}" type="text/javascript"></script>
+        <script src="{{ asset("js/jquery.vmap.france.js") }}" type="text/javascript"></script>
+        <script src="{{ asset("js/jquery.vmap.colorsFrance.js") }}" type="text/javascript"></script>
+        
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

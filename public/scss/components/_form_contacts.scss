@@ -1,0 +1,53 @@
+@import '../common/variables';
+
+.nav-tabs {
+    padding-left: 30px;
+    border-bottom: 2px solid #dee2e6;
+
+    .nav-item {
+        margin-bottom: -2px;
+    }
+
+    .nav-link {
+        border: none;
+        font-weight: 400;
+        color: #999999;
+        font-size: 16px;
+
+        &.active {
+            color: $primary-color;
+            background-color: transparent;
+            border-color: $primary-color;
+            border-bottom: 2px $primary-color solid;
+        }
+    }
+
+    &.company {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        li.potentiel {
+            display: flex;
+            justify-content: space-between;
+
+            .my-rating {
+                margin-right: 20px;
+                margin-left: 20px;
+
+                .jq-star {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+}
+
+.tab-content {
+    margin-top: 30px;
+}

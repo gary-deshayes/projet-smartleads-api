@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NumberEmployees index{% endblock %}
+
+{% block body %}
+    <h1>NumberEmployees index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for number_employee in number_employees %}
+            <tr>
+                <td>{{ number_employee.id }}</td>
+                <td>{{ number_employee.libelle }}</td>
+                <td>
+                    <a href="{{ path('number_employees_show', {'id': number_employee.id}) }}">show</a>
+                    <a href="{{ path('number_employees_edit', {'id': number_employee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('number_employees_new') }}">Create new</a>
+{% endblock %}

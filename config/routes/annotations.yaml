@@ -1,0 +1,13 @@
+admin_controllers:
+    resource: ../../src/AdminBundle/Controller/
+    type: annotation
+    prefix: "/admin"
+
+api_controllers:
+    resource: ../../src/ApiBundle/Controller/
+    type: annotation
+    prefix: "/api"
+
+app_controllers:
+    resource: ../../src/Controller/
+    type: annotation

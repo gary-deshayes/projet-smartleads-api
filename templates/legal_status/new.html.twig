@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LegalStatus{% endblock %}
+
+{% block body %}
+    <h1>Create new LegalStatus</h1>
+
+    {{ include('legal_status/_form.html.twig') }}
+
+    <a href="{{ path('legal_status_index') }}">back to list</a>
+{% endblock %}

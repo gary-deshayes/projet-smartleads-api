@@ -1,0 +1,74 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Métiers</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for profession in professions %}
+            <tr class="settings-row" id="td-settings-profession-{{ profession.id }}">
+                <td data-toggle="modal" data-target="#editModalProfession" data-id="{{ profession.id }}" data-libelle="{{ profession.libelle }}">{{ profession.libelle }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<button class="btn btn-radius-red" data-target="#addModal" data-toggle="modal" type="button">Ajouter</button>
+
+
+{# Modal ajout #}
+<div aria-hidden="true" aria-labelledby="addModalLabel" class="modal fade" id="addModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter un métier</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formProfessionAdd) }}
+                <div class="row">
+                    {{ form_label(formProfessionAdd.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formProfessionAdd.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formProfessionAdd) }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{# Modal edit #}
+<div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" id="editModalProfession" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editer un métier</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formProfessionEdit) }}
+                <input id="profession_id" name="profession[id]" type="hidden" value=""/>
+                <div class="row">
+                    {{ form_label(formProfessionEdit.libelle,null, { "label_attr" : { "class" : "col-lg-4"}})}}
+                    {{ form_widget(formProfessionEdit.libelle, { "attr" : { "class" : "form-control col-lg-8"}})}}
+                </div>
+                <div class="btn-end-form-add">
+                    <button class="btn btn-radius-red" id="profession_delete">supprimer</button>
+                    <button class="btn btn-radius-red" type="submit">Valider</button>
+                </div>
+                {{ form_end(formProfessionEdit) }}
+            </div>
+        </div>
+    </div>
+</div>

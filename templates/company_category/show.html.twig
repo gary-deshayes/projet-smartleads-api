@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CompanyCategory{% endblock %}
+
+{% block body %}
+    <h1>CompanyCategory</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ company_category.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ company_category.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('company_category_index') }}">back to list</a>
+
+    <a href="{{ path('company_category_edit', {'id': company_category.id}) }}">edit</a>
+
+    {{ include('company_category/_delete_form.html.twig') }}
+{% endblock %}

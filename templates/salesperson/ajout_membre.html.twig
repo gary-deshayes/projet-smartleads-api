@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Commerciaux{% endblock %}
+{% block body %}
+    <h1>Ajout de membre à l'équipe</h1>
+    {% if nombreCommercial > 0 %}
+        {{ form_start(formSalesperson)}}
+        {{ form_widget(formSalesperson)}}
+        <button class="btn btn-radius-red">{{ button_label|default('Ajouter à l\'équipe') }}</button>
+        {{ form_end(formSalesperson) }}
+    {% else %}
+    <p>Aucun commercial trouvé</p>
+    {% endif %}
+    <a class="btn btn-radius-red" href="{{ path('salesperson_team') }}">Retour à la liste de mon équipe</a>
+{% endblock %}  
+            
