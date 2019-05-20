@@ -1111,34 +1111,23 @@ nav#sidebar ul {
       font-size: 12px;
       margin-top: 25px;
       margin-bottom: 25px; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .periode-qualiy {
+      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .periode-quality {
         font-weight: 500;
         color: #999999; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-rouge-quality {
+      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait {
         margin-top: 13px;
-        background: rgba(228, 0, 0, 0.829);
         width: 110px;
         height: 2px; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-orange-quality {
-        margin-top: 13px;
-        background: #ffa405;
-        width: 110px;
-        height: 2px; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-jaune-quality {
-        margin-top: 13px;
-        background: #ffde05;
-        width: 110px;
-        height: 2px; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-vert-quality {
-        margin-top: 13px;
-        background: #b8e22f;
-        width: 110px;
-        height: 2px; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-vert-fonce-quality {
-        margin-top: 13px;
-        background: #00b900;
-        width: 110px;
-        height: 2px; }
+        .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-rouge-quality {
+          background: rgba(228, 0, 0, 0.829); }
+        .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-orange-quality {
+          background: #ffa405; }
+        .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-jaune-quality {
+          background: #ffde05; }
+        .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-vert-quality {
+          background: #b8e22f; }
+        .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-vert-fonce-quality {
+          background: #00b900; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .nb-contact-quality {
         margin-top: 13px;
         font-weight: 500;
