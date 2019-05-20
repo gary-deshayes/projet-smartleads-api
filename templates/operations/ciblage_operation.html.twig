@@ -8,7 +8,7 @@
     {% if operation.sent == false %}
         <label>Ajoutez un critère de ciblage</label>
         <div class="row div-target-operation">
-            {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-10"}}) }}
+            {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-11"}}) }}
             <div class="col-lg-4">
                 {{ form_widget(formTargetOperation.entity, { "attr" : { "class" : "form-control"}})}}
             </div>
@@ -85,6 +85,9 @@
                     {% endif %}
                 </div>
             {% endfor %}
+        </div>
+        <div class="info-operation">
+            <i class="fas fa-info-circle"></i><p>Après envoi d'une opération, les critères ne peuvent être modifiés, il faut dupliquer l'opération pour en envoyer une nouvelle.</p>
         </div>
 
 
