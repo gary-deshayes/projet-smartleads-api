@@ -54,7 +54,6 @@ abstract class BaseFixture extends Fixture
             $this->addReference(sprintf('%s_%d', $groupName, $i), $entity);
             
         }
-        // dump($this);
     }
 
     protected function getRandomReference(string $className) {

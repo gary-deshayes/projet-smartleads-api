@@ -508,7 +508,6 @@ var chart = new ApexCharts(
     document.querySelector("#chart"),
     options
 );
-
 chart.render();
 
 // Chart Component Dashboard
@@ -534,7 +533,7 @@ var options = {
     },
     series: [{
         name: "Opérations",
-        data: [28, 29, 33, 36, 32, 32, 33]
+        data: [28, 29, 33, 36, 32, 32, 80]
     },
     {
         //Pour avoir le point en haut a droite
@@ -1081,3 +1080,16 @@ $("#list_ciblages_valide").on("click", 'button', function () {
 })
 
 $(".window-operation").nextAll("div").remove();
+
+$('#table-resultats-operation').DataTable( {
+    "dom": '<"top"f>rt<"bottom"lp><"clear">',
+    "info": false,
+    "language": {
+        "paginate": {
+          "next": ">",
+          "previous": "<"
+        }, 
+        "lengthMenu": "_MENU_",
+        "search": "",
+      }
+  } );

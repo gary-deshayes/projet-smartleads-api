@@ -347,8 +347,6 @@ class SalespersonController extends AbstractController
                 $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
             }
             $salesperson->setUpdatedAt(new \DateTime());
-            dump($salesperson);
-            dump($request);
             $this->getDoctrine()->getManager()->flush();
             $salesperson->setImageFile(null);
             return $this->redirectToRoute("dashboard");

@@ -112,7 +112,6 @@ class OperationsController extends AbstractController
      */
     public function edit(Request $request, Operations $operation): Response
     {
-
         //On crée le formulaire pour FormulaireOpération
         if ($operation->getFormulaire_operation() != null) {
 
@@ -333,10 +332,10 @@ class OperationsController extends AbstractController
                     case 3:
                         $nombre["qualifier"]++;
                         break;
-                    case 4:
+                    case 5:
                         $nombre["refus"]++;
                         break;
-                    case 5:
+                    case 4:
                         $nombre["desabonnement"]++;
                         break;
                 }

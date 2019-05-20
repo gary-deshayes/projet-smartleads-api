@@ -410,7 +410,6 @@ class SettingsOperation
         // Only change the updated af if the file is really uploaded to avoid database updates.
         // This is needed when the file should be set when loading the entity.
         if ($this->mail_image instanceof UploadedFile) {
-            dump($mail_image);
             $this->updatedAt = new \DateTime('now');
         }
     }
@@ -428,7 +427,6 @@ class SettingsOperation
         // Only change the updated af if the file is really uploaded to avoid database updates.
         // This is needed when the file should be set when loading the entity.
         if ($this->page_image instanceof UploadedFile) {
-            dump($page_image);
             $this->updatedAt = new \DateTime('now');
         }
     }

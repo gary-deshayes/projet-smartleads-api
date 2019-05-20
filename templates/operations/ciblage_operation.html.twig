@@ -1,4 +1,9 @@
 {# {% if  "now" | date("Y-m-d") >= operation.getSendingDate | date("Y-m-d") and "now" | date("Y-m-d") <= operation.getClosingDate | date("Y-m-d") %} #}
+{% if operation.formulaire_operation == null %}
+
+<p>Veuillez saisir le formulaire visible de l'opération avant de définir des cibles.</p>
+
+{% else %}
 <div>
     {% if operation.sent == false %}
         <label>Ajoutez un critère de ciblage</label>
@@ -96,3 +101,4 @@
         {% endif %}
     </div>
 </div>
+{% endif %}
