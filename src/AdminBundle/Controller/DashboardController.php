@@ -51,7 +51,6 @@ class DashboardController extends AbstractController
         $data["pourcentOperationsActiveSince"] = $repositoryOperation->getPourcentageOperationsActive($periodCalc);
 
 
-        dump($data);
         // $repositoryOperations = $this->getDoctrine()->getRepository("AdminBundle:Operations");
         // $data["operationsActives"] = $repositoryOperations->getNbOperationsActives();
 

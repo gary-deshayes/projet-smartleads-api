@@ -103,10 +103,8 @@ class OperationsRepository extends ServiceEntityRepository
     {
 
         $actualPeriodNumber = $this->getNumberActivesOperationsSince($period)->getSingleResult()["nb"];
-        dump($actualPeriodNumber);
 
         $lastPeriodNumber = $this->getNumberOperationsActiveBetween($period)->getSingleResult()["nb"];
-        dump($lastPeriodNumber);
         if($lastPeriodNumber == 0) {
             $pourcentage = $actualPeriodNumber * 100;
         }else {

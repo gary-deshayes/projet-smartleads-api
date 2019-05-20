@@ -110,10 +110,8 @@ class OperationSentRepository extends ServiceEntityRepository
     {
 
         $actualPeriodNumber = $this->getNumberNewMailsSince($period)->getSingleResult()["nb"];
-        dump($actualPeriodNumber);
 
         $lastPeriodNumber = $this->getNumberMailsBetween($period)->getSingleResult()["nb"];
-        dump($lastPeriodNumber);
         if($lastPeriodNumber == 0) {
             $pourcentage = $actualPeriodNumber * 100;
         }else {
