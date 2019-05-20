@@ -654,7 +654,7 @@ class OperationsController extends AbstractController
             // $mailer->send_operation_swift($operation, $contact, $settings_operation, $uniqid);
             $messageID = $dataReturn["messageID"];
             $operationSent = new OperationSent();
-            $operationSent->setMessageID(1);
+            $operationSent->setMessageID($messageID);
             $operationSent->setOperation($operation);
             $operationSent->setSalesperson($author);
             $operationSent->setContacts($contact);

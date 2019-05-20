@@ -84,7 +84,7 @@
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.sending_date, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
-                    {{ form_widget(form.sending_date, { "attr" : { "class" : "datepicker-operation form-control col-lg-6"}})}}
+                    {{ form_widget(form.sending_date, { "attr" : { "class" : "datepicker-operation-sending form-control col-lg-6"}})}}
                     {{ form_errors(form.sending_date) }}
                 </div>
             </div>
@@ -93,7 +93,7 @@
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.closing_date, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})}}
-                    {{ form_widget(form.closing_date, { "attr" : { "class" : "datepicker-operation form-control col-lg-6"}})}}
+                    {{ form_widget(form.closing_date, { "attr" : { "class" : "datepicker-operation-closing form-control col-lg-6"}})}}
                     {{ form_errors(form.closing_date) }}
                 </div>
             </div>

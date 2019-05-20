@@ -23,20 +23,9 @@ class MailjetNotificationsController extends AbstractController
             $operation_sent = $this->getDoctrine()->getRepository(OperationSent::class)->getByMessageID($messageID);
 
             if ($operation_sent["nombre"] > 0) {
-                echo "toto";
                 switch ($event) {
                     case "open":
                         $this->getDoctrine()->getRepository(OperationSent::class)->setStateOperationSent(2, $messageID);
-                        // $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
-                        // $q = $qb
-                        //     ->update("\App\AdminBundle\Entity\OperationSent", "o")
-                        //     ->set("o.state", ":state")
-                        //     ->where("o.messageID = :messageID")
-                        //     ->setParameter(":messageID", (int) $messageID)
-                        //     ->setParameter(":state", (int) 2)
-
-                        //     ->getQuery();
-                        // $p = $q->execute();
                         break;
                     case "unsub":
                         $this->getDoctrine()->getRepository(OperationSent::class)->setStateOperationSent(4, $messageID);
