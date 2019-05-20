@@ -377,32 +377,43 @@
     
                     .periode-quality {
                         font-weight: 500;
-                        color: #999999;
+                        color: #a0a0a0;
                     }
 
                     .trait {
-                        margin-top: 13px;
-                        width: 110px;
-                        height: 2px;
-
                         &-rouge-quality {
                             background: rgba(228, 0, 0, 0.829);
+                            margin-top: 13px;
+                            width: 110px;
+                            height: 2px;
                         }
 
                         &-orange-quality {
                             background: #ffa405;
+                            margin-top: 13px;
+                            width: 110px;
+                            height: 2px;
                         }
 
                         &-jaune-quality {
                             background: #ffde05;
+                            margin-top: 13px;
+                            width: 110px;
+                            height: 2px;
                         }
 
                         &-vert-quality {
                             background: #b8e22f;
+                            margin-top: 13px;
+                            width: 110px;
+                            height: 2px;
                         }
 
                         &-vert-fonce-quality {
                             background: #00b900;
+                            margin-top: 13px;
+                            width: 110px;
+                            height: 2px;
                         }
                     }
     
