@@ -270,7 +270,6 @@ input#search-search:focus {
 
 
 .form-informations {
-    
     * {
         display: inline;
     }
@@ -281,22 +280,18 @@ input#search-search:focus {
     }
 
     .inline-status-date {
-
         display: inline;
-    
     
         .custom-control-label::before {
             height: 1rem;
-            
         }
-        
+
         .custom-control-input:checked~.custom-control-label::before {
             color: #fff;
             border-color: #00ff00;
             background-color: #00ff00;
         }
     }
-
 }
 
 .btn-outline-red {
@@ -645,5 +640,4 @@ input#search-search:focus {
 .bottom-connect {
     position: absolute;
     bottom: 0;
-    margin-left: 280px;
 }
