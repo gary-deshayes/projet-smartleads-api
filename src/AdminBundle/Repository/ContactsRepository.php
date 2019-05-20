@@ -6,7 +6,6 @@ use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Entity\Contacts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Proxies\__CG__\App\AdminBundle\Entity\Salesperson;
 
 /**
  * @method Contacts[]    getAllContacts(ContactsSearch $search)
@@ -42,16 +41,20 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * @return Contacts[] Returns an array of Contacts objects
      */
-    public function getCountContactsCommercial($id_user)
+    public function getCountContactsCommercial($id_user, $search)
     {
         $query = $this->createQueryBuilder('contacts')
             ->select('count(contacts.code)')
             ->where("contacts.salesperson = :salesperson")
             ->orderBy('contacts.lastName', 'ASC')
-            ->setParameter(":salesperson", $id_user)
-            ->getQuery();
+            ->setParameter(":salesperson", $id_user);
+        if ($search->getSearch()) {
+            $query->andWhere('contacts.lastName LIKE :search');
+            $query->orWhere('contacts.firstName LIKE :search');
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
 
-        return $query->getSingleScalarResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -74,13 +77,17 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * @return Contacts[] Returns an array of Contacts objects
      */
-    public function getCountAllContacts()
+    public function getCountAllContacts($search)
     {
         $query = $this->createQueryBuilder('contacts')
-            ->select('count(contacts.code)')
-            ->getQuery();
+            ->select('count(contacts.code)');
+        if ($search->getSearch()) {
+            $query->andWhere('contacts.lastName LIKE :search');
+            $query->orWhere('contacts.firstName LIKE :search');
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
 
-        return $query->getSingleScalarResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     public function getContactsInArray($array)
@@ -102,7 +109,6 @@ class ContactsRepository extends ServiceEntityRepository
             ->getQuery();
         return $query->getResult();
     }
-
 
     public function getContactsWhereCompanyInArray($array)
     {
@@ -126,17 +132,12 @@ class ContactsRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder("contacts")
             ->select("contacts")
-            ->where($parameter .   " = :value")
+            ->where($parameter . " = :value")
             ->setParameter('value', $value)
             ->getQuery();
 
-
         return $query->getResult();
     }
-
-
-
-
 
     // Fonction principale au dashboard
 
@@ -149,16 +150,15 @@ class ContactsRepository extends ServiceEntityRepository
         $actualPeriodNumber = $this->getNumberNewContactsSince($period)->getSingleResult()["nb"];
 
         $lastPeriodNumber = $this->getNumberContactsBetween($period)->getSingleResult()["nb"];
-        if($lastPeriodNumber == 0) {
+        if ($lastPeriodNumber == 0) {
             $pourcentage = $actualPeriodNumber * 100;
-        }else {
+        } else {
             $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
 
         }
         return $pourcentage;
     }
 
-    
     /**
      * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts crée ce jour là
      */
@@ -243,7 +243,7 @@ class ContactsRepository extends ServiceEntityRepository
             case "-1 week":
                 $semaine = date("W") - 1;
                 $query->where("WEEK(contacts.createdAt,1) = :weekBefore")
-                ->andWhere("YEAR(contacts.createdAt) = :year")
+                    ->andWhere("YEAR(contacts.createdAt) = :year")
                     ->setParameter('weekBefore', $semaine)
 
                     ->setParameter('year', $annee);

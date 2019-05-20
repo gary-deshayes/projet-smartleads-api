@@ -406,12 +406,26 @@ $(function () {
         $(".datepickerDeparture").datepicker("option", "minDate", $(".datepickerArrival").val());
     }
 
-    $(".datepicker-operation").datepicker({
+    $(".datepicker-operation-sending").datepicker({
         dateFormat: "dd-mm-yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-100:+0",
-        buttonText: "<i class='fa fa-calendar'></i>"
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepicker-operation-closing").datepicker("option", "minDate", selectedDate);
+        }
+    });
+
+    $(".datepicker-operation-closing").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepicker-operation-sending").datepicker("option", "maxDate", selectedDate);
+        }
     });
 
 
