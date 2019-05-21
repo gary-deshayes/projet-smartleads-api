@@ -169,7 +169,8 @@ class Salesperson implements UserInterface
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de téléphone doit être à ce format 0XXXXXXXXX"
      * )
      */
     private $mobilePhone;
@@ -184,7 +185,8 @@ class Salesperson implements UserInterface
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de téléphone doit être à ce format 0XXXXXXXXX"
      * )
      */
     private $phone;
