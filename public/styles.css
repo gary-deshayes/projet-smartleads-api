@@ -336,6 +336,8 @@ input#search-search:focus {
     font-weight: 400; }
 
 .div-target-operation {
+  display: flex;
+  align-items: center;
   background-color: #F2F2F2;
   margin-left: 60px;
   padding-top: 10px;
@@ -345,27 +347,47 @@ input#search-search:focus {
     display: inline; }
     .div-target-operation div select {
       width: auto;
-      display: inline; }
+      display: inline;
+      color: #999; }
     .div-target-operation div input {
       background-color: white !important;
       display: inline; }
   .div-target-operation p {
     display: inline; }
-  .div-target-operation button {
-    display: inline; }
+  .div-target-operation .btn-add-target {
+    border-radius: 3px;
+    border: 1px solid;
+    background-color: #CF1740;
+    color: #CF1740;
+    padding: 0;
+    width: 25px;
+    height: 25px; }
+    .div-target-operation .btn-add-target i {
+      color: #FFFFFF;
+      font-size: 17px; }
+  .div-target-operation #target_operation_input,
+  .div-target-operation #target_operation_parameter,
+  .div-target-operation #target_operation_entity {
+    width: 25%; }
 
 .div-target-selected-operation p {
   display: inline;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #999999; }
 .div-target-selected-operation .red-font {
   color: red; }
 .div-target-selected-operation .white-back {
+  padding: 7px;
   background-color: white; }
 .div-target-selected-operation .div-target-operation {
   padding-left: 15px;
   margin-bottom: 5px; }
   .div-target-selected-operation .div-target-operation p {
     margin: 0 5px 0 5px; }
+
+.info-operation i {
+  font-size: 13px;
+  margin-right: 5px; }
 
 .btn-delete-target {
   border-radius: 3px;
@@ -374,17 +396,6 @@ input#search-search:focus {
   color: #999999; }
   .btn-delete-target i {
     color: #FFFFFF; }
-
-.btn-add-target {
-  border-radius: 3px;
-  border: 1px solid;
-  background-color: #CF1740;
-  color: #CF1740;
-  width: 16px;
-  height: 16px; }
-  .btn-add-target i {
-    color: #FFFFFF;
-    font-size: 16px; }
 
 .operation-template-div-principale {
   display: inline-block; }
@@ -441,8 +452,7 @@ input#search-search:focus {
 
 .bottom-connect {
   position: absolute;
-  bottom: 0;
-  margin-left: 280px; }
+  bottom: 0; }
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -827,6 +837,10 @@ nav#sidebar ul {
   border-radius: 11px;
   -webkit-box-shadow: none;
   box-shadow: none; }
+  .badge-company {
+    height: 25px;
+    width: 100px;
+    border-radius: 13px; }
   .badge-number {
     background-color: #CF1740;
     height: 22px;
@@ -882,6 +896,10 @@ nav#sidebar ul {
       box-shadow: none; }
     .form-connect form a.text-description {
       margin-top: 10px; }
+  .form-connect .alert.alert-danger {
+    padding: 0 20px;
+    font-size: 13px;
+    margin-top: 20px; }
 
 .dashboard-class .top-dashboard {
   display: flex;
@@ -1111,32 +1129,32 @@ nav#sidebar ul {
       font-size: 12px;
       margin-top: 25px;
       margin-bottom: 25px; }
-      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .periode-qualiy {
+      .dashboard-class .dash-stats-quality .chrono-quality .box-quality .periode-quality {
         font-weight: 500;
-        color: #999999; }
+        color: #a0a0a0; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-rouge-quality {
-        margin-top: 13px;
         background: rgba(228, 0, 0, 0.829);
+        margin-top: 13px;
         width: 110px;
         height: 2px; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-orange-quality {
-        margin-top: 13px;
         background: #ffa405;
+        margin-top: 13px;
         width: 110px;
         height: 2px; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-jaune-quality {
-        margin-top: 13px;
         background: #ffde05;
+        margin-top: 13px;
         width: 110px;
         height: 2px; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-vert-quality {
-        margin-top: 13px;
         background: #b8e22f;
+        margin-top: 13px;
         width: 110px;
         height: 2px; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .trait-vert-fonce-quality {
-        margin-top: 13px;
         background: #00b900;
+        margin-top: 13px;
         width: 110px;
         height: 2px; }
       .dashboard-class .dash-stats-quality .chrono-quality .box-quality .nb-contact-quality {

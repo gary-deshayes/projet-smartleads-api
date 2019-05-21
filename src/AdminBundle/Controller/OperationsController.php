@@ -3,7 +3,6 @@
 namespace App\AdminBundle\Controller;
 
 use Faker;
-use Faker\Factory;
 use App\AdminBundle\Entity\Company;
 use App\AdminBundle\Entity\Country;
 use App\AdminBundle\Entity\Contacts;
@@ -477,7 +476,14 @@ class OperationsController extends AbstractController
                     case "DecisionMaking":
                         $decisionMaking = $this->getDoctrine()->getRepository(DecisionMaking::class)->findOneBy(array("id" => $value));
                         $targetOperation->setValue_entity($decisionMaking->getLibelle());
-
+                    case "RolesSalesperson":
+                        if ($value == "ROLE_DIRECTEUR") {
+                            $targetOperation->setValue_entity("Directeur");
+                        } elseif ($value == "ROLE_RESPONSABLE") {
+                            $targetOperation->setValue_entity("Responsable");
+                        } elseif ($value == "ROLE_COMMERCIAL") {
+                            $targetOperation->setValue_entity("Commercial");
+                        }
                         break;
                 }
             }
@@ -495,7 +501,7 @@ class OperationsController extends AbstractController
         $ciblages = $this->getDoctrine()->getRepository(TargetOperation::class)->findBy(array("operation" => $operation->getCode()));
         //La méthode fais le tri des cibles
         $contactsCiblesSansDoublons = self::recuperationCiblages($ciblages);
-        
+
         $data = [
             "target" => [
                 "id" => $targetOperation->getId(),
@@ -592,6 +598,30 @@ class OperationsController extends AbstractController
                         }
 
                         break;
+                    case "CodeCompany":
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($cible->getValue());
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "NameCompany":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.name", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+
+                    case "Town":
+                        $idCompany = $repoCompany->getIdCompanyBy("company.town", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereCompanyInArray($idCompany);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
                 }
                 //Ciblage par contacts
             } else if ($cible->getEntity() == "Contacts") {
@@ -618,6 +648,29 @@ class OperationsController extends AbstractController
                     case "AffectedArea":
                         $salespersonsCodes = $repoSalesperson->getCodeSalespersonBy("salesperson.affectedArea", $cible->getValue());
                         $contacts = $repoContacts->getContactsWhereSalespersonInArray($salespersonsCodes);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "NameSalesperson":
+                        $salespersonsCodes = $repoSalesperson->getCodeSalespersonBy("NameSalesperson", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereSalespersonInArray($salespersonsCodes);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "RolesSalesperson":
+                        $salespersonsCodes = $repoSalesperson->getCodeSalespersonBy("RolesSalesperson", $cible->getValue());
+                        $contacts = $repoContacts->getContactsWhereSalespersonInArray($salespersonsCodes);
+                        foreach ($contacts as $contact) {
+                            array_push($contactsCibles, $contact);
+                        }
+
+                        break;
+                    case "CodeSalesperson":
+                        $contacts = $repoContacts->getContactsWhereSalespersonInArray($cible->getValue());
                         foreach ($contacts as $contact) {
                             array_push($contactsCibles, $contact);
                         }
@@ -654,7 +707,7 @@ class OperationsController extends AbstractController
             // $mailer->send_operation_swift($operation, $contact, $settings_operation, $uniqid);
             $messageID = $dataReturn["messageID"];
             $operationSent = new OperationSent();
-            $operationSent->setMessageID(1);
+            $operationSent->setMessageID($messageID);
             $operationSent->setOperation($operation);
             $operationSent->setSalesperson($author);
             $operationSent->setContacts($contact);

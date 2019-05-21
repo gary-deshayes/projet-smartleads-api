@@ -169,7 +169,8 @@ class Salesperson implements UserInterface
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de téléphone doit être à ce format 0XXXXXXXXX"
      * )
      */
     private $mobilePhone;
@@ -184,7 +185,8 @@ class Salesperson implements UserInterface
      *      min = 10,
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
-     *      maxMessage = "Veuillez saisir le numéro en 0612345678"
+     *      maxMessage = "Veuillez saisir le numéro en 0612345678",
+     *      exactMessage = "Le numéro de téléphone doit être à ce format 0XXXXXXXXX"
      * )
      */
     private $phone;
@@ -477,6 +479,11 @@ class Salesperson implements UserInterface
         $this->code = $code;
 
         return $this;
+    }
+
+    public function getAge()
+    {
+        return $this->birthDate->diff(new \DateTime)->format("%Y");
     }
 
     public function getGender(): ?string
@@ -836,5 +843,20 @@ class Salesperson implements UserInterface
         $this->user_last_update = $user_last_update;
 
         return $this;
+    }
+
+    public function getNumberCompaniesAffected(){
+        $companies = array();
+        foreach($this->contacts as $contact){
+            if($contact->getCompany() != null){
+                array_push($companies, $contact->getCompany());
+            }
+        }
+        dump($companies);
+        return count($companies);
+    }
+
+    public function getNumberContactsAffected(){
+        return count($this->contacts);
     }
 }

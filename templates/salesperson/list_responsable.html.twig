@@ -18,16 +18,13 @@
                 <tr>
                     <th>
                         <div class="custom-control custom-checkbox  checkbox-dynamic-all">
-                            <input class="custom-control-input" id="check-all" type="checkbox" value="all">
-                            <label class="custom-control-label" for="check-all"></label>
+                            <input class="custom-control-input" id="all-check" type="checkbox" value="all">
+                            <label class="custom-control-label" for="all-check"></label>
                         </div>
                     </th>
                     <th></th>
                     <th>Prénom</th>
                     <th>Nom</th>
-                    <th>Genre</th>
-                    <th>Type</th>
-                    <th>Statut</th>
                     <th>Date de naissance</th>
                     <th>Poste</th>
                     <th>Mobile</th>
@@ -54,9 +51,6 @@
                         </td>
                         <td>{{ leader.firstName }}</td>
                         <td>{{ leader.lastName }}</td>
-                        <td>{{ leader.gender }}</td>
-                        <td>{{ leader.profile }}</td>
-                        <td>{{ leader.status ? 'Actif' : 'Inactif' }}</td>
                         <td>{{ leader.birthDate ? leader.birthDate|date('Y-m-d') : '' }}</td>
                         <td>{{ leader.workName }}</td>
                         <td>
@@ -84,12 +78,12 @@
         <div class="panel-Boutons">
             <div class="panel-left">
                 {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
-                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                <i class="fas fa-trash fa-lg" id="suppression-responsable-checked" title="Supprimer"></i>
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-user-plus fa-lg" title="Importer"></i>
             </div>
             {{ knp_pagination_render(leaders) }}
-            <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+            <a class="btn btn-radius-red" href="{{ path('salesperson_new') }}">Ajouter</a>
         </div>
     </div>
     {{ form_end(formsearch) }}

@@ -2,22 +2,23 @@
 
 namespace App\AdminBundle\Controller;
 
-use App\AdminBundle\Entity\Salesperson;
-use App\AdminBundle\Form\SalespersonType;
-use Doctrine\ORM\EntityRepository;
 use Faker;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityRepository;
+use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\Entity\Salesperson;
+use App\AdminBundle\EntitySearch\Search;
+use App\AdminBundle\Form\SalespersonType;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\AdminBundle\Form\SalespersonUpdateHisDataType;
 
-use App\AdminBundle\Form\SearchType;
-use App\AdminBundle\EntitySearch\Search;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * @Route("/salesperson")
  */
@@ -171,6 +172,32 @@ class SalespersonController extends AbstractController
         return $this->render('salesperson/team.html.twig', [
             "salespersons" => $salespersons,
         ]);
+    }
+
+    /**
+     * @Route("/delete/many", name="salesperson_delete_many", methods={"DELETE"})
+     */
+    public function delete_many(Request $request): Response
+    {
+        $eachId = $request->request->get("eachId");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        foreach ($eachId as $id)
+        {
+            $salesperson = $this->getDoctrine()->getRepository(Salesperson::class)->findOneBy(['code' => $id]);
+
+            $entityManager->remove($salesperson);
+                
+        }
+        $data = [
+            'ids' => $eachId,
+            'result' => true
+        ];
+
+        $entityManager->flush();
+        // return $this->redirectToRoute('contacts_index');
+        return new JsonResponse($data);
+
     }
 
     /**
@@ -349,7 +376,7 @@ class SalespersonController extends AbstractController
             $salesperson->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
             $salesperson->setImageFile(null);
-            return $this->redirectToRoute("dashboard");
+            return $this->redirectToRoute("dashboard", array("period" => "today"));
         }
 
         return $this->render('salesperson/parameters.html.twig', [

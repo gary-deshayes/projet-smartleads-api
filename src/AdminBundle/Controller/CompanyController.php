@@ -5,6 +5,7 @@ namespace App\AdminBundle\Controller;
 use Faker;
 use Faker\Factory;
 use App\AdminBundle\Entity\Company;
+use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Form\CompanyType;
 use App\AdminBundle\Entity\Salesperson;
@@ -112,9 +113,12 @@ class CompanyController extends AbstractController
             ]);
         }
 
+        $contacts_entreprise = $this->getDoctrine()->getRepository(Contacts::class)->findBy(array("company" => $company->getCode()));
+
         return $this->render('company/edit.html.twig', [
             'company' => $company,
             'form' => $form->createView(),
+            'contacts_entreprise' => $contacts_entreprise
         ]);
     }
 
@@ -130,6 +134,32 @@ class CompanyController extends AbstractController
         }
 
         return $this->redirectToRoute('company_index');
+    }
+
+    /**
+     * @Route("/delete/many", name="company_delete_many", methods={"DELETE"})
+     */
+    public function delete_many(Request $request): Response
+    {
+        $eachId = $request->request->get("eachId");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        foreach ($eachId as $id)
+        {
+            $company = $this->getDoctrine()->getRepository(Company::class)->findOneBy(['code' => $id]);
+
+            $entityManager->remove($company);
+                
+        }
+        $data = [
+            'ids' => $eachId,
+            'result' => true
+        ];
+
+        $entityManager->flush();
+        // return $this->redirectToRoute('contacts_index');
+        return new JsonResponse($data);
+
     }
 
     /**

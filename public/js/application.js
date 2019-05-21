@@ -8,6 +8,9 @@ $(document).ready(function ($) {
         window.location = $(this).parent().data("href");
     });
 
+    //Active les tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     //sidenav
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
@@ -65,7 +68,6 @@ $(document).ready(function ($) {
             var url = "/admin/company/change_decision/" + $("#company_code").val();
             $.post(url, data, function (data) {
                 if (data.retour == true) {
-                    console.log("okk");
                 }
             });
         }
@@ -277,7 +279,6 @@ $(document).ready(function ($) {
     });
 
     $('#addModalAffectedArea').on('show.bs.modal', function (event) {
-        console.log($(".select2-tags-add"));
         $(".select2-tags-add").val(null);
         $('.select2-tags-add').select2({
             width: "300px"
@@ -318,31 +319,12 @@ $(document).ready(function ($) {
                 }
             }
         });
-        //FINALEMENT LA DESACTIVATION EMPECHE LES FORMULAIRES D'ETRE ENVOYER
-        // //Récupération des départements déjà lié donc on les mets en disabled
-        // $.ajax({
-        //     url: '/admin/affectedarea/getdepartmentswithaffectedarea/',
-        //     type: 'GET',
-        //     success: function (result) {
-        //         console.log(result);
-        //         if(result.data.length > 0){
-        //             result.data.forEach(function(e){
-        //                 $('.select2-tags option[value="' + e + '"]').attr('disabled', 'disabled');
-        //             });
-        //             $(".select2-tags").trigger("change");
-        //             $('.select2-tags').select2({
-        //                 width: "300px"
-        //             });
-
-        //         }
-        //     }
-        // });
+        
 
 
     })
 
     $('#editModalCountry').on('show.bs.modal', function (event) {
-        console.log("toto");
         var button = $(event.relatedTarget)
         var code = button.data('code');
         var libelle = button.data('libelle');
@@ -406,12 +388,26 @@ $(function () {
         $(".datepickerDeparture").datepicker("option", "minDate", $(".datepickerArrival").val());
     }
 
-    $(".datepicker-operation").datepicker({
+    $(".datepicker-operation-sending").datepicker({
         dateFormat: "dd-mm-yy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-100:+0",
-        buttonText: "<i class='fa fa-calendar'></i>"
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepicker-operation-closing").datepicker("option", "minDate", selectedDate);
+        }
+    });
+
+    $(".datepicker-operation-closing").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        buttonText: "<i class='fa fa-calendar'></i>",
+        onClose: function (selectedDate) {
+            $(".datepicker-operation-sending").datepicker("option", "maxDate", selectedDate);
+        }
     });
 
 
@@ -623,7 +619,7 @@ $("#decision_making_delete").on("click", function (e) {
         }
     });
 })
-    //colors: ["ffa200"],
+//colors: ["ffa200"],
 
 var options = {
     chart: {
@@ -639,32 +635,32 @@ var options = {
             startAngle: -90,
             endAngle: 90,
             hollow: {
-              margin: 15,
-              size: "70%"
+                margin: 15,
+                size: "70%"
             },
-           
+
             dataLabels: {
-              showOn: "always",
-              name: {
-                offsetY: 20,
-                show: true,
-                color: "#999999",
-                fontSize: "12px",
-                fontWeight: "bold"
-              },
-              value: {
-                offsetY: -22,
-                color: "#999999",
-                fontSize: "28px",
-                show: true
-              }
+                showOn: "always",
+                name: {
+                    offsetY: 20,
+                    show: true,
+                    color: "#999999",
+                    fontSize: "12px",
+                    fontWeight: "bold"
+                },
+                value: {
+                    offsetY: -22,
+                    color: "#999999",
+                    fontSize: "28px",
+                    show: true
+                }
             }
         }
     },
 
     stroke: {
         lineCap: "round",
-      },
+    },
 }
 
 var chart = new ApexCharts(
@@ -677,45 +673,45 @@ chart.render();
 
 var options1 = {
     chart: {
-      height: 280,
-      type: "radialBar",
+        height: 280,
+        type: "radialBar",
     },
     series: [67],
     colors: ["#20E647"],
     plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        track: {
-          background: '#333',
-          startAngle: -135,
-          endAngle: 135,
-        },
-        dataLabels: {
-          name: {
-            show: false,
-          },
-          value: {
-            fontSize: "30px",
-            show: true
-          }
+        radialBar: {
+            startAngle: -135,
+            endAngle: 135,
+            track: {
+                background: '#333',
+                startAngle: -135,
+                endAngle: 135,
+            },
+            dataLabels: {
+                name: {
+                    show: false,
+                },
+                value: {
+                    fontSize: "30px",
+                    show: true
+                }
+            }
         }
-      }
     },
     fill: {
-      type: "gradient",
-      gradient: {
-        shade: "dark",
-        type: "horizontal",
-        gradientToColors: ["#87D4F9"],
-        stops: [0, 100]
-      }
+        type: "gradient",
+        gradient: {
+            shade: "dark",
+            type: "horizontal",
+            gradientToColors: ["#87D4F9"],
+            stops: [0, 100]
+        }
     },
     stroke: {
-      lineCap: "butt"
+        lineCap: "butt"
     },
     labels: ["Progress"]
-  };
+};
 
 
 // function drawChart() {
@@ -805,7 +801,6 @@ $('#target_operation_entity').on("change", function () {
         case "Salesperson":
             $("#target_operation_parameter").empty();
             parameterTargetSalesperson();
-            console.log($("#target_operation_parameter").val());
             switch ($("#target_operation_parameter").val()) {
                 case "AffectedArea":
                     selectTargetOperation("AffectedArea");
@@ -816,7 +811,6 @@ $('#target_operation_entity').on("change", function () {
         case "Contacts":
             $("#target_operation_parameter").empty();
             parameterTargetContacts();
-            console.log($("#target_operation_parameter").val());
             switch ($("#target_operation_parameter").val()) {
                 case "DecisionMaking":
                     selectTargetOperation("DecisionMaking");
@@ -865,6 +859,48 @@ $('#target_operation_parameter').on("change", function () {
         case "Profession":
             selectTargetOperation("Profession");
             break;
+        case "CodeCompany":
+            inputTargetOperation();
+            break;
+        case "CodeSalesperson":
+            inputTargetOperation();
+            break;
+        case "NameCompany":
+            inputTargetOperation();
+            break;
+        case "NameSalesperson":
+            inputTargetOperation();
+            break;
+        case "Town":
+            inputTargetOperation();
+            break;
+        case "RolesSalesperson":
+            if ($("#target_operation_input").length > 0) {
+                $("#target_operation_input").remove()
+            }
+            if ($("#target_operation_select").length == 0) {
+                $("#div-target-value").append($("<select>", {
+                    id: "target_operation_select",
+                    class: "form-control col-lg-4",
+                    name: "target_operation[select]"
+                }))
+            } else {
+                $("#target_operation_select").empty();
+            }
+            $('#target_operation_select').append($('<option>', {
+                value: "ROLE_DIRECTEUR",
+                text: "Directeur"
+            }));
+            $('#target_operation_select').append($('<option>', {
+                value: "ROLE_RESPONSABLE",
+                text: "Responsable"
+            }));
+            $('#target_operation_select').append($('<option>', {
+                value: "ROLE_COMMERCIAL",
+                text: "Commercial"
+            }));
+            break;
+
     }
 
 })
@@ -897,12 +933,36 @@ function parameterTargetCompany() {
         value: "Turnovers",
         text: 'Chiffre d\'affaire'
     }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "CodeCompany",
+        text: 'Code'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "NameCompany",
+        text: 'Nom'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Town",
+        text: 'Ville'
+    }));
 }
 
 function parameterTargetSalesperson() {
     $('#target_operation_parameter').append($('<option>', {
         value: "AffectedArea",
         text: 'Zone affectée'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "CodeSalesperson",
+        text: 'Code'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "NameSalesperson",
+        text: 'Nom'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "RolesSalesperson",
+        text: 'Profil'
     }));
 }
 
@@ -917,6 +977,8 @@ function parameterTargetContacts() {
     }));
 }
 
+
+
 function inputTargetOperation() {
     if ($("#target_operation_select").length > 0) {
         $("#target_operation_select").remove()
@@ -925,8 +987,11 @@ function inputTargetOperation() {
         $("#div-target-value").append($("<input>", {
             id: "target_operation_input",
             class: "form-control col-lg-4",
-            name: "target_operation[input]"
-        }))
+            name: "target_operation[input]",
+            'data-toggle': "tooltip",
+            'data-placement': "top",
+            title: "Saisie obligatoire"
+        }));
     } else {
         $("#target_operation_input").val("");
     }
@@ -934,7 +999,6 @@ function inputTargetOperation() {
 }
 
 function selectTargetOperation(entity) {
-    console.log(entity);
     if ($("#target_operation_input").length > 0) {
         $("#target_operation_input").remove()
     }
@@ -979,6 +1043,12 @@ function selectTargetOperation(entity) {
 }
 
 $("#add-target").on("click", function () {
+    if ($("#target_operation_input").length > 0) {
+        if ($("#target_operation_input").val() == "") {
+            $("#target_operation_input").focus();
+            return;
+        }
+    }
     $.ajax({
         type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
         url: '/admin/operations/sauvegarde_target', // the url where we want to POST
@@ -986,7 +1056,9 @@ $("#add-target").on("click", function () {
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,
         success: function (result) {
-            console.log(result);
+            if ($("#target_operation_input").length > 0) {
+                $("#target_operation_input").val("")
+            }
             let div = '<div class="row div-target-operation">';
             div += '<div class="col-lg-3 white-back">';
             switch (result.target.entity) {
@@ -1031,6 +1103,24 @@ $("#add-target").on("click", function () {
                 case "DecisionMaking":
                     div += "Pouvoir décisionnel";
                     break;
+                case "CodeSalesperson":
+                    div += "Code";
+                    break;
+                case "CodeCompany":
+                    div += "Code";
+                    break;
+                case "NameSalesperson":
+                    div += "Nom";
+                    break;
+                case "NameCompany":
+                    div += "Nom";
+                    break;
+                case "Town":
+                    div += "Ville";
+                    break;
+                case "RolesSalesperson":
+                    div += "Profil";
+                    break;
             }
             div += '</div>';
             div += '<p>=</p>';
@@ -1061,7 +1151,6 @@ $("#list_ciblages_valide").on("click", 'button', function () {
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,
         success: function (result) {
-            console.log(result);
             if (result.retour == "1" || result.retour == "1") {
 
                 div.parent().fadeOut({
@@ -1081,15 +1170,126 @@ $("#list_ciblages_valide").on("click", 'button', function () {
 
 $(".window-operation").nextAll("div").remove();
 
-$('#table-resultats-operation').DataTable( {
+$("[id$='-checked']").on("click", function () {
+    getCheckBoxId();
+    var id = $(this).attr("id").split("-",2);
+    var entity = id[1];
+    console.log(entity);
+
+    switch (entity) {
+        case 'company':
+          entité = "entreprises"
+          break;
+        case 'salesperson':
+            entité = "commerciaux"
+            break;
+        case 'contacts':
+            entité = "contacts"
+            break;
+        case 'responsable':
+            entité = "responsable"
+            entity = "company"
+            break;
+      }
+    if(values.length > 0)
+    {
+        if ( confirm( "Êtes-vous sur de vouloir supprimer les " + entité + " selectionnés ?" ) ) {
+            deleteEntitiesSelected(values, entity);
+            $(':checkbox').prop('checked', false);
+    
+        } else {
+            
+        }
+    }
+    else{
+        alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
+    }
+    
+})
+// $("[#all-check']").on("click", function () {
+
+//     getCheckBoxId();
+//     var id = $(this).attr("id").split("-",2);
+//     var entity = id[1];
+//     console.log(entity);
+
+//     switch (entity) {
+//         case 'company':
+//           entité = "entreprises"
+//           break;
+//         case 'salesperson':
+//         entité = "commerciaux"
+//         break;
+//       }
+//     if(values.length > 0)
+//     {
+//         if ( confirm( "Êtes-vous sur de vouloir supprimer les " + entité + " selectionnés ?" ) ) {
+//             deleteEntitiesSelected(values, entity);
+//             $(':checkbox').prop('checked', false);
+    
+//         } else {
+            
+//         }
+//     }
+//     else{
+//         alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
+//     }
+    
+// })
+
+function deleteEntitiesSelected(values, entity)
+{
+    var data = {
+        eachId : values
+    };
+
+
+    var url = "/admin/" + entity + "/delete/many";
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        data: data,
+        success: function(result) {
+            if (result.result == 1) {
+                result.ids.forEach(id => {
+                    $("#check-" + id).parent().parent().parent().fadeOut(1500, function() {
+                        $("#check-" + id).parent().parent().parent().remove();
+                        document.location.reload();
+                      });
+                });
+                
+            }
+            
+        }
+    });
+    
+}
+
+
+$("#suppression-contacts").on("click", function (event) {
+    event.preventDefault();
+    $("#form_delete_contacts").submit();
+})
+
+function getCheckBoxId() {
+    values= [];
+    $("[id^='check']:checked").each(function () {
+        var eachId = $(this).attr("id").split("check-")[1];
+        values.push(eachId);
+    });
+
+}
+
+
+$('#table-resultats-operation').DataTable({
     "dom": '<"top"f>rt<"bottom"lp><"clear">',
     "info": false,
     "language": {
         "paginate": {
-          "next": ">",
-          "previous": "<"
-        }, 
+            "next": ">",
+            "previous": "<"
+        },
         "lengthMenu": "_MENU_",
         "search": "",
-      }
-  } );
+    }
+});
