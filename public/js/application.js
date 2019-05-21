@@ -8,6 +8,9 @@ $(document).ready(function ($) {
         window.location = $(this).parent().data("href");
     });
 
+    //Active les tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     //sidenav
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
@@ -637,7 +640,7 @@ $("#decision_making_delete").on("click", function (e) {
         }
     });
 })
-    //colors: ["ffa200"],
+//colors: ["ffa200"],
 
 var options = {
     chart: {
@@ -653,32 +656,32 @@ var options = {
             startAngle: -90,
             endAngle: 90,
             hollow: {
-              margin: 15,
-              size: "70%"
+                margin: 15,
+                size: "70%"
             },
-           
+
             dataLabels: {
-              showOn: "always",
-              name: {
-                offsetY: 20,
-                show: true,
-                color: "#999999",
-                fontSize: "12px",
-                fontWeight: "bold"
-              },
-              value: {
-                offsetY: -22,
-                color: "#999999",
-                fontSize: "28px",
-                show: true
-              }
+                showOn: "always",
+                name: {
+                    offsetY: 20,
+                    show: true,
+                    color: "#999999",
+                    fontSize: "12px",
+                    fontWeight: "bold"
+                },
+                value: {
+                    offsetY: -22,
+                    color: "#999999",
+                    fontSize: "28px",
+                    show: true
+                }
             }
         }
     },
 
     stroke: {
         lineCap: "round",
-      },
+    },
 }
 
 var chart = new ApexCharts(
@@ -691,45 +694,45 @@ chart.render();
 
 var options1 = {
     chart: {
-      height: 280,
-      type: "radialBar",
+        height: 280,
+        type: "radialBar",
     },
     series: [67],
     colors: ["#20E647"],
     plotOptions: {
-      radialBar: {
-        startAngle: -135,
-        endAngle: 135,
-        track: {
-          background: '#333',
-          startAngle: -135,
-          endAngle: 135,
-        },
-        dataLabels: {
-          name: {
-            show: false,
-          },
-          value: {
-            fontSize: "30px",
-            show: true
-          }
+        radialBar: {
+            startAngle: -135,
+            endAngle: 135,
+            track: {
+                background: '#333',
+                startAngle: -135,
+                endAngle: 135,
+            },
+            dataLabels: {
+                name: {
+                    show: false,
+                },
+                value: {
+                    fontSize: "30px",
+                    show: true
+                }
+            }
         }
-      }
     },
     fill: {
-      type: "gradient",
-      gradient: {
-        shade: "dark",
-        type: "horizontal",
-        gradientToColors: ["#87D4F9"],
-        stops: [0, 100]
-      }
+        type: "gradient",
+        gradient: {
+            shade: "dark",
+            type: "horizontal",
+            gradientToColors: ["#87D4F9"],
+            stops: [0, 100]
+        }
     },
     stroke: {
-      lineCap: "butt"
+        lineCap: "butt"
     },
     labels: ["Progress"]
-  };
+};
 
 
 // function drawChart() {
@@ -879,6 +882,48 @@ $('#target_operation_parameter').on("change", function () {
         case "Profession":
             selectTargetOperation("Profession");
             break;
+        case "CodeCompany":
+            inputTargetOperation();
+            break;
+        case "CodeSalesperson":
+            inputTargetOperation();
+            break;
+        case "NameCompany":
+            inputTargetOperation();
+            break;
+        case "NameSalesperson":
+            inputTargetOperation();
+            break;
+        case "Town":
+            inputTargetOperation();
+            break;
+        case "RolesSalesperson":
+            if ($("#target_operation_input").length > 0) {
+                $("#target_operation_input").remove()
+            }
+            if ($("#target_operation_select").length == 0) {
+                $("#div-target-value").append($("<select>", {
+                    id: "target_operation_select",
+                    class: "form-control col-lg-4",
+                    name: "target_operation[select]"
+                }))
+            } else {
+                $("#target_operation_select").empty();
+            }
+            $('#target_operation_select').append($('<option>', {
+                value: "ROLE_DIRECTEUR",
+                text: "Directeur"
+            }));
+            $('#target_operation_select').append($('<option>', {
+                value: "ROLE_RESPONSABLE",
+                text: "Responsable"
+            }));
+            $('#target_operation_select').append($('<option>', {
+                value: "ROLE_COMMERCIAL",
+                text: "Commercial"
+            }));
+            break;
+
     }
 
 })
@@ -911,12 +956,36 @@ function parameterTargetCompany() {
         value: "Turnovers",
         text: 'Chiffre d\'affaire'
     }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "CodeCompany",
+        text: 'Code'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "NameCompany",
+        text: 'Nom'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "Town",
+        text: 'Ville'
+    }));
 }
 
 function parameterTargetSalesperson() {
     $('#target_operation_parameter').append($('<option>', {
         value: "AffectedArea",
         text: 'Zone affectée'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "CodeSalesperson",
+        text: 'Code'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "NameSalesperson",
+        text: 'Nom'
+    }));
+    $('#target_operation_parameter').append($('<option>', {
+        value: "RolesSalesperson",
+        text: 'Profil'
     }));
 }
 
@@ -931,6 +1000,8 @@ function parameterTargetContacts() {
     }));
 }
 
+
+
 function inputTargetOperation() {
     if ($("#target_operation_select").length > 0) {
         $("#target_operation_select").remove()
@@ -939,8 +1010,11 @@ function inputTargetOperation() {
         $("#div-target-value").append($("<input>", {
             id: "target_operation_input",
             class: "form-control col-lg-4",
-            name: "target_operation[input]"
-        }))
+            name: "target_operation[input]",
+            'data-toggle': "tooltip",
+            'data-placement': "top",
+            title: "Saisie obligatoire"
+        }));
     } else {
         $("#target_operation_input").val("");
     }
@@ -948,7 +1022,6 @@ function inputTargetOperation() {
 }
 
 function selectTargetOperation(entity) {
-    console.log(entity);
     if ($("#target_operation_input").length > 0) {
         $("#target_operation_input").remove()
     }
@@ -993,6 +1066,12 @@ function selectTargetOperation(entity) {
 }
 
 $("#add-target").on("click", function () {
+    if ($("#target_operation_input").length > 0) {
+        if ($("#target_operation_input").val() == "") {
+            $("#target_operation_input").focus();
+            return;
+        }
+    }
     $.ajax({
         type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
         url: '/admin/operations/sauvegarde_target', // the url where we want to POST
@@ -1000,7 +1079,9 @@ $("#add-target").on("click", function () {
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,
         success: function (result) {
-            console.log(result);
+            if ($("#target_operation_input").length > 0) {
+                $("#target_operation_input").val("")
+            }
             let div = '<div class="row div-target-operation">';
             div += '<div class="col-lg-3 white-back">';
             switch (result.target.entity) {
@@ -1044,6 +1125,24 @@ $("#add-target").on("click", function () {
                     break;
                 case "DecisionMaking":
                     div += "Pouvoir décisionnel";
+                    break;
+                case "CodeSalesperson":
+                    div += "Code";
+                    break;
+                case "CodeCompany":
+                    div += "Code";
+                    break;
+                case "NameSalesperson":
+                    div += "Nom";
+                    break;
+                case "NameCompany":
+                    div += "Nom";
+                    break;
+                case "Town":
+                    div += "Ville";
+                    break;
+                case "RolesSalesperson":
+                    div += "Profil";
                     break;
             }
             div += '</div>';
@@ -1095,15 +1194,15 @@ $("#list_ciblages_valide").on("click", 'button', function () {
 
 $(".window-operation").nextAll("div").remove();
 
-$('#table-resultats-operation').DataTable( {
+$('#table-resultats-operation').DataTable({
     "dom": '<"top"f>rt<"bottom"lp><"clear">',
     "info": false,
     "language": {
         "paginate": {
-          "next": ">",
-          "previous": "<"
-        }, 
+            "next": ">",
+            "previous": "<"
+        },
         "lengthMenu": "_MENU_",
         "search": "",
-      }
-  } );
+    }
+});

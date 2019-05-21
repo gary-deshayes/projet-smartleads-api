@@ -120,7 +120,7 @@ class CompanyRepository extends ServiceEntityRepository
             case "-1 week":
                 $semaine = date("W") - 1;
                 $query->where("WEEK(company.createdAt,1) = :weekBefore")
-                ->andWhere("YEAR(company.createdAt) = :year")
+                    ->andWhere("YEAR(company.createdAt) = :year")
                     ->setParameter('weekBefore', $semaine)
 
                     ->setParameter('year', $annee);
@@ -145,6 +145,9 @@ class CompanyRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    /**
+     * Fonction de ciblages operations
+     */
     public function getIdCompanyBy($parameter, $value)
     {
         if ($parameter == "company.postalCode") {
@@ -152,6 +155,18 @@ class CompanyRepository extends ServiceEntityRepository
                 ->select("company.code")
                 ->where($parameter .   " = :value")
                 ->setParameter('value', $value)
+                ->getQuery();
+        } elseif ($parameter == "company.name") {
+            $query = $this->createQueryBuilder("company")
+                ->select("company.code")
+                ->where($parameter .   " LIKE :value")
+                ->setParameter('value', "%" . $value . "%")
+                ->getQuery();
+        } elseif ($parameter == "company.town") {
+            $query = $this->createQueryBuilder("company")
+                ->select("company.code")
+                ->where($parameter .   " LIKE :value")
+                ->setParameter('value', "%" . $value . "%")
                 ->getQuery();
         } else {
             $query = $this->createQueryBuilder("company")
@@ -172,9 +187,9 @@ class CompanyRepository extends ServiceEntityRepository
 
         $actualPeriodNumber = $this->getNumberNewCompaniesSince($period)->getSingleResult()["nb"];
         $lastPeriodNumber = $this->getNumberCompaniesBetween($period)->getSingleResult()["nb"];
-        if($lastPeriodNumber == 0){
+        if ($lastPeriodNumber == 0) {
             $pourcentage = 0;
-        }else {
+        } else {
             $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
         }
         return $pourcentage;
