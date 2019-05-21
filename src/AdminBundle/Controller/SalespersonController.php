@@ -2,27 +2,37 @@
 
 namespace App\AdminBundle\Controller;
 
-use App\AdminBundle\Entity\Salesperson;
-use App\AdminBundle\Form\SalespersonType;
-use Doctrine\ORM\EntityRepository;
 use Faker;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityRepository;
+use App\AdminBundle\Form\SearchType;
+use App\AdminBundle\Entity\Salesperson;
+use App\AdminBundle\EntitySearch\Search;
+use App\AdminBundle\Form\SalespersonType;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\AdminBundle\Repository\SettingsRepository;
 use App\AdminBundle\Form\SalespersonUpdateHisDataType;
 
-use App\AdminBundle\Form\SearchType;
-use App\AdminBundle\EntitySearch\Search;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * @Route("/salesperson")
  */
 class SalespersonController extends AbstractController
 {
+    
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+    
     /**
      * @Route("/", name="salesperson_index", methods={"GET"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
@@ -53,7 +63,8 @@ class SalespersonController extends AbstractController
         return $this->render('salesperson/index.html.twig', [
             'salespeople' => $salespeople,
             'nbSalespersons' => $nbSalespersons,
-            'formsearch' => $form->createView()
+            'formsearch' => $form->createView(),
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
 
@@ -95,17 +106,7 @@ class SalespersonController extends AbstractController
         return $this->render('salesperson/new.html.twig', [
             'salesperson' => $salesperson,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{code}", name="salesperson_show", methods={"GET"})
-     * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
-     */
-    public function show(Salesperson $salesperson): Response
-    {
-        return $this->render('salesperson/show.html.twig', [
-            'salesperson' => $salesperson,
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
 
@@ -140,6 +141,7 @@ class SalespersonController extends AbstractController
         return $this->render('salesperson/edit.html.twig', [
             'salesperson' => $salesperson,
             'form' => $form->createView(),
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
 
@@ -170,6 +172,7 @@ class SalespersonController extends AbstractController
 
         return $this->render('salesperson/team.html.twig', [
             "salespersons" => $salespersons,
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
 
@@ -224,6 +227,7 @@ class SalespersonController extends AbstractController
         return $this->render('salesperson/ajout_membre.html.twig', [
             "formSalesperson" => $form->createView(),
             "nombreCommercial" => (int) $nb,
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
 
@@ -282,7 +286,8 @@ class SalespersonController extends AbstractController
         return $this->render('salesperson/list_responsable.html.twig', [
             'leaders' => $pageLeaders,
             'nbLeaders' => $nbLeaders,
-            'formsearch' => $form->createView()
+            'formsearch' => $form->createView(),
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
 
@@ -323,7 +328,8 @@ class SalespersonController extends AbstractController
             'salespersons' => $pageSalespersons,
             'nbCommercials' => $nbCommercials,
             'leader' => $leader,
-            'formsearch' => $form->createView()
+            'formsearch' => $form->createView(),
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
     }
     
@@ -354,7 +360,8 @@ class SalespersonController extends AbstractController
 
         return $this->render('salesperson/parameters.html.twig', [
             'parameters' => $form->createView(),
-            'salesperson' => $salesperson
+            'salesperson' => $salesperson,
+            'settingsApplication' =>  $this->settingsApplication,
         ]);
 
 

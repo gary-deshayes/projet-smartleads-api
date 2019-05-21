@@ -28,12 +28,22 @@ use Proxies\__CG__\App\AdminBundle\Entity\ActivityArea;
 use Proxies\__CG__\App\AdminBundle\Entity\NumberEmployees;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\AdminBundle\Repository\SettingsRepository;
 
 /**
  * @Route("/settings")
  */
 class SettingsController extends AbstractController
 {
+
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+
     /**
      * @Route("/", name="settings_index", methods={"GET", "POST"})
      * @IsGranted("ROLE_DIRECTEUR", statusCode=403)
@@ -41,15 +51,13 @@ class SettingsController extends AbstractController
     public function index(Request $request): Response
     {
         //On récupère la ligne des paramètres application
-        $settings = $this->getDoctrine()
-            ->getRepository(Settings::class)
-            ->findOneBy(array("id" => "1"));
+        
 
-        $form = $this->createForm(SettingsType::class, $settings);
+        $form = $this->createForm(SettingsType::class, $this->settingsApplication);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($settings);
+            $entityManager->persist( $this->settingsApplication);
             $entityManager->flush();
         }
 
@@ -320,7 +328,7 @@ class SettingsController extends AbstractController
 
 
         return $this->render('settings/index.html.twig', [
-            'settings' => $settings,
+            'settingsApplication' =>  $this->settingsApplication,
             'form' => $form->createView(),
 
             'professions' => $professions,

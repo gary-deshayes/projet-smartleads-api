@@ -14,6 +14,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\AdminBundle\Repository\SettingsRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -23,6 +24,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class CompanyController extends AbstractController
 {
+
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+    
     /**
      * @Route("/", name="company_index", methods={"GET"})
      */
@@ -52,7 +62,8 @@ class CompanyController extends AbstractController
         return $this->render('company/index.html.twig', [
             'companies' => $pageCompanies,
             'nbCompanies' => $nbCompanies,
-            'formsearch' => $form->createView()
+            'formsearch' => $form->createView(),
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
@@ -83,16 +94,7 @@ class CompanyController extends AbstractController
         return $this->render('company/new.html.twig', [
             'company' => $company,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{code}", name="company_show", methods={"GET"})
-     */
-    public function show(Company $company): Response
-    {
-        return $this->render('company/show.html.twig', [
-            'company' => $company,
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
@@ -119,7 +121,8 @@ class CompanyController extends AbstractController
         return $this->render('company/edit.html.twig', [
             'company' => $company,
             'form' => $form->createView(),
-            'contacts_entreprise' => $contacts_entreprise
+            'contacts_entreprise' => $contacts_entreprise,
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 

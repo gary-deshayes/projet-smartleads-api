@@ -7,11 +7,20 @@ use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\Entity\OperationSent;
 use Symfony\Component\Routing\Annotation\Route;
-use App\AdminBundle\Repository\OperationSentRepository;
+use App\AdminBundle\Repository\SettingsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
+
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+
     /**
      * @Route("dashboard/{period}", name="dashboard")
      */
@@ -58,7 +67,8 @@ class DashboardController extends AbstractController
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             "data" => $data,
-            "period" => $period
+            "period" => $period,
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
