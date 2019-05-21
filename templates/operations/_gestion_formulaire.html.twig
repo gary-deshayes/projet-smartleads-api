@@ -1,982 +1,988 @@
-{{ form_start(formulaireOperation) }}
-<div class="row">
-    <div class="col-lg-6 form-style gestion_formulaire">
-        <legend>Contact client</legend>
-        <div class="row">
-            <p>Genre</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsGender == 3 or formulaire_operation.contactsGender == 2 or formulaire_operation.contactsGender == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_gender_0" name="formulaire_operation[contacts_gender][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_gender_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_gender_0" name="formulaire_operation[contacts_gender][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_gender_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsGender == 3 or formulaire_operation.contactsGender == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_gender_1" name="formulaire_operation[contacts_gender][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_gender_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_gender_1" name="formulaire_operation[contacts_gender][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_gender_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsGender == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_gender_2" name="formulaire_operation[contacts_gender][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_gender_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_gender_2" name="formulaire_operation[contacts_gender][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_gender_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Prénom</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsFirstname == 3 or formulaire_operation.contactsFirstname == 2 or formulaire_operation.contactsFirstname == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_firstname_0" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_firstname_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_firstname_0" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_firstname_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsFirstname == 3 or formulaire_operation.contactsFirstname == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_firstname_1" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_firstname_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_firstname_1" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_firstname_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsFirstname == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_firstname_2" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_firstname_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_firstname_2" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_firstname_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Nom</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsLastname == 3 or formulaire_operation.contactsLastname == 2 or formulaire_operation.contactsLastname == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_lastname_0" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_lastname_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_lastname_0" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_lastname_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsLastname == 3 or formulaire_operation.contactsLastname == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_lastname_1" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_lastname_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_lastname_1" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_lastname_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsLastname == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_lastname_2" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_lastname_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_lastname_2" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_lastname_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Date de naissance</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsBirthdate == 3 or formulaire_operation.contactsBirthdate == 2 or formulaire_operation.contactsBirthdate == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_birthdate_0" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_birthdate_0" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsBirthdate == 3 or formulaire_operation.contactsBirthdate == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_birthdate_1" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_birthdate_1" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsBirthdate == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_birthdate_2" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_birthdate_2" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <p>Email pro</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsMailPro == 3 or formulaire_operation.contactsMailPro == 2 or formulaire_operation.contactsMailPro == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_mail_pro_0" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_mail_pro_0" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsMailPro == 3 or formulaire_operation.contactsMailPro == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_mail_pro_1" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_mail_pro_1" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsMailPro == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_mail_pro_2" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_mail_pro_2" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Tél mobile</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsMobilephone == 3 or formulaire_operation.contactsMobilephone == 2 or formulaire_operation.contactsMobilephone == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_0" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_0" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsMobilephone == 3 or formulaire_operation.contactsMobilephone == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_1" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_1" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsMobilephone == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_2" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_2" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Tél fixe direct</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsPhone == 3 or formulaire_operation.contactsPhone == 2 or formulaire_operation.contactsPhone == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_phone_0" name="formulaire_operation[contacts_phone][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_phone_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_phone_0" name="formulaire_operation[contacts_phone][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_phone_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsPhone == 3 or formulaire_operation.contactsPhone == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_phone_1" name="formulaire_operation[contacts_phone][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_phone_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_phone_1" name="formulaire_operation[contacts_phone][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_phone_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsPhone == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_phone_2" name="formulaire_operation[contacts_phone][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_phone_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_phone_2" name="formulaire_operation[contacts_phone][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_phone_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <p>Profil Linkedin</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsLinkedin == 3 or formulaire_operation.contactsLinkedin == 2 or formulaire_operation.contactsLinkedin == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_linkedin_0" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_linkedin_0" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsLinkedin == 3 or formulaire_operation.contactsLinkedin == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_linkedin_1" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_linkedin_1" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsLinkedin == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_linkedin_2" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_linkedin_2" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Profil Facebook</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsFacebook == 3 or formulaire_operation.contactsFacebook == 2 or formulaire_operation.contactsFacebook == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_facebook_0" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_facebook_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_facebook_0" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_facebook_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsFacebook == 3 or formulaire_operation.contactsFacebook == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_facebook_1" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_facebook_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_facebook_1" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_facebook_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsFacebook == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_facebook_2" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_facebook_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_facebook_2" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_facebook_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Profil Twitter</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsTwitter == 3 or formulaire_operation.contactsTwitter == 2 or formulaire_operation.contactsTwitter == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_twitter_0" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_twitter_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_twitter_0" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_twitter_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsTwitter == 3 or formulaire_operation.contactsTwitter == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_twitter_1" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_twitter_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_twitter_1" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_twitter_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsTwitter == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_twitter_2" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_twitter_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_twitter_2" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_twitter_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
+{% if operation.settings == null %}
 
-        <br>
-        <div class="row">
-            <p>Métier</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsProfession == 3 or formulaire_operation.contactsProfession == 2 or formulaire_operation.contactsProfession == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_profession_0" name="formulaire_operation[contacts_profession][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_profession_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_profession_0" name="formulaire_operation[contacts_profession][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_profession_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsProfession == 3 or formulaire_operation.contactsProfession == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_profession_1" name="formulaire_operation[contacts_profession][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_profession_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_profession_1" name="formulaire_operation[contacts_profession][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_profession_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsProfession == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_profession_2" name="formulaire_operation[contacts_profession][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_profession_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_profession_2" name="formulaire_operation[contacts_profession][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_profession_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
-            <p>Nom du poste</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.contactsWorkname == 3 or formulaire_operation.contactsWorkname == 2 or formulaire_operation.contactsWorkname == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_workname_0" name="formulaire_operation[contacts_workname][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_workname_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_workname_0" name="formulaire_operation[contacts_workname][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_workname_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsWorkname == 3 or formulaire_operation.contactsWorkname == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_workname_1" name="formulaire_operation[contacts_workname][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_workname_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_workname_1" name="formulaire_operation[contacts_workname][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_workname_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.contactsWorkname == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_contacts_workname_2" name="formulaire_operation[contacts_workname][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_workname_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_contacts_workname_2" name="formulaire_operation[contacts_workname][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_contacts_workname_2">Requis</label>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
+    <p>Veuillez saisir les paramètres de l'opération avant de choisir le formulaire visible</p>
 
-    </div>
-    <div class="col-lg-6 form-style gestion_formulaire">
-        <legend>Entreprise liée</legend>
-        <div class="row">
-            <p>Nom de l'entreprise</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyName == 3 or formulaire_operation.companyName == 2 or formulaire_operation.companyName == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_name_0" name="formulaire_operation[company_name][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_name_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_name_0" name="formulaire_operation[company_name][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_name_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyName == 3 or formulaire_operation.companyName == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_name_1" name="formulaire_operation[company_name][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_name_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_name_1" name="formulaire_operation[company_name][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_name_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyName == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_name_2" name="formulaire_operation[company_name][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_name_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_name_2" name="formulaire_operation[company_name][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_name_2">Requis</label>
-                    </div>
-                {% endif %}
+{% else %}
+    {{ form_start(formulaireOperation) }}
+    <div class="row">
+        <div class="col-lg-6 form-style gestion_formulaire">
+            <legend>Contact client</legend>
+            <div class="row">
+                <p>Genre</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsGender == 3 or formulaire_operation.contactsGender == 2 or formulaire_operation.contactsGender == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_gender_0" name="formulaire_operation[contacts_gender][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_gender_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_gender_0" name="formulaire_operation[contacts_gender][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_gender_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsGender == 3 or formulaire_operation.contactsGender == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_gender_1" name="formulaire_operation[contacts_gender][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_gender_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_gender_1" name="formulaire_operation[contacts_gender][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_gender_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsGender == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_gender_2" name="formulaire_operation[contacts_gender][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_gender_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_gender_2" name="formulaire_operation[contacts_gender][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_gender_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Prénom</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsFirstname == 3 or formulaire_operation.contactsFirstname == 2 or formulaire_operation.contactsFirstname == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_firstname_0" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_firstname_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_firstname_0" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_firstname_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsFirstname == 3 or formulaire_operation.contactsFirstname == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_firstname_1" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_firstname_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_firstname_1" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_firstname_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsFirstname == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_firstname_2" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_firstname_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_firstname_2" name="formulaire_operation[contacts_firstname][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_firstname_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Nom</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsLastname == 3 or formulaire_operation.contactsLastname == 2 or formulaire_operation.contactsLastname == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_lastname_0" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_lastname_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_lastname_0" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_lastname_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsLastname == 3 or formulaire_operation.contactsLastname == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_lastname_1" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_lastname_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_lastname_1" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_lastname_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsLastname == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_lastname_2" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_lastname_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_lastname_2" name="formulaire_operation[contacts_lastname][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_lastname_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Date de naissance</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsBirthdate == 3 or formulaire_operation.contactsBirthdate == 2 or formulaire_operation.contactsBirthdate == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_birthdate_0" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_birthdate_0" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsBirthdate == 3 or formulaire_operation.contactsBirthdate == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_birthdate_1" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_birthdate_1" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsBirthdate == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_birthdate_2" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_birthdate_2" name="formulaire_operation[contacts_birthdate][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_birthdate_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <p>Email pro</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsMailPro == 3 or formulaire_operation.contactsMailPro == 2 or formulaire_operation.contactsMailPro == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_mail_pro_0" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_mail_pro_0" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsMailPro == 3 or formulaire_operation.contactsMailPro == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_mail_pro_1" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_mail_pro_1" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsMailPro == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_mail_pro_2" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_mail_pro_2" name="formulaire_operation[contacts_mail_pro][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mail_pro_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Tél mobile</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsMobilephone == 3 or formulaire_operation.contactsMobilephone == 2 or formulaire_operation.contactsMobilephone == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_0" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_0" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsMobilephone == 3 or formulaire_operation.contactsMobilephone == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_1" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_1" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsMobilephone == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_2" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_mobile_phone_2" name="formulaire_operation[contacts_mobile_phone][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_mobile_phone_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Tél fixe direct</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsPhone == 3 or formulaire_operation.contactsPhone == 2 or formulaire_operation.contactsPhone == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_phone_0" name="formulaire_operation[contacts_phone][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_phone_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_phone_0" name="formulaire_operation[contacts_phone][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_phone_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsPhone == 3 or formulaire_operation.contactsPhone == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_phone_1" name="formulaire_operation[contacts_phone][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_phone_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_phone_1" name="formulaire_operation[contacts_phone][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_phone_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsPhone == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_phone_2" name="formulaire_operation[contacts_phone][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_phone_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_phone_2" name="formulaire_operation[contacts_phone][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_phone_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <p>Profil Linkedin</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsLinkedin == 3 or formulaire_operation.contactsLinkedin == 2 or formulaire_operation.contactsLinkedin == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_linkedin_0" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_linkedin_0" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsLinkedin == 3 or formulaire_operation.contactsLinkedin == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_linkedin_1" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_linkedin_1" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsLinkedin == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_linkedin_2" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_linkedin_2" name="formulaire_operation[contacts_linkedin][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_linkedin_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Profil Facebook</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsFacebook == 3 or formulaire_operation.contactsFacebook == 2 or formulaire_operation.contactsFacebook == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_facebook_0" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_facebook_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_facebook_0" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_facebook_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsFacebook == 3 or formulaire_operation.contactsFacebook == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_facebook_1" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_facebook_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_facebook_1" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_facebook_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsFacebook == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_facebook_2" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_facebook_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_facebook_2" name="formulaire_operation[contacts_facebook][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_facebook_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Profil Twitter</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsTwitter == 3 or formulaire_operation.contactsTwitter == 2 or formulaire_operation.contactsTwitter == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_twitter_0" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_twitter_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_twitter_0" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_twitter_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsTwitter == 3 or formulaire_operation.contactsTwitter == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_twitter_1" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_twitter_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_twitter_1" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_twitter_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsTwitter == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_twitter_2" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_twitter_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_twitter_2" name="formulaire_operation[contacts_twitter][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_twitter_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <p>Métier</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsProfession == 3 or formulaire_operation.contactsProfession == 2 or formulaire_operation.contactsProfession == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_profession_0" name="formulaire_operation[contacts_profession][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_profession_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_profession_0" name="formulaire_operation[contacts_profession][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_profession_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsProfession == 3 or formulaire_operation.contactsProfession == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_profession_1" name="formulaire_operation[contacts_profession][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_profession_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_profession_1" name="formulaire_operation[contacts_profession][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_profession_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsProfession == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_profession_2" name="formulaire_operation[contacts_profession][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_profession_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_profession_2" name="formulaire_operation[contacts_profession][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_profession_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Nom du poste</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.contactsWorkname == 3 or formulaire_operation.contactsWorkname == 2 or formulaire_operation.contactsWorkname == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_workname_0" name="formulaire_operation[contacts_workname][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_workname_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_workname_0" name="formulaire_operation[contacts_workname][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_workname_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsWorkname == 3 or formulaire_operation.contactsWorkname == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_workname_1" name="formulaire_operation[contacts_workname][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_workname_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_workname_1" name="formulaire_operation[contacts_workname][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_workname_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.contactsWorkname == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_contacts_workname_2" name="formulaire_operation[contacts_workname][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_workname_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_contacts_workname_2" name="formulaire_operation[contacts_workname][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_contacts_workname_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
 
         </div>
-        <div class="row">
-            <p>Activité NAF</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyNaf == 3 or formulaire_operation.companyNaf == 2 or formulaire_operation.companyNaf == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_naf_0" name="formulaire_operation[company_naf][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_naf_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_naf_0" name="formulaire_operation[company_naf][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_naf_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyNaf == 3 or formulaire_operation.companyNaf == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_naf_1" name="formulaire_operation[company_naf][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_naf_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_naf_1" name="formulaire_operation[company_naf][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_naf_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyNaf == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_naf_2" name="formulaire_operation[company_naf][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_naf_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_naf_2" name="formulaire_operation[company_naf][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_naf_2">Requis</label>
-                    </div>
-                {% endif %}
+        <div class="col-lg-6 form-style gestion_formulaire">
+            <legend>Entreprise liée</legend>
+            <div class="row">
+                <p>Nom de l'entreprise</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyName == 3 or formulaire_operation.companyName == 2 or formulaire_operation.companyName == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_name_0" name="formulaire_operation[company_name][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_name_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_name_0" name="formulaire_operation[company_name][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_name_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyName == 3 or formulaire_operation.companyName == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_name_1" name="formulaire_operation[company_name][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_name_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_name_1" name="formulaire_operation[company_name][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_name_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyName == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_name_2" name="formulaire_operation[company_name][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_name_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_name_2" name="formulaire_operation[company_name][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_name_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+
             </div>
-        </div>
-        <div class="row">
-            <p>Statut juridique</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyLegalStatus == 3 or formulaire_operation.companyLegalStatus == 2 or formulaire_operation.companyLegalStatus == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_legal_status_0" name="formulaire_operation[company_legal_status][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_legal_status_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_legal_status_0" name="formulaire_operation[company_legal_status][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_legal_status_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyLegalStatus == 3 or formulaire_operation.companyLegalStatus == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_legal_status_1" name="formulaire_operation[company_legal_status][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_legal_status_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_legal_status_1" name="formulaire_operation[company_legal_status][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_legal_status_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyLegalStatus == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_legal_status_2" name="formulaire_operation[company_legal_status][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_legal_status_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_legal_status_2" name="formulaire_operation[company_legal_status][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_legal_status_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Activité NAF</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyNaf == 3 or formulaire_operation.companyNaf == 2 or formulaire_operation.companyNaf == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_naf_0" name="formulaire_operation[company_naf][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_naf_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_naf_0" name="formulaire_operation[company_naf][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_naf_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyNaf == 3 or formulaire_operation.companyNaf == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_naf_1" name="formulaire_operation[company_naf][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_naf_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_naf_1" name="formulaire_operation[company_naf][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_naf_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyNaf == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_naf_2" name="formulaire_operation[company_naf][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_naf_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_naf_2" name="formulaire_operation[company_naf][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_naf_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>N° SIRET</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companySiret == 3 or formulaire_operation.companySiret == 2 or formulaire_operation.companySiret == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_siret_0" name="formulaire_operation[company_siret][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_siret_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_siret_0" name="formulaire_operation[company_siret][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_siret_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companySiret == 3 or formulaire_operation.companySiret == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_siret_1" name="formulaire_operation[company_siret][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_siret_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_siret_1" name="formulaire_operation[company_siret][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_siret_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companySiret == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_siret_2" name="formulaire_operation[company_siret][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_siret_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_siret_2" name="formulaire_operation[company_siret][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_siret_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Statut juridique</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyLegalStatus == 3 or formulaire_operation.companyLegalStatus == 2 or formulaire_operation.companyLegalStatus == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_legal_status_0" name="formulaire_operation[company_legal_status][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_legal_status_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_legal_status_0" name="formulaire_operation[company_legal_status][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_legal_status_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyLegalStatus == 3 or formulaire_operation.companyLegalStatus == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_legal_status_1" name="formulaire_operation[company_legal_status][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_legal_status_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_legal_status_1" name="formulaire_operation[company_legal_status][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_legal_status_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyLegalStatus == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_legal_status_2" name="formulaire_operation[company_legal_status][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_legal_status_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_legal_status_2" name="formulaire_operation[company_legal_status][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_legal_status_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <p>Effectifs</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyNumberEmployees == 3 or formulaire_operation.companyNumberEmployees == 2 or formulaire_operation.companyNumberEmployees == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_number_employees_0" name="formulaire_operation[company_number_employees][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_number_employees_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_number_employees_0" name="formulaire_operation[company_number_employees][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_number_employees_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyNumberEmployees == 3 or formulaire_operation.companyNumberEmployees == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_number_employees_1" name="formulaire_operation[company_number_employees][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_number_employees_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_number_employees_1" name="formulaire_operation[company_number_employees][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_number_employees_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyNumberEmployees == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_number_employees_2" name="formulaire_operation[company_number_employees][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_number_employees_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_number_employees_2" name="formulaire_operation[company_number_employees][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_number_employees_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>N° SIRET</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companySiret == 3 or formulaire_operation.companySiret == 2 or formulaire_operation.companySiret == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_siret_0" name="formulaire_operation[company_siret][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_siret_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_siret_0" name="formulaire_operation[company_siret][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_siret_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companySiret == 3 or formulaire_operation.companySiret == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_siret_1" name="formulaire_operation[company_siret][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_siret_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_siret_1" name="formulaire_operation[company_siret][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_siret_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companySiret == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_siret_2" name="formulaire_operation[company_siret][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_siret_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_siret_2" name="formulaire_operation[company_siret][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_siret_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>Chiffres d'affaires</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyTurnovers == 3 or formulaire_operation.companyTurnovers == 2 or formulaire_operation.companyTurnovers == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_turnovers_0" name="formulaire_operation[company_turnovers][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_turnovers_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_turnovers_0" name="formulaire_operation[company_turnovers][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_turnovers_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyTurnovers == 3 or formulaire_operation.companyTurnovers == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_turnovers_1" name="formulaire_operation[company_turnovers][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_turnovers_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_turnovers_1" name="formulaire_operation[company_turnovers][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_turnovers_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyTurnovers == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_turnovers_2" name="formulaire_operation[company_turnovers][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_turnovers_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_turnovers_2" name="formulaire_operation[company_turnovers][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_turnovers_2">Requis</label>
-                    </div>
-                {% endif %}
+            <br>
+            <div class="row">
+                <p>Effectifs</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyNumberEmployees == 3 or formulaire_operation.companyNumberEmployees == 2 or formulaire_operation.companyNumberEmployees == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_number_employees_0" name="formulaire_operation[company_number_employees][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_number_employees_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_number_employees_0" name="formulaire_operation[company_number_employees][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_number_employees_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyNumberEmployees == 3 or formulaire_operation.companyNumberEmployees == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_number_employees_1" name="formulaire_operation[company_number_employees][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_number_employees_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_number_employees_1" name="formulaire_operation[company_number_employees][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_number_employees_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyNumberEmployees == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_number_employees_2" name="formulaire_operation[company_number_employees][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_number_employees_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_number_employees_2" name="formulaire_operation[company_number_employees][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_number_employees_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <p>Adresse</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyAddress == 3 or formulaire_operation.companyAddress == 2 or formulaire_operation.companyAddress == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_address_0" name="formulaire_operation[company_address][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_address_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_address_0" name="formulaire_operation[company_address][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_address_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyAddress == 3 or formulaire_operation.companyAddress == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_address_1" name="formulaire_operation[company_address][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_address_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_address_1" name="formulaire_operation[company_address][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_address_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyAddress == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_address_2" name="formulaire_operation[company_address][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_address_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_address_2" name="formulaire_operation[company_address][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_address_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Chiffres d'affaires</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyTurnovers == 3 or formulaire_operation.companyTurnovers == 2 or formulaire_operation.companyTurnovers == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_turnovers_0" name="formulaire_operation[company_turnovers][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_turnovers_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_turnovers_0" name="formulaire_operation[company_turnovers][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_turnovers_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyTurnovers == 3 or formulaire_operation.companyTurnovers == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_turnovers_1" name="formulaire_operation[company_turnovers][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_turnovers_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_turnovers_1" name="formulaire_operation[company_turnovers][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_turnovers_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyTurnovers == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_turnovers_2" name="formulaire_operation[company_turnovers][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_turnovers_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_turnovers_2" name="formulaire_operation[company_turnovers][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_turnovers_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>Code postal</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyPostalCode == 3 or formulaire_operation.companyPostalCode == 2 or formulaire_operation.companyPostalCode == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_postal_code_0" name="formulaire_operation[company_postal_code][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_postal_code_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_postal_code_0" name="formulaire_operation[company_postal_code][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_postal_code_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyPostalCode == 3 or formulaire_operation.companyPostalCode == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_postal_code_1" name="formulaire_operation[company_postal_code][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_postal_code_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_postal_code_1" name="formulaire_operation[company_postal_code][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_postal_code_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyPostalCode == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_postal_code_2" name="formulaire_operation[company_postal_code][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_postal_code_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_postal_code_2" name="formulaire_operation[company_postal_code][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_postal_code_2">Requis</label>
-                    </div>
-                {% endif %}
+            <br>
+            <div class="row">
+                <p>Adresse</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyAddress == 3 or formulaire_operation.companyAddress == 2 or formulaire_operation.companyAddress == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_address_0" name="formulaire_operation[company_address][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_address_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_address_0" name="formulaire_operation[company_address][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_address_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyAddress == 3 or formulaire_operation.companyAddress == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_address_1" name="formulaire_operation[company_address][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_address_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_address_1" name="formulaire_operation[company_address][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_address_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyAddress == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_address_2" name="formulaire_operation[company_address][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_address_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_address_2" name="formulaire_operation[company_address][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_address_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>Pays</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyCountry == 3 or formulaire_operation.companyCountry == 2 or formulaire_operation.companyCountry == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_country_0" name="formulaire_operation[company_country][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_country_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_country_0" name="formulaire_operation[company_country][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_country_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyCountry == 3 or formulaire_operation.companyCountry == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_country_1" name="formulaire_operation[company_country][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_country_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_country_1" name="formulaire_operation[company_country][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_country_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyCountry == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_country_2" name="formulaire_operation[company_country][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_country_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_country_2" name="formulaire_operation[company_country][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_country_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Code postal</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyPostalCode == 3 or formulaire_operation.companyPostalCode == 2 or formulaire_operation.companyPostalCode == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_postal_code_0" name="formulaire_operation[company_postal_code][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_postal_code_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_postal_code_0" name="formulaire_operation[company_postal_code][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_postal_code_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyPostalCode == 3 or formulaire_operation.companyPostalCode == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_postal_code_1" name="formulaire_operation[company_postal_code][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_postal_code_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_postal_code_1" name="formulaire_operation[company_postal_code][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_postal_code_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyPostalCode == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_postal_code_2" name="formulaire_operation[company_postal_code][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_postal_code_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_postal_code_2" name="formulaire_operation[company_postal_code][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_postal_code_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <p>Tél du standard</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyStandardPhone == 3 or formulaire_operation.companyStandardPhone == 2 or formulaire_operation.companyStandardPhone == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_standard_phone_0" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_standard_phone_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_standard_phone_0" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_standard_phone_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyStandardPhone == 3 or formulaire_operation.companyStandardPhone == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_standard_phone_1" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_standard_phone_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_standard_phone_1" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_standard_phone_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyStandardPhone == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_standard_phone_2" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_standard_phone_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_standard_phone_2" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_standard_phone_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Pays</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyCountry == 3 or formulaire_operation.companyCountry == 2 or formulaire_operation.companyCountry == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_country_0" name="formulaire_operation[company_country][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_country_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_country_0" name="formulaire_operation[company_country][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_country_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyCountry == 3 or formulaire_operation.companyCountry == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_country_1" name="formulaire_operation[company_country][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_country_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_country_1" name="formulaire_operation[company_country][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_country_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyCountry == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_country_2" name="formulaire_operation[company_country][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_country_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_country_2" name="formulaire_operation[company_country][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_country_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>Fax</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyFax == 3 or formulaire_operation.companyFax == 2 or formulaire_operation.companyFax == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_fax_0" name="formulaire_operation[company_fax][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_fax_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_fax_0" name="formulaire_operation[company_fax][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_fax_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyFax == 3 or formulaire_operation.companyFax == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_fax_1" name="formulaire_operation[company_fax][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_fax_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_fax_1" name="formulaire_operation[company_fax][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_fax_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyFax == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_fax_2" name="formulaire_operation[company_fax][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_fax_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_fax_2" name="formulaire_operation[company_fax][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_fax_2">Requis</label>
-                    </div>
-                {% endif %}
+            <br>
+            <div class="row">
+                <p>Tél du standard</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyStandardPhone == 3 or formulaire_operation.companyStandardPhone == 2 or formulaire_operation.companyStandardPhone == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_standard_phone_0" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_standard_phone_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_standard_phone_0" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_standard_phone_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyStandardPhone == 3 or formulaire_operation.companyStandardPhone == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_standard_phone_1" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_standard_phone_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_standard_phone_1" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_standard_phone_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyStandardPhone == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_standard_phone_2" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_standard_phone_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_standard_phone_2" name="formulaire_operation[company_standard_phone][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_standard_phone_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>Site web</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyWebsite == 3 or formulaire_operation.companyWebsite == 2 or formulaire_operation.companyWebsite == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_website_0" name="formulaire_operation[company_website][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_website_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_website_0" name="formulaire_operation[company_website][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_website_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyWebsite == 3 or formulaire_operation.companyWebsite == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_website_1" name="formulaire_operation[company_website][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_website_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_website_1" name="formulaire_operation[company_website][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_website_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyWebsite == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_website_2" name="formulaire_operation[company_website][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_website_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_website_2" name="formulaire_operation[company_website][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_website_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Fax</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyFax == 3 or formulaire_operation.companyFax == 2 or formulaire_operation.companyFax == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_fax_0" name="formulaire_operation[company_fax][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_fax_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_fax_0" name="formulaire_operation[company_fax][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_fax_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyFax == 3 or formulaire_operation.companyFax == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_fax_1" name="formulaire_operation[company_fax][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_fax_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_fax_1" name="formulaire_operation[company_fax][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_fax_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyFax == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_fax_2" name="formulaire_operation[company_fax][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_fax_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_fax_2" name="formulaire_operation[company_fax][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_fax_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <p>Email</p>
-            <div class="gestion-formulaire-checkbox-div">
-                {% if formulaire_operation.companyMail == 3 or formulaire_operation.companyMail == 2 or formulaire_operation.companyMail == 1 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_mail_0" name="formulaire_operation[company_mail][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_mail_0">Affiché</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_mail_0" name="formulaire_operation[company_mail][]" type="checkbox" value="1">
-                        <label class="custom-control-label" for="formulaire_operation_company_mail_0">Affiché</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyMail == 3 or formulaire_operation.companyMail == 2 %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_mail_1" name="formulaire_operation[company_mail][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_mail_1">Editable</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_mail_1" name="formulaire_operation[company_mail][]" type="checkbox" value="2">
-                        <label class="custom-control-label" for="formulaire_operation_company_mail_1">Editable</label>
-                    </div>
-                {% endif %}
-                {% if formulaire_operation.companyMail == 3  %}
-                    <div>
-                        <input checked class="custom-control-input" id="formulaire_operation_company_mail_2" name="formulaire_operation[company_mail][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_mail_2">Requis</label>
-                    </div>
-                {% else %}
-                    <div>
-                        <input class="custom-control-input" id="formulaire_operation_company_mail_2" name="formulaire_operation[company_mail][]" type="checkbox" value="3">
-                        <label class="custom-control-label" for="formulaire_operation_company_mail_2">Requis</label>
-                    </div>
-                {% endif %}
+            <div class="row">
+                <p>Site web</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyWebsite == 3 or formulaire_operation.companyWebsite == 2 or formulaire_operation.companyWebsite == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_website_0" name="formulaire_operation[company_website][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_website_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_website_0" name="formulaire_operation[company_website][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_website_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyWebsite == 3 or formulaire_operation.companyWebsite == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_website_1" name="formulaire_operation[company_website][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_website_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_website_1" name="formulaire_operation[company_website][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_website_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyWebsite == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_website_2" name="formulaire_operation[company_website][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_website_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_website_2" name="formulaire_operation[company_website][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_website_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <p>Email</p>
+                <div class="gestion-formulaire-checkbox-div">
+                    {% if formulaire_operation.companyMail == 3 or formulaire_operation.companyMail == 2 or formulaire_operation.companyMail == 1 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_mail_0" name="formulaire_operation[company_mail][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_mail_0">Affiché</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_mail_0" name="formulaire_operation[company_mail][]" type="checkbox" value="1">
+                            <label class="custom-control-label" for="formulaire_operation_company_mail_0">Affiché</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyMail == 3 or formulaire_operation.companyMail == 2 %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_mail_1" name="formulaire_operation[company_mail][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_mail_1">Editable</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_mail_1" name="formulaire_operation[company_mail][]" type="checkbox" value="2">
+                            <label class="custom-control-label" for="formulaire_operation_company_mail_1">Editable</label>
+                        </div>
+                    {% endif %}
+                    {% if formulaire_operation.companyMail == 3  %}
+                        <div>
+                            <input checked class="custom-control-input" id="formulaire_operation_company_mail_2" name="formulaire_operation[company_mail][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_mail_2">Requis</label>
+                        </div>
+                    {% else %}
+                        <div>
+                            <input class="custom-control-input" id="formulaire_operation_company_mail_2" name="formulaire_operation[company_mail][]" type="checkbox" value="3">
+                            <label class="custom-control-label" for="formulaire_operation_company_mail_2">Requis</label>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="btn-end-form-upd">
-    <div>
-        <button class="btn btn-retour-radius btn-light">
-            <a href="{{path('operations_index')}}">Retour</a>
-        </button>
+    <div class="btn-end-form-upd">
+        <div>
+            <button class="btn btn-retour-radius btn-light">
+                <a href="{{path('operations_index')}}">Retour</a>
+            </button>
+        </div>
+        <div>
+            <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
+            <button class="btn btn-radius-red btn-outline-red">Dupliquer</button>
+            <button class="btn btn-radius-red">
+                {{ button_label|default('Save') }}</button>
+        </div>
     </div>
-    <div>
-        <button class="btn btn-radius-red btn-outline-red">Supprimer</button>
-        <button class="btn btn-radius-red btn-outline-red">Dupliquer</button>
-        <button class="btn btn-radius-red">
-            {{ button_label|default('Save') }}</button>
-    </div>
-</div>
-{{ form_end(formulaireOperation) }}
+    {{ form_end(formulaireOperation) }}
+{% endif %}

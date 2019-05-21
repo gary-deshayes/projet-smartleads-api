@@ -88,42 +88,7 @@ class CompanyController extends AbstractController
      */
     public function getPourcentNewCompanySinceLastPeriod($since)
     {
-        $period = "";
-        $periodBefore = "";
-        switch ($since) {
-            case "day":
-                $period = "-1 days";
-                $periodBefore = "-2 days";
-                break;
-            case "week":
-                $period = "-1 week";
-                $periodBefore = "-2 week";
-                break;
-            case "month":
-                $period = "-1 month";
-                $periodBefore = "-2 month";
-                break;
-            case "year":
-                $period = "-1 year";
-                $periodBefore = "-2 year";
-                break;
-        }
-
-
-        $actualNumber = (int)$this->getDoctrine()
-            ->getRepository("AdminBundle:Company")
-            ->getNumberNewCompaniesSince($period);
-
-        $beforeNumber = (int)$this->getDoctrine()
-            ->getRepository("AdminBundle:Company")
-            ->getNumberCompaniesBetween($periodBefore, $period);
-            
-        $pourcentage = number_format(($actualNumber - $beforeNumber) / $beforeNumber * 100, 0, ".", " ");
-
-        $data = array(
-            "pourcentage" => $pourcentage
-        );
-
+        $data = $this->getDoctrine()->getRepository(Company::class)->getPourcentageNewCompanies($since);
         $dataJson = array(
             "data" => $data,
             "retour" => 1

@@ -32,3 +32,8 @@ doctrine:
                 test_datetime: App\DQL\DatetimeFunction
             string_functions:
                 DATE: DoctrineExtensions\Query\Mysql\Date
+                WEEK: DoctrineExtensions\Query\Mysql\Week
+                YEAR: DoctrineExtensions\Query\Mysql\Year
+                MONTH: DoctrineExtensions\Query\Mysql\Month
+                DAY: DoctrineExtensions\Query\Mysql\Day
+

@@ -67,7 +67,6 @@ class AffectedArea
 
     public function addDepartment(Department $department): self
     {
-        dump("je passe la");
         if (!$this->departments->contains($department)) {
             $this->departments[] = $department;
             $department->setAffectedArea($this);
@@ -78,9 +77,7 @@ class AffectedArea
 
     public function removeDepartment(Department $department): self
     {
-        dump("Je remove");
         if ($this->departments->contains($department)) {
-            dump("ce départment ", $department);
             $this->departments->removeElement($department);
             // set the owning side to null (unless already changed)
             if ($department->getAffectedArea() === $this) {

@@ -7,13 +7,15 @@
             <h1 class="inline-search">Mes contacts</h1>
             <h2 class="red-primary">({{nbContactsCommercial}})</h2>
         {% else %}
-            <h1 id= "compteur" class="inline-search">Contacts
+            <h1 class="inline-search" id="compteur">Contacts
                 <strong class="red-primary">({{nbContactsCommercial}})</strong>
             </h1>
         {% endif %}
         {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
         {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
-        <button class="btn-search"><i aria-hidden="true" class="fas fa-search"></i></button>
+        <button class="btn-search">
+            <i aria-hidden="true" class="fas fa-search"></i>
+        </button>
     </div>
     <div class="container-content">
         <table class="table">
@@ -24,6 +26,7 @@
                         <input type="checkbox" class="custom-control-input" id="all-check" value="all">
                         <label class="custom-control-label" for="all-check"></label>
                     </div>
+
                     </th>
                     <th></th>
                     <th>Prénom</th>
@@ -33,23 +36,22 @@
                     <th>CP</th>
                     <th>Ville</th>
                     <th>Statut</th>
-                    <th>email</th>
-                    <th>mobile</th>
-                    <th>téléphone</th>
+                    <th>...</th>
                 </tr>
             </thead>
             <tbody class="checkbox-dynamic">
                 {% for contact in contacts %}
                     <tr class="clickable-row" data-href="{{ path('contacts_edit', {'code': contact.code}) }}">
-                    <td class="check-user">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="check-{{ contact.code }}" value="{{ contact.code }}">
-                            <label class="custom-control-label" for="check-{{ contact.code }}"></label>
-                        </div>
-                    </td>
+                        <td class="check-user">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check-{{ contact.code }}" value="{{ contact.code }}">
+                                <label class="custom-control-label" for="check-{{ contact.code }}"></label>
+                            </div>
+                        </td>
                         <td class="logo-table">
                             {% if vich_uploader_asset(contact, 'imageFile') is null %}
                                 <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
+
                                 {% else %}
                                     <img class="rounded-circle" src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature') }}" alt>
                                     {% endif %}
@@ -97,3 +99,4 @@
                 </div>
             </div>
         {% endblock %}
+

@@ -1,56 +1,79 @@
-<div>
-    <div style="color:red;">{{ resultats_operation | length }}
-    </div>emails envoyés avec succès
-    <div class="pourcentage-resultats">
-        <p class="pourcentage-non-ouvert">{{ pourcentage.nonouvert }}%</p> Non ouverts
-        <p class="pourcentage-ouvert">{{ pourcentage.ouvert }}%</p>Ouverts
-        <p class="pourcentage-qualifier">{{ pourcentage.qualifier }}%</p>Qualifiés
-        <p class="pourcentage-refus">{{ pourcentage.refus }}%</p>Refusés
-        <p class="pourcentage-desabonnement">{{ pourcentage.desabonnement }}%</p>Désabonnement
+{% if operation.sent == false %}
+    <p>Veuillez d'abord envoyer l'opération grâce au ciblâge avant de voir les résultats.</p>
+{% else %}
+    <div>
+        <div style="color:red;">{{ resultats_operation | length }}
+        </div>emails envoyés avec succès
+        <div class="pourcentage-resultats">
+            <p class="pourcentage-non-ouvert">{{ pourcentage.nonouvert }}%</p>
+            Non ouverts
+            <p class="pourcentage-ouvert">{{ pourcentage.ouvert }}%</p>Ouverts
+            <p class="pourcentage-qualifier">{{ pourcentage.qualifier }}%</p>Qualifiés
+            <p class="pourcentage-refus">{{ pourcentage.refus }}%</p>Refusés
+            <p class="pourcentage-desabonnement">{{ pourcentage.desabonnement }}%</p>Désabonnement
+        </div>
     </div>
-</div>
-<div class="window">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Entreprise</th>
-                <th scope="col">Fonction</th>
-                <th scope="col">CP</th>
-                <th scope="col">Statut</th>
-                <th scope="col"></th>
-
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for resultat in resultats_operation %}
-
+    <div class="window">
+        <table class="table table-striped table-bordered order-column" id="table-resultats-operation">
+            <thead>
                 <tr>
-                    <th>{{ resultat.contacts.firstname}}</th>
-                    <td>{{ resultat.contacts.lastname}}</td>
-                    <td>{{ resultat.contacts.company.name}}</td>
-                    <td>{{ resultat.contacts.company.name}}</td>
+                    <th scope="col"></th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Entreprise</th>
+                    <th scope="col">Fonction</th>
+                    <th scope="col">CP</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col"></th>
 
-                    <td>{{ resultat.contacts.company.name}}</td>
 
-                    <td>
-                        {% if resultat.state == 1 %}
-                            <div class="dot dot-grey"></div>Non ouvert
-                        {% elseif resultat.state == 2 %}
-                            <div class="dot dot-light-green"></div>Ouvert
-                        {% elseif resultat.state == 3 %}
-                            <div class="dot dot-green"></div>Qualifié
-                        {% elseif resultat.state == 4 %}
-                            <div class="dot dot-red"></div>Refusé
-                        {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for resultat in resultats_operation %}
+
+                    <tr>
+                        <td class="logo-table">
+                            {% if vich_uploader_asset(resultat.contacts, 'imageFile') is null %}
+                                <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
+                            {% else %}
+                                <img class="rounded-circle" src="{{ vich_uploader_asset(resultat.contacts, 'imageFile') | imagine_filter('miniature') }}" alt>
+                            {% endif %}
+                        </td>
+                        <th>{{ resultat.contacts.firstname}}</th>
+                        <td>{{ resultat.contacts.lastname}}</td>
+                        <td>{{ resultat.contacts.company.name}}</td>
+                        <td>{{ resultat.contacts.company.name}}</td>
+
+                        <td>{{ resultat.contacts.company.name}}</td>
+
+                        <td>
+                            {% if resultat.state == 1 %}
+                                <div class="dot dot-grey"></div>Non ouvert
+                            {% elseif resultat.state == 2 %}
+                                <div class="dot dot-light-green"></div>Ouvert
+                            {% elseif resultat.state == 3 %}
+                                <div class="dot dot-green"></div>Qualifié
+                            {% elseif resultat.state == 4 %}
+                                <div class="dot dot-red"></div>Désabonnement
+                            {% elseif resultat.state == 5 %}
+                                <div class="dot dot-red"></div>Refusé
+                            {% endif %}
+                        </td>
+                        <td>
+                            <i class="fas fa-at" title="{{ resultat.contacts.email }}"></i>
+
+                            <i title="{{ resultat.contacts.mobilePhone }}" class="fas fa-mobile"></i>
+
+                            <i class="fas fa-phone-square" title="{{ resultat.contacts.phone }}"></i>
+
+
+                        </td>
                     </td>
-                    <td></td>
                 </tr>
             {% endfor %}
 
         </tbody>
     </table>
 
-</div>
+</div>{% endif %}

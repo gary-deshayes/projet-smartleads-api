@@ -113,6 +113,8 @@
     }
 
     .infos-entity {
+        color: #888888;
+
         .title {
             font-size: 18px;
             font-weight: bold;
@@ -120,6 +122,7 @@
 
         .description {
             font-size: 18px;
+            font-weight: 300;
         }
     }
 
@@ -127,6 +130,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        i {
+            color: #9ACD32;
+            font-size: 12px;
+            margin-right: 10px;
+        }
 
         .infos {
             font-size: 13px;

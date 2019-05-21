@@ -6,7 +6,6 @@ use App\AdminBundle\EntitySearch\Search;
 use App\AdminBundle\Entity\Contacts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Proxies\__CG__\App\AdminBundle\Entity\Salesperson;
 
 /**
  * @method Contacts[]    getAllContacts(ContactsSearch $search)
@@ -42,16 +41,20 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * @return Contacts[] Returns an array of Contacts objects
      */
-    public function getCountContactsCommercial($id_user)
+    public function getCountContactsCommercial($id_user, $search)
     {
         $query = $this->createQueryBuilder('contacts')
             ->select('count(contacts.code)')
             ->where("contacts.salesperson = :salesperson")
             ->orderBy('contacts.lastName', 'ASC')
-            ->setParameter(":salesperson", $id_user)
-            ->getQuery();
+            ->setParameter(":salesperson", $id_user);
+        if ($search->getSearch()) {
+            $query->andWhere('contacts.lastName LIKE :search');
+            $query->orWhere('contacts.firstName LIKE :search');
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
 
-        return $query->getSingleScalarResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -74,13 +77,17 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * @return Contacts[] Returns an array of Contacts objects
      */
-    public function getCountAllContacts()
+    public function getCountAllContacts($search)
     {
         $query = $this->createQueryBuilder('contacts')
-            ->select('count(contacts.code)')
-            ->getQuery();
+            ->select('count(contacts.code)');
+        if ($search->getSearch()) {
+            $query->andWhere('contacts.lastName LIKE :search');
+            $query->orWhere('contacts.firstName LIKE :search');
+            $query->setParameter(":search", "%" . $search->getSearch() . "%");
+        }
 
-        return $query->getSingleScalarResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     public function getContactsInArray($array)
@@ -101,6 +108,55 @@ class ContactsRepository extends ServiceEntityRepository
             ->setParameter(":array", $array)
             ->getQuery();
         return $query->getResult();
+    }
+
+    public function getContactsWhereCompanyInArray($array)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->where("contacts.company in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsWhereSalespersonInArray($array)
+    {
+        $query = $this->createQueryBuilder('contacts')
+            ->where("contacts.salesperson in (:array)")
+            ->setParameter(":array", $array)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function getContactsBy($parameter, $value)
+    {
+        $query = $this->createQueryBuilder("contacts")
+            ->select("contacts")
+            ->where($parameter . " = :value")
+            ->setParameter('value', $value)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    // Fonction principale au dashboard
+
+    /**
+     * Récupère le pourcentage de nouvelles entreprises depuis la dernière période
+     */
+    public function getPourcentageNewContacts($period)
+    {
+
+        $actualPeriodNumber = $this->getNumberNewContactsSince($period)->getSingleResult()["nb"];
+
+        $lastPeriodNumber = $this->getNumberContactsBetween($period)->getSingleResult()["nb"];
+        if ($lastPeriodNumber == 0) {
+            $pourcentage = $actualPeriodNumber * 100;
+        } else {
+            $pourcentage = number_format(($actualPeriodNumber - $lastPeriodNumber) / $lastPeriodNumber * 100, 0, ".", " ");
+
+        }
+        return $pourcentage;
     }
 
     /**
@@ -146,44 +202,69 @@ class ContactsRepository extends ServiceEntityRepository
     public function getNumberNewContactsSince($since)
     {
         date_default_timezone_set('Europe/Paris');
-        $dateNow = date("Y-m-d H:i");
-        $dateBefore = date("Y-m-d 00:00", strtotime($since));
-        $query = $this->createQueryBuilder("contacts")
-            ->select("COUNT(contacts.createdAt) as nb")
-            ->where("DATE(contacts.createdAt) BETWEEN :date_debut AND :date_fin")
-            ->setParameter('date_debut', $dateBefore)
-            ->setParameter('date_fin', $dateNow)
-            ->getQuery();
-        return $query;
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("contacts")->select("COUNT(contacts.createdAt) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W");
+                $query->where("WEEK(contacts.createdAt,1) = :week AND YEAR(contacts.createdAt) = :year")
+                    ->setParameter('week', $semaine)
+                    ->setParameter('year', $annee);
+
+                break;
+            case "-1 day":
+                $query->where("DATE(contacts.createdAt) = :date")
+                    ->setParameter('date', date("Y-m-d 00:00"));
+                break;
+            case "-1 month":
+                $mois = date("m");
+                $query->where("MONTH(contacts.createdAt) = :month AND YEAR(contacts.createdAt) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(contacts.createdAt) = :year")
+                    ->setParameter('year', $annee);
+                break;
+        }
+        return $query->getQuery();
     }
 
-    public function getContactsWhereCompanyInArray($array)
+    /**
+     * Récupère le nombre de nouvelles entreprises depuis la variable envoyée
+     * @param $since Permet de savoir depuis quand on cherche les nouvelles entreprises
+     */
+    public function getNumberContactsBetween($since)
     {
-        $query = $this->createQueryBuilder('contacts')
-            ->where("contacts.company in (:array)")
-            ->setParameter(":array", $array)
-            ->getQuery();
-        return $query->getResult();
-    }
+        date_default_timezone_set('Europe/Paris');
+        $annee = date("Y");
+        $query = $this->createQueryBuilder("contacts")->select("COUNT(contacts.createdAt) as nb");
+        switch ($since) {
+            case "-1 week":
+                $semaine = date("W") - 1;
+                $query->where("WEEK(contacts.createdAt,1) = :weekBefore")
+                    ->andWhere("YEAR(contacts.createdAt) = :year")
+                    ->setParameter('weekBefore', $semaine)
 
-    public function getContactsWhereSalespersonInArray($array)
-    {
-        $query = $this->createQueryBuilder('contacts')
-            ->where("contacts.salesperson in (:array)")
-            ->setParameter(":array", $array)
-            ->getQuery();
-        return $query->getResult();
-    }
+                    ->setParameter('year', $annee);
 
-    public function getContactsBy($parameter, $value)
-    {
-        $query = $this->createQueryBuilder("contacts")
-            ->select("contacts")
-            ->where($parameter .   " = :value")
-            ->setParameter('value', $value)
-            ->getQuery();
-
-
-        return $query->getResult();
+                break;
+            case "-1 day":
+                $dateBefore = date("Y-m-d 00:00", strtotime($since));
+                $query->where("DATE(contacts.createdAt) = :dateBefore")
+                    ->setParameter('dateBefore', $dateBefore);
+                break;
+            case "-1 month":
+                $mois = date("m") - 1;
+                $query->where("MONTH(contacts.createdAt) = :month AND YEAR(contacts.createdAt) = :year")
+                    ->setParameter('month', $mois)
+                    ->setParameter('year', $annee);
+                break;
+            case "-1 year":
+                $query->where("YEAR(contacts.createdAt) = :year")
+                    ->setParameter('year', $annee - 1);
+                break;
+        }
+        return $query->getQuery();
     }
 }

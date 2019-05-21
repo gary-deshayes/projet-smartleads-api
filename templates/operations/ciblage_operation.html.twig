@@ -1,94 +1,113 @@
 {# {% if  "now" | date("Y-m-d") >= operation.getSendingDate | date("Y-m-d") and "now" | date("Y-m-d") <= operation.getClosingDate | date("Y-m-d") %} #}
+{% if operation.formulaire_operation == null %}
+
+    <p>Veuillez saisir le formulaire visible de l'opération avant de définir des cibles.</p>
+
+{% else %}
 <div>
     {% if operation.sent == false %}
         <label>Ajoutez un critère de ciblage</label>
         <div class="row div-target-operation">
-            {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-10"}}) }}
+            {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-11"}}) }}
             <div class="col-lg-4">
                 {{ form_widget(formTargetOperation.entity, { "attr" : { "class" : "form-control"}})}}
+                </div>
+                <p>Dont</p>
+                <div class="col-lg-4">
+                    {{ form_widget(formTargetOperation.parameter, { "attr" : { "class" : "form-control"}})}}
+                </div>
+                <p>=</p>
+                <div class="col-lg-4" id="div-target-value"></div>
+                <input hidden id="target_operation_operation" name="target_operation[operation]" value='{{operation.code}}'/>
+                {{ form_end(formTargetOperation) }}
+                <button class="btn-add-target" id="add-target">
+                    <i class="fas fa-plus"></i>
+                </button>
             </div>
-            <p>Dont</p>
-            <div class="col-lg-4">
-                {{ form_widget(formTargetOperation.parameter, { "attr" : { "class" : "form-control"}})}}
-            </div>
-            <p>=</p>
-            <div class="col-lg-4" id="div-target-value"></div>
-            <input hidden id="target_operation_operation" name="target_operation[operation]" value='{{operation.code}}'/>
-            {{ form_end(formTargetOperation) }}
-            <button class="btn-add-target" id="add-target">
-                <i class="fas fa-plus"></i>
-            </button>
-        </div>
-        <hr>
-    {% endif %}
-    <div class="div-target-selected-operation">
-        <p class="red-font">{{ contacts_cibles |length }}</p>
-        <p>
-            contacts destinataires optin après dédoublonnage des
-        </p>
-        <p class="red-font">{{ ciblages | length}}</p>
-        <p>
-            critères de ciblages ajoutés</p>
-        <div>
-            {% for cible in ciblages %}
-                <div class="row div-target-operation">
-                    <div class="col-lg-3 white-back">
-                        {% if cible.entity == "Company" %}
-                            Entreprises
-                        {% elseif cible.entity == "Salesperson" %}
-                            Commerciaux
-                        {% elseif cible.entity == "Contacts" %}
-                            Contacts
+            <hr>
+        {% endif %}
+        <div class="div-target-selected-operation">
+            <p class="red-font">{{ contacts_cibles |length }}</p>
+            <p>
+                contacts destinataires optin après dédoublonnage des
+            </p>
+            <p class="red-font">{{ ciblages | length}}</p>
+            <p>
+                critères de ciblages ajoutés</p>
+            <div id="list_ciblages_valide">
+                {% for cible in ciblages %}
+                    <div class="row div-target-operation">
+                        <div class="col-lg-3 white-back">
+                            {% if cible.entity == "Company" %}
+                                Entreprises
+                            {% elseif cible.entity == "Salesperson" %}
+                                Commerciaux
+                            {% elseif cible.entity == "Contacts" %}
+                                Contacts
+                            {% endif %}
+                        </div>
+                        <p>Dont</p>
+                        <div class="col-lg-3 white-back">
+
+                            {% if cible.parameter == "AffectedArea" %}
+                                Zone affectée
+                            {% elseif cible.parameter == "NumberEmployees" %}
+                                Effectifs
+                            {% elseif cible.parameter == "postalCode" %}
+                                Code postal
+                            {% elseif cible.parameter == "CompanyStatus" %}
+                                Statut
+                            {% elseif cible.parameter == "Country" %}
+                                Pays
+                            {% elseif cible.parameter == "ActivityArea" %}
+                                Code NAF
+                            {% elseif cible.parameter == "Turnovers" %}
+                                Chiffre d'affaire
+                            {% elseif cible.parameter == "Profession" %}
+                                Métier
+                            {% elseif cible.parameter == "DecisionMaking" %}
+                                Pouvoir décisionnel
+                            {% elseif (cible.parameter == "CodeCompany") or (cible.parameter == "CodeSalesperson") %}
+                                Code
+                            {% elseif (cible.parameter == "NameCompany") or (cible.parameter == "NameSalesperson") %}
+                                Code
+                            {% elseif cible.parameter == "RolesSalesperson" %}
+                                Profil
+                            {% elseif cible.parameter == "Town" %}
+                                Ville
+                            {% endif %}
+                        </div>
+                        <p>=</p>
+                        <div class="col-lg-3 white-back" id="div-target-value">
+                            {% if cible.type_value == 1 %}
+                                {{cible.value_entity }}
+                            {% else %}
+                                {{cible.value }}
+                            {% endif %}
+                        </div>
+                        {% if operation.sent == false %}
+                            <button class="btn-delete-target">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <input hidden value="{{cible.id}}"/>
                         {% endif %}
                     </div>
-                    <p>Dont</p>
-                    <div class="col-lg-3 white-back">
-
-                        {% if cible.parameter == "AffectedArea" %}
-                            Zone affectée
-                        {% elseif cible.parameter == "NumberEmployees" %}
-                            Effectifs
-                        {% elseif cible.parameter == "postalCode" %}
-                            Code postal
-                        {% elseif cible.parameter == "CompanyStatus" %}
-                            Statut
-                        {% elseif cible.parameter == "Country" %}
-                            Pays
-                        {% elseif cible.parameter == "ActivityArea" %}
-                            Code NAF
-                        {% elseif cible.parameter == "Turnovers" %}
-                            Chiffre d'affaire
-                        {% elseif cible.parameter == "Profession" %}
-                            Métier
-                        {% elseif cible.parameter == "DecisionMaking" %}
-                            Pouvoir décisionnel
-                        {% endif %}
-                    </div>
-                    <p>=</p>
-                    <div class="col-lg-3 white-back" id="div-target-value">
-
-                        {{cible.value }}</div>
-                    {% if operation.sent == false %}
-                        <button class="btn-delete-target">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <input hidden value="{{cible.id}}"/>
-                    {% endif %}
+                    
                 </div>
             {% endfor %}
         </div>
 
 
-    </div>
-    <div class="btn-end-form-add">
-        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Supprimer</a>
-        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Dupliquer</a>
-        <button class="btn btn-radius-red">Enregistrer</button>
-        {% if operation.sent == false %}
-            <a href='{{ path("envoi_operation", { code: operation.code })}}' class="btn btn-radius-red">Envoyer</a>
-        {% else %}
-            <a class="btn btn-radius-red">Déjà envoyé</a>
+        </div>
+        <div class="btn-end-form-add">
+            <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Supprimer</a>
+            <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Dupliquer</a>
+            <button class="btn btn-radius-red">Enregistrer</button>
+            {% if operation.sent == false %}
+                <a href='{{ path("envoi_operation", { code: operation.code })}}' class="btn btn-radius-red">Envoyer</a>
+            {% else %}
+                <a class="btn btn-radius-red">Déjà envoyé</a>
 
-        {% endif %}
-    </div>
-</div>
+            {% endif %}
+        </div>
+{% endif %}

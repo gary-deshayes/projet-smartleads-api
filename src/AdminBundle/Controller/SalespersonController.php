@@ -374,11 +374,9 @@ class SalespersonController extends AbstractController
                 $salesperson->setPassword($passwordEncoder->encodePassword($salesperson, $data["password"]));
             }
             $salesperson->setUpdatedAt(new \DateTime());
-            dump($salesperson);
-            dump($request);
             $this->getDoctrine()->getManager()->flush();
             $salesperson->setImageFile(null);
-            return $this->redirectToRoute("dashboard");
+            return $this->redirectToRoute("dashboard", array("period" => "today"));
         }
 
         return $this->render('salesperson/parameters.html.twig', [

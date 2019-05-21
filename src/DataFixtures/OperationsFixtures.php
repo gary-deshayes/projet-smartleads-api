@@ -20,7 +20,7 @@ class OperationsFixtures extends BaseFixture implements DependentFixtureInterfac
             $operation->setRevival($this->faker->numberBetween($min = 1, $max = 5));
             $operation->setSendingDate($this->faker->dateTimeBetween($startDate = '-1 weeks', $endDate = 'now', $timezone = null));
             $operation->setClosingDate($this->faker->dateTimeBetween($startDate = '-2 weeks', $endDate = '-1 weeks', $timezone = null));
-            
+            $operation->setSent(0);
             return $operation;
         });
 

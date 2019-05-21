@@ -11,14 +11,14 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
     public function loadData(ObjectManager $manager)
     {
 
-        $this->createMany(100, "Contacts", function ($count) {
+        $this->createMany(1500, "Contacts", function ($count) {
             $contacts = new Contacts();
             $contacts->setCode($this->faker->regexify('[A-Z]{10}'));
             $contacts->setProfession($this->getRandomReference("Profession"));
             $contacts->setGender($this->faker->randomElement($array = array('Homme', 'Femme', 'Non précisé')));
             $contacts->setLastName($this->faker->lastName);
             $contacts->setFirstName($this->faker->firstName('male'|'female'));
-            $contacts->setCreatedAt($this->faker->dateTimeBetween($startDate = '-2 weeks', $endDate = 'now', $timezone = null));
+            $contacts->setCreatedAt($this->faker->dateTimeBetween($startDate = '-1 year', $endDate = 'now', $timezone = null));
             $contacts->setUpdatedAt(new \DateTime());
             $contacts->setStatus($this->faker->boolean());
             $contacts->setBirthDate($this->faker->dateTime($max = 'now', $timezone = null));
@@ -32,6 +32,7 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setComment($this->faker->text($maxNbChars = 50));
             $contacts->setOptInNewsletter($this->faker->boolean());
             $contacts->setOptInOffresCommercial($this->faker->boolean());
+            $contacts->setDecisionMaking($this->getRandomReference("DecisionMaking"));
 
             $contacts->setCompany($this->getRandomReference("Company"));
             return $contacts;
@@ -43,7 +44,8 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
     {
         return [
             ProfessionFixtures::class,
-            CompanyFixtures::class
+            CompanyFixtures::class,
+            DecisionMakingFixtures::class
         ];
     }
 }

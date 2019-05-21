@@ -41,10 +41,10 @@ class ContactsController extends AbstractController
         //Affichage des contacts du commercial
         if ($this->isGranted("ROLE_COMMERCIAL") || $this->isGranted("ROLE_RESPONSABLE")) {
             $queryContacts = $repositoryContacts->getContactsCommercial($search, $this->getUser()->getCode());
-            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountContactsCommercial($this->getUser()->getCode());
+            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountContactsCommercial($this->getUser()->getCode(), $search);
         } else {
             $queryContacts = $repositoryContacts->getAllContacts($search);
-            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountAllContacts();
+            $nbContactsCommercial = $this->getDoctrine()->getRepository(Contacts::class)->getCountAllContacts($search);
         }
         $pageContacts = $paginator->paginate(
             $queryContacts,

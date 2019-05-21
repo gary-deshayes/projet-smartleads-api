@@ -1,6 +1,6 @@
 {{ form_start(form) }}
 <div class="d-flex">
-    <div class="col-lg-2">
+    <div class="col-lg-2 flex-column-center">
         {% if vich_uploader_asset(settings, 'imageFile') is null %}
             <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
         {% else %}
@@ -13,19 +13,30 @@
         </div>
         {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}})}}
     </div>
-    <div class="col-lg-10">
+    <div class="col-lg-10 form-style">
         <div class="row">
-                    {{ form_label(form.applicationName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-3"}}) }}
-                    {{ form_widget(form.applicationName, { "attr" : { "class" : "form-control col-lg-5"}}) }}
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.applicationName, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.applicationName, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.applicationName) }}
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
+                </div>
+            </div>
+            <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.address, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                     {{ form_widget(form.address, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.address) }}
 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {{ form_label(form.phone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
+                    {{ form_widget(form.phone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
+                    {{ form_errors(form.phone) }}
                 </div>
             </div>
             <div class="col-lg-6">
@@ -37,13 +48,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-                <div class="row">
-                    {{ form_label(form.phone, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
-                    {{ form_widget(form.phone, { "attr" : { "class" : "form-control col-lg-8"}}) }}
-                    {{ form_errors(form.phone) }}
-                </div>
-            </div>
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.fax, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
@@ -51,15 +55,15 @@
                     {{ form_errors(form.fax) }}
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.email, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                     {{ form_widget(form.email, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.email) }}
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.emailAdmin, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
@@ -67,15 +71,15 @@
                     {{ form_errors(form.emailAdmin) }}
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="row">
                     {{ form_label(form.emailContact, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}}) }}
                     {{ form_widget(form.emailContact, { "attr" : { "class" : "form-control col-lg-8"}}) }}
                     {{ form_errors(form.emailContact) }}
                 </div>
             </div>
+        </div>
+        <div class="row">
         </div>
         <div class="btn-end-form-add">
             <button class="btn btn-radius-red">
