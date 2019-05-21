@@ -65,10 +65,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $user = $this->entityManager->getRepository(Salesperson::class)->findOneBy(['email' => $credentials['email']]);
-
+        
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email inconnu.');
+            throw new CustomUserMessageAuthenticationException('Email ou mot de passe incorrect.');
         }
 
         return $user;
