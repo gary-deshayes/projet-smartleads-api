@@ -349,7 +349,7 @@ class SalespersonController extends AbstractController
             $salesperson->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
             $salesperson->setImageFile(null);
-            return $this->redirectToRoute("dashboard");
+            return $this->redirectToRoute("dashboard", array("period" => "today"));
         }
 
         return $this->render('salesperson/parameters.html.twig', [

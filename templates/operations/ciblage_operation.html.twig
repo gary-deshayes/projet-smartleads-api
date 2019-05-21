@@ -92,20 +92,7 @@
                             <input hidden value="{{cible.id}}"/>
                         {% endif %}
                     </div>
-                    <p>=</p>
-                    <div class="col-lg-3 white-back" id="div-target-value">
-                        {% if cible.type_value == 1 %}
-                            {{cible.value_entity }}
-                        {% else %}
-                            {{cible.value }}
-                        {% endif %}
-                        </div>
-                    {% if operation.sent == false %}
-                        <button class="btn-delete-target">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <input hidden value="{{cible.id}}"/>
-                    {% endif %}
+                    
                 </div>
             {% endfor %}
         </div>
@@ -123,5 +110,4 @@
 
             {% endif %}
         </div>
-    </div>
 {% endif %}

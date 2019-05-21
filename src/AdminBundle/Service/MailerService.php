@@ -58,8 +58,8 @@ class MailerService
                     "prenom" => $contact->getLastName(),
                     "texte" => $settings_operation->getTextMail(),
                     "settings_operation" => $settings_operation,
-                    "link" => "/operation/" . $operation->getName() . "/" . $uniqid,
-                    "link_reject" => "/operation/" . $operation->getName() . "/" . $uniqid . "/refus"
+                    "link" => "https://smartleads.ml/operation/" . $operation->getName() . "/" . $uniqid,
+                    "link_reject" => "https://smartleads.ml/operation/" . $operation->getName() . "/" . $uniqid . "/refus"
                 ]
             ),
             'Recipients' => [

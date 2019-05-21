@@ -5,6 +5,7 @@ namespace App\AdminBundle\Controller;
 use Faker;
 use Faker\Factory;
 use App\AdminBundle\Entity\Company;
+use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Form\SearchType;
 use App\AdminBundle\Form\CompanyType;
 use App\AdminBundle\Entity\Salesperson;
@@ -112,9 +113,12 @@ class CompanyController extends AbstractController
             ]);
         }
 
+        $contacts_entreprise = $this->getDoctrine()->getRepository(Contacts::class)->findBy(array("company" => $company->getCode()));
+
         return $this->render('company/edit.html.twig', [
             'company' => $company,
             'form' => $form->createView(),
+            'contacts_entreprise' => $contacts_entreprise
         ]);
     }
 

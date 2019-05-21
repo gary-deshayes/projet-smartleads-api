@@ -8,44 +8,55 @@
         <div class="form-informations">
             <div class="infos-entity">
                 <p class="title">{{ contact.getCivilite() ~ " " ~ contact.firstName ~ " " ~ (contact.lastName | upper )}}</p>
-                <p class="description"> {{ contact.workName }}
-                {% if contact.birthdate != null %}
-                , {{ contact.getAge() }} ans
-                {% endif %}
+                <p class="description">
+                    {{ contact.workName }}
+                    {% if contact.birthdate != null %}
+                        ,
+                        {{ contact.getAge() }}
+                        ans
+                    {% endif %}
                 </p>
             </div>
-            
+
             <div class="inline-status-date">
-            <p class="infos">A jour</p>
+                {% if contact.getStatutMaj  == "à vérifier" %}
+                    <div class="dot dot-orange"></div>
+                    <p class="infos">{{ contact.getStatutMaj }}</p>
+                {% elseif contact.getStatutMaj  == "obsolète" %}
+                    <div class="dot dot-red"></div>
+                    <p class="infos">{{ contact.getStatutMaj }}</p>
+                {% elseif contact.getStatutMaj  == "à jour" %}
+                    <div class="dot dot-green"></div>
+                    <p class="infos">{{ contact.getStatutMaj }}</p>
+                {% endif %}
                 <p>Dernière mise à jour le
                     {{ contact.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
                     {% if contact.status == 1 %}
                         <input checked class="custom-control-input" id="statut-contact" type="checkbox">
-                            <label class="custom-control-label" for="statut-contact"></label>
-                        {% else %}
-                            <input class="custom-control-input" id="statut-contact" type="checkbox">
-                                <label class="custom-control-label" for="statut-contact"></label>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
-                    </li>
-                    <li class="nav-item">
-                        <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
-                        {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-                    </div>
-                    <div aria-labelledby="contact-notes" class="tab-pane fade" id="notes" role="tabpanel">
-                        <h1>Notes</h1>
-                    </div>
+                        <label class="custom-control-label" for="statut-contact"></label>
+                    {% else %}
+                        <input class="custom-control-input" id="statut-contact" type="checkbox">
+                        <label class="custom-control-label" for="statut-contact"></label>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        {% endblock %}
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#identity" id="identity-tab" role="tab">Identité</a>
+            </li>
+            <li class="nav-item">
+                <a aria-controls="notes" aria-selected="false" class="nav-link" data-toggle="tab" href="#notes" id="contact-notes" role="tab">Notes</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div aria-labelledby="identity-tab" class="tab-pane fade show active" id="identity" role="tabpanel">
+                {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            </div>
+            <div aria-labelledby="contact-notes" class="tab-pane fade" id="notes" role="tabpanel">
+                <h1>Notes</h1>
+            </div>
+        </div>
+    </div>
+</div>{% endblock %}

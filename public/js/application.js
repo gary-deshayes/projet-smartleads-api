@@ -68,7 +68,6 @@ $(document).ready(function ($) {
             var url = "/admin/company/change_decision/" + $("#company_code").val();
             $.post(url, data, function (data) {
                 if (data.retour == true) {
-                    console.log("okk");
                 }
             });
         }
@@ -280,7 +279,6 @@ $(document).ready(function ($) {
     });
 
     $('#addModalAffectedArea').on('show.bs.modal', function (event) {
-        console.log($(".select2-tags-add"));
         $(".select2-tags-add").val(null);
         $('.select2-tags-add').select2({
             width: "300px"
@@ -321,31 +319,12 @@ $(document).ready(function ($) {
                 }
             }
         });
-        //FINALEMENT LA DESACTIVATION EMPECHE LES FORMULAIRES D'ETRE ENVOYER
-        // //Récupération des départements déjà lié donc on les mets en disabled
-        // $.ajax({
-        //     url: '/admin/affectedarea/getdepartmentswithaffectedarea/',
-        //     type: 'GET',
-        //     success: function (result) {
-        //         console.log(result);
-        //         if(result.data.length > 0){
-        //             result.data.forEach(function(e){
-        //                 $('.select2-tags option[value="' + e + '"]').attr('disabled', 'disabled');
-        //             });
-        //             $(".select2-tags").trigger("change");
-        //             $('.select2-tags').select2({
-        //                 width: "300px"
-        //             });
-
-        //         }
-        //     }
-        // });
+        
 
 
     })
 
     $('#editModalCountry').on('show.bs.modal', function (event) {
-        console.log("toto");
         var button = $(event.relatedTarget)
         var code = button.data('code');
         var libelle = button.data('libelle');
@@ -822,7 +801,6 @@ $('#target_operation_entity').on("change", function () {
         case "Salesperson":
             $("#target_operation_parameter").empty();
             parameterTargetSalesperson();
-            console.log($("#target_operation_parameter").val());
             switch ($("#target_operation_parameter").val()) {
                 case "AffectedArea":
                     selectTargetOperation("AffectedArea");
@@ -833,7 +811,6 @@ $('#target_operation_entity').on("change", function () {
         case "Contacts":
             $("#target_operation_parameter").empty();
             parameterTargetContacts();
-            console.log($("#target_operation_parameter").val());
             switch ($("#target_operation_parameter").val()) {
                 case "DecisionMaking":
                     selectTargetOperation("DecisionMaking");
@@ -1174,7 +1151,6 @@ $("#list_ciblages_valide").on("click", 'button', function () {
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,
         success: function (result) {
-            console.log(result);
             if (result.retour == "1" || result.retour == "1") {
 
                 div.parent().fadeOut({

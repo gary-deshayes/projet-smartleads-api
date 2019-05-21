@@ -7,23 +7,25 @@
             <h1 class="inline-search">Mes contacts</h1>
             <h2 class="red-primary">({{nbContactsCommercial}})</h2>
         {% else %}
-            <h1 id= "compteur" class="inline-search">Contacts
+            <h1 class="inline-search" id="compteur">Contacts
                 <strong class="red-primary">({{nbContactsCommercial}})</strong>
             </h1>
         {% endif %}
         {{ form_start(formsearch, {'attr': {'class': 'inline-search', "id": "form_search"}}) }}
         {{ form_widget(formsearch.search, {'attr': {'class': 'search-input', 'placeholder':'Rechercher'}})}}
-        <button class="btn-search"><i aria-hidden="true" class="fas fa-search"></i></button>
+        <button class="btn-search">
+            <i aria-hidden="true" class="fas fa-search"></i>
+        </button>
     </div>
     <div class="container-content">
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                    <div class="custom-control custom-checkbox checkbox-dynamic-all">
-                        <input type="checkbox" class="custom-control-input" id="check-all" value="all">
-                        <label class="custom-control-label" for="check-all"></label>
-                    </div>
+                        <div class="custom-control custom-checkbox checkbox-dynamic-all">
+                            <input class="custom-control-input" id="check-all" type="checkbox" value="all">
+                            <label class="custom-control-label" for="check-all"></label>
+                        </div>
                     </th>
                     <th></th>
                     <th>Prénom</th>
@@ -33,67 +35,75 @@
                     <th>CP</th>
                     <th>Ville</th>
                     <th>Statut</th>
-                    <th>email</th>
-                    <th>mobile</th>
-                    <th>téléphone</th>
+                    <th>...</th>
                 </tr>
             </thead>
             <tbody class="checkbox-dynamic">
                 {% for contact in contacts %}
                     <tr class="clickable-row" data-href="{{ path('contacts_edit', {'code': contact.code}) }}">
-                    <td class="check-user">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="check-{{ contact.code }}" value="{{ contact.code }}">
-                            <label class="custom-control-label" for="check-{{ contact.code }}"></label>
-                        </div>
-                    </td>
+                        <td class="check-user">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check-{{ contact.code }}" value="{{ contact.code }}">
+                                <label class="custom-control-label" for="check-{{ contact.code }}"></label>
+                            </div>
+                        </td>
                         <td class="logo-table">
                             {% if vich_uploader_asset(contact, 'imageFile') is null %}
                                 <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature') }}">
-                                {% else %}
-                                    <img class="rounded-circle" src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature') }}" alt>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {{ contact.firstName }}</td>
-                                <td>
-                                    {{ contact.lastName }}</td>
-                                <td>
-                                    {{ (contact.company != null) ? contact.company.name : "" }}</td>
-                                <td>
-                                    {{ (contact.profession != null) ? contact.profession.libelle : "" }}</td></td>
-                                <td>
-                                    {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
-                                <td>
-                                    {{ (contact.company != null) ? contact.company.town : "" }}</td>
-                                
-                                <td>{{contact.getStatutMaj}}</td>
-                                <td>
-                                    <i class="fas fa-at" title="{{ contact.email }}"></i>
-                                </td>
-                                <td>
-                                    <i title="{{ contact.mobilePhone }}" class="fas fa-mobile"></i>
-                                </td>
-                                <td>    
-                                    <i class="fas fa-phone-square" title="{{ contact.phone }}"></i>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="21">Aucun contact trouvé</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <div class="panel-Boutons">
-                    <div class="panel-left">
-                        {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
-                        <i class="fas fa-trash fa-lg" title="Supprimer"></i>
-                        <i class="fas fa-download fa-lg" title="Télécharger"></i>
-                        <i class="fas fa-user-plus fa-lg" title="Importer"></i>
-                    </div>
-                    {{ knp_pagination_render(contacts) }}
-                    <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
-                </div>
-            </div>
-        {% endblock %}
+                            {% else %}
+                                <img class="rounded-circle" src="{{ vich_uploader_asset(contact, 'imageFile') | imagine_filter('miniature') }}" alt>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ contact.firstName }}</td>
+                        <td>
+                            {{ contact.lastName }}</td>
+                        <td>
+                            {{ (contact.company != null) ? contact.company.name : "" }}</td>
+                        <td>
+                            {{ (contact.profession != null) ? contact.profession.libelle : "" }}</td>
+                    </td>
+                    <td>
+                        {{ (contact.company != null) ? contact.company.postalCode : "" }}</td>
+                    <td>
+                        {{ (contact.company != null) ? contact.company.town : "" }}</td>
+
+                    <td>
+                        {% if contact.getStatutMaj  == "à vérifier" %}
+                            <div class="dot dot-orange"></div>
+                            {{ contact.getStatutMaj }}
+                        {% elseif contact.getStatutMaj  == "obsolète" %}
+                            <div class="dot dot-red"></div>
+                            {{ contact.getStatutMaj }}
+                        {% elseif contact.getStatutMaj  == "à jour" %}
+                            <div class="dot dot-green"></div>
+                            {{ contact.getStatutMaj }}
+                        {% endif %}
+
+                    </td>
+                    <td>
+                        <i class="fas fa-at" data-toggle="tooltip" data-placement="top" title="{{ contact.email }}"></i>
+
+                        <i title="{{ contact.mobilePhone }}" class="fas fa-mobile" data-toggle="tooltip" data-placement="top"></i>
+
+                        <i class="fas fa-phone-square" title="{{ contact.phone }}" data-toggle="tooltip" data-placement="top"></i>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="21">Aucun contact trouvé</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="panel-Boutons">
+        <div class="panel-left">
+            {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
+            <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+            <i class="fas fa-download fa-lg" title="Télécharger"></i>
+            <i class="fas fa-user-plus fa-lg" title="Importer"></i>
+        </div>
+        {{ knp_pagination_render(contacts) }}
+        <a class="btn btn-radius-red" href="{{ path('contacts_new') }}">Ajouter</a>
+    </div>
+</div>{% endblock %}

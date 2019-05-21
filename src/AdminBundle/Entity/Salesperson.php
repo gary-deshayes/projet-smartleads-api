@@ -481,6 +481,11 @@ class Salesperson implements UserInterface
         return $this;
     }
 
+    public function getAge()
+    {
+        return $this->birthDate->diff(new \DateTime)->format("%Y");
+    }
+
     public function getGender(): ?string
     {
         return $this->gender;
@@ -838,5 +843,20 @@ class Salesperson implements UserInterface
         $this->user_last_update = $user_last_update;
 
         return $this;
+    }
+
+    public function getNumberCompaniesAffected(){
+        $companies = array();
+        foreach($this->contacts as $contact){
+            if($contact->getCompany() != null){
+                array_push($companies, $contact->getCompany());
+            }
+        }
+        dump($companies);
+        return count($companies);
+    }
+
+    public function getNumberContactsAffected(){
+        return count($this->contacts);
     }
 }

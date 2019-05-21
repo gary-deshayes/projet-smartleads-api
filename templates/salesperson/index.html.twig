@@ -25,15 +25,12 @@
                     <th></th>
                     <th>Prénom</th>
                     <th>Nom</th>
-                    <th>Genre</th>
-                    <th>Type</th>
-                    <th>Statut</th>
-                    <th>Date de naissance</th>
-                    <th>Poste</th>
-                    <th>Mobile</th>
-                    <th>Fixe</th>
-                    <th>Email</th>
-                    <th>Linkedin</th>
+                    <th>Fonction</th>
+                    <th>Zone affectée</th>
+                    <th>Entreprises</th>
+                    <th>Contacts</th>
+                    <th>Score</th>
+                    <th>...</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,21 +51,25 @@
                                 </td>
                                 <td>{{ salesperson.firstName }}</td>
                                 <td>{{ salesperson.lastName }}</td>
-                                <td>{{ salesperson.gender }}</td>
-                                <td>{{ salesperson.profile }}</td>
-                                <td>{{ salesperson.status ? 'Actif' : 'Inactif' }}</td>
-                                <td>{{ salesperson.birthDate ? salesperson.birthDate|date('Y-m-d') : '' }}</td>
                                 <td>{{ salesperson.workName }}</td>
+                                <td>{{ salesperson.affectedArea }}</td>
+                                <td></td>
+
+                                <td></td>
+
+                                {# <td>{{ salesperson.getNumberCompaniesAffected }}</td> #}
+
+                                {# <td>{{ salesperson.getNumberContactsAffected }}</td> #}
+
+                                <td></td>
+
                                 <td>
-                                    <i class="fas fa-mobile" title="{{ salesperson.mobilePhone }}"></i>
-                                </td>
-                                <td>
-                                    <i class="fas fa-phone-square" title="{{ salesperson.phone }}"></i>
-                                </td>
-                                <td>
-                                    <i class="fas fa-at" title="{{ salesperson.email }}"></i>
-                                </td>
-                                <td>
+                                    <i class="fas fa-mobile" title="{{ salesperson.mobilePhone }}" data-toggle="tooltip" data-placement="top"></i>
+                                
+                                    <i class="fas fa-phone-square" title="{{ salesperson.phone }}" data-toggle="tooltip" data-placement="top"></i>
+                                
+                                    <i class="fas fa-at" title="{{ salesperson.email }}" data-toggle="tooltip" data-placement="top"></i>
+                                
                                     <a href="{{ salesperson.linkedin }}">
                                         <i class="fab fa-linkedin"></i>
                                     </a>
