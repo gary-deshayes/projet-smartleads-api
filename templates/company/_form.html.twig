@@ -2,16 +2,16 @@
 <div class="row">
     <div class="col-lg-2 flex-column-center">
         {% if vich_uploader_asset(company, 'imageFile') is null %}
-            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}" id="display-img-profile" class="rounded-circle">
         {% else %}
-            <img src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+            <img src="{{ vich_uploader_asset(company, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle" id="display-img-profile">
         {% endif %}
         <div class="div-photo">
             <label for="company_imageFile">
                 <i class="fas fa-sync"></i>PHOTO</label>
             <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
         </div>
-        {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}})}}
+        {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none live-img-display"}})}}
         {{ form_widget(form.imageFile) }}
     </div>
     <div class="col-lg-10 form-style">
@@ -33,14 +33,26 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="row">
-                    {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
-                                                                                                                                                                                                                                                                                                                                                                                }}
-                    <div class="required-field">
-                        {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                {% if app.request.attributes.get("_route") == "company_new" %}
+                    <div class="row">
+                        {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}
+                        <div class="required-field">
+                            {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-12"}}) }}
+                        </div>
+                        {{ form_errors(form.code) }}
                     </div>
-                    {{ form_errors(form.code) }}
-                </div>
+                {% else %}
+                    <div class="row">
+                        {{ form_label(form.code, null,  { "label_attr" : { "class" : "grey-text font-weight-light col-lg-4"}})
+                                                                                                                                                                                                                                                                                                                                                                                                                            }}
+                        <div class="required-field">
+                            {{ form_widget(form.code, { "attr" : { "class" : "form-control col-lg-12", "readonly":"true"}}) }}
+                        </div>
+                        {{ form_errors(form.code) }}
+                    </div>
+                {% endif %}
+
             </div>
             <div class="col-lg-6">
                 <div class="row">
@@ -178,7 +190,7 @@
             </button>
         </div>
         <div>
-            <button class="btn btn-radius-red btn-outline-red"  id="suppression-company">Supprimer</button>
+            <button class="btn btn-radius-red btn-outline-red" id="suppression-company">Supprimer</button>
             <button class="btn btn-radius-red btn-outline-red" disabled>Demande de mise à jour</button>
             <button class="btn btn-radius-red">
                 {{ button_label|default('Save') }}</button>

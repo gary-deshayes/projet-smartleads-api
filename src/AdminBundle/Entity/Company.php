@@ -20,6 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\CompanyRepository")
  * @UniqueEntity("email", message="Cet email existe déjà dans la base de données, veuillez en saisir un autre.")
  * @Vich\Uploadable
+ * @UniqueEntity("code", message="Le code existe déjà")
  */
 class Company
 {

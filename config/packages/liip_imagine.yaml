@@ -23,6 +23,11 @@ liip_imagine:
             filters:
                 thumbnail:
                     size:   [160, 50]
+        logo_application:
+            quality: 100
+            filters:
+                thumbnail:
+                    size:   [150, 60]
             
     
     

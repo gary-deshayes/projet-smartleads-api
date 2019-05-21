@@ -83,10 +83,28 @@ $(document).ready(function ($) {
     })
     //Check tout les checkbox
     $(".checkbox-dynamic-all :checkbox").on("click", function () {
-        $(".checkbox-dynamic :checkbox").click();
+        if ($(this).is(":checked")) {
+            $(".checkbox-dynamic :checkbox").prop("checked", true);
+
+        } else {
+            $(".checkbox-dynamic :checkbox").prop("checked", false);
+
+        }
     })
 
+    $(".live-img-display").on("change", function () {
+        if ($(this)[0].files && $(this)[0].files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#display-img-profile')
+                    .attr('src', e.target.result)
+                    .width(100)
+                    .height(100);
+            };
 
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
+    })
     /*Partie Settings*/
 
     //Permet de gérer l'affichage des sous catégories dans paramètres
@@ -319,7 +337,7 @@ $(document).ready(function ($) {
                 }
             }
         });
-        
+
 
 
     })

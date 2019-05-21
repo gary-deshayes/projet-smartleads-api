@@ -2,16 +2,16 @@
 <div class="row">
     <div class="col-lg-2 flex-column-center">
         {% if vich_uploader_asset(salesperson, 'imageFile') is null %}
-            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}" id="display-img-profile" class="rounded-circle">
         {% else %}
-            <img src="{{ vich_uploader_asset(salesperson, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+            <img src="{{ vich_uploader_asset(salesperson, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle" id="display-img-profile">
         {% endif %}
         <div class="div-photo">
             <label for="salesperson_imageFile">
                 <i class="fas fa-sync"></i>PHOTO</label>
             <i alt="Suppression de l'image" class="fas fa-times suppression-img"></i>
         </div>
-        {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none"}})}}
+        {{ form_widget(form.imageFile, { "attr" : { "class" : "display-none live-img-display"}})}}
         {{ form_widget(form.imageFile) }}
     </div>
     <div class="col-lg-10 form-style">

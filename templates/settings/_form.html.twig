@@ -2,9 +2,9 @@
 <div class="d-flex">
     <div class="col-lg-2 flex-column-center">
         {% if vich_uploader_asset(settings, 'imageFile') is null %}
-            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('miniature100x100') }}">
+            <img alt src="{{ asset('images/logo-user.png')| imagine_filter('logo_application') }}">
         {% else %}
-            <img src="{{ vich_uploader_asset(settings, 'imageFile') | imagine_filter('miniature100x100') }}" class="rounded-circle">
+            <img src="{{ vich_uploader_asset(settings, 'imageFile') | imagine_filter('logo_application') }}" >
         {% endif %}
         <div class="div-photo">
             <label for="settings_imageFile">

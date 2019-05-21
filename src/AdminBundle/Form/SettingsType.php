@@ -15,28 +15,36 @@ class SettingsType extends AbstractType
     {
         $builder
             ->add('applicationName', TextType::class, [
-                "label" => "Nom de l'application"
+                "label" => "Nom de l'application",
+                "required" => true
             ])
             ->add('address', TextType::class, [
-                "label" => "Adresse"
+                "label" => "Adresse",
+                "required" => false
             ])
             ->add('additionalAddress', TextType::class, [
-                "label" => "Complétement"
+                "label" => "Complétement",
+                "required" => false
             ])
             ->add('phone', TextType::class, [
-                "label" => "Téléphone"
+                "label" => "Téléphone",
+                "required" => false
             ])
             ->add('fax', TextType::class, [
-                "label" => "Fax"
+                "label" => "Fax",
+                "required" => false
             ])
             ->add('email', TextType::class, [
-                "label" => "Email"
+                "label" => "Email",
+                "required" => false
             ])
             ->add('emailAdmin', TextType::class, [
-                "label" => "Email de l'admin"
+                "label" => "Email de l'admin",
+                "required" => false
             ])
             ->add('emailContact', TextType::class, [
-                "label" => "Email contact"
+                "label" => "Email contact",
+                "required" => false
             ])
             ->add('imageFile', FileType::class, [
                 "required" => false,
