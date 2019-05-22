@@ -40,7 +40,7 @@ class DashboardController extends AbstractController
         $data["numberNewContactsSince"] = $repositoryContacts->getNumberNewContactsSince($periodCalc)->getSingleResult()["nb"];
         $data["numberContactsActive"] = count($repositoryContacts->findBy(array("status" => 1)));
         $data["pourcentNewContactsSince"] = $repositoryContacts->getPourcentageNewContacts($periodCalc);
-
+        $data["indiceCRM"] = $repositoryContacts->getIndiceCRM();
 
         //Data entreprises
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
@@ -62,6 +62,8 @@ class DashboardController extends AbstractController
 
         // $repositoryOperations = $this->getDoctrine()->getRepository("AdminBundle:Operations");
         // $data["operationsActives"] = $repositoryOperations->getNbOperationsActives();
+        
+
 
         
         return $this->render('dashboard/index.html.twig', [
@@ -70,8 +72,8 @@ class DashboardController extends AbstractController
             "period" => $period,
             "settingsApplication" => $this->settingsApplication
         ]);
+        
     }
-
     /**
      * @Route("dashboard", name="dashboard_redirect")
      * Permet de rediriger si quelqu'un enlève le paramètre de période
