@@ -41,13 +41,14 @@ class DashboardController extends AbstractController
         $data["numberContactsActive"] = count($repositoryContacts->findBy(array("status" => 1)));
         $data["pourcentNewContactsSince"] = $repositoryContacts->getPourcentageNewContacts($periodCalc);
         $data["indiceCRM"] = $repositoryContacts->getIndiceCRM();
+        $data["contactsCreatedAt"] = $repositoryContacts->getNumberContactsCreatedPerPeriod($periodCalc)->getResult();
 
         //Data entreprises
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
         $data["numberNewCompaniesSince"] = $repositoryCompany->getNumberNewCompaniesSince($periodCalc)->getSingleResult()["nb"];
         $data["numberCompaniesActive"] = count($repositoryCompany->findBy(array("actif" => 1)));
         $data["pourcentNewCompaniesSince"] = $repositoryCompany->getPourcentageNewCompanies($periodCalc);
-
+        
         //Data Opération
         $repositoryOperationSent = $this->getDoctrine()->getRepository(OperationSent::class);
         $repositoryOperation = $this->getDoctrine()->getRepository(Operations::class);

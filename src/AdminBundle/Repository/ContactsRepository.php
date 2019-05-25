@@ -179,19 +179,52 @@ class ContactsRepository extends ServiceEntityRepository
     /**
      * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts mis à jour ce jour là
      */
-    public function getNumberContactsUpdatedPerDay($since)
+    public function getNumberContactsCreatedPerPeriod($since)
     {
         date_default_timezone_set('Europe/Paris');
-        $dateNow = date("Y-m-d H:i");
-        $dateBefore = date("Y-m-d 00:00", strtotime($since));
-        $query = $this->createQueryBuilder("contacts")
-            ->select("COUNT(contacts.updatedAt) as nb, DATE(contacts.updatedAt) as updatedAt")
-            ->where("DATE(contacts.updatedAt) BETWEEN :date_debut AND :date_fin")
-            ->groupby("updatedAt")
-            ->setParameter('date_debut', $dateBefore)
-            ->setParameter('date_fin', $dateNow)
-            ->getQuery();
-        return $query;
+
+        $query = $this->createQueryBuilder("contacts");
+
+
+        switch ($since) {
+            case "-1 week":
+                $dateNow = date("Y-m-d");
+                $dateBefore = date("Y-m-d", strtotime("-1 week"));
+                $query->select("COUNT(contacts.createdAt) as nb, DATE(contacts.createdAt) as createdAt")
+                    ->where("DATE(contacts.createdAt) BETWEEN :date_debut AND :date_fin")
+                    ->groupby("createdAt")
+                    ->setParameter('date_debut', $dateBefore)
+                    ->setParameter('date_fin', $dateNow)
+                    ->getQuery();
+
+                break;
+            case "-1 day":
+                $query->select("COUNT(contacts.createdAt) as nb, HOUR(contacts.createdAt) as createdAt")
+                    ->where("HOUR(contacts.createdAt) BETWEEN '01' AND '24' ")
+                    ->andWhere("DATE(contacts.createdAt) = :date")
+                    ->groupby("createdAt")
+                    ->setParameter('date', date("Y-m-d"))
+                    ->getQuery();
+                break;
+            case "-1 month":
+                $query->select("COUNT(contacts.createdAt) as nb, MONTH(contacts.createdAt) as createdAt")
+                    ->where("MONTH(contacts.createdAt) BETWEEN '01' AND MONTH(:date_debut) ")
+                    ->andWhere("YEAR(contacts.createdAt) = :year")
+                    ->groupby("createdAt")
+                    ->setParameter('date_debut', date("Y-m-d"))
+                    ->setParameter('year', date("Y"))
+                    ->getQuery();
+                break;
+            case "-1 year":
+                $query->select("COUNT(contacts.createdAt) as nb, YEAR(contacts.createdAt) as createdAt")
+                    ->where("YEAR(contacts.createdAt) BETWEEN :yearLessFive AND :year ")
+                    ->groupby("createdAt")
+                    ->setParameter('yearLessFive', date("Y") - 5)
+                    ->setParameter('year', date("Y"))
+                    ->getQuery();
+                break;
+        }
+        return $query->getQuery();
     }
 
     /**

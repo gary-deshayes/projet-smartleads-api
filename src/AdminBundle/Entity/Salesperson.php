@@ -214,7 +214,7 @@ class Salesperson implements UserInterface
      * )
      */
 
-        private $linkedin;
+    private $linkedin;
 
     /**
      * @var string|null
@@ -332,12 +332,13 @@ class Salesperson implements UserInterface
     private $user_last_update;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->contacts = new ArrayCollection();
         $this->operations = new ArrayCollection();
     }
 
-    
+
     /**
      * @return Collection|Operations[]
      */
@@ -401,7 +402,7 @@ class Salesperson implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -428,7 +429,7 @@ class Salesperson implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -443,7 +444,7 @@ class Salesperson implements UserInterface
      */
     public function getTokenResetPassword(): string
     {
-        return (string) $this->tokenResetPassword;
+        return (string)$this->tokenResetPassword;
     }
 
     public function setTokenResetPassword(string $tokenResetPassword): self
@@ -607,12 +608,12 @@ class Salesperson implements UserInterface
         return $this;
     }
 
-    public function getComment(): ? string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    public function setComment(? string $comment): self
+    public function setComment(?string $comment): self
     {
         $this->comment = $comment;
 
@@ -740,11 +741,11 @@ class Salesperson implements UserInterface
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
-        
+
         // Only change the updated af if the file is really uploaded to avoid database updates.
         // This is needed when the file should be set when loading the entity.
         if ($this->imageFile instanceof UploadedFile) {
-            
+
             $this->updatedAt = new \DateTime('now');
         }
     }
@@ -761,18 +762,19 @@ class Salesperson implements UserInterface
         return $this;
     }
 
-    public function getRolesFormat(){
+    public function getRolesFormat()
+    {
         $role = "";
-        switch($this->roles[0]){
+        switch ($this->roles[0]) {
             case 'ROLE_COMMERCIAL':
                 $role = "Commercial";
-            break;
+                break;
             case 'ROLE_RESPONSABLE':
                 $role = "Responsable commercial";
-            break;
+                break;
             case 'ROLE_DIRECTEUR':
                 $role = "Directeur commercial";
-            break;
+                break;
         }
         return $role;
     }
@@ -826,7 +828,7 @@ class Salesperson implements UserInterface
      * Get the value of user_last_update
      *
      * @return  \Salesperson
-     */ 
+     */
     public function getUser_last_update()
     {
         return $this->user_last_update;
@@ -838,7 +840,7 @@ class Salesperson implements UserInterface
      * @param  \Salesperson  $user_last_update
      *
      * @return  self
-     */ 
+     */
     public function setUser_last_update(Salesperson $user_last_update)
     {
         $this->user_last_update = $user_last_update;
@@ -846,18 +848,21 @@ class Salesperson implements UserInterface
         return $this;
     }
 
-    public function getNumberCompaniesAffected(){
+    public function getNumberCompaniesAffected()
+    {
         $companies = array();
-        foreach($this->contacts as $contact){
-            if($contact->getCompany() != null){
+        foreach ($this->contacts as $contact) {
+            if ($contact->getCompany() != null) {
                 array_push($companies, $contact->getCompany());
             }
         }
-        dump($companies);
         return count($companies);
     }
 
-    public function getNumberContactsAffected(){
+    public function getNumberContactsAffected()
+    {
         return count($this->contacts);
     }
+
+    
 }

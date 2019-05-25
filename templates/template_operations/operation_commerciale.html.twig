@@ -6,8 +6,8 @@
 
 {% block body %}
     {# {% if vich_uploader_asset(settings_operation, 'page_image') != null %}
-        <img src="{{ vich_uploader_asset(settings_operation, 'page_image') }}">
-    {% endif %} #}
+            <img src="{{ vich_uploader_asset(settings_operation, 'page_image') }}">
+        {% endif %} #}
     <h1>{{ settings_operation.introduction_title  }}</h1>
     <p>{{ settings_operation.introduction_text  }}</p>
     <div class="form-style">
@@ -637,4 +637,13 @@
 
         {{ form_end(formContact) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        $(".window-operation").nextAll("div").remove();
+    </script>
 {% endblock %}

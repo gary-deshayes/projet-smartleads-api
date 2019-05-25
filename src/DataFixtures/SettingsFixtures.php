@@ -12,7 +12,6 @@ class SettingsFixtures extends BaseFixture
     {
         $settings = new Settings();
         $settings->setApplicationName("Smartleads");
-        $settings->setApplicationLogo($this->faker->imageUrl($width = 640, $height = 480));
         $settings->setAddress($this->faker->region);
         $settings->setAdditionalAddress($this->faker->secondaryAddress);
         $settings->setEmail($this->faker->email);
