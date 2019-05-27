@@ -167,7 +167,7 @@ class Company
      *      max = 10,
      *      minMessage = "Veuillez saisir le numéro en 0612345678",
      *      maxMessage = "Veuillez saisir le numéro en 0612345678",
-     *      exactMessage = "Le numéro de téléphone doit être à ce format 0XXXXXXXXX"
+     *      exactMessage = "Le numéro de fax doit contenir 10 chiffres"
      * )
      */
     private $phone;
@@ -184,7 +184,7 @@ class Company
      *      max = 10,
      *      minMessage = "Veuillez saisir le fax en 0612345678",
      *      maxMessage = "Veuillez saisir le fax en 0612345678",
-     *      exactMessage = "Le numéro de fax doit être à ce format 0XXXXXXXXX"
+     *      exactMessage = "Le numéro de fax doit contenir 10 chiffres"
      * )
      */
     private $fax;
