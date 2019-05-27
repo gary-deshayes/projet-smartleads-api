@@ -18,8 +18,8 @@
                 <tr>
                     <th>
                         <div class="custom-control custom-checkbox  checkbox-dynamic-all">
-                            <input class="custom-control-input" id="check-all" type="checkbox" value="all">
-                            <label class="custom-control-label" for="check-all"></label>
+                            <input class="custom-control-input" id="all-check" type="checkbox" value="all">
+                            <label class="custom-control-label" for="all-check"></label>
                         </div>
                     </th>
                     <th></th>
@@ -86,7 +86,7 @@
         <div class="panel-Boutons">
             <div class="panel-left">
                 {{ form_widget(formsearch.limit, {'id': 'search_limit', 'attr': {'class': 'form-control form-control-lg'} })}}
-                <i class="fas fa-trash fa-lg" title="Supprimer"></i>
+                <i class="fas fa-trash fa-lg" id="suppression-company-checked" title="Supprimer"></i> 
                 <i class="fas fa-download fa-lg" title="Télécharger"></i>
                 <i class="fas fa-building fa-lg" title="Importer"></i>
             </div>

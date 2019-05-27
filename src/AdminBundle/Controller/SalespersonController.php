@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\AdminBundle\Repository\SettingsRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\AdminBundle\Form\SalespersonUpdateHisDataType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -174,6 +175,32 @@ class SalespersonController extends AbstractController
             "salespersons" => $salespersons,
             'settingsApplication' =>  $this->settingsApplication,
         ]);
+    }
+
+    /**
+     * @Route("/delete/many", name="salesperson_delete_many", methods={"DELETE"})
+     */
+    public function delete_many(Request $request): Response
+    {
+        $eachId = $request->request->get("eachId");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        foreach ($eachId as $id)
+        {
+            $salesperson = $this->getDoctrine()->getRepository(Salesperson::class)->findOneBy(['code' => $id]);
+
+            $entityManager->remove($salesperson);
+                
+        }
+        $data = [
+            'ids' => $eachId,
+            'result' => true
+        ];
+
+        $entityManager->flush();
+        // return $this->redirectToRoute('contacts_index');
+        return new JsonResponse($data);
+
     }
 
     /**

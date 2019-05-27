@@ -1188,6 +1188,117 @@ $("#list_ciblages_valide").on("click", 'button', function () {
 
 
 
+$("[id$='-checked']").on("click", function () {
+    getCheckBoxId();
+    var id = $(this).attr("id").split("-",2);
+    var entity = id[1];
+    console.log(entity);
+
+    switch (entity) {
+        case 'company':
+          entité = "entreprises"
+          break;
+        case 'salesperson':
+            entité = "commerciaux"
+            break;
+        case 'contacts':
+            entité = "contacts"
+            break;
+        case 'responsable':
+            entité = "responsable"
+            entity = "company"
+            break;
+      }
+    if(values.length > 0)
+    {
+        if ( confirm( "Êtes-vous sur de vouloir supprimer les " + entité + " selectionnés ?" ) ) {
+            deleteEntitiesSelected(values, entity);
+            $(':checkbox').prop('checked', false);
+    
+        } else {
+            
+        }
+    }
+    else{
+        alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
+    }
+    
+})
+// $("[#all-check']").on("click", function () {
+
+//     getCheckBoxId();
+//     var id = $(this).attr("id").split("-",2);
+//     var entity = id[1];
+//     console.log(entity);
+
+//     switch (entity) {
+//         case 'company':
+//           entité = "entreprises"
+//           break;
+//         case 'salesperson':
+//         entité = "commerciaux"
+//         break;
+//       }
+//     if(values.length > 0)
+//     {
+//         if ( confirm( "Êtes-vous sur de vouloir supprimer les " + entité + " selectionnés ?" ) ) {
+//             deleteEntitiesSelected(values, entity);
+//             $(':checkbox').prop('checked', false);
+    
+//         } else {
+            
+//         }
+//     }
+//     else{
+//         alert("Veuillez cocher des contacts afin de pouvoir les supprimer")
+//     }
+    
+// })
+
+function deleteEntitiesSelected(values, entity)
+{
+    var data = {
+        eachId : values
+    };
+
+
+    var url = "/admin/" + entity + "/delete/many";
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        data: data,
+        success: function(result) {
+            if (result.result == 1) {
+                result.ids.forEach(id => {
+                    $("#check-" + id).parent().parent().parent().fadeOut(1500, function() {
+                        $("#check-" + id).parent().parent().parent().remove();
+                        document.location.reload();
+                      });
+                });
+                
+            }
+            
+        }
+    });
+    
+}
+
+
+$("#suppression-contacts").on("click", function (event) {
+    event.preventDefault();
+    $("#form_delete_contacts").submit();
+})
+
+function getCheckBoxId() {
+    values= [];
+    $("[id^='check']:checked").each(function () {
+        var eachId = $(this).attr("id").split("check-")[1];
+        values.push(eachId);
+    });
+
+}
+
+
 $('#table-resultats-operation').DataTable({
     "dom": '<"top"f>rt<"bottom"lp><"clear">',
     "info": false,
