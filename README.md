@@ -8,9 +8,8 @@ Des opérations de marketing ou de communication basées sur des templates pré-
 
 ## Technologies
 Projet utilisant les technologies suivantes:
-- PHP
+- PHP7
 - mySQL
-- Angular6
 - Symfony4
 
 ## Pré-requis :
@@ -28,15 +27,15 @@ Il vous faudra tout d'abord installer 2 outils :
 - Éxécuter à présent le commande `composer install`
 
 ### II / Installation de la base de données
-- Afin de créer la base de données dans l'invite de commande veuillez éxecuter la commande : `php bin/console d:d:c`
-- Pour mettre à jour cette même Base il vous suffit d'éxecuter cette fois la commande : `php bin/console d:d:u`
-- Enfin pour implémenter quelques exemples ( fixtures ) afin d'utiliser l'application, éxecutez la commande : `php bin/console d:d:f`
+- Afin de créer la base de données dans l'invite de commande veuillez éxecuter la commande à la racine du dossier : `php bin/console d:d:c`pour doctrine:database:create
+- Pour mettre à jour cette même Base qui réfletera les entités du siteil vous suffit d'éxecuter cette fois la commande : `php bin/console d:s:u --force` pour doctrine:schema:update
+- Enfin pour implémenter quelques exemples ( fixtures ) afin d'utiliser l'application, éxecutez la commande : `php bin/console d:f:l` pour doctrine:fixtures:load, les comptes admin sont présents dans les fixtures.
 
 
 Le projet et la base de données sont maintenant installés
 ## Votre projet est prêt !
 
-Dans le même terminal, il vous suffit d'éxécuter la commande : `php bin/console :run`.
+Dans le même terminal, il vous suffit d'éxécuter la commande : `php bin/console server:run`.
 L'application se lancera automatiquement sur votre navigateur internet par défaut.
 
 ## Auteurs
@@ -55,9 +54,8 @@ Marketing or communication operations based on pre-defined templates can be perf
 
 ## Technologies
 Project wich use these technologies
-- PHP
+- PHP7
 - mySQL
-- Angular6
 - Symfony4
 
 ## Required :
@@ -75,14 +73,14 @@ First of all you need to install 2 tools :
 - Now, execute this command : `composer install`
 
 ### II / Install the database
-- In order to create the database, execute in the terminal : `php bin/console d:d:c`
-- Now, to update the database you need to execute this command : `php bin/console d:d:u`
-- Finnaly to add a few fixtures you should to execute : `php bin/console d:d:f`
+- In order to create the database, execute in the terminal : `php bin/console d:d:c` for doctrine:database:create
+- Now, to update the database you need to execute this command : `php bin/console d:s:u --force` for doctrine:schema:update 
+- Finally to add a few fixtures you should to execute : `php bin/console d:f:l` for doctrine:fixtures:load, admin accounts has in the fixtures
 
 
 The project and the database are installed.
 ## Your project is ready !
-In the same terminal, please run this command : `php bin/console :run`. The application will automatically launch on your default internet browser
+In the same terminal, please run this command : `php bin/console server:run`. The application will automatically launch on your default internet browser
 
 ## Authors
 - Lucas VIGNI
