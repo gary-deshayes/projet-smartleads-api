@@ -96,19 +96,17 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="btn-end-form-add">
+            <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Supprimer</a>
+            <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Dupliquer</a>
+            <button class="btn btn-radius-red">Enregistrer</button>
+            {% if operation.sent == false %}
+                <a href='{{ path("envoi_operation", { code: operation.code })}}' class="btn btn-radius-red">Envoyer</a>
+            {% else %}
+                <a class="btn btn-radius-red">Déjà envoyé</a>
+
+            {% endif %}
+        </div>
 
 
-    </div>
-    <div class="btn-end-form-add">
-        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Supprimer</a>
-        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Dupliquer</a>
-        <button class="btn btn-radius-red">Enregistrer</button>
-        {% if operation.sent == false %}
-            <a href='{{ path("envoi_operation", { code: operation.code })}}' class="btn btn-radius-red">Envoyer</a>
-        {% else %}
-            <a class="btn btn-radius-red">Déjà envoyé</a>
-
-        {% endif %}
-    </div>
 {% endif %}
-</div>

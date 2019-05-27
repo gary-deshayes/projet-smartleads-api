@@ -33,14 +33,17 @@ class ResetPasswordController extends AbstractController
                 //Appelle send() dans le service dédié à l'envoie de mail
                 $mailer->send($salesperson, $token);
 
+                $this->addFlash('success', "Email de récupération d'email envoyé, verifiez vos SPAM !");
+                return $this->redirectToRoute('app_login');
                 //Affichage du template de mail si l'envoie est effectué
-                return $this->render('reset_password/template.html.twig', array(
-                    "link" => "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
-                    'name' => $salesperson->getLastName(),
-                    'firstName' => $salesperson->getFirstName(),
-                    'salesperson' => $salesperson
-                ));
+                // return $this->render('reset_password/template.html.twig', array(
+                //     "link" => "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
+                //     'name' => $salesperson->getLastName(),
+                //     'firstName' => $salesperson->getFirstName(),
+                //     'salesperson' => $salesperson
+                // ));
             }
+            $this->addFlash('error', "Email inexistant dans la base de données, saisissez un mail valide.");
         }
 
         return $this->render('reset_password/email_for_password.html.twig', array(
