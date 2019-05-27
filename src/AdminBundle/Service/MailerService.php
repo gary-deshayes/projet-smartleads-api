@@ -35,7 +35,7 @@ class MailerService
                     [
                         "name" => $salesperson->getLastName(),
                         "firstName" => $salesperson->getFirstName(),
-                        "link" => $_SERVER['HTTP_REFERER'] .  "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
+                        "link" => $_SERVER['HTTP_ORIGIN'] .  "/resetPasswordToken/" . $salesperson->getLastName() . "/" . $token,
                     ]
                 ),
                 "text/html"
@@ -48,7 +48,7 @@ class MailerService
         $mj = new \Mailjet\Client(getenv('MJ_APIKEY_PUBLIC'), getenv('MJ_APIKEY_PRIVATE'));
 
         $body = [
-            'FromEmail' => "smartleads.supp@outlook.com",
+            'FromEmail' => "no-reply-smartleads@outlook.com",
             'FromName' => "Smartleads No reply",
             'Subject' => $settings_operation->getMailObject(),
             'Html-part' => $this->template->render(
