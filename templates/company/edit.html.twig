@@ -9,11 +9,16 @@
     <div class="window">
         <div class="form-informations">
             <div class="infos-entity">
-                <p class="title">{{ company.name | upper }}</p><p class="description">, {{ company.activityArea }} ({{ company.postalCode }} {{ company.town }})</p>
+                <p class="title">{{ company.name | upper }}</p>
+                <p class="description">,
+                    {{ company.activityArea }}
+                    ({{ company.postalCode }}
+                    {{ company.town }})</p>
             </div>
 
             <div class="inline-status-date">
-                <i class="fas fa-circle"></i><p class="infos">A jour</p>
+                <i class="fas fa-circle"></i>
+                <p class="infos">A jour</p>
                 <p>Dernière mise à jour le
                     {{ company.updatedAt | date("d/m/Y")}}</p>
                 <div class="custom-control custom-switch">
@@ -45,14 +50,10 @@
                 <p>Potentiel</p>
                 <div class="my-rating"></div>
                 {% if company.companyStatus != null %}
-                    {% if company.companyStatus.libelle == "Client" %}
-                        <span class="badge badge-pill badge-success">{{ company.companyStatus.libelle }}</span>
-                    {% endif %}
-                    {% if company.companyStatus.libelle == "Prospect" %}
-                        <span class="badge badge-pill badge-warning">{{ company.companyStatus.libelle }}</span>
-                    {% endif %}
-                    {% if company.companyStatus.libelle == "Piste" %}
-                        <span class="badge badge-pill badge-light">{{ company.companyStatus.libelle }}</span>
+                    {% if company.companyStatus.color != null %}
+                        <span class="badge badge-pill badge-company" style="background-color: {{company.companyStatus.color}} !important">{{ company.companyStatus.libelle }}</span>
+                    {% else %}
+                        <span class="badge badge-pill badge-primary">{{ company.companyStatus.libelle }}</span>
                     {% endif %}
                 {% endif %}
             </li>

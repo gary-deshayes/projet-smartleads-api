@@ -11,6 +11,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\AdminBundle\Repository\SettingsRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -19,6 +20,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ContactsController extends AbstractController
 {
+
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+
     /** @var Faker */
     protected $faker;
 
@@ -57,7 +67,8 @@ class ContactsController extends AbstractController
         return $this->render('contacts/index.html.twig', [
             'contacts' => $pageContacts,
             'nbContactsCommercial' => $nbContactsCommercial,
-            'formsearch' => $form->createView()
+            'formsearch' => $form->createView(),
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
@@ -89,16 +100,7 @@ class ContactsController extends AbstractController
         return $this->render('contacts/new.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{code}", name="contacts_show", methods={"GET"})
-     */
-    public function show(Contacts $contact): Response
-    {
-        return $this->render('contacts/show.html.twig', [
-            'contact' => $contact,
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
@@ -121,6 +123,7 @@ class ContactsController extends AbstractController
         return $this->render('contacts/edit.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 

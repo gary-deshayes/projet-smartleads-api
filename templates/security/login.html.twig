@@ -1,43 +1,54 @@
 {% extends 'frontbase.html.twig' %}
 
 {% block body %}
-<div class="row">
-    <div class="col-6 background-img">
-    </div>
-    <div class="col-6">
-        <div class="form-connect">
-            <form class="flex-center" method="post">
-                <img src="{{ asset("img/logo-login.png") }}">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+    <div class="row">
+        <div class="col-6 background-img"></div>
+        <div class="col-6">
+            <div class="form-connect">
+                <form class="flex-center" method="post">
+                    {% if vich_uploader_asset(settingsApplication, 'imageFile') is null %}
+                        <img src="{{ asset("img/logo-login.png") }}">
+                    {% else %}
+                        <img src="{{ vich_uploader_asset(settingsApplication, 'imageFile') | imagine_filter('logo_application') }}">
+                    {% endif %}
 
-                
-                <p class="text-muted center">Veuillez vous identifier</p>
 
-                <div class="input-group div-input">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+
+                    <p class="text-muted center">Veuillez vous identifier</p>
+
+                    <div class="input-group div-input">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <input type="email" value="{{ last_username }}" name="email" class="form-control" placeholder="E-mail" required autofocus>
                     </div>
-                    <input type="email" value="{{ last_username }}" name="email" class="form-control" placeholder="E-mail" required autofocus>
-                </div>
-                <div class="input-group div-input">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                    <div class="input-group div-input">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                        <input class="form-control" name="password" placeholder="Mot de passe" required type="password">
                     </div>
-                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <button class="btn primary-btn" type="submit">Connexion</button>
+                    <a class="text-description" href=" {{ path('reset_password') }}" id="mail">Mot de passe oublié ?</a>
+
+                </form>
+                <div class="bottom-connect">
+                    <p class="text-muted">Smartleads © tous droits réservés  |
+                        <a class="text-description" href="#">Contactez le support technique</a>
+                    </p>
                 </div>
-
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                <button type="submit" class="btn primary-btn">Connexion</button>
-                <a class="text-description" id="mail" href=" {{ path('reset_password') }}">Mot de passe oublié ?</a>
-                
-            </form>
-            <div class="bottom-connect">
-                <p class="text-muted">Smartleads © tous droits réservés  |  <a class="text-description" href="#">Contactez le support technique</a></p>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

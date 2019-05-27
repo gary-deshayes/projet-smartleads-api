@@ -7,11 +7,20 @@ use App\AdminBundle\Entity\Contacts;
 use App\AdminBundle\Entity\Operations;
 use App\AdminBundle\Entity\OperationSent;
 use Symfony\Component\Routing\Annotation\Route;
-use App\AdminBundle\Repository\OperationSentRepository;
+use App\AdminBundle\Repository\SettingsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
+
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+
     /**
      * @Route("dashboard/{period}", name="dashboard")
      */
@@ -31,14 +40,15 @@ class DashboardController extends AbstractController
         $data["numberNewContactsSince"] = $repositoryContacts->getNumberNewContactsSince($periodCalc)->getSingleResult()["nb"];
         $data["numberContactsActive"] = count($repositoryContacts->findBy(array("status" => 1)));
         $data["pourcentNewContactsSince"] = $repositoryContacts->getPourcentageNewContacts($periodCalc);
-
+        $data["indiceCRM"] = $repositoryContacts->getIndiceCRM();
+        $data["contactsCreatedAt"] = $repositoryContacts->getNumberContactsCreatedPerPeriod($periodCalc)->getResult();
 
         //Data entreprises
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
         $data["numberNewCompaniesSince"] = $repositoryCompany->getNumberNewCompaniesSince($periodCalc)->getSingleResult()["nb"];
         $data["numberCompaniesActive"] = count($repositoryCompany->findBy(array("actif" => 1)));
         $data["pourcentNewCompaniesSince"] = $repositoryCompany->getPourcentageNewCompanies($periodCalc);
-
+        
         //Data Opération
         $repositoryOperationSent = $this->getDoctrine()->getRepository(OperationSent::class);
         $repositoryOperation = $this->getDoctrine()->getRepository(Operations::class);
@@ -53,15 +63,18 @@ class DashboardController extends AbstractController
 
         // $repositoryOperations = $this->getDoctrine()->getRepository("AdminBundle:Operations");
         // $data["operationsActives"] = $repositoryOperations->getNbOperationsActives();
+        
+
 
         
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             "data" => $data,
-            "period" => $period
+            "period" => $period,
+            "settingsApplication" => $this->settingsApplication
         ]);
+        
     }
-
     /**
      * @Route("dashboard", name="dashboard_redirect")
      * Permet de rediriger si quelqu'un enlève le paramètre de période

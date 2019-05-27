@@ -27,17 +27,26 @@
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a href="{{ path('dashboard', {period: "week"}) }}">
-                        <img class="img-primary img" src="{{ asset("img/logo-login.png") }}">
-                    </a>
-                    <a href="{{ path('dashboard', {period: "week"}) }}">
-                        <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
-                    </a>
+                    {% if vich_uploader_asset(settingsApplication, 'imageFile') is null %}
+                        <a href="{{ path('dashboard', {period: "today"}) }}">
+                            <img class="img-primary img" src="{{ asset("img/logo-login.png") }}">
+                        </a>
+                        <a href="{{ path('dashboard', {period: "today"}) }}">
+                            <img class="img-secondary" src="{{ asset("img/logo-login-little.png") }}">
+                        </a>
+                    {% else %}
+                        <a href="{{ path('dashboard', {period: "today"}) }}">
+                            <img class="img-primary img" src="{{ vich_uploader_asset(settingsApplication, 'imageFile') | imagine_filter('logo_application') }}">
+                        </a>
+                        <a href="{{ path('dashboard', {period: "today"}) }}">
+                            <img class="img-secondary" src="{{ vich_uploader_asset(settingsApplication, 'imageFile') | imagine_filter('logo_application_mini') }}">
+                        </a>
+                    {% endif %}
                     <i class="fas fa-angle-left" id="sidebarCollapse"></i>
                 </div>
                 <ul class="navbar-nav mr-auto nav-active">
                     <li class="nav-item {% if app.request.attributes.get('_route') == 'dashboard' %}li-active{% endif %}">
-                        <a class="nav-link" href="{{ path('dashboard', {period: "week"}) }}">
+                        <a class="nav-link" href="{{ path('dashboard', {period: "today"}) }}">
                             <i class="fas fa-chart-line"></i>
                             <span>Tableau de bord</span>
                         </a>
@@ -168,8 +177,7 @@
         <script type="text/javascript" charset="utf8" src="{{ asset("js/datatables.min.js")}}"></script>
         <!-- Application Javascript -->
         <script type="text/javascript" src="{{ asset("js/jquery.star-rating-svg.js") }}"></script>
-        <!-- Application Javascript -->
-        <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
+       
 
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
 
@@ -191,7 +199,8 @@
         <script src="{{ asset("js/jquery.vmap.js") }}" type="text/javascript"></script>
         <script src="{{ asset("js/jquery.vmap.france.js") }}" type="text/javascript"></script>
         <script src="{{ asset("js/jquery.vmap.colorsFrance.js") }}" type="text/javascript"></script>
-
+ <!-- Application Javascript -->
+        <script type="text/javascript" src="{{ asset("js/application.js") }}"></script>
 
         {% block javascripts %}{% endblock %}
     </body>

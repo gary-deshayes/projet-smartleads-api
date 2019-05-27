@@ -70,9 +70,7 @@ class Settings
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      * @Assert\Length(
-     *      min = 1,
      *      max = 255,
-     *      minMessage = "L'adresse de l'application doit contenir au minimum {{ limit }} caractères de long.",
      *      maxMessage = "L'adresse de l'application ne doit pas dépasser {{ limit }} caractères."
      * )
      */
@@ -83,9 +81,7 @@ class Settings
      *
      * @ORM\Column(name="additional_address", type="string", length=255, nullable=true)
      * @Assert\Length(
-     *      min = 1,
      *      max = 255,
-     *      minMessage = "Le supplément d'adresse doit contenir au minimum {{ limit }} caractères de long.",
      *      maxMessage = "Le supplément d'adresse ne doit pas dépasser {{ limit }} caractères."
      * )
      */

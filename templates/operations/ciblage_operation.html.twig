@@ -4,13 +4,13 @@
     <p>Veuillez saisir le formulaire visible de l'opération avant de définir des cibles.</p>
 
 {% else %}
-<div>
-    {% if operation.sent == false %}
-        <label>Ajoutez un critère de ciblage</label>
-        <div class="row div-target-operation">
-            {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-11"}}) }}
-            <div class="col-lg-4">
-                {{ form_widget(formTargetOperation.entity, { "attr" : { "class" : "form-control"}})}}
+    <div>
+        {% if operation.sent == false %}
+            <label>Ajoutez un critère de ciblage</label>
+            <div class="row div-target-operation">
+                {{ form_start(formTargetOperation, { "attr" : { "id" : "form_target_operation", "class" : "col-lg-11"}}) }}
+                <div class="col-lg-4">
+                    {{ form_widget(formTargetOperation.entity, { "attr" : { "class" : "form-control"}})}}
                 </div>
                 <p>Dont</p>
                 <div class="col-lg-4">
@@ -92,22 +92,23 @@
                             <input hidden value="{{cible.id}}"/>
                         {% endif %}
                     </div>
-                    
+
                 </div>
             {% endfor %}
         </div>
 
 
-        </div>
-        <div class="btn-end-form-add">
-            <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Supprimer</a>
-            <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Dupliquer</a>
-            <button class="btn btn-radius-red">Enregistrer</button>
-            {% if operation.sent == false %}
-                <a href='{{ path("envoi_operation", { code: operation.code })}}' class="btn btn-radius-red">Envoyer</a>
-            {% else %}
-                <a class="btn btn-radius-red">Déjà envoyé</a>
+    </div>
+    <div class="btn-end-form-add">
+        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Supprimer</a>
+        <a class="btn btn-basic btn-second" href="{{ path('contacts_index') }}">Dupliquer</a>
+        <button class="btn btn-radius-red">Enregistrer</button>
+        {% if operation.sent == false %}
+            <a href='{{ path("envoi_operation", { code: operation.code })}}' class="btn btn-radius-red">Envoyer</a>
+        {% else %}
+            <a class="btn btn-radius-red">Déjà envoyé</a>
 
-            {% endif %}
-        </div>
+        {% endif %}
+    </div>
 {% endif %}
+</div>

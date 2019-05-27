@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="contacts", indexes={@ORM\Index(name="id_profession", columns={"id_profession"})})
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\ContactsRepository")
- * @UniqueEntity("code")
+ * @UniqueEntity("code", message="Le code existe déjà")
  * @UniqueEntity("email", message="Cet email existe déjà dans la base de données, veuillez en saisir un autre.")
  * @Vich\Uploadable
  */

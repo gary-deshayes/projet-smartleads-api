@@ -10,6 +10,7 @@ use App\AdminBundle\Entity\Salesperson;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table(name="operations")
  * @ORM\Entity(repositoryClass="App\AdminBundle\Repository\OperationsRepository")
  * @Vich\Uploadable
+ * @UniqueEntity("code", message="Le code existe déjà")
  */
 class Operations
 {

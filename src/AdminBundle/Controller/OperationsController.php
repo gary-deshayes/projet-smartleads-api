@@ -30,6 +30,7 @@ use App\AdminBundle\Entity\FormulaireOperation;
 use App\AdminBundle\Form\SettingsOperationType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\AdminBundle\Form\FormulaireOperationType;
+use App\AdminBundle\Repository\SettingsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -37,6 +38,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class OperationsController extends AbstractController
 {
+    
+    private $settingsApplication;
+
+    public function __construct(SettingsRepository $settingsRepo)
+    {
+        $this->settingsApplication = $settingsRepo
+        ->findOneBy(array("id" => "1"));
+    }
+
     /**
      * @Route("/", name="operations_index", methods={"GET"})
      */
@@ -71,6 +81,7 @@ class OperationsController extends AbstractController
             'operations' => $operations,
             "nbOperations" => $nbOperations,
             'formsearch' => $formSearch->createView(),
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
@@ -103,6 +114,7 @@ class OperationsController extends AbstractController
         return $this->render('operations/new.html.twig', [
             'operation' => $operation,
             'form' => $form->createView(),
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 
@@ -357,6 +369,7 @@ class OperationsController extends AbstractController
             "ciblages" => $ciblages,
             "resultats_operation" => $operationsSents,
             "pourcentage" => $pourcentage,
+            "settingsApplication" => $this->settingsApplication
         ]);
     }
 

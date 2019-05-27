@@ -18,8 +18,9 @@ class ContactsFixtures extends BaseFixture implements DependentFixtureInterface
             $contacts->setGender($this->faker->randomElement($array = array('Homme', 'Femme', 'Non précisé')));
             $contacts->setLastName($this->faker->lastName);
             $contacts->setFirstName($this->faker->firstName('male'|'female'));
-            $contacts->setCreatedAt($this->faker->dateTimeBetween($startDate = '-1 year', $endDate = 'now', $timezone = null));
-            $contacts->setUpdatedAt(new \DateTime());
+            $fakeDate = $this->faker->dateTimeBetween($startDate = '-4 year', $endDate = 'now', $timezone = null);
+            $contacts->setCreatedAt($fakeDate);
+            $contacts->setUpdatedAt($fakeDate);
             $contacts->setStatus($this->faker->boolean());
             $contacts->setBirthDate($this->faker->dateTime($max = 'now', $timezone = null));
             $contacts->setMobilePhone("06" . $this->faker->regexify('[0-9]{8}'));
