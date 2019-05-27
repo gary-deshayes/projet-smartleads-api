@@ -9,12 +9,13 @@
             <div class="infos-entity">
                 <p class="title">{{  salesperson.firstName ~ " " ~ (salesperson.lastName | upper )}}</p>
                 <p class="description">,
-                    {{ salesperson.workName }}</p>
+                    {{ salesperson.workName }}
                 {% if salesperson.birthdate != null %}
                     ,
                     {{ salesperson.getAge() }}
                     ans
                 {% endif %}
+                </p>
             </div>
 
             <div class="inline-status-date">
