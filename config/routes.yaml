@@ -11,4 +11,4 @@ adminhome:
     controller: App\AdminBundle\Controller\SecurityController::login
 
 api_login_check:
-    path: /api/login_check
+    path: /api/token/generate

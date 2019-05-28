@@ -30,11 +30,11 @@ security:
                 target: app_login
         #API
         login:
-            pattern:  ^/api/login
+            pattern:  ^/api/token/generate
             stateless: true
             anonymous: true
             json_login:
-                check_path:               /api/login_check
+                check_path:               /api/token/generate
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
 
@@ -49,6 +49,4 @@ security:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: [ROLE_DIRECTEUR, ROLE_RESPONSABLE, ROLE_COMMERCIAL, ROLE_DIRIGEANT] }
 
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
  
