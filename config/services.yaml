@@ -51,3 +51,7 @@ services:
         tags: 
         - { name: doctrine.event_subscriber }
 
+    jwt_token_authenticator:
+        class: App\Security\JwtTokenAuthenticator
+        autowire: true
+

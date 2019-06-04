@@ -3,10 +3,11 @@
 namespace App\ApiBundle\Controller;
 
 use App\AdminBundle\Entity\Contacts;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler;
 /**
  * @Route("/contacts")
  */
@@ -69,7 +70,9 @@ class ContactsController extends AbstractController
      * Total contact actif
      * @Route("/totalActif", name="total_contacts_actifs", methods={"GET"})
      */
-    public function getContactsActifs(){
+    public function getContactsActifs(Request $request){
+        dump($_SERVER["HTTP_AUTHORIZATION"]);
+        
         $repo = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
         $query = $repo->findBy(['status' => '1']);
 
@@ -77,8 +80,8 @@ class ContactsController extends AbstractController
             "nombre" => count($query)
         );
         
-        $response= new Response(json_encode($data, 200));
-
+        $response = new Response(json_encode($data, 200));
+        return $response;
     }
 
     /**

@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
 /**
  * Salesperson
@@ -24,7 +25,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Vich\Uploadable
  * @UniqueEntity("code", message="Le code existe déjà")
  */
-class Salesperson implements UserInterface
+class Salesperson implements UserInterface, JWTUserInterface
 {
     /**
      * @var string
@@ -862,6 +863,18 @@ class Salesperson implements UserInterface
     public function getNumberContactsAffected()
     {
         return count($this->contacts);
+    }
+
+    /**
+     * Creates a new instance from a given JWT payload.
+     *
+     * @param string $username
+     * @param array  $payload
+     *
+     * @return JWTUserInterface
+     */
+    public static function createFromPayload($username, array $payload){
+
     }
 
     
