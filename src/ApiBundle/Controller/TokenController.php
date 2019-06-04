@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 /**
  * @Route("/token")
@@ -21,8 +22,7 @@ class TokenController extends AbstractController
 
         $user = $this->getDoctrine()
             ->getRepository(Salesperson::class)
-            ->findOneBy(['email' => $request->get("email")]);
-        dump($user);
+            ->findOneBy(['email' => $request->get("mail")]);
 
         if (!$user) {
             throw $this->createNotFoundException();

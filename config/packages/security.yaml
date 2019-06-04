@@ -12,6 +12,10 @@ security:
             entity:
                 class: App\AdminBundle\Entity\Salesperson
                 property: email
+        # ...
+        # jwt: # optional, any user provider can be used
+        #     lexik_jwt:
+        #         class: App\AdminBundle\Entity\Salesperson
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -19,10 +23,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern:  ^/admin
             anonymous: true
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+
             logout:
                 path:   app_logout
 
@@ -39,7 +45,7 @@ security:
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
 
         api:
-            pattern:   ^/api
+            pattern: ^/api/
             stateless: true
             guard:
                 authenticators:
@@ -48,5 +54,7 @@ security:
     access_control:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: [ROLE_DIRECTEUR, ROLE_RESPONSABLE, ROLE_COMMERCIAL, ROLE_DIRIGEANT] }
+        - { path: ^/api/token/generate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/,       roles: IS_AUTHENTICATED_FULLY }
 
  
