@@ -71,16 +71,16 @@ class ContactsController extends AbstractController
      * @Route("/totalActif", name="total_contacts_actifs", methods={"GET"})
      */
     public function getContactsActifs(Request $request){
-        dump($_SERVER["HTTP_AUTHORIZATION"]);
         
         $repo = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
         $query = $repo->findBy(['status' => '1']);
 
         $data = array(
-            "nombre" => count($query)
+            "data" => "contacts_actifs",
+            "value" => count($query)
         );
         
-        $response = new Response(json_encode($data, 200));
+        $response = new Response(json_encode($data));
         return $response;
     }
 
