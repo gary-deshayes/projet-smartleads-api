@@ -127,8 +127,16 @@ class ContactsController extends AbstractController
                 $dateSince = "-1 year";
             break;
         }
-        $query = $this->getDoctrine()->getRepository('AdminBundle:Contacts')->getNumberNewContactsSince($dateSince);
-        $response = new Response(json_encode($dateSince), 200);
+
+        $query = $this->getDoctrine()->getRepository('AdminBundle:Contacts')->getNumberNewContactsSince($dateSince)->getSingleResult()["nb"];
+        $pourcent = $this->getDoctrine()->getRepository('AdminBundle:Contacts')->getPourcentageNewContacts($dateSince);
+        $data = array(
+            "data" => "new_contacts",
+            "value" => $query,
+            "pourcent" => $pourcent
+            
+        );
+        $response = new Response(json_encode($data), 200);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
