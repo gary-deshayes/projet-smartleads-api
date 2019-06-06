@@ -16,18 +16,20 @@ class CompanyController extends AbstractController
 {
     /**
      * Récupération des entreprises actives de type client
-     * @Route("/getactivecompanies", name="api_company_getactiveclient", methods={"GET"})
+     * @Route("/totalActif", name="api_company_getactiveclient", methods={"GET"})
      */
     public function getActifClient()
     {
         $companies = $this->getDoctrine()
             ->getRepository("AdminBundle:Company")
-            ->findBy(array("status" => "Client"));
+            ->findBy(array("actif" => 1));
 
-
-        $data = array("nombre" => count($companies));
+        $data = array(
+                "data" => "company_actifs", 
+                "value" => count($companies));
         $response = new Response(json_encode($data), 200);
         $response->headers->set('Content-Type', 'application/json');
+        
         return $response;
     }
 
@@ -52,33 +54,17 @@ class CompanyController extends AbstractController
                 $period = "-1 year";
                 break;
         }
-        $query = $this->getDoctrine()->getRepository("AdminBundle:Company")->getNumberNewCompanies($period);
-        $result = $query->execute();
-        $data = array();
-        if (count($result) > 0) {
-
-            foreach ($result as $res) {
-                $res_data = array(
-                    "date" => $res["createdAt"],
-                    "nombre" => $res["nb"],
-
-                );
-                array_push($data, $res_data);
-            }
-            $dataJson = [
-                "data" => $data,
-                "retour" => "1"
-            ];
-            $response = new Response(json_encode($dataJson), 200);
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Company")->getNumberNewCompaniesSince($period)->getSingleResult()["nb"];
+        $pourcent= $this->getDoctrine()->getRepository("AdminBundle:Company")->getPourcentageNewCompanies($period);
+        $data = array(
+            "data" => "company_news",
+            "value" => $query,
+            "pourcent" => $pourcent
+        );
+        
+            $response = new Response(json_encode($data), 200);
             $response->headers->set('Content-Type', 'application/json');
-        } else {
-            $dataJson = [
-                "message" => "Aucune données pour cette plage horaires",
-                "retour" => "-1"
-            ];
-            $response = new Response(json_encode($dataJson), 200);
-            $response->headers->set('Content-Type', 'application/json');
-        }
+ 
         return $response;
     }
 
