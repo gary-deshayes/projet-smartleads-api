@@ -109,7 +109,7 @@ class ContactsController extends AbstractController
     
     /**
      * Création d'un contact
-     * @Route("/getNumberNewContactsSince/{since}", name="api_contacts_getNumberNewContactsSince", methods={"GET"})
+     * @Route("/newContactsSince/{since}", name="api_contacts_numberNewContactsSince", methods={"GET"})
      */
     public function getNumberNewContactsSince($since){
         $dateSince = "";

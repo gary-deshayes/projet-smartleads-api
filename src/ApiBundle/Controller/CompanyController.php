@@ -16,7 +16,7 @@ class CompanyController extends AbstractController
 {
     /**
      * Récupération des entreprises actives de type client
-     * @Route("/totalActif", name="api_company_getactiveclient", methods={"GET"})
+     * @Route("/totalActif", name="api_company_activeclient", methods={"GET"})
      */
     public function getActifClient()
     {
@@ -35,7 +35,7 @@ class CompanyController extends AbstractController
 
     /**
      * Récuperation des nouvelles entreprises depuis une période
-     * @Route("/getNewCompaniesSince/{since}", name="api_company_getnewcompaniessince", methods={"GET"})
+     * @Route("/newCompaniesSince/{since}", name="api_company_newCompaniesSince", methods={"GET"})
      */
     public function getNewCompaniesSince($since)
     {
@@ -87,7 +87,7 @@ class CompanyController extends AbstractController
 
     /**
      * Récupération du nombre de nouvelles entreprises depuis une période
-     * @Route("/getNumberNewCompaniesSince/{since}", name="api_company_getNumberNewCompaniesSince", methods={"GET"})
+     * @Route("/numberNewCompaniesSince/{since}", name="api_company_numberNewCompaniesSince", methods={"GET"})
      */
     public function getNumberNewCompaniesSince($since)
     {

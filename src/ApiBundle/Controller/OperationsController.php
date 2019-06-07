@@ -16,6 +16,59 @@ use Symfony\Component\Routing\Annotation\Route;
 class OperationsController extends AbstractController
 {
     /**
+     * Récupération des opérations actives
+     * @Route("/operationsActiveSince/{since}", name="api_operation_operationsSince", methods={"GET"})
+     */
+    public function getOperationsActiveSince($since){
+        $dateSince = "";
+        switch($since){
+            case "day":
+                $dateSince = "-1 days";
+            break;
+            case "week":
+                $dateSince = "-1 week";
+            break;
+            case "month":
+                $dateSince = "-1 month";
+            break;
+            case "year":
+                $dateSince = "-1 year";
+            break;
+        }
+
+        $query = $this->getDoctrine()->getRepository('AdminBundle:Operations')->getNumberActivesOperationsSince($dateSince)->getSingleResult()["nb"];
+        $pourcent = $this->getDoctrine()->getRepository('AdminBundle:Operations')->getPourcentageOperationsActive($dateSince);
+        $data = array(
+            "data" => "new_mails",
+            "value" => $query,
+            "pourcent" => $pourcent
+            
+        );
+        $response = new Response(json_encode($data), 200);
+        $response->headers->set('Content-Type', 'application/json');
+        
+        return $response;
+    }
+
+    /**
+     * Récupération des opération réalisé
+     * @Route("/operationsRealized", name="operations_realisees", methods={"GET"})
+     */
+    public function getOperationsRealized(Request $request){
+        
+        $repo = $this->getDoctrine()->getRepository('AdminBundle:Operations');
+        $query = count($repo->findAll());
+
+        $data = array(
+            "data" => "operations_realized",
+            "value" => $query
+        );
+        
+        $response = new Response(json_encode($data));
+        return $response;
+    }
+
+    /**
      * Récupération des opérations
      * @Route("/getrelease", name="api_operations_getrelease", methods={"GET"})
      */
@@ -30,7 +83,6 @@ class OperationsController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
-
 
 
     /**
