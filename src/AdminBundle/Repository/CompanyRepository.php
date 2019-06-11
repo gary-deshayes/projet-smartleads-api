@@ -194,4 +194,22 @@ class CompanyRepository extends ServiceEntityRepository
         }
         return $pourcentage;
     }
+
+    /**
+     * Retourne pour chaque jour de la période demandé, la date et le nombre d'entreprise' crée ce jour là
+     */
+    public function getNumberNewCompanyPerDay($since)
+    {
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("company")
+            ->select("COUNT(company.createdAt) as nb, DATE(company.createdAt) as createdAt")
+            ->where("DATE(company.createdAt) BETWEEN :date_debut AND :date_fin")
+            ->groupby("createdAt")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
+    }
 }

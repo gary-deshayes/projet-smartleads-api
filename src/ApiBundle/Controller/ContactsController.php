@@ -16,7 +16,7 @@ class ContactsController extends AbstractController
 
     /**
      * Récupère le nombre de contacts pour chaque jour de la période demandé
-     * @Route("/getNumberNewContactsPerDay/{since}", name="api_contacts_getnumbernewcontactsperday", methods={"GET"})
+     * @Route("/numberNewContactsPerDay/{since}", name="api_contacts_getnumbernewcontactsperday", methods={"GET"})
      */
     public function getNumberNewContactsPerDay($since)
     {
@@ -143,10 +143,10 @@ class ContactsController extends AbstractController
     }
 
     /**
-     * Récupère le nombre de contacts pour chaque jour de la période demandé
-     * @Route("/getNumberContactsUpdatedPerDay/{since}", name="api_contacts_getnumbernewcontactsupdatedperday", methods={"GET"})
+     * Récupère le nombre de contacts updated  pour chaque jour de la période demandé
+     * @Route("/numberUpdatedContactsPerDay/{since}", name="api_contacts_getnumberupdatedcontactsupdatedperday", methods={"GET"})
      */
-    public function getNumberContactsUpdatedPerDay($since)
+    public function getNumberUpdatedContactsPerDay($since)
     {
         $period = "";
         switch($since){
@@ -163,7 +163,7 @@ class ContactsController extends AbstractController
                 $period = "-1 year";
             break;
         }
-        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->getNumberContactsUpdatedPerDay($period);
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Contacts")->getNumberUpdatedContactsPerDay($period);
         $result = $query->execute();
         $data = array();
         if (count($result) > 0) {
@@ -193,4 +193,23 @@ class ContactsController extends AbstractController
         }
         return $response;
     }
+
+    /**
+     * Indice CRM
+     * @Route("/indiceCRM", name="indice_crm", methods={"GET"})
+     */
+    public function getIndiceCRM(Request $request){
+        
+        $repo = $this->getDoctrine()->getRepository('AdminBundle:Contacts');
+        $query = $repo->getIndiceCRM();
+
+        $data = array(
+            "data" => "indice_crm",
+            "value" => $query
+        );
+        
+        $response = new Response(json_encode($data));
+        return $response;
+    }
+
 }

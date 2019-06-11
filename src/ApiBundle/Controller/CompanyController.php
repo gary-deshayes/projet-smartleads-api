@@ -15,6 +15,58 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyController extends AbstractController
 {
     /**
+     * Récupère le nombre de contacts pour chaque jour de la période demandé
+     * @Route("/numberNewCompanyPerDay/{since}", name="api_company_getnumbernewcompanyperday", methods={"GET"})
+     */
+    public function getNumberNewCompanyPerDay($since)
+    {
+        $period = "";
+        switch($since){
+            case "day":
+                $period = "-1 days";
+            break;
+            case "week":
+                $period = "-1 week";
+            break;
+            case "month":
+                $period = "-1 month";
+            break;
+            case "year":
+                $period = "-1 year";
+            break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:Company")->getNumberNewCompanyPerDay($period);
+        $result = $query->execute();
+        $data = array();
+        if (count($result) > 0) {
+            
+            foreach ($result as $res) {
+                $res_data = array(
+                    "date" => $res["createdAt"],
+                    "nombre" => $res["nb"],
+
+                );
+                array_push($data, $res_data);
+            }
+            $dataJson = [
+                "data" => $data,
+                "retour" => "1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+
+        } else {
+            $dataJson = [
+                "message" => "Aucune données pour cette plage horaires",
+                "retour" => "-1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        }
+        return $response;
+    }
+
+    /**
      * Récupération des entreprises actives de type client
      * @Route("/totalActif", name="api_company_activeclient", methods={"GET"})
      */

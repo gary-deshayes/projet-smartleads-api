@@ -300,6 +300,24 @@ class ContactsRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    /**
+     * Retourne pour chaque jour de la période demandé, la date et le nombre de contacts update ce jour là
+     */
+    public function getNumberUpdatedContactsPerDay($since)
+    {
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("contacts")
+            ->select("COUNT(contacts.updatedAt) as nb, DATE(contacts.updatedAt) as updatedAt")
+            ->where("DATE(contacts.updatedAt) BETWEEN :date_debut AND :date_fin")
+            ->groupby("updatedAt")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
+    }
+
     //Permet d'obtenir les données pour le composant d'indice de CRM
     public function getIndiceCRM()
     {
