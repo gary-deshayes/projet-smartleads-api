@@ -121,7 +121,7 @@ class OperationsController extends AbstractController
 
     /**
      * Récupère le nombre de nouvelles opérations pour chaque jour de la période
-     * @Route("/getNumberOperationsPerDay/{since}", name="api_operations_getnumbernewoperationsperday", methods={"GET"})
+     * @Route("/numberOperationsPerDay/{since}", name="api_operations_getnumbernewoperationsperday", methods={"GET"})
      */
     public function getNumberOperationsPerDay($since)
     {
@@ -154,7 +154,8 @@ class OperationsController extends AbstractController
                 array_push($data, $res_data);
             }
             $dataJson = [
-                "data" => $data,
+                "data" => "number_operations_per_day",
+                "value" => $data,
                 "retour" => "1"
             ];
             $response = new Response(json_encode($dataJson), 200);

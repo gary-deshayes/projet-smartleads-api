@@ -67,4 +67,55 @@ class OperationSentController extends AbstractController
         return $response;
     }
 
+    /**
+     * Récupère le nombre de nouveaux email opérations pour chaque jour de la période
+     * @Route("/numberNewMailsPerDay/{since}", name="api_operations_getnumbernewmailsperday", methods={"GET"})
+     */
+    public function getNumberNewMailsPerDay($since)
+    {
+        $period = "";
+        switch ($since) {
+            case "day":
+                $period = "-1 days";
+                break;
+            case "week":
+                $period = "-1 week";
+                break;
+            case "month":
+                $period = "-1 month";
+                break;
+            case "year":
+                $period = "-1 year";
+                break;
+        }
+        $query = $this->getDoctrine()->getRepository("AdminBundle:OperationSent")->getNumberNewMailPerDay($period);
+        $result = $query->execute();
+        $data = array();
+        if (count($result) > 0) {
+
+            foreach ($result as $res) {
+                $res_data = array(
+                    "date" => $res["sent_at"],
+                    "nombre" => $res["nb"],
+
+                );
+                array_push($data, $res_data);
+            }
+            $dataJson = [
+                "data" => "number_new_mails_per_day",
+                "value" => $data,
+                "retour" => "1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        } else {
+            $dataJson = [
+                "message" => "Aucune données pour cette plage horaires",
+                "retour" => "-1"
+            ];
+            $response = new Response(json_encode($dataJson), 200);
+            $response->headers->set('Content-Type', 'application/json');
+        }
+        return $response;
+    }
 }

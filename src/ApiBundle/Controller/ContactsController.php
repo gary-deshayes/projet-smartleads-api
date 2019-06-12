@@ -49,7 +49,8 @@ class ContactsController extends AbstractController
                 array_push($data, $res_data);
             }
             $dataJson = [
-                "data" => $data,
+                "data" => "created_contact_per_day",
+                "value" => $data,
                 "retour" => "1"
             ];
             $response = new Response(json_encode($dataJson), 200);
@@ -177,7 +178,8 @@ class ContactsController extends AbstractController
                 array_push($data, $res_data);
             }
             $dataJson = [
-                "data" => $data,
+                "data" => "updated_contact_per_day",
+                "value" => $data,
                 "retour" => "1"
             ];
             $response = new Response(json_encode($dataJson), 200);

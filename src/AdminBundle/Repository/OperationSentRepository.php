@@ -189,4 +189,22 @@ class OperationSentRepository extends ServiceEntityRepository
         }
         return $query->getQuery();
     }
+
+    /**
+     * Retourne pour chaque jour de la période demandé, la date et le nombre d'email crée ce jour là
+     */
+    public function getNumberNewMailPerDay($since)
+    {
+        date_default_timezone_set('Europe/Paris');
+        $dateNow = date("Y-m-d H:i");
+        $dateBefore = date("Y-m-d 00:00", strtotime($since));
+        $query = $this->createQueryBuilder("operation_sent")
+            ->select("COUNT(operation_sent.sentAt) as nb, DATE(operation_sent.sentAt) as sentAt")
+            ->where("DATE(operation_sent.sentAt) BETWEEN :date_debut AND :date_fin")
+            ->groupby("sentAt")
+            ->setParameter('date_debut', $dateBefore)
+            ->setParameter('date_fin', $dateNow)
+            ->getQuery();
+        return $query;
+    }
 }
